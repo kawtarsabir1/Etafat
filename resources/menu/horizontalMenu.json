@@ -1,0 +1,29 @@
+{
+  "menu": [
+    {
+      "name": "Dashboards",
+      "icon": "menu-icon tf-icons ti ti-smart-home",
+      "slug": "dashboard",
+      "url": "/"
+    },
+    {
+      "name": "CVtheque",
+      "icon": "menu-icon tf-icons ti ti-layout-sidebar",
+      "slug": "layouts",
+      "submenu": [
+        {
+          "url": "/cv/gestion",
+          "name": "Gestion des CVs",
+          "icon": "menu-icon tf-icons ti ti-menu-2",
+          "slug": "gestion-de-cvs"
+        },
+        {
+          "url": "/cv/generateur",
+          "name": "Generateur de CVs",
+          "icon": "menu-icon tf-icons ti ti-layout-distribute-vertical",
+          "slug": "cvs-generateur"
+        }
+      ]
+    }
+  ]
+}
