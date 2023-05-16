@@ -4,22 +4,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Formations extends Model
 {
-    protected $table = 'Formations';
+    protected $table = 'formations';
 
     protected $primaryKey = 'ID_Formation';
 
     protected $fillable = [
         'ID_Salarie',
-        'IntituleFormation',
-        'EtablissementFormation',
-        'DateDebut',
-        'DateFin',
-        'Lieu',
-        'AttestationDiplome'
+        'intitule',
+        'etablissement',
+        'obtention',
+        'diplome'
     ];
 
     public function salarie()
     {
-        return $this->belongsTo('InformationsGenerales', 'ID_Salarie');
+        return $this->belongsTo('informations', 'ID_Salarie');
     }
 }

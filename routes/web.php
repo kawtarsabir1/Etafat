@@ -200,21 +200,35 @@ Route::get('/cv/generateur', $controller_path . '\cvs\generateur@index')->name('
 
 Route::get('/cv/gestion', $controller_path . '\cvs\gestion@index')->name('cv-gestion');
 
+Route::get('/cv/gestion/archived', $controller_path . '\cvs\gestion@archived')->name('cv-gestion');
+
+Route::get('/cv/gestion/allArchived', $controller_path . '\cvs\gestion@getArchived')->name('cv-gestion');
+
 Route::get('/cv/gestion/allEmployees', $controller_path . '\cvs\gestion@getEmployees')->name('cv-emplyees');
 
 Route::get('/cv/gestion/create', $controller_path . '\cvs\gestion@create')->name('cv-create-page');
+
+Route::get('/cv/gestion/generateur', $controller_path . '\cvs\generateur@generate')->name('cv-generate-page');
 
 Route::post('/cv/gestion', $controller_path . '\cvs\gestion@store')->name('cv-store');
 
 Route::get('/cv/gestion/{id}', $controller_path . '\cvs\gestion@show')->name('cv-show-page');
 
-Route::get('/cv/gestion/{id}/edit', $controller_path . '\cvs\gestion@edit')->name('cv-edit-page');
+Route::get('/cv/gestion/edit/{id}', $controller_path . '\cvs\gestion@edit')->name('cv-edit-page');
 
 Route::put('/cv/gestion/{id}', $controller_path . '\cvs\gestion@update')->name('cv-update');
 
 Route::delete('/cv/gestion/{id}', $controller_path . '\cvs\gestion@destroy')->name('cv-delete');
 
+Route::post('/cv/gestion/restore/{id}', $controller_path . '\cvs\gestion@restore')->name('cv-restore');
+
 Route::delete('/cv/gestion/foramtion/{id}', $controller_path . '\cvs\gestion@deleteFormation')->name('cv-delete');
 
 Route::delete('/cv/gestion/cursus/{id}', $controller_path . '\cvs\gestion@deleteCursus')->name('cv-delete');
+
+Route::get('/cv/generate/employee/{id}', $controller_path . '\cvs\generateur@getEmpolyee')->name('cv-employee');
+
+Route::post('/cv/generateCvs', $controller_path . '\cvs\generateur@generateCvs')->name('cv-generate');
+
+Route::get('/cv/gestion/view/{id}', $controller_path . '\cvs\gestion@viewCv')->name('cv-view');
 

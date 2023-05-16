@@ -2,9 +2,9 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
-class InformationsGenerales extends Model
+class Informations extends Model
 {
-    protected $table = 'InformationsGenerales';
+    protected $table = 'informations';
 
     protected $primaryKey = 'ID_Salarie';
 
@@ -35,6 +35,14 @@ class InformationsGenerales extends Model
         'ContratDu',
         'ContratAu',
         'Langues',
-        'Niveau'
+        'Niveau',
+        'Archived'
     ];
+
+
+    public function formations()
+    {
+        return $this->hasMany('formations', 'ID_Salarie');
+    }
+
 }

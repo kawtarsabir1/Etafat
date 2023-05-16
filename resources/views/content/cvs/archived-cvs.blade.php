@@ -23,7 +23,7 @@
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/app-user-list.js')}}"></script>
+<script src="{{asset('assets/js/app-archived-list.js')}}"></script>
 @endsection
 
 <!-- @section('vendor-style')
@@ -60,7 +60,7 @@
 
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
-  <span class="text-muted fw-light">CVtéque /</span> Gestion des CVs
+  <span class="text-muted fw-light">CVtéque /</span> CVs Archivés
 </h4>
 
 <div class="card">

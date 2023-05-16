@@ -13,7 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('InformationsGenerales', function (Blueprint $table) {
+
+        Schema::dropIfExists('formations');
+        Schema::dropIfExists('informations');
+
+        Schema::create('informations', function (Blueprint $table) {
             $table->bigIncrements('ID_Salarie');
             $table->string('Nom');
             $table->string('Prenom');
@@ -42,36 +46,21 @@ return new class extends Migration
             $table->date('ContratAu');
             $table->string('Langues');
             $table->string('Niveau');
+            $table->integer('Archived');
             $table->timestamps();
         });
 
-        Schema::create('Cursus', function (Blueprint $table) {
-            $table->bigIncrements('ID_Cursus');
-            $table->unsignedBigInteger('ID_Salarie');
-            $table->foreign('ID_Salarie')->references('ID_Salarie')->on('InformationsGenerales');
-            $table->string('NiveauEtudes');
-            $table->string('IntituleDiplome');
-            $table->date('AnneeObtention');
-            $table->date('DateDebut');
-            $table->date('DateFin');
-            $table->string('EtablissementScolaire');
-            $table->string('PaysEtablissementScolaire');
-            $table->string('Diplome');
-            $table->timestamps();
-        });
-
-        Schema::create('Formations', function (Blueprint $table) {
+        Schema::create('formations', function (Blueprint $table) {
             $table->bigIncrements('ID_Formation');
             $table->integer('ID_Salarie');
-            $table->foreign('ID_Salarie')->references('ID_Salarie')->on('InformationsGenerales');
-            $table->string('IntituleFormation');
-            $table->string('EtablissementFormation');
-            $table->date('DateDebut');
-            $table->date('DateFin');
-            $table->string('Lieu');
-            $table->string('AttestationDiplome')->nullable();
+            $table->foreign('ID_Salarie')->references('ID_Salarie')->on('informations');
+            $table->string('intitule');
+            $table->string('etablissement');
+            $table->date('obtention');
+            $table->string('diplome')->nullable();
             $table->timestamps();
         });
+
 
     }
 
@@ -82,8 +71,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Cursus');
-        Schema::dropIfExists('InformationsGenerales');
-        Schema::dropIfExists('Formations');
+        Schema::dropIfExists('formations');
+        Schema::dropIfExists('informations');
     }
 };

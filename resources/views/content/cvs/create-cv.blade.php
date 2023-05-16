@@ -79,11 +79,9 @@
             var element = data[i];
             // Check if the input field is required and empty
             if (element.required && element.value === "") {
-                console.log(element)
                 return false;
             }
         }
-        // If all required fields are filled in, return null
         return true;
     }
 
@@ -108,12 +106,15 @@
             alert('Please fill the fields : ' + toFill.join(', '));
             return false;
         }else{
-            var cursusArray = JSON.parse(localStorage.getItem('cursusArray'));
-            formData.append('cursusArray', JSON.stringify(cursusArray));
-            //get formationArray from localStorage
-            var formationArray = JSON.parse(localStorage.getItem('formationArray'));
-            formData.append('formationArray', JSON.stringify(formationArray));
-            //send form data to the controller
+            var formationsArray = JSON.parse(localStorage.getItem('formationsArray')),
+            refsArray = JSON.parse(localStorage.getItem('refsArray'));
+
+            formData.append('formations', JSON.stringify(formationsArray));
+            formData.append('refs', JSON.stringify(refsArray));
+
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
             $.ajax({
                 url: "{{ route('cv-store') }}",
                 type: 'POST',
@@ -123,7 +124,7 @@
                 success: function(data) {
                     if ($.isEmptyObject(data.error)) {
                         alert(data.success);
-                        window.location.href = "{{ route('cv-gestion') }}";
+                        window.location.href = "{{ route('cv-index') }}";
                     } else {
                         printErrorMsg(data.error);
                     }
@@ -175,7 +176,7 @@
                             <use xlink:href="{{asset('assets/svg/icons/wizard-checkout-address.svg#wizardCheckoutAddress')}}"></use>
                         </svg>
                     </span>
-                    <span class="bs-stepper-label">Cursus</span>
+                    <span class="bs-stepper-label">Cursus / Formations</span>
                 </button>
             </div>
             <div class="line">
@@ -188,7 +189,7 @@
                             <use xlink:href="{{asset('assets/svg/icons/form-wizard-social-link.svg#wizardSocialLink')}}"></use>
                         </svg>
                     </span>
-                    <span class="bs-stepper-label">Formation</span>
+                    <span class="bs-stepper-label">References</span>
                 </button>
             </div>
             <div class="line">
@@ -208,7 +209,7 @@
         <div class="bs-stepper-content border-top">
             <form id="wizard-checkout-form" class="formInfos">
                 <!-- @csrf -->
-                <!-- Cart -->
+                <!-- Infos -->
                 <div id="checkout-cart" class="content">
                     <div class="col-12 row">
 
@@ -394,7 +395,7 @@
                                 </div>
                             </div>
                             <div class="actions mb-4">
-                                <button type="button" class="btn btn-primary btn-add"><i class="fa fa-plus"></i> Add Language</button>
+                                <button type="button" class="btn btn-primary btn-add-language"><i class="fa fa-plus"></i> Add Language</button>
                             </div>
                             <div class="col-12">
                                 <div class="col-12 d-flex justify-content-between">
@@ -409,41 +410,24 @@
                     </div>
                 </div>
 
-                <!-- Address -->
+                <!-- Cursus -->
                 <div id="checkout-address" class="content">
                     <div class="col-12">
                         <div class="col-12">
-                            <h6 class="mt-2 fw-semibold">2. Cursus</h6>
+                            <h6 class="mt-2 fw-semibold">2. Cursus & Formations</h6>
                             <hr class="mt-0" />
                         </div>
                         <div class="content-wrapper-cursus">
                             <div class="content-cursus">
                                 <div class="row">
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                        <label class="form-label" for="level-select">Niveau d’études</label>
-                                        <select id="niveau_etude" class="form-select">
-                                            <option value="BAC">BAC</option>
-                                            <option value="BAC+1">BAC+1</option>
-                                            <option value="BAC+2">BAC+2</option>
-                                            <option value="LICENCE">LICENCE</option>
-                                            <option value="MASTER">MASTER</option>
-                                            <option value="DOCTORAT">DOCTORAT</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                         <label class="form-label" for="cursus-input">Intitulé diplôme</label>
                                         <input type="text" id="intitule" class="form-control" placeholder="Entrer Intitulé diplôme">
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                        <label class="form-label" for="formValidationEmbauche">Année d’obtention</label>
-                                        <input type="text" class="form-control flatpickr-validation" id="obtention" placeholder="YYYY-MM-DD" required />
-                                    </div>
-
-                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                        <label class="form-label" for="cursus-range">Date de</label>
-                                        <input type="text" class="form-control" placeholder="YYYY-MM-DD Au YYYY-MM-DD" id="cursus-range" />
+                                        <label class="form-label" for="formValidationEmbauche">Année d'obtention</label>
+                                        <input type="text" class="form-control flatpickr-validation" id="obtention" placeholder="YYYY-MM-DD"/>
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
@@ -452,15 +436,11 @@
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                        <label class="form-label" for="cursus-input">Pays Etablissement Scolaire</label>
-                                        <input type="text" id="pays" class="form-control" placeholder="Entrer Pays Etablissement Scolaire">
+                                        <label for="formValidationFile" class="form-label">Attestation / Diplôme formation (s'il y a)</label>
+                                        <input class="form-control" type="file" id="diplome">
                                     </div>
 
-                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                        <label for="formValidationFile" class="form-label">Diplôme</label>
-                                        <input class="form-control" type="file" id="diplome-cursus">
-                                    </div>
-                                    <div class="actions">
+                                    <div class="actions mb-3">
                                         <button type="button" class="btn btn-primary btn-save"><i class="fa fa-plus"></i>Save Cursus</button>
                                     </div>
                                     <div class="row content-cursus-map">
@@ -482,38 +462,33 @@
                 <div id="checkout-payment" class="content">
                     <div class="col-12">
                         <div class="col-12">
-                            <h6 class="mt-2 fw-semibold">3. Formation</h6>
+                            <h6 class="mt-2 fw-semibold">3. References</h6>
                             <hr class="mt-0" />
                         </div>
-                        <div class="content-wrapper-formation">
-                            <div class="content-formation">
+                        <div class="content-wrapper-refs">
+                            <div class="content-refs">
                                 <div class="row">
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                        <label class="form-label" for="formation-input">Intitulé formation</label>
-                                        <input type="text" id="intitule-formation" class="form-control" placeholder="Entrer Intitulé formation">
+                                        <label class="form-label" for="ref-employeur">Employeur</label>
+                                        <input type="text" id="ref-employeur" class="form-control" placeholder="Etafat">
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                        <label class="form-label" for="formation-input">Etablissement Formation</label>
-                                        <input type="text" id="etablissement-formation" class="form-control" placeholder="Entrer Etablissement Formation">
+                                        <label class="form-label" for="ref-range">Range</label>
+                                        <input type="text" class="form-control" placeholder="YYYY-MM-DD Au YYYY-MM-DD" id="ref-range" />
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                        <label class="form-label" for="formation-range">Date de</label>
-                                        <input type="text" class="form-control" placeholder="YYYY-MM-DD Au YYYY-MM-DD" id="formation-range" />
+                                        <label class="form-label" for="ref-poste">Poste</label>
+                                        <input type="text" id="ref-poste" class="form-control" placeholder="Directeur Etudes">
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                        <label class="form-label" for="formation-input">Lieu</label>
-                                        <input type="text" id="lieu-formation" class="form-control" placeholder="Entrer Lieu Etablissement">
-                                    </div>
-
-                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                        <label for="formValidationFile" class="form-label">Attestation / Diplôme formation</label>
-                                        <input class="form-control" type="file" id="diplome-formation">
+                                        <label for="ref-taches" class="form-label">Taches (splite with comma)</label>
+                                        <textarea class="form-control" id="ref-taches" rows="3" placeholder="Tache 1, Tache 2, Tache 3"></textarea>
                                     </div>
                                     <div class="actions">
-                                        <button type="button" class="btn btn-primary btn-save-formation"><i class="fa fa-plus"></i> Save formation</button>
+                                        <button type="button" class="btn btn-primary btn-save-ref"><i class="fa fa-plus"></i> Save formation</button>
                                     </div>
                                     <div class="row content-formation-map">
                                     </div>
@@ -532,35 +507,7 @@
 
                 <!-- Confirmation -->
                 <div id="checkout-confirmation" class="content">
-                    <p class="fw-semibold mb-2">Account</p>
-                    <ul class="list-unstyled">
-                        <li>Username</li>
-                        <li>exampl@email.com</li>
-                    </ul>
-                    <hr>
-                    <p class="fw-semibold mb-2">Personal Info</p>
-                    <ul class="list-unstyled">
-                        <li>First Name</li>
-                        <li>Last Name</li>
-                        <li>Country</li>
-                        <li>Language</li>
-                    </ul>
-                    <hr>
-                    <p class="fw-semibold mb-2">Address</p>
-                    <ul class="list-unstyled">
-                        <li>Address</li>
-                        <li>Landmark</li>
-                        <li>Pincode</li>
-                        <li>City</li>
-                    </ul>
-                    <hr>
-                    <p class="fw-semibold mb-2">Social Links</p>
-                    <ul class="list-unstyled">
-                        <li>https://twitter.com/abc</li>
-                        <li>https://facebook.com/abc</li>
-                        <li>https://plus.google.com/abc</li>
-                        <li>https://linkedin.com/abc</li>
-                    </ul>
+                    <p>Informations</p>
                     <div class="col-12 d-flex justify-content-between">
                         <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
                             <span class="align-middle d-sm-inline-block d-none">Previous</span>
