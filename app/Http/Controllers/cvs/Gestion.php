@@ -94,8 +94,65 @@ class Gestion extends Controller
 
   public function show($id)
   {
-    $employee = Informations::find($id);
-    return view('content.cvs.create-cv', compact('employee'));
+    //get employee where ID_Salarie = $id
+    $employee = Informations::where('ID_Salarie', $id)->first();
+    $objEmployee = [
+      'id' => $employee->ID_Salarie,
+      'nom' => $employee->Nom,
+      'prenom' => $employee->Prenom,
+      'email' => $employee->Email,
+      'telephonePortable' => $employee->TelephonePortable,
+      'telephoneFixe' => $employee->TelephoneFixe,
+      'postal' => $employee->Code_Postal,
+      'profil' => $employee->Profil,
+      'dateNaissance' => $employee->DateNaissance,
+      'lieuNaissance' => $employee->LieuNaissance,
+      'nationalite' => $employee->Nationalite,
+      'situationFamiliale' => $employee->SituationFamiliale,
+      'nombreEnfants' => $employee->NombreEnfants,
+      'adresse' => $employee->Adresse_1,
+      'adresse2' => $employee->Adresse_2,
+      'cnss' => $employee->NumeroCNSS,
+      'cin' => $employee->CIN,
+      'DateEmbauche' => $employee->DateEmbauche,
+      'ContratTravailNumero' => $employee->ContratTravailNumero,
+      'ContratDu' => $employee->ContratDu,
+      'ContratAu' => $employee->ContratAu,
+      'TypeContrat' => $employee->TypeContrat,
+      'Poste' => $employee->Poste,
+      'DepartementAffectation' => $employee->DepartementAffectation,
+      'langue' => $employee->Langues,
+      'niveauLangue' => $employee->Niveau,
+    ];
+
+    $formations = Formations::where('ID_Salarie', $id)->get();
+    $objFormations = [];
+    foreach ($formations as $key => $value) {
+      $objFormations[] = [
+        'id' => $value->ID_Formation,
+        'intitule' => $value->intitule,
+        'obtention' => $value->obtention,
+        'etablissement' => $value->etablissement,
+        'diplome' => $value->diplome,
+      ];
+    }
+    $objEmployee['formations'] = $objFormations;
+
+    $refs = Refs::where('ID_Salarie', $id)->get();
+    $objRefs = [];
+    foreach ($refs as $key => $value) {
+      $objRefs[] = [
+        'id' => $value->ID_Ref,
+        'employeur' => $value->employeur,
+        'poste' => $value->poste,
+        'dateDebut' => $value->dateDebut,
+        'dateFin' => $value->dateFin,
+        'taches' => Taches::where('ID_Ref', $value->ID_Ref)->get(),
+      ];
+    }
+    $objEmployee['refs'] = $objRefs;
+
+    return view('content.cvs.edit-cv', compact('objEmployee'));
   }
 
   public function create()
@@ -105,18 +162,10 @@ class Gestion extends Controller
 
   public function store(Request $request)
   {
-    $information = [];
+    $information = $request->except('refs', 'formations');
     $refs = json_decode($request->input('refs'));
     $formations = json_decode($request->input('formations'));
 
-    foreach ($request->all() as $i => $value) {
-      //if key is cursusArray or formationArray, skip it
-      if ($i == 'cursusArray' || $i == 'formationArray') {
-        continue;
-      } else {
-        $information[$i] = $value;
-      }
-    }
 
     //store information
     $Image = $request->file('PhotoIdentite');
@@ -169,123 +218,209 @@ class Gestion extends Controller
       ]);
     }
 
-    //store refs
-    foreach ($refs as $refsItems) {
-      $ranges = explode(' to ', $refsItems->dateRange);
-      $Ref = Refs::create([
-        'ID_Salarie' => $employee->ID_Salarie,
-        'employeur' => $refsItems->employeur,
-        'poste' => $refsItems->prenom,
-        'dateDebut' => $ranges[0],
-        'dateFin' => $ranges[1],
-      ]);
+    // //store refs
+    // foreach ($refs as $refsItems) {
+    //   $ranges = explode(' to ', $refsItems->range);
+    //   $Ref = Refs::create([
+    //     'ID_Salarie' => $employee->ID_Salarie,
+    //     'employeur' => $refsItems->employeur,
+    //     'poste' => $refsItems->poste,
+    //     'dateDebut' => $ranges[0],
+    //     'dateFin' => $ranges[1],
+    //     'Archived' => 0,
+    //   ]);
 
-      foreach ($refsItems->taches as $tache) {
-        Taches::create([
-          'ID_Ref' => $Ref->ID_Ref,
-          'Tache' => $tache
-        ]);
+    //   foreach ($refsItems->taches as $tache) {
+    //     Taches::create([
+    //       'ID_Ref' => $Ref->ID_Ref,
+    //       'tache' => $tache
+    //     ]);
+    //   }
+    // }
+
+    return redirect()->route('cv-gestion')->with('success', 'Employee created successfully');
+  }
+
+  public function edit($id)
+  {
+    //get employee where ID_Salarie = $id
+    $employee = Informations::where('ID_Salarie', $id)->first();
+    $objEmployee = [
+      'id' => $employee->ID_Salarie,
+      'nom' => $employee->Nom,
+      'prenom' => $employee->Prenom,
+      'email' => $employee->Email,
+      'telephonePortable' => $employee->TelephonePortable,
+      'telephoneFixe' => $employee->TelephoneFixe,
+      'postal' => $employee->Code_Postal,
+      'profil' => $employee->Profil,
+      'dateNaissance' => $employee->DateNaissance,
+      'lieuNaissance' => $employee->LieuNaissance,
+      'nationalite' => $employee->Nationalite,
+      'situationFamiliale' => $employee->SituationFamiliale,
+      'nombreEnfants' => $employee->NombreEnfants,
+      'adresse' => $employee->Adresse_1,
+      'adresse2' => $employee->Adresse_2,
+      'cnss' => $employee->NumeroCNSS,
+      'cin' => $employee->CIN,
+      'DateEmbauche' => $employee->DateEmbauche,
+      'ContratTravailNumero' => $employee->ContratTravailNumero,
+      'ContratDu' => $employee->ContratDu,
+      'ContratAu' => $employee->ContratAu,
+      'TypeContrat' => $employee->TypeContrat,
+      'Poste' => $employee->Poste,
+      'DepartementAffectation' => $employee->DepartementAffectation,
+      'langue' => $employee->Langues,
+      'niveauLangue' => $employee->Niveau,
+    ];
+
+    $formations = Formations::where('ID_Salarie', $id)->get();
+    $objFormations = [];
+    foreach ($formations as $key => $value) {
+      $objFormations[] = [
+        'id' => $value->ID_Formation,
+        'intitule' => $value->intitule,
+        'obtention' => $value->obtention,
+        'etablissement' => $value->etablissement,
+        'diplome' => $value->diplome,
+      ];
+    }
+    $objEmployee['formations'] = $objFormations;
+
+    $refs = Refs::where('ID_Salarie', $id)->get();
+    $objRefs = [];
+    foreach ($refs as $key => $value) {
+      $objRefs[] = [
+        'id' => $value->ID_Ref,
+        'employeur' => $value->employeur,
+        'poste' => $value->poste,
+        'dateDebut' => $value->dateDebut,
+        'dateFin' => $value->dateFin,
+        'taches' => Taches::where('ID_Ref', $value->ID_Ref)->get(),
+      ];
+    }
+    $objEmployee['refs'] = $objRefs;
+
+    return view('content.cvs.edit-cv', compact('objEmployee'));
+  }
+
+  public function update(Request $request, $id)
+  {
+    $information = $request->except(['_token', 'formations', 'refs']);
+    $refs = json_decode($request->input('refs'));
+    $formations = json_decode($request->input('formations'));
+
+    //store information
+    if(false){
+      $Image = $request->file('PhotoIdentite');
+      $Prenom = $request->input('Prenom');
+      $uniqueFileName = $Prenom . uniqid() . '.' . $Image->getClientOriginalExtension();
+      // Storage::disk('local')->put('photos/' . $uniqueFileName, file_get_contents($Image));
+      $destinationPath = public_path('assets/photos');
+      $Image->move($destinationPath, $uniqueFileName);
+      unset($information['PhotoIdentite']);
+      $information['PhotoIdentite'] = $uniqueFileName;
+    }
+    $langues = [];
+    $Niveau = [];
+    foreach ($information as $key => $value) {
+      if (strpos($key, 'langue') !== false) {
+        array_push($langues, $value);
+        unset($information[$key]);
+      }
+      if (strpos($key, 'niveau') !== false) {
+        array_push($Niveau, $value);
+        unset($information[$key]);
+      }
+    }
+    $information['Langues'] = implode(",", $langues);
+    $information['Niveau'] = implode(",", $Niveau); 
+    $contratRange = explode(' to ', $information['ContratRange']);
+    $information['ContratDu'] = $contratRange[0];
+    $information['ContratAu'] = $contratRange[1];
+    unset($information['ContratRange']);
+    Informations::where('ID_Salarie', $id)->update($information);
+
+    //get formations where ID_Salarie = $id
+    $formationsDB = Formations::where('ID_Salarie', $id)->get();
+    //check if any formationsDB is not in formations if true delete it from DB
+    foreach ($formationsDB as $value) {
+      $formationDBId = $value->ID_Formation;
+      $found = false;
+      foreach ($formations as $key1 => $value1) {
+        if (isset($value1->id) && $value1->id == $formationDBId) {
+          unset($formations[$key1]);
+          $found = true;
+          break;
+        }
+      }
+      if (!$found) {
+        Formations::where('ID_Formation', $formationDBId)->delete();
+      }
+    }
+    //insert new formations
+    //store formations
+    foreach ($formations as $formationsItems) {
+      if (isset($formationsItems->diplome)) {
+        $base64String = $formationsItems->diplome;
+        $intitule = $formationsItems->intitule;
+        $extension = $formationsItems->extention;
+        $file_name = $intitule . uniqid() . '.' . $extension;
+        Storage::disk('local')->put('formations/' . $file_name, base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $base64String)));
+        unset($formationsItems->diplome);
+        $formationsItems->diplome = $file_name;
+      }
+    }
+    foreach ($formations as $formationData) {
+      $formation = get_object_vars($formationData);
+      Formations::create([
+        'ID_Salarie' => $id,
+        'diplome' => $formation['diplome'],
+        'intitule' => $formation['intitule'],
+        'obtention' => $formation['obtention'],
+        'etablissement' => $formation['etablissement'],
+      ]);
+    }
+
+    $refsDB = Refs::where('ID_Salarie', $id)->get();
+    foreach ($refsDB as $value) {
+      $refDBId = $value->ID_Ref;
+      $found = false;
+      foreach ($refs as $key1 => $value1) {
+        if (isset($value1->id) && $value1->id == $refDBId) {
+          // delete the ref from the $refs array
+          unset($refs[$key1]);
+          $found = true;
+          break;
+        }
+      }
+      if (!$found) {
+        // delete the ref from the database table
+        Refs::where('ID_Ref', $refDBId)->delete();
+        //delete taches 
+        Taches::where('ID_Ref', $refDBId)->delete();
       }
     }
 
-    return redirect()->route('content.cvs.gestion-cvs')->with('success', 'Employee created successfully');
+    foreach ($refs as $refsItems) {
+      $ranges = explode(' to ', $refsItems->range);
+      $Ref = Refs::create([
+        'ID_Salarie' => $id,
+        'employeur' => $refsItems->employeur,
+        'poste' => $refsItems->poste,
+        'dateDebut' => $ranges[0],
+        'dateFin' => $ranges[1],
+      ]);
+    foreach ($refsItems->taches as $tache) {
+      Taches::create([
+        'ID_Ref' => $Ref->ID_Ref,
+        'tache' => $tache
+      ]);
+    }
+    }
+
+    return redirect()->route('cv-gestion')->with('success', 'Employee updated successfully');
   }
-
-  // public function edit($id)
-  // {
-  //   //get employee where ID_Salarie = $id
-  //   $employee = Informations::where('ID_Salarie', $id)->first();
-  //   $objEmployee = [
-  //     'id' => $employee->ID_Salarie,
-  //     'nom' => $employee->Nom,
-  //     'prenom' => $employee->Prenom,
-  //     'email' => $employee->Email,
-  //     'telephonePortable' => $employee->TelephonePortable,
-  //     'telephoneFixe' => $employee->TelephoneFixe,
-  //     'postal' => $employee->Code_Postal,
-  //     'profil' => $employee->Profil,
-  //     'dateNaissance' => $employee->DateNaissance,
-  //     'lieuNaissance' => $employee->LieuNaissance,
-  //     'nationalite' => $employee->Nationalite,
-  //     'situationFamiliale' => $employee->SituationFamiliale,
-  //     'nombreEnfants' => $employee->NombreEnfants,
-  //     'adresse' => $employee->Adresse_1,
-  //     'adresse2' => $employee->Adresse_2,
-  //     'cnss' => $employee->NumeroCNSS,
-  //     'cin' => $employee->CIN,
-  //     'DateEmbauche' => $employee->DateEmbauche,
-  //     'ContratTravailNumero' => $employee->ContratTravailNumero,
-  //     'ContratDu' => $employee->ContratDu,
-  //     'ContratAu' => $employee->ContratAu,
-  //     'TypeContrat' => $employee->TypeContrat,
-  //     'Poste' => $employee->Poste,
-  //     'DepartementAffectation' => $employee->DepartementAffectation,
-  //     'langue' => $employee->Langues,
-  //     'niveauLangue' => $employee->Niveau,
-  //   ];
-
-  //   //get cursus where ID_Salarie = $id
-  //   $cursus = Cursus::where('ID_Salarie', $id)->get();
-  //   $objCursus = [];
-  //   foreach ($cursus as $key => $value) {
-  //     $objCursus[] = [
-  //       'id' => $value->ID_Cursus,
-  //       'idSalarie' => $value->ID_Salarie,
-  //       'niveauEtudes' => $value->NiveauEtudes,
-  //       'intituleDiplome' => $value->IntituleDiplome,
-  //       'anneeObtention' => $value->AnneeObtention,
-  //       'dateDebut' => $value->DateDebut,
-  //       'dateFin' => $value->DateFin,
-  //       'etablissementScolaire' => $value->EtablissementScolaire,
-  //       'paysEtablissementScolaire' => $value->PaysEtablissementScolaire,
-  //     ];
-  //   }
-
-  //   //get formations where ID_Salarie = $id
-  //   $formations = Formations::where('ID_Salarie', $id)->get();
-  //   $objFormations = [];
-  //   foreach ($formations as $key => $value) {
-  //     $objFormations[] = [
-  //       'id' => $value->ID_Formation,
-  //       'idSalarie' => $value->ID_Salarie,
-  //       'intituleFormation' => $value->IntituleFormation,
-  //       'dateDebut' => $value->DateDebut,
-  //       'dateFin' => $value->DateFin,
-  //       'etablissement' => $value->EtablissementFormation,
-  //       'paysEtablissement' => $value->Lieu,
-  //     ];
-  //   }
-
-  //   //add cursus and formations to objEmployee
-  //   $objEmployee['cursus'] = $objCursus;
-  //   $objEmployee['formations'] = $objFormations;
-
-  //   return view('content.cvs.edit-cv', compact('objEmployee'));
-  // }
-
-  // public function update(Request $request, $id)
-  // {
-  //   $employee = Informations::find($id);
-  //   $information = $request->input('information');
-  //   $cursus = $request->input('cursus');
-  //   $formations = $request->input('formation');
-
-  //   $employee->update($information);
-
-  //   Cursus::where('id_salarie', $id)->delete();
-  //   foreach ($cursus as $cursusData) {
-  //     $cursusData['id_salarie'] = $employee->id_salarie;
-  //     Cursus::create($cursusData);
-  //   }
-
-  //   Formations::where('id_salarie', $id)->delete();
-  //   foreach ($formations as $formationData) {
-  //     $formationData['id_salarie'] = $employee->id_salarie;
-  //     Formations::create($formationData);
-  //   }
-
-  //   return redirect()->route('cvs.gestion.index')->with('success', 'Employee created successfully');
-  // }
 
   public function destroy($id)
   {

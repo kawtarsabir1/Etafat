@@ -200,9 +200,9 @@ Route::get('/cv/generateur', $controller_path . '\cvs\generateur@index')->name('
 
 Route::get('/cv/gestion', $controller_path . '\cvs\gestion@index')->name('cv-gestion');
 
-Route::get('/cv/gestion/archived', $controller_path . '\cvs\gestion@archived')->name('cv-gestion');
+Route::get('/cv/gestion/archived', $controller_path . '\cvs\gestion@archived')->name('cv-gestion-archived');
 
-Route::get('/cv/gestion/allArchived', $controller_path . '\cvs\gestion@getArchived')->name('cv-gestion');
+Route::get('/cv/gestion/allArchived', $controller_path . '\cvs\gestion@getArchived')->name('cv-get-archived');
 
 Route::get('/cv/gestion/allEmployees', $controller_path . '\cvs\gestion@getEmployees')->name('cv-emplyees');
 
@@ -216,7 +216,7 @@ Route::get('/cv/gestion/{id}', $controller_path . '\cvs\gestion@show')->name('cv
 
 Route::get('/cv/gestion/edit/{id}', $controller_path . '\cvs\gestion@edit')->name('cv-edit-page');
 
-Route::put('/cv/gestion/{id}', $controller_path . '\cvs\gestion@update')->name('cv-update');
+Route::post('/cv/gestion/{id}', $controller_path . '\cvs\gestion@update')->name('cv-update');
 
 Route::delete('/cv/gestion/{id}', $controller_path . '\cvs\gestion@destroy')->name('cv-delete');
 
@@ -232,3 +232,26 @@ Route::post('/cv/generateCvs', $controller_path . '\cvs\generateur@generateCvs')
 
 Route::get('/cv/gestion/view/{id}', $controller_path . '\cvs\gestion@viewCv')->name('cv-view');
 
+
+//references
+Route::get('/cv/references', $controller_path . '\cvs\references@index')->name('references-gestion');
+
+Route::get('/cv/reference/create', $controller_path . '\cvs\references@create')->name('references-create-page');
+
+Route::post('/cv/reference', $controller_path . '\cvs\references@store')->name('reference-store');
+
+Route::get('/cv/getRefs', $controller_path . '\cvs\references@getRefs')->name('all-reference');
+
+Route::get('/cv/archivedReference', $controller_path . '\cvs\references@getArchivedRefs')->name('reference-archived-page');
+
+Route::get('/cv/reference/edit/{id}', $controller_path . '\cvs\references@edit')->name('reference-edit-page');
+
+Route::post('/cv/reference/{id}', $controller_path . '\cvs\references@update')->name('reference-update');
+
+Route::delete('/cv/reference/{id}', $controller_path . '\cvs\references@destroy')->name('reference-delete');
+
+Route::post('/cv/reference/restore/{id}', $controller_path . '\cvs\references@restore')->name('reference-restore');
+
+Route::get('/cv/references/archived', $controller_path . '\cvs\references@archived')->name('archived-page');
+
+Route::post('/cv/deleteFolder', $controller_path . '\cvs\generateur@deleteFolder')->name('delete-folder');

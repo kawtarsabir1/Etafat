@@ -123,8 +123,8 @@
                 processData: false,
                 success: function(data) {
                     if ($.isEmptyObject(data.error)) {
-                        alert(data.success);
-                        window.location.href = "{{ route('cv-index') }}";
+                        alert('Cv data saved');
+                        window.location.href = "/cv/gestion";
                     } else {
                         printErrorMsg(data.error);
                     }

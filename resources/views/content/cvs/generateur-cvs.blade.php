@@ -22,6 +22,7 @@
 <!--  -->
 
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/cvs/cardsCvs.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bs-stepper/bs-stepper.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/rateyo/rateyo.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/formvalidation/dist/css/formValidation.min.css')}}" />
@@ -73,20 +74,6 @@
 <script src="{{asset('assets/js/modal-edit-user.js')}}"></script>
 
 <script type="text/javascript">
-    function checkForm(data) {
-        console.log(data.length)
-        // Loop through each input field in the form
-        for (var i = 0; i < data.length; i++) {
-            var element = data[i];
-            // Check if the input field is required and empty
-            if (element.required && element.value === "") {
-                console.log(element)
-                return false;
-            }
-        }
-        // If all required fields are filled in, return null
-        return true;
-    }
 
     $.ajaxSetup({
         headers: {
@@ -96,36 +83,26 @@
 
     $(".btn-generate").click(function(e) {
         e.preventDefault();
-        var formData = new FormData($('#wizard-checkout-form')[0]);
-        console.log(formData)
-        let toFill = [];
-        for (const [key, value] of formData.entries()) {
-            if (!value) {
-                if(key == 'ao_name'){
-                    toFill.push('Nom');
-                }else if(key == 'marche_nbr'){
-                    toFill.push('Numéro de marché');
-                }else if(key == 'ao_type'){
-                    toFill.push('Type d\'AO');
-                }
-            }
+        //get models id input and ao id input
+        let model = $("#models").val();
+        let ao = $("#ao").val();
+        var toFill = [];
+        if (model == '') {
+            toFill.push('Model');
         }
+        if (ao == '') {
+            toFill.push('AO');
+        }
+        
         if (toFill.length > 0) {
             alert('Please fill the fields : ' + toFill.join(', '));
             return false;
         } else {
+            let formData = new FormData();
             let cardsCvs = localStorage.getItem('cardsCvs');
-            console.log(cardsCvs)
-            //add cardsCvs to formData
             formData.append('cvs', cardsCvs);
-            //remove role-0 and employee-0 from fromData
-            for(var i=0; i < cardsCvs.length ; i++){
-                formData.delete('role-'+i);
-                formData.delete('employee-'+i);
-            }
-            for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]); 
-            }
+            formData.append('model', model);
+            formData.append('ao', ao);
             $.ajax({
                 url: "/cv/generateCvs",
                 type: 'POST',
@@ -133,7 +110,30 @@
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    console.log("success")
+                    console.log(data.downloadLink);
+                    var downloadLink = data.downloadLink;
+                    var link = document.createElement("a");
+                    link.style.display = "none";
+                    link.href = downloadLink;
+                    link.download = "CVs.zip";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    const parts = downloadLink.split('/');
+                    const zipFileName = parts[parts.length - 1];
+                    const folderName = zipFileName.replace('.zip', '');
+                    var formData = new FormData();
+                    formData.append('folderName', folderName);
+                    $.ajax({
+                        url: "/cv/deleteFolder",
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(data) {
+                            console.log(data);
+                        }
+                    });
                 }
             });
         }
@@ -161,188 +161,114 @@
 
 <div class="row">
     <div id="wizard-checkout" class="bs-stepper wizard-icons wizard-icons-example mt-2">
-        <div class="bs-stepper-header m-auto border-0 py-5">
-            <div class="step" data-target="#checkout-cart">
-                <button type="button" class="step-trigger">
-                    <span class="bs-stepper-label">Select AO</span>
-                </button>
-            </div>
-            <div class="line">
-                <i class="ti ti-chevron-right"></i>
-            </div>
-            <div class="step" data-target="#checkout-address">
-                <button type="button" class="step-trigger">
-                    <span class="bs-stepper-label">Select Cvs</span>
-                </button>
-            </div>
-            <div class="line">
-                <i class="ti ti-chevron-right"></i>
-            </div>
-            <div class="step" data-target="#checkout-payment">
-                <button type="button" class="step-trigger">
-                    <span class="bs-stepper-label">Personnaliser & Générer Cvs</span>
-                </button>
-            </div>
-        </div>
         <div class="bs-stepper-content border-top">
             <form id="wizard-checkout-form" class="formGenerate">
-                <!-- @csrf -->
-                <!-- Cart -->
-                <div id="checkout-cart" class="content">
-                    <div class="col-12 row mb-4">
-
-                        <div class="col-12">
-                            <h6 class="fw-semibold">1. Informations générales</h6>
+                <div class="col-12">
+                    <div class="col-12">
+                        <h6 class="mt-2 fw-semibold">3. Personnaliser et Generer</h6>
+                        <hr class="mt-0" />
+                    </div>
+                    <div class="row mb-4">
+                        <div id="content-list-cvs" class="row col-9 row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-12 gutters-md">
+                            <div class="no-data w-100 text-center">
+                                <img src="{{asset('assets/img/nodata.gif')}}" width="200" height="70" class="img-fluid" alt="Responsive image">
+                                <h5 class="text-muted fw-light">Aucun Cv selectionné</h5>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalCenter">Select Cv </span> <i class="ti ti-plus"></i></button>
                             <hr class="mt-0" />
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label" for="ao_name">Nom de l'AO</label>
-                            <input type="text" id="ao_name" class="form-control" placeholder="Etude topographique région de Souss-Massa" name="ao_name" />
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label" for="marche_nbr">Marché numéro</label>
-                            <input type="text" id="marche_nbr" class="form-control" placeholder="1493/29" name="marche_nbr" />
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label" for="form-repeater-1-4">Type d'Ao</label>
-                            <select id="form-repeater-1-4" class="form-select" name="ao_type">
-                                <option value="Type1">Type1</option>
-                                <option value="Type2">Type2</option>
-                                <option value="Type3">Type3</option>
-                                <option value="Type4">Type4</option>
+                            <h5>Filtres de recherche</h5>
+                            <input type="text" id="ao_name" class="form-control mb-4" placeholder="Rechercher" name="Recherche" />
+                            <select id="roles" class="form-select mb-4">
+                                <option value="">Filter By Poste</option>
+                                <option value="Directeur projets">Directeur projets</option>
+                                <option value="Chef projets topographe">Chef projets topographe</option>
+                                <option value="Chef projet Hydrographe">Chef projet Hydrographe</option>
+                                <option value="Chef projets SIG">Chef projets SIG</option>
+                                <option value="Technicien Topographe">Technicien Topographe</option>
+                                <option value="Technicien Hydrographe">Technicien Hydrographe</option>
+                                <option value="Technicien SIG">Technicien SIG</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="col-12 d-flex justify-content-between">
-                        <button type="button" class="btn btn-label-secondary btn-prev" disabled> <i class="ti ti-arrow-left me-sm-1"></i>
-                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                        </button>
-                        <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
-                    </div>
-                </div>
-
-                <!-- Address -->
-                <div id="checkout-address" class="content">
-                    <div class="col-12">
-                        <div class="col-12">
-                            <h6 class="mt-2 fw-semibold">2. Select Cvs</h6>
+                            <select id="posts" class="form-select mb-4">
+                                <option value="">Filter By Departement</option>
+                                <option value="DG">DG</option>
+                                <option value="DSI">DSI</option>
+                                <option value="SUP">SUP</option>
+                                <option value="TCA">TCA</option>
+                                <option value="TGE">TGE</option>
+                                <option value="COP">COP</option>
+                                <option value="LAS">LAS</option>
+                                <option value="MMS">MMS</option>
+                                <option value="DRO">DRO</option>
+                                <option value="SIG">SIG</option>
+                            </select>
                             <hr class="mt-0" />
-                        </div>
-                        <div class="content-wrapper-cursus">
-                            <div class="content-cursus">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="content-wrapper-cvs">
-                                            <div class="content-cvs">
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-xl-4 col-12 mb-3">
-                                                        <label class="form-label" for="roles">Poste</label>
-                                                        <select id="roles" class="form-select" name="role-0">
-                                                            <option value="Directeur projets">Directeur projets</option>
-                                                            <option value="Chef projets topographe">Chef projets topographe</option>
-                                                            <option value="Chef projet Hydrographe">Chef projet Hydrographe</option>
-                                                            <option value="Chef projets SIG">Chef projets SIG</option>
-                                                            <option value="Technicien Topographe">Technicien Topographe</option>
-                                                            <option value="Technicien Hydrographe">Technicien Hydrographe</option>
-                                                            <option value="Technicien SIG">Technicien SIG</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-lg-6 col-xl-4 col-12 mb-3">
-                                                        <label class="form-label" for="employees">Employee</label>
-                                                        <select id="employees" class="form-select" name="employee-0">
-                                                            <option value="">Select Employee</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-lg-12 col-xl-2 col-12 d-flex align-items-end mb-3">
-                                                        <button class="btn btn-danger btn-remove d-none"><i class="fa fa-trash"></i> Delete</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="actions mb-4">
-                                            <button type="button" class="btn btn-primary btn-add"><i class="fa fa-plus"></i> Nouveau Cv</button>
-                                        </div>
-                                    </div>
-                                    <hr class="mt-0" />
-                                </div>
-                                <div class="col-12 d-flex justify-content-between">
-                                    <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                                    </button>
-                                    <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
-                                </div>
-                            </div>
+                            <h5>Generer les CVs</h5>
+                            <select id="models" class="form-select mb-4" name="model">
+                                <option value="">Select Model Cv</option>
+                                <option value="mondial">MODELE CV BANQUE MONDIALE</option>
+                                <option value="africaine">MODELE CV DE BANQUE AFRICAINE</option>
+                            </select>
+                            <select id="ao" class="form-select  mb-4" name="model">
+                                <option value="">Select Appel D'offer</option>
+                                <option value="15-2023-MEF-AC-ARCHI">15-2023-MEF-AC-ARCHI</option>
+                                <option value="26-2023-MEF-AC-AU">26-2023-MEF-AC-AU</option>
+                            </select>
+                            <button type="submit" class="btn btn-success btn-generate"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Generer</span> <i class="ti ti-arrow-right"></i></button>
                         </div>
                     </div>
-                </div>
-
-                <!-- Payment -->
-                <div id="checkout-payment" class="content">
-                    <div class="col-12">
-                        <div class="col-12">
-                            <h6 class="mt-2 fw-semibold">3. Personnaliser et Generer</h6>
-                            <hr class="mt-0" />
-                        </div>
-                        <div class="row mb-4">
-                            <div id="content-list-cvs" class="row col-9">
-                            </div>
-                            <div class="col-3">
-                                <h5>Filtres de recherche</h5>
-                                <input type="text" id="ao_name" class="form-control mb-4" placeholder="Rechercher" name="Recherche" />
-                                <select id="roles" class="form-select mb-4">
-                                    <option value="">Filter By Poste</option>
-                                    <option value="Directeur projets">Directeur projets</option>
-                                    <option value="Chef projets topographe">Chef projets topographe</option>
-                                    <option value="Chef projet Hydrographe">Chef projet Hydrographe</option>
-                                    <option value="Chef projets SIG">Chef projets SIG</option>
-                                    <option value="Technicien Topographe">Technicien Topographe</option>
-                                    <option value="Technicien Hydrographe">Technicien Hydrographe</option>
-                                    <option value="Technicien SIG">Technicien SIG</option>
-                                </select>
-                                <select id="posts" class="form-select mb-4">
-                                    <option value="">Filter By Departement</option>
-                                    <option value="DG">DG</option>
-                                    <option value="DSI">DSI</option>
-                                    <option value="SUP">SUP</option>
-                                    <option value="TCA">TCA</option>
-                                    <option value="TGE">TGE</option>
-                                    <option value="COP">COP</option>
-                                    <option value="LAS">LAS</option>
-                                    <option value="MMS">MMS</option>
-                                    <option value="DRO">DRO</option>
-                                    <option value="SIG">SIG</option>
-                                </select>
-                                <hr class="mt-0" />
-                                <button type="submit" class="btn btn-primary btn-generate mb-4"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Generer</span> <i class="ti ti-arrow-right"></i></button>
-                                <select id="models" class="form-select" name="model">
-                                    <option value="1">MODELE CV BANQUE MONDIALE</option>
-                                    <option value="2">MODELE CV DE BANQUE AFRICAINE</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 d-flex justify-content-between">
-                            <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
-                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Confirmation -->
-                <div id="checkout-confirmation" class="content">
-                    
                 </div>
             </form>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="col-lg-4 col-md-6">
+            <div class="mt-3">
+                <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalCenterTitle">Select Cv</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="modal-add-cv">
+                                <div class="row">
+                                    <div class="col mb-3">
+                                        <label class="form-label" for="roles">Poste</label>
+                                        <select id="roles" class="form-select" name="role-0">
+                                            <option value="Directeur projets">Directeur projets</option>
+                                            <option value="Chef projets topographe">Chef projets topographe</option>
+                                            <option value="Chef projet Hydrographe">Chef projet Hydrographe</option>
+                                            <option value="Chef projets SIG">Chef projets SIG</option>
+                                            <option value="Technicien Topographe">Technicien Topographe</option>
+                                            <option value="Technicien Hydrographe">Technicien Hydrographe</option>
+                                            <option value="Technicien SIG">Technicien SIG</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-3">
+                                        <label class="form-label" for="employees">Employee</label>
+                                        <select id="employees" class="form-select" name="employee-0">
+                                            <option value="">Select Employee</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary btn-add-cv" data-bs-dismiss="modal">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
 
 </div>
-
-
 
 @include('_partials/_modals/modal-edit-user')
 

@@ -24,22 +24,10 @@
           "slug": "cvs-generateur"
         },
         {
-          "url": "#",
+          "url": "",
           "name": "References",
-          "icon": "menu-icon tf-icons ti ti-layout-distribute-vertical",
-          "slug": "references"
-        },
-        {
-          "url": "#",
-          "name": "Roles",
-          "icon": "menu-icon tf-icons ti ti-layout-distribute-vertical",
-          "slug": "roles"
-        },
-        {
-          "url": "#",
-          "name": "Cv Models",
           "icon": "menu-icon tf-icons ti ti-file-description",
-          "slug": "cv-models"
+          "slug": "references"
         }
       ]
     }

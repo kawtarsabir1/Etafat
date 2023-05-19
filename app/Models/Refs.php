@@ -14,6 +14,9 @@ class Refs extends Model
         'poste',
         'dateDebut',
         'dateFin',
+        'domaines',
+        'attestation',
+        'archived',
         'ID_Salarie'
     ];
 

@@ -57,14 +57,14 @@
           <div class="d-flex align-items-start me-4 mt-3 gap-2">
             <span class="badge bg-label-primary p-2 rounded"><i class='ti ti-checkbox ti-sm'></i></span>
             <div>
-              <p class="mb-0 fw-semibold">{{ count($objEmployee['cursus'])+count($objEmployee['formations']) }}</p>
+              <p class="mb-0 fw-semibold">{{ count($objEmployee['formations']) }}</p>
               <small>Formations</small>
             </div>
           </div>
           <div class="d-flex align-items-start mt-3 gap-2">
             <span class="badge bg-label-primary p-2 rounded"><i class='ti ti-briefcase ti-sm'></i></span>
             <div>
-              <p class="mb-0 fw-semibold">{{ count($objEmployee['cursus'])+count($objEmployee['formations']) }}</p>
+              <p class="mb-0 fw-semibold">{{ count($objEmployee['formations']) }}</p>
               <small>Projects</small>
             </div>
           </div>

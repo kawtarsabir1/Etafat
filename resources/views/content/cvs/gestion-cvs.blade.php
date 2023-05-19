@@ -75,7 +75,7 @@
   <div class="card-datatable table-responsive">
     <table class="datatables-users table border-top">
       <thead>
-        <tr>
+        <tr class="p-2 text-dark" style="background-color: rgba(115,103,240,.3);">
           <th></th>
           <th>Employee</th>
           <th>Telephone Portable</th>

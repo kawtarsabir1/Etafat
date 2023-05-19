@@ -19,6 +19,10 @@ return new class extends Migration
             $table->string('poste');
             $table->string('dateDebut');
             $table->string('dateFin');
+            $table->string('attestation')->nullable();
+            $table->string('domaines')->nullable();
+            $table->string('ID_Salarie');
+            $table->boolean('archived');
             $table->timestamps();
         });
     }
