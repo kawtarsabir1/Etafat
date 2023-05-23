@@ -192,7 +192,7 @@
                             <use xlink:href="{{asset('assets/svg/icons/wizard-checkout-address.svg#wizardCheckoutAddress')}}"></use>
                         </svg>
                     </span>
-                    <span class="bs-stepper-label">Cursus</span>
+                    <span class="bs-stepper-label">Cursus / Formations</span>
                 </button>
             </div>
             <div class="line">
@@ -205,7 +205,7 @@
                             <use xlink:href="{{asset('assets/svg/icons/form-wizard-social-link.svg#wizardSocialLink')}}"></use>
                         </svg>
                     </span>
-                    <span class="bs-stepper-label">Formation</span>
+                    <span class="bs-stepper-label">Experiences</span>
                 </button>
             </div>
             <div class="line">
@@ -504,7 +504,7 @@
                 <div id="checkout-payment" class="content">
                     <div class="col-12">
                         <div class="col-12">
-                            <h6 class="mt-2 fw-semibold">3. References</h6>
+                            <h6 class="mt-2 fw-semibold">3. Experiences Professionnelles</h6>
                             <hr class="mt-0" />
                         </div>
                         <div class="content-wrapper-refs">

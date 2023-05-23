@@ -199,44 +199,46 @@ class Gestion extends Controller
 
     //store formations
     foreach ($formations as $formationsItems) {
-      $base64String = $formationsItems->diplome;
-      $intitule = $formationsItems->intitule;
-      $extension = $formationsItems->extention;
-      $file_name = $intitule . uniqid() . '.' . $extension;
-      Storage::disk('local')->put('formations/' . $file_name, base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $base64String)));
-      unset($formationsItems->diplome);
-      $formationsItems->diplome = $file_name;
+      if(isset($formationsItems->diplome)){
+        $base64String = $formationsItems->diplome;
+        $intitule = $formationsItems->intitule;
+        $extension = $formationsItems->extention;
+        $file_name = $intitule . uniqid() . '.' . $extension;
+        Storage::disk('local')->put('formations/' . $file_name, base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $base64String)));
+        unset($formationsItems->diplome);
+        $formationsItems->diplome = $file_name;
+      }
     }
     foreach ($formations as $formationData) {
       $formation = get_object_vars($formationData);
       Formations::create([
         'ID_Salarie' => $employee->ID_Salarie,
-        'diplome' => $formation['diplome'],
+        'diplome' => ( isset( $formation['diplome'] ) )? $formation['diplome'] : null,
         'intitule' => $formation['intitule'],
         'obtention' => $formation['obtention'],
         'etablissement' => $formation['etablissement'],
       ]);
     }
 
-    // //store refs
-    // foreach ($refs as $refsItems) {
-    //   $ranges = explode(' to ', $refsItems->range);
-    //   $Ref = Refs::create([
-    //     'ID_Salarie' => $employee->ID_Salarie,
-    //     'employeur' => $refsItems->employeur,
-    //     'poste' => $refsItems->poste,
-    //     'dateDebut' => $ranges[0],
-    //     'dateFin' => $ranges[1],
-    //     'Archived' => 0,
-    //   ]);
+    //store refs
+    foreach ($refs as $refsItems) {
+      $ranges = explode(' to ', $refsItems->range);
+      $Ref = Refs::create([
+        'ID_Salarie' => $employee->ID_Salarie,
+        'employeur' => $refsItems->employeur,
+        'poste' => $refsItems->poste,
+        'dateDebut' => $ranges[0],
+        'dateFin' => $ranges[1],
+        'archived' => 0,
+      ]);
 
-    //   foreach ($refsItems->taches as $tache) {
-    //     Taches::create([
-    //       'ID_Ref' => $Ref->ID_Ref,
-    //       'tache' => $tache
-    //     ]);
-    //   }
-    // }
+      foreach ($refsItems->taches as $tache) {
+        Taches::create([
+          'ID_Ref' => $Ref->ID_Ref,
+          'tache' => $tache
+        ]);
+      }
+    }
 
     return redirect()->route('cv-gestion')->with('success', 'Employee created successfully');
   }

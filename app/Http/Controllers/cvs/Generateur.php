@@ -113,20 +113,34 @@ class Generateur extends Controller
         $template->setValue('nationalite', $cv['nationalite']);
         
         $file_path = $cv_folder_path . DIRECTORY_SEPARATOR . $file_name;
+
+        $Employee = Informations::where('ID_Salarie', $cv['id'])->first();
+        $photoIdentite = $Employee->PhotoIdentite;
+        $photoIdentite = storage_path('app/photos/' . $photoIdentite);
+        $ext = pathinfo($photoIdentite, PATHINFO_EXTENSION);
+        $cv['photo'] = 'photo' . '.'. $ext;
+        File::copy($photoIdentite, $cv_folder_path . DIRECTORY_SEPARATOR . $cv['photo']);
+
+        $formations = Formations::where('ID_Salarie', $cv['id'])->get();
+        foreach ($formations as $key => $value) {
+            if ($value->diplome != null) {
+                $diplome = $value->diplome;
+                $diplome = storage_path('app/formations/' . $diplome);
+                $ext = pathinfo($diplome, PATHINFO_EXTENSION);
+                $name = 'certificat_' . $value->intitule . '.' . $ext;
+                File::copy($diplome, $cv_folder_path . DIRECTORY_SEPARATOR . $name);
+            }
+        }
+        
+
         $template->saveAs($file_path);
     }
 
-    // Create a zip archive of the main folder
     $zip = new ZipArchive();
     $zipFileName = public_path('cvs/' . $ao_name . '.zip');
     if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
         $this->addFolderToZip($zip, $ao_folder_path, $ao_folder_path);
         $zip->close();
-        $headers = [
-            'Content-Type' => 'application/zip',
-            'Content-Disposition' => 'attachment; filename="' . $ao_name . '.zip"',
-        ];
-        // Provide download link on blade view
         $downloadLink = asset('cvs/' . $ao_name . '.zip');
         return response()->json(['success' => true, 'message' => 'Zip file created successfully.', 'downloadLink' => $downloadLink]);
     }

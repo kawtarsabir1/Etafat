@@ -189,7 +189,7 @@
                             <use xlink:href="{{asset('assets/svg/icons/form-wizard-social-link.svg#wizardSocialLink')}}"></use>
                         </svg>
                     </span>
-                    <span class="bs-stepper-label">References</span>
+                    <span class="bs-stepper-label">Experiences</span>
                 </button>
             </div>
             <div class="line">
@@ -462,7 +462,7 @@
                 <div id="checkout-payment" class="content">
                     <div class="col-12">
                         <div class="col-12">
-                            <h6 class="mt-2 fw-semibold">3. References</h6>
+                            <h6 class="mt-2 fw-semibold">3. Experiences Professionnelles</h6>
                             <hr class="mt-0" />
                         </div>
                         <div class="content-wrapper-refs">
@@ -488,7 +488,7 @@
                                         <textarea class="form-control" id="ref-taches" rows="3" placeholder="Tache 1, Tache 2, Tache 3"></textarea>
                                     </div>
                                     <div class="actions">
-                                        <button type="button" class="btn btn-primary btn-save-ref"><i class="fa fa-plus"></i> Save formation</button>
+                                        <button type="button" class="btn btn-primary btn-save-ref mb-3"><i class="fa fa-plus"></i> Save Experience</button>
                                     </div>
                                     <div class="row content-formation-map">
                                     </div>
