@@ -1,9 +1,9 @@
 {
   "menu": [
     {
-      "name": "Dashboards",
+      "name": "Tableau de bord",
       "icon": "menu-icon tf-icons ti ti-smart-home",
-      "slug": "dashboard",
+      "slug": "Tableau de bord",
       "url": "/"
     },
     {

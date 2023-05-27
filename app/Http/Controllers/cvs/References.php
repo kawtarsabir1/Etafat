@@ -24,131 +24,73 @@ class References extends Controller
 
     public function create()
     {
-        //get informations from database
-        $informations = Informations::all();
-        return view('content.cvs.references-cv-create', compact('informations'));
+        return view('content.cvs.references-cv-create');
     }
 
-    //store
     public function store(Request $request)
     {
-        $file = $request->file('attestation');
-        $employeur = $request->employeur; 
+        $file1 = $request->file('attestation');
+        $client = $request->client; 
         $fileName = null;
-        if(file_exists($file)){
-            $fileName =  $employeur . uniqid() . '.' . $file->getClientOriginalExtension();
-            Storage::disk('local')->put('attestation/' . $fileName, file_get_contents($file));
+        if(file_exists($file1)){
+            $fileName =  $client . uniqid() . '.' . $file1->getClientOriginalExtension();
+            Storage::disk('public')->put('attestation/' . $fileName, file_get_contents($file1));
         }
-        $ranges = explode(' to ', $request->range);
-        $taches = explode(',', $request->taches);
-        $Ref = Refs::create([
-            'ID_Salarie' => $request->employee,
-            'employeur' => $employeur,
-            'poste' => $request->poste,
-            'dateDebut' => $ranges[0],
-            'dateFin' => $ranges[1],
-            'domaines' => $request->domaines,
+        $file2 = $request->file('fiche');
+        $client = $request->client; 
+        $ficheName = null;
+        if(file_exists($file2)){
+            $ficheName =  $client . uniqid() . '.' . $file2->getClientOriginalExtension();
+            Storage::disk('public')->put('fiches/' . $ficheName, file_get_contents($file2));
+        }
+        Refs::create([
+            'client' => $client,
+            'objet' => $request->objet,
+            'mantant' => $request->mantant,
+            'annee' => $request->annee,
+            'nMarche' => $request->nMarche,
             'attestation' => $fileName,
+            'fiche' => $ficheName,
+            'category' => $request->category,
+            'missions' => $request->missions,
+            'description' => $request->description,
+            'societe' => $request->societe,
+            'nRef' => $request->nRef,
             'archived' => false
         ]);
-
-        foreach ($taches as $tache) {
-            Taches::create([
-            'ID_Ref' => $Ref->ID_Ref,
-            'tache' => $tache
-            ]);
-        }
 
         return response()->json(['message' => 'References added successfuly']);
     }
 
     public function getRefs(){
         $Refs = Refs::where('archived', false)->get();
-        foreach($Refs as $Ref){
-            $id = $Ref->ID_Salarie;
-            $employee = Informations::where('ID_Salarie', $id)->first();
-            $Ref['employee'] = $employee->Nom . ' ' . $employee->Prenom;
-
-            $dateDebut = new DateTime($Ref->dateDebut);
-            $dateFin = new DateTime($Ref->dateFin);
-            $interval = $dateDebut->diff($dateFin);
-            $years = $interval->y;
-            $months = $interval->m;
-            if ($years >= 1) {
-                $duree = $years . " year(s)";
-                $Ref['duree'] = $duree;
-            } elseif ($months >= 1) {
-                $duree = $months . " month(s)";
-                $Ref['duree'] = $duree;
-            }else {
-                $Ref['duree'] = "Less than a month";
-            }
-        }
         return response()->json(['data' => $Refs]);
     }
 
     public function getArchivedRefs(){
         $Refs = Refs::where('archived', true)->get();
-        foreach($Refs as $Ref){
-            $id = $Ref->ID_Salarie;
-            $employee = Informations::where('ID_Salarie', $id)->first();
-            $Ref['employee'] = $employee->Nom . ' ' . $employee->Prenom;
-
-            $dateDebut = new DateTime($Ref->dateDebut);
-            $dateFin = new DateTime($Ref->dateFin);
-            $interval = $dateDebut->diff($dateFin);
-            $years = $interval->y;
-            $months = $interval->m;
-            if ($years >= 1) {
-                $duree = $years . " year(s)";
-                $Ref['duree'] = $duree;
-            } elseif ($months >= 1) {
-                $duree = $months . " month(s)";
-                $Ref['duree'] = $duree;
-            }else {
-                $Ref['duree'] = "Less than a month";
-            }
-        }
         return response()->json(['data' => $Refs]);
     }
 
     public function edit($id){
         $Ref = Refs::where('ID_Ref', $id)->first();
-        $employee = Informations::where('ID_Salarie', $Ref->ID_Salarie)->first();
-        $Ref['employee'] = $employee->Nom . ' ' . $employee->Prenom;
-        $taches = Taches::where('ID_Ref', $id)->get();
-        $taches = $taches->pluck('tache');
-        $taches = $taches->toArray();
-        $taches = implode(",", $taches);
-        $Ref['taches'] = $taches;
-        $informations = Informations::all();
-        return view('content.cvs.reference-cv-edit', compact('Ref', 'informations'));
+        return view('content.cvs.reference-cv-edit', compact('Ref'));
     }
 
     public function update(Request $request, $id)
     {
         //get reference from database
         $Ref = Refs::where('ID_Ref', $id)->first();
-        $Ref->ID_Salarie = $request->employee;
-        $Ref->employeur = $request->employeur;
-        $Ref->poste = $request->poste;
-        $ranges = explode(' to ', $request->range);
-        $Ref->dateDebut = $ranges[0];
-        $Ref->dateFin = $ranges[1];
-        $Ref->domaines = $request->domaines;
+        $Ref->nMarche = $request->nMarche;
+        $Ref->client = $request->client;
+        $Ref->mantant = $request->mantant;
+        $Ref->category = $request->category;
+        $Ref->annee = $request->annee;
+        $Ref->description = $request->description;
+        $Ref->nRef = $request->nRef;
+        $Ref->societe = $request->societe;
+        $Ref->missions = $request->missions;
         $Ref->save();
-
-        $taches = Taches::where('ID_Ref', $id)->get();
-        foreach ($taches as $tache) {
-            $tache->delete();
-        }
-        $taches = explode(',', $request->taches);
-        foreach ($taches as $tache) {
-            Taches::create([
-            'ID_Ref' => $id,
-            'tache' => $tache
-            ]);
-        }
         return response()->json(['message' => 'References updated successfuly']);
     }
 

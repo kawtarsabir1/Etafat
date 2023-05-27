@@ -68,7 +68,6 @@
 <script src="{{asset('assets/js/forms-extras.js')}}"></script>
 <script src="{{asset('assets/js/form-validation.js')}}"></script>
 <script src="{{asset('assets/js/forms-pickers.js')}}"></script>
-<!-- <script src="{{asset('assets/js/cards-actions.js')}}"></script> -->
 <script src="{{asset('assets/js/wizard-ex-checkout.js')}}"></script>
 
 <script type="text/javascript">
@@ -96,24 +95,26 @@
         var formData = new FormData($('#wizard-checkout-form')[0]);
         let toFill = [];
         for (const [key, value] of formData.entries()) {
-            if(key != 'Adresse_2'){
+            if (key != 'Adresse_2') {
                 if (!value) {
                     toFill.push(key);
                 }
             }
         }
-        if(toFill.length > 0){
+        if (toFill.length > 0) {
             alert('Please fill the fields : ' + toFill.join(', '));
             return false;
-        }else{
+        } else {
             var formationsArray = JSON.parse(localStorage.getItem('formationsArray')),
-            refsArray = JSON.parse(localStorage.getItem('refsArray'));
+                refsArray = JSON.parse(localStorage.getItem('refsArray'));
+                projetsArray = JSON.parse(localStorage.getItem('projetsArray'));
 
             formData.append('formations', JSON.stringify(formationsArray));
-            formData.append('refs', JSON.stringify(refsArray));
+            formData.append('experiences', JSON.stringify(refsArray));
+            formData.append('projets', JSON.stringify(projetsArray));
 
-            for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]); 
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ', ' + pair[1]);
             }
             $.ajax({
                 url: "{{ route('cv-store') }}",
@@ -123,7 +124,7 @@
                 processData: false,
                 success: function(data) {
                     if ($.isEmptyObject(data.error)) {
-                        alert('Cv data saved');
+                        alert('Données de CV enregistrées');
                         window.location.href = "/cv/gestion";
                     } else {
                         printErrorMsg(data.error);
@@ -156,7 +157,7 @@
 <div class="row">
     <div id="wizard-checkout" class="bs-stepper wizard-icons wizard-icons-example mt-2">
         <div class="bs-stepper-header m-auto border-0 py-5">
-            <div class="step" data-target="#checkout-cart">
+            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-cart">
                 <button type="button" class="step-trigger">
                     <span class="bs-stepper-icon">
                         <svg viewBox="0 0 58 54">
@@ -169,7 +170,7 @@
             <div class="line">
                 <i class="ti ti-chevron-right"></i>
             </div>
-            <div class="step" data-target="#checkout-address">
+            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-address">
                 <button type="button" class="step-trigger">
                     <span class="bs-stepper-icon">
                         <svg viewBox="0 0 54 54">
@@ -182,20 +183,33 @@
             <div class="line">
                 <i class="ti ti-chevron-right"></i>
             </div>
-            <div class="step" data-target="#checkout-payment">
+            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-payment">
                 <button type="button" class="step-trigger">
                     <span class="bs-stepper-icon">
                         <svg viewBox="0 0 58 54">
                             <use xlink:href="{{asset('assets/svg/icons/form-wizard-social-link.svg#wizardSocialLink')}}"></use>
                         </svg>
                     </span>
-                    <span class="bs-stepper-label">Experiences</span>
+                    <span class="bs-stepper-label">Expériences</span>
                 </button>
             </div>
             <div class="line">
                 <i class="ti ti-chevron-right"></i>
             </div>
-            <div class="step" data-target="#checkout-confirmation">
+            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#projets-step">
+                <button type="button" class="step-trigger">
+                    <span class="bs-stepper-icon">
+                        <svg viewBox="0 0 58 54">
+                            <use xlink:href="{{asset('assets/svg/icons/form-wizard-social-link.svg#wizardSocialLink')}}"></use>
+                        </svg>
+                    </span>
+                    <span class="bs-stepper-label">Projets</span>
+                </button>
+            </div>
+            <div class="line">
+                <i class="ti ti-chevron-right"></i>
+            </div>
+            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-confirmation">
                 <button type="button" class="step-trigger">
                     <span class="bs-stepper-icon">
                         <svg viewBox="0 0 58 54">
@@ -375,8 +389,8 @@
                                 <div class="content-language">
                                     <div class="row">
                                         <div class="col-lg-6 col-xl-2 col-12 mb-3">
-                                            <label class="form-label" for="language-input">Langues</label>
-                                            <input type="text" id="language-input" name="langue" class="form-control" placeholder="Language name">
+                                            <label class="form-label" for="language-input">Langue</label>
+                                            <input type="text" id="language-input" name="langue" class="form-control" placeholder="Nom de langue">
                                         </div>
                                         <div class="col-lg-6 col-xl-2 col-12 mb-3">
                                             <label class="form-label" for="level-select">Niveau</label>
@@ -389,20 +403,20 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-12 col-xl-2 col-12 d-flex align-items-end mb-3">
-                                            <button class="btn btn-danger btn-remove"><i class="fa fa-trash"></i> Delete</button>
+                                            <button class="btn btn-danger btn-remove"><i class="fa fa-trash"></i> Supprimer</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="actions mb-4">
-                                <button type="button" class="btn btn-primary btn-add-language"><i class="fa fa-plus"></i> Add Language</button>
+                                <button type="button" class="btn btn-primary btn-add-language"><i class="fa fa-plus"></i> Ajouter une langue</button>
                             </div>
                             <div class="col-12">
                                 <div class="col-12 d-flex justify-content-between">
                                     <button type="button" class="btn btn-label-secondary btn-prev" disabled> <i class="ti ti-arrow-left me-sm-1"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Précédente</span>
                                     </button>
-                                    <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
+                                    <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivante</span> <i class="ti ti-arrow-right"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -427,7 +441,7 @@
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                         <label class="form-label" for="formValidationEmbauche">Année d'obtention</label>
-                                        <input type="text" class="form-control flatpickr-validation" id="obtention" placeholder="YYYY-MM-DD"/>
+                                        <input type="text" class="form-control flatpickr-validation" id="obtention" placeholder="YYYY-MM-DD" />
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
@@ -458,7 +472,6 @@
                     </div>
                 </div>
 
-                <!-- Payment -->
                 <div id="checkout-payment" class="content">
                     <div class="col-12">
                         <div class="col-12">
@@ -490,7 +503,7 @@
                                     <div class="actions">
                                         <button type="button" class="btn btn-primary btn-save-ref mb-3"><i class="fa fa-plus"></i> Save Experience</button>
                                     </div>
-                                    <div class="row content-formation-map">
+                                    <div class="row content-projets-map">
                                     </div>
                                     <hr class="mt-0" />
                                 </div>
@@ -505,6 +518,63 @@
                     </div>
                 </div>
 
+                <div id="projets-step" class="content">
+                    <div class="col-12">
+                        <div class="col-12">
+                            <h6 class="mt-2 fw-semibold">3. Projets Realise</h6>
+                            <hr class="mt-0" />
+                        </div>
+                        <div class="content-wrapper-projets">
+                            <div class="content-projets">
+                                <div class="row">
+                                    <div class="col-md-3 mb-4">
+                                        <label for="selectpickerLiveSearch" class="form-label">Reference</label>
+                                        <select id="selectpickerLiveSearch" class="projet-idRef selectpicker w-100" data-style="btn-default" data-live-search="true">
+                                            <option value="" data-tokens="">Selectionner une Reference</option>    
+                                            @foreach($objRefs as $ref)
+                                            <option value="{{$ref['id']}}-{{$ref['nMarche']}} ({{$ref['client']}})" data-tokens="{{$ref['id']}}">{{$ref['nMarche']}} ({{$ref['client']}})</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-4">
+                                        <label for="selectpickerLiveSearch" class="form-label">Poste</label>
+                                        <select id="selectpickerLiveSearch" class="projet-poste selectpicker w-100" data-style="btn-default" data-live-search="true">
+                                            <option value="" data-tokens="">Selectionner un poste</option>
+                                            <option value="Directeur projets" data-tokens="Directeur projets">Directeur projets</option>
+                                            <option value="Chef projets topographe" data-tokens="Chef projets topographe">Chef projets topographe</option>
+                                            <option value="Chef projet Hydrographe" data-tokens="Chef projet Hydrographe">Chef projet Hydrographe</option>
+                                            <option value="Chef projets SIG" data-tokens="Chef projets SIG">Chef projets SIG</option>
+                                            <option value="Technicien Topographe" data-tokens="Technicien Topographe">Technicien Topographe</option>
+                                            <option value="Technicien Hydrographe" data-tokens="Technicien Hydrographe">Technicien Hydrographe</option>
+                                            <option value="Technicien SIG" data-tokens="Technicien SIG">Technicien SIG</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-4">
+                                        <label for="selectpickerLiveSearch" class="form-label">Missions (séparées par une virgule)</label>
+                                        <textarea class="form-control" id="projet-missions" rows="3" placeholder="Mission 1, Mission 2, Mission 3"></textarea>
+                                    </div>
+                                    <div class="col-md-3 mb-4">
+                                        <label for="selectpickerLiveSearch" class="form-label">Description des missions</label>
+                                        <textarea class="form-control" id="projet-desc" rows="3"></textarea>
+                                    </div>
+                                    <div class="actions">
+                                        <button type="button" class="btn btn-primary btn-save-projet mb-3"><i class="fa fa-plus"></i> Save Projet</button>
+                                    </div>
+                                    <div class="row content-formation-map">
+                                    </div>
+                                    <hr class="mt-0" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex justify-content-between">
+                            <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
+                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-next" data-target="#checkout-confirmation"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Confirmation -->
                 <div id="checkout-confirmation" class="content">
                     <p>Informations</p>
@@ -512,7 +582,7 @@
                         <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
                             <span class="align-middle d-sm-inline-block d-none">Previous</span>
                         </button>
-                        <button type="submit" class="btn btn-success btn-submit">Create Employee</button>
+                        <button type="submit" class="btn btn-success btn-submit">Créer un CV</button>
                     </div>
                 </div>
             </form>

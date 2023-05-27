@@ -198,6 +198,8 @@ Route::resource('/user-list', UserManagement::class);
 //cv
 Route::get('/cv/generateur', $controller_path . '\cvs\generateur@index')->name('cv-generateur');
 
+Route::post('/cv/gestion/uploadExcel', $controller_path . '\cvs\gestion@upload')->name('cv-uploadExcel');
+
 Route::get('/cv/gestion', $controller_path . '\cvs\gestion@index')->name('cv-gestion');
 
 Route::get('/cv/gestion/archived', $controller_path . '\cvs\gestion@archived')->name('cv-gestion-archived');

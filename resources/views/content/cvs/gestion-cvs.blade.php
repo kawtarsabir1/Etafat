@@ -12,6 +12,29 @@
 @endsection
 
 @section('vendor-script')
+<script>
+  $(function() {
+    //get input uploadExcel
+    var input = $('#uploadExcel');
+
+    $('#uploadExcel').change(function() {
+      var formData = new FormData();
+      formData.append('file', input.prop('files')[0]);
+      formData.append('_token', '{{ csrf_token() }}');
+      $.ajax({
+        url: "{{ route('cv-uploadExcel') }}",
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          // alert('Données téléchargées avec succès');
+          // location.reload();
+        }
+      });
+    });
+  });
+</script>
 <script src="{{asset('assets/vendor/libs/moment/moment.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
@@ -28,7 +51,7 @@
 
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
-  <span class="text-muted fw-light">CVtéque /</span> Gestion des CVs
+  <span class="text-muted fw-light">CVthèque /</span> Gestion des CVs
 </h4>
 
 <div class="card">
@@ -38,15 +61,16 @@
       <div class="col-md-4 user_Departement"></div>
       <div class="col-md-4 user_poste"></div>
       <div class="col-md-4 user_profil"></div>
+      <input type="file" id="uploadExcel" style="display:none" accept=".xlsx,.xls,.csv" />
     </div>
   </div>
   <div class="card-datatable table-responsive">
     <table class="datatables-users table border-top">
       <thead>
-        <tr class="p-2 text-dark" style="background-color: rgba(115,103,240,.3);">
+        <tr class="p-2 text-dark" style="background-color: rgba(0,104,171,.3);">
           <th></th>
           <th>Employé</th>
-          <th>Téléphone Portable</th>
+          <th>Télphone Portable</th>
           <th>Poste</th>
           <th></th>
           <th>Profil</th>

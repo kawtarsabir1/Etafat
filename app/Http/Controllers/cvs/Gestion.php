@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Taches;
 use App\Models\Refs;
 use App\Models\Formations;
+use App\Models\Experiences;
 use App\Models\Informations;
+use App\Models\Projet;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\CvsImport;
+
 
 class Gestion extends Controller
 {
@@ -18,13 +23,20 @@ class Gestion extends Controller
     return view('content.cvs.gestion-cvs', compact('employees'));
   }
 
+  public function upload(Request $request)
+  {
+    $file = $request->file('file');
+    Excel::import(new CvsImport, $file);
+    return response()->json(['message' => 'Employees added successfuly']);
+  }
+
   public function archived()
   {
     return view('content.cvs.archived-cvs');
   }
 
   public function getArchived()
-  { {
+  {
       $employees = Informations::all()->where('Archived', 1);
 
       $formattedEmployees = $employees->map(function ($employee) {
@@ -55,7 +67,7 @@ class Gestion extends Controller
       });
 
       return response()->json(['data' => $formattedEmployees]);
-    }
+    
   }
 
   public function getEmployees()
@@ -157,25 +169,37 @@ class Gestion extends Controller
 
   public function create()
   {
-    return view('content.cvs.create-cv');
+    //get refs from database
+    $refs = Refs::all();
+    $objRefs = [];
+    foreach ($refs as $key => $value) {
+      $objRefs[] = [
+        'id' => $value->ID_Ref,
+        'client' => $value->client,
+        'nMarche' => $value->nMarche,
+      ];
+    }
+    return view('content.cvs.create-cv', compact('objRefs'));
   }
 
   public function store(Request $request)
   {
-    $information = $request->except('refs', 'formations');
-    $refs = json_decode($request->input('refs'));
+    $information = $request->except('refs', 'formations', 'experiences');
+    $refs = json_decode($request->input('experiences'));
     $formations = json_decode($request->input('formations'));
-
+    $projets = json_decode($request->input('projets'));
 
     //store information
     $Image = $request->file('PhotoIdentite');
     $Prenom = $request->input('Prenom');
-    $uniqueFileName = $Prenom . uniqid() . '.' . $Image->getClientOriginalExtension();
-    // Storage::disk('local')->put('photos/' . $uniqueFileName, file_get_contents($Image));
-    $destinationPath = public_path('assets/photos');
-    $Image->move($destinationPath, $uniqueFileName);
-    unset($information['PhotoIdentite']);
-    $information['PhotoIdentite'] = $uniqueFileName;
+    if(isset($Image)){
+      $uniqueFileName = $Prenom . uniqid() . '.' . $Image->getClientOriginalExtension();
+      Storage::disk('public')->put('photos/' . $uniqueFileName, file_get_contents($Image));
+      // $destinationPath = public_path('assets/photos');
+      // $Image->move($destinationPath, $uniqueFileName);
+      unset($information['PhotoIdentite']);
+      $information['PhotoIdentite'] = $uniqueFileName;
+    }
     $langues = [];
     $Niveau = [];
     foreach ($information as $key => $value) {
@@ -198,47 +222,66 @@ class Gestion extends Controller
     $employee = Informations::create($information);
 
     //store formations
-    foreach ($formations as $formationsItems) {
-      if(isset($formationsItems->diplome)){
-        $base64String = $formationsItems->diplome;
-        $intitule = $formationsItems->intitule;
-        $extension = $formationsItems->extention;
-        $file_name = $intitule . uniqid() . '.' . $extension;
-        Storage::disk('local')->put('formations/' . $file_name, base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $base64String)));
-        unset($formationsItems->diplome);
-        $formationsItems->diplome = $file_name;
+    if($formations != null){
+      foreach ($formations as $formationsItems) {
+        if (isset($formationsItems->diplome)) {
+          $base64String = $formationsItems->diplome;
+          $intitule = $formationsItems->intitule;
+          $extension = $formationsItems->extention;
+          $file_name = $intitule . uniqid() . '.' . $extension;
+          Storage::disk('public')->put('formations/' . $file_name, base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $base64String)));
+          unset($formationsItems->diplome);
+          $formationsItems->diplome = $file_name;
+        }
       }
-    }
-    foreach ($formations as $formationData) {
-      $formation = get_object_vars($formationData);
-      Formations::create([
-        'ID_Salarie' => $employee->ID_Salarie,
-        'diplome' => ( isset( $formation['diplome'] ) )? $formation['diplome'] : null,
-        'intitule' => $formation['intitule'],
-        'obtention' => $formation['obtention'],
-        'etablissement' => $formation['etablissement'],
-      ]);
-    }
-
-    //store refs
-    foreach ($refs as $refsItems) {
-      $ranges = explode(' to ', $refsItems->range);
-      $Ref = Refs::create([
-        'ID_Salarie' => $employee->ID_Salarie,
-        'employeur' => $refsItems->employeur,
-        'poste' => $refsItems->poste,
-        'dateDebut' => $ranges[0],
-        'dateFin' => $ranges[1],
-        'archived' => 0,
-      ]);
-
-      foreach ($refsItems->taches as $tache) {
-        Taches::create([
-          'ID_Ref' => $Ref->ID_Ref,
-          'tache' => $tache
+      foreach ($formations as $formationData) {
+        $formation = get_object_vars($formationData);
+        Formations::create([
+          'ID_Salarie' => $employee->ID_Salarie,
+          'diplome' => (isset($formation['diplome'])) ? $formation['diplome'] : null,
+          'intitule' => $formation['intitule'],
+          'obtention' => $formation['obtention'],
+          'etablissement' => $formation['etablissement'],
         ]);
       }
     }
+    
+    //store refs
+    if($refs != null){
+      foreach ($refs as $refsItems) {
+        $ranges = explode(' to ', $refsItems->range);
+        $Ref = Experiences::create([
+          'ID_Salarie' => $employee->ID_Salarie,
+          'employeur' => $refsItems->employeur,
+          'poste' => $refsItems->poste,
+          'dateDebut' => $ranges[0],
+          'dateFin' => $ranges[1],
+        ]);
+
+        foreach ($refsItems->taches as $tache) {
+          Taches::create([
+            'ID_Ref' => $Ref->ID_Experience,
+            'tache' => $tache
+          ]);
+        }
+      }
+    }
+
+    //store projets
+    if($projets != null){
+      foreach ($projets as $projet) {
+        //missions array to string
+        $missions = implode(",", $projet->missions);
+        Projet::create([
+          'ID_Salarie' => $employee->ID_Salarie,
+          'ID_reference' => $projet->idRef,
+          'poste' => $projet->poste,
+          'missions' => $missions,
+          'description' => $projet->desc,
+        ]);
+      }
+    }
+    
 
     return redirect()->route('cv-gestion')->with('success', 'Employee created successfully');
   }
@@ -289,37 +332,56 @@ class Gestion extends Controller
     }
     $objEmployee['formations'] = $objFormations;
 
-    $refs = Refs::where('ID_Salarie', $id)->get();
+    $experiences = Experiences::where('ID_Salarie', $id)->get();
     $objRefs = [];
-    foreach ($refs as $key => $value) {
+    foreach ($experiences as $key => $value) {
       $objRefs[] = [
-        'id' => $value->ID_Ref,
+        'id' => $value->ID_Experience,
         'employeur' => $value->employeur,
         'poste' => $value->poste,
         'dateDebut' => $value->dateDebut,
         'dateFin' => $value->dateFin,
-        'taches' => Taches::where('ID_Ref', $value->ID_Ref)->get(),
+        'taches' => Taches::where('ID_Ref', $value->ID_Experience)->get(),
       ];
     }
     $objEmployee['refs'] = $objRefs;
+
+    $projets = Projet::where('ID_Salarie', $id)->get();
+    $objProjets = [];
+    foreach ($projets as $key => $value) {
+      //get reference where ID_reference = $value->ID_reference
+      $reference = Refs::where('ID_Ref', $value->ID_reference)->first();
+      $objProjets[] = [
+        'id' => $value->ID_Projet,
+        'idRef' => $value->ID_reference,
+        'poste' => $value->poste,
+        'ref' => $reference->nMarche.' ('.$reference->client.')',
+        'missions' => explode(",", $value->missions),
+        'desc' => $value->descriptions,
+      ];
+    }
+    $objEmployee['projets'] = $objProjets;
+
+    //get all references
+    $references = Refs::all();
+    $objEmployee['references'] = $references;
 
     return view('content.cvs.edit-cv', compact('objEmployee'));
   }
 
   public function update(Request $request, $id)
   {
-    $information = $request->except(['_token', 'formations', 'refs']);
-    $refs = json_decode($request->input('refs'));
+    $information = $request->except(['_token', 'formations', 'experiences', 'projets']);
+    $experiences = json_decode($request->input('experiences'));
     $formations = json_decode($request->input('formations'));
+    $projets = json_decode($request->input('projets'));
 
     //store information
     if(false){
       $Image = $request->file('PhotoIdentite');
       $Prenom = $request->input('Prenom');
       $uniqueFileName = $Prenom . uniqid() . '.' . $Image->getClientOriginalExtension();
-      // Storage::disk('local')->put('photos/' . $uniqueFileName, file_get_contents($Image));
-      $destinationPath = public_path('assets/photos');
-      $Image->move($destinationPath, $uniqueFileName);
+      Storage::disk('public')->put('photos/' . $uniqueFileName, file_get_contents($Image));
       unset($information['PhotoIdentite']);
       $information['PhotoIdentite'] = $uniqueFileName;
     }
@@ -360,15 +422,13 @@ class Gestion extends Controller
         Formations::where('ID_Formation', $formationDBId)->delete();
       }
     }
-    //insert new formations
-    //store formations
     foreach ($formations as $formationsItems) {
       if (isset($formationsItems->diplome)) {
         $base64String = $formationsItems->diplome;
         $intitule = $formationsItems->intitule;
         $extension = $formationsItems->extention;
         $file_name = $intitule . uniqid() . '.' . $extension;
-        Storage::disk('local')->put('formations/' . $file_name, base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $base64String)));
+        Storage::disk('public')->put('formations/' . $file_name, base64_decode(preg_replace('/^data:image\/\w+;base64,/', '', $base64String)));
         unset($formationsItems->diplome);
         $formationsItems->diplome = $file_name;
       }
@@ -383,42 +443,70 @@ class Gestion extends Controller
         'etablissement' => $formation['etablissement'],
       ]);
     }
+    
 
-    $refsDB = Refs::where('ID_Salarie', $id)->get();
-    foreach ($refsDB as $value) {
-      $refDBId = $value->ID_Ref;
+    $experienceDB = Experiences::where('ID_Salarie', $id)->get();
+    foreach ($experienceDB as $value) {
+      $experienceDBId = $value->ID_Experience;
       $found = false;
-      foreach ($refs as $key1 => $value1) {
-        if (isset($value1->id) && $value1->id == $refDBId) {
+      foreach ($experiences as $key1 => $value1) {
+        if (isset($value1->id) && $value1->id == $experienceDBId) {
+          unset($experiences[$key1]);
+          $found = true;
+          break;
+        }
+      }
+      if (!$found) {
+        Refs::where('ID_Experience', $experienceDBId)->delete();
+        //delete taches 
+        Taches::where('ID_Experience', $experienceDBId)->delete();
+      }
+    }
+
+    foreach ($experiences as $expsItems) {
+      $ranges = explode(' to ', $expsItems->range);
+      $Exp = Experiences::create([
+        'ID_Salarie' => $id,
+        'employeur' => $expsItems->employeur,
+        'poste' => $expsItems->poste,
+        'dateDebut' => $ranges[0],
+        'dateFin' => $ranges[1],
+      ]);
+    foreach ($expsItems->taches as $tache) {
+      Taches::create([
+        'ID_Ref' => $Exp->ID_Experience,
+        'tache' => $tache
+      ]);
+    }
+    }
+
+    $projetsDB = Projet::where('ID_Salarie', $id)->get();
+    foreach ($projetsDB as $value) {
+      $projetDBId = $value->ID_Projet;
+      $found = false;
+      foreach ($projets as $key1 => $value1) {
+        if (isset($value1->id) && $value1->id == $projetDBId) {
           // delete the ref from the $refs array
-          unset($refs[$key1]);
+          unset($projets[$key1]);
           $found = true;
           break;
         }
       }
       if (!$found) {
         // delete the ref from the database table
-        Refs::where('ID_Ref', $refDBId)->delete();
-        //delete taches 
-        Taches::where('ID_Ref', $refDBId)->delete();
+        Projet::where('ID_Projet', $projetDBId)->delete();
       }
     }
 
-    foreach ($refs as $refsItems) {
-      $ranges = explode(' to ', $refsItems->range);
-      $Ref = Refs::create([
+    foreach ($projets as $projetsItems) {
+      $missions = implode(",", $projetsItems->missions);
+      Projet::create([
         'ID_Salarie' => $id,
-        'employeur' => $refsItems->employeur,
-        'poste' => $refsItems->poste,
-        'dateDebut' => $ranges[0],
-        'dateFin' => $ranges[1],
+        'ID_reference' => $projetsItems->idRef,
+        'poste' => $projetsItems->poste,
+        'missions' => $missions,
+        'description' => $projetsItems->desc,
       ]);
-    foreach ($refsItems->taches as $tache) {
-      Taches::create([
-        'ID_Ref' => $Ref->ID_Ref,
-        'tache' => $tache
-      ]);
-    }
     }
 
     return redirect()->route('cv-gestion')->with('success', 'Employee updated successfully');
