@@ -485,7 +485,7 @@ $(function () {
 
 
   $.ajax({
-    url: '/cv/gestion/allEmployees',
+    url: baseUrl + 'cv/gestion/allEmployees',
     type: 'GET',
     success: function (data) {
       let employees = data.data;
@@ -615,7 +615,7 @@ function ListeCvs() {
 
   //get employee from database  
   $.ajax({
-    url: `/cv/generate/employee/${lastCv.employee}`,
+    url: baseUrl + `cv/generate/employee/${lastCv.employee}`,
     type: 'GET',
     success: function (data) {
       data.role = lastCv.role;
@@ -662,7 +662,7 @@ function ListeCvs() {
 function generateCvs() {
   //post request to generate cvs
   $.ajax({
-    url: '/cv/generateCvs',
+    url: baseUrl + 'cv/generateCvs',
     type: 'POST',
     data: {
       "ao_name": "AO2023A4",

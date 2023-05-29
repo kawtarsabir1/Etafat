@@ -34,7 +34,7 @@ $(function () {
   // Users datatable
   if (dt_user_table.length) {
     var dt_user = dt_user_table.DataTable({
-      ajax: '/cv/gestion/allEmployees', // JSON file to add data
+      ajax: baseUrl + 'cv/gestion/allEmployees', // JSON file to add data
       columns: [
         // columns according to JSON
         { data: '' },
@@ -308,7 +308,7 @@ $(function () {
           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Nouveau AO</span>',
           className: 'btn btn-primary',
           attr: {
-            onclick: 'window.location.href="/cv/gestion/generateur"'
+            onclick: 'window.location.href="'+baseUrl + 'cv/gestion/generateur"'
           }
         }
       ],
@@ -423,7 +423,7 @@ $(function () {
     //get the employee id from the id attr of the delete button
     var id = $(this).attr('id').split('-')[1];
     console.log(id);
-    var url = '/cv/gestion/' + id;
+    var url = baseUrl + 'cv/gestion/' + id;
     var token = $('meta[name="csrf-token"]').attr('content');
     //confirm that you want to delete the employee
     if (!confirm('Are you sure you want to delete this employee?')) return;

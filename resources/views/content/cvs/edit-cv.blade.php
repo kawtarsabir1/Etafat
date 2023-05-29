@@ -103,7 +103,7 @@
             formData.append('projets', JSON.stringify(projetsArray));
             //send form data to the controller
             $.ajax({
-                url: "/cv/gestion/" + userId,
+                url: baseUrl + "cv/gestion/" + userId,
                 type: 'POST',
                 data: formData,
                 contentType: false,
@@ -555,10 +555,6 @@
                     <div class="col-12">
                         <div class="col-12">
                             <h6 class="mt-2 fw-semibold">3. Projets Realise</h6>
-                            @php 
-                            var_dump($objEmployee['references'][0]['ID_Ref']);
-                            @endphp
-                            
                             <hr class="mt-0" />
                         </div>
                         <div class="content-wrapper-projets">

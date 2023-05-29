@@ -184,7 +184,7 @@
  
  
    $.ajax({
-     url: '/cv/gestion/allEmployees',
+     url: baseUrl + 'cv/gestion/allEmployees',
      type: 'GET',
      success: function (data) {
        let employees = data.data;

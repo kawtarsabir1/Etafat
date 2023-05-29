@@ -104,6 +104,8 @@ mixAssetsDir('vendor/scss/**/!(_)*.scss', (src, dest) =>
 
 // Core JavaScripts
 mixAssetsDir('vendor/js/**/*.js', (src, dest) => mix.js(src, dest));
+mixAssetsDir('vendor/fonts/*', (src, dest) => mix.js(src, dest));
+
 
 // Libs
 mixAssetsDir('vendor/libs/**/*.js', (src, dest) => mix.js(src, dest));

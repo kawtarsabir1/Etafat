@@ -125,7 +125,7 @@
                 success: function(data) {
                     if ($.isEmptyObject(data.error)) {
                         alert('Données de CV enregistrées');
-                        window.location.href = "/cv/gestion";
+                        window.location.href = baseUrl + "cv/gestion";
                     } else {
                         printErrorMsg(data.error);
                     }
