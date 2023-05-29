@@ -106,7 +106,7 @@
                 success: function(data) {
                     if ($.isEmptyObject(data.error)) {
                         alert('Référence ajoutée avec succès');
-                        window.location.href = "/cv/references";
+                        window.location.href = baseUrl + "cv/references";
                     } else {
                         printErrorMsg(data.error);
                     }

@@ -107,7 +107,7 @@
             formData.append('ao', ao);
             console.log('test');
             $.ajax({
-                url: "/cv/generateCvs",
+                url: baseUrl + "cv/generateCvs",
                 type: 'POST',
                 data: formData,
                 contentType: false,
@@ -127,7 +127,7 @@
                     var formData = new FormData();
                     formData.append('folderName', folderName);
                     $.ajax({
-                        url: "/cv/deleteFolder",
+                        url: baseUrl + "cv/deleteFolder",
                         type: 'POST',
                         data: formData,
                         contentType: false,

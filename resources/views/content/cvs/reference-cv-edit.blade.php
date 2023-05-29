@@ -98,7 +98,7 @@
             return false;
         } else {
             $.ajax({
-                url: "/cv/reference/" + $('#ID_Ref').val(),
+                url: baseUrl + "cv/reference/" + $('#ID_Ref').val(),
                 type: 'POST',
                 data: formData,
                 contentType: false,
@@ -106,7 +106,7 @@
                 success: function(data) {
                     if ($.isEmptyObject(data.error)) {
                         alert('Référence modifiée avec succès');
-                        window.location.href = "/cv/references";
+                        window.location.href = baseUrl + "cv/references";
                     } else {
                         printErrorMsg(data.error);
                     }

@@ -21,7 +21,7 @@
    // Variable declaration for table
    var dt_user_table = $('.datatables-users'),
      select2 = $('.select2'),
-     userView =  baseUrl + 'cv/gestion/view/';
+     userView = baseUrl + 'cv/gestion/view/';
  
    if (select2.length) {
      var $this = select2;
@@ -34,7 +34,7 @@
    // Users datatable
    if (dt_user_table.length) {
      var dt_user = dt_user_table.DataTable({
-       ajax:  baseUrl + 'cv/archivedReference', // JSON file to add data
+       ajax: baseUrl + 'cv/archivedReference', // JSON file to add data
        columns: [
          // columns according to JSON
          { data: '' },
@@ -297,7 +297,7 @@
           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Nouvelle référence</span>',
           className: 'btn btn-primary btn-gradient',
           attr: {
-            onclick: 'window.location.href="'+ baseUrl + 'cv/reference/create"'
+            onclick: 'window.location.href="'+baseUrl + 'cv/reference/create"'
           }
         }
        ],
@@ -357,7 +357,7 @@
     //get the employee id from the id attr of the delete button
     var id = $(this).attr('id').split('-')[1];
     console.log(id);
-    var url =  baseUrl + 'cv/reference/restore/' + id;
+    var url = baseUrl + 'cv/reference/restore/' + id;
     var token = $('meta[name="csrf-token"]').attr('content');
     //confirm that you want to delete the employee
     if (!confirm('Are you sure you want to restore this employee?')) return;
@@ -371,7 +371,7 @@
       },
       success: function (response) {
         alert('Ref restored successfully');
-        window.location.href =  baseUrl + 'cv/references';
+        window.location.href = baseUrl + 'cv/references';
       },
     });
   });
@@ -386,6 +386,6 @@
  
  
  function editEmployee(id){
-   window.location.href= baseUrl + 'cv/reference/edit/'+id;
+   window.location.href=baseUrl + 'cv/reference/edit/'+id;
  }
  

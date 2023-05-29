@@ -21,7 +21,7 @@ $(function () {
   // Variable declaration for table
   var dt_user_table = $('.datatables-users'),
     select2 = $('.select2'),
-    userView = '/cv/gestion/view/';
+    userView = baseUrl + 'cv/gestion/view/';
 
   if (select2.length) {
     var $this = select2;
@@ -34,7 +34,7 @@ $(function () {
   // Users datatable
   if (dt_user_table.length) {
     var dt_user = dt_user_table.DataTable({
-      ajax: '/cv/gestion/allEmployees', // JSON file to add data
+      ajax: baseUrl + 'cv/gestion/allEmployees', // JSON file to add data
       columns: [
         // columns according to JSON
         { data: '' },
@@ -346,7 +346,7 @@ $(function () {
               text: '<i class="ti ti-copy me-2" ></i>Archived Cvs',
               className: 'dropdown-item',
               attr: {
-                onclick: 'window.location.href="/cv/gestion/archived"'
+                onclick: 'window.location.href="'+ baseUrl + 'cv/gestion/archived"'
               }
             }
           ]
@@ -362,7 +362,7 @@ $(function () {
           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Nouvel Employé</span>',
           className: 'btn btn-primary btn-gradient',
           attr: {
-            onclick: 'window.location.href="/cv/gestion/create"'
+            onclick: 'window.location.href="' + baseUrl + 'cv/gestion/create"'
           }
         }
       ],
@@ -444,7 +444,7 @@ $(function () {
     //get the employee id from the id attr of the delete button
     var id = $(this).attr('id').split('-')[1];
     console.log(id);
-    var url = '/cv/gestion/' + id;
+    var url = baseUrl + 'cv/gestion/' + id;
     var token = $('meta[name="csrf-token"]').attr('content');
     //confirm that you want to delete the employee
     if (!confirm('Are you sure you want to delete this employee?')) return;
@@ -472,6 +472,6 @@ $(function () {
 
 
 function editEmployee(id){
-  window.location.href='/cv/gestion/edit/'+id;
+  window.location.href= baseUrl + 'cv/gestion/edit/'+id;
 }
 

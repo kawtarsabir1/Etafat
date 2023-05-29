@@ -21,7 +21,7 @@ $(function () {
   // Variable declaration for table
   var dt_user_table = $('.datatables-users'),
     select2 = $('.select2'),
-    userView =  baseUrl + 'cv/gestion/view/';
+    userView = baseUrl + 'cv/gestion/view/';
 
   if (select2.length) {
     var $this = select2;
@@ -34,7 +34,7 @@ $(function () {
   // Users datatable
   if (dt_user_table.length) {
     var dt_user = dt_user_table.DataTable({
-      ajax:  baseUrl + 'cv/getRefs', // JSON file to add data
+      ajax: baseUrl + 'cv/getRefs', // JSON file to add data
       columns: [
         // columns according to JSON
         // { data: '' },
@@ -309,7 +309,7 @@ $(function () {
               text: '<i class="ti ti-copy me-2" ></i>Archived Refs',
               className: 'dropdown-item',
               attr: {
-                onclick: 'window.location.href="'+ baseUrl + 'cv/references/archived"'
+                onclick: 'window.location.href="' + baseUrl + 'cv/references/archived"'
               }
             }
           ]
@@ -400,7 +400,7 @@ $(function () {
     //get the employee id from the id attr of the delete button
     var id = $(this).attr('id').split('-')[1];
     console.log(id);
-    var url =  baseUrl + 'cv/reference/' + id;
+    var url = baseUrl + 'cv/reference/' + id;
     var token = $('meta[name="csrf-token"]').attr('content');
     if (!confirm('Are you sure you want to delete this Ref?')) return;
     $('#row_' + id).remove();
@@ -413,7 +413,7 @@ $(function () {
       },
       success: function (response) {
         alert('Ref deleted successfully');
-        window.location.href =  baseUrl + 'cv/references';
+        window.location.href = baseUrl + 'cv/references';
       },
     });
   });
@@ -434,7 +434,7 @@ function editEmployee(id){
 function openPdf(fiche){
   var modal = $("#exLargeModal");
   //link is the public path /storage/fiches/file
-  var link =  baseUrl + "/storage/fiches/"+fiche;
+  var link = baseUrl+"../storage/app/public/fiches/"+fiche;
   modal.find('iframe').attr('src', link);
   modal.modal("show");
 }
