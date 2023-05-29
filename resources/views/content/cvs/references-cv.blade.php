@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Gestion')
+@section('title', 'References')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}">
@@ -29,12 +29,12 @@
 
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
-  <span class="text-muted fw-light">CVthèque /</span> Gestion des CVs
+  <span class="text-muted fw-light">CVthèque /</span> References
 </h4>
 
 <div class="card">
   <div class="card-header border-bottom">
-    <h5 class="card-title mb-3">Search Filter</h5>
+    <h5 class="card-title mb-3">Filtre de recherche</h5>
     <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0">
       <div class="col-md-4 ref_Client"></div>
       <div class="col-md-4 ref_category"></div>

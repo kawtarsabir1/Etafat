@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Create')
+@section('title', 'Modifier')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css')}}" />
@@ -383,7 +383,7 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-12 col-xl-2 col-12 d-flex align-items-end mb-3">
-                                            <button class="btn btn-danger btn-remove"><i class="fa fa-trash"></i> Delete</button>
+                                            <button class="btn btn-danger btn-remove"><i class="fa fa-trash"></i> Supprimer</button>
                                         </div>
                                     </div>
                                     @endforeach
@@ -391,14 +391,14 @@
 
                             </div>
                             <div class="actions mb-4">
-                                <button type="button" class="btn btn-primary btn-add-language"><i class="fa fa-plus"></i> Add Language</button>
+                                <button type="button" class="btn btn-primary btn-add-language"><i class="fa fa-plus"></i> Ajouter une langue</button>
                             </div>
                             <div class="col-12">
                                 <div class="col-12 d-flex justify-content-between">
                                     <button type="button" class="btn btn-label-secondary btn-prev" disabled> <i class="ti ti-arrow-left me-sm-1"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                                     </button>
-                                    <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
+                                    <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -467,9 +467,9 @@
                                 </div>
                                 <div class="col-12 d-flex justify-content-between">
                                     <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                                     </button>
-                                    <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
+                                    <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -544,9 +544,9 @@
                         </div>
                         <div class="col-12 d-flex justify-content-between">
                             <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
-                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                             </button>
-                            <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
+                            <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -632,9 +632,9 @@
                         </div>
                         <div class="col-12 d-flex justify-content-between">
                             <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
-                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                             </button>
-                            <button type="button" class="btn btn-primary btn-next" data-target="#checkout-confirmation"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
+                            <button type="button" class="btn btn-primary btn-next" data-target="#checkout-confirmation"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -643,9 +643,9 @@
                 <div id="checkout-confirmation" class="content">
                     <div class="col-12 d-flex justify-content-between">
                         <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
-                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                            <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                         </button>
-                        <button type="submit" class="btn btn-success btn-update">Create Employee</button>
+                        <button type="submit" class="btn btn-success btn-update">Modifier le CV</button>
                     </div>
                 </div>
             </form>

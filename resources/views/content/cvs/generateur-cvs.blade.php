@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Create')
+@section('title', 'Generateur')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css')}}" />
@@ -163,11 +163,11 @@
 
 <div class="row">
     <div id="wizard-checkout" class="bs-stepper wizard-icons wizard-icons-example mt-2">
-        <div class="bs-stepper-content border-top">
+        <div class="bs-stepper-content">
             <form id="wizard-checkout-form" class="formGenerate">
                 <div class="col-12">
                     <div class="col-12">
-                        <h6 class="mt-2 fw-semibold">3. Personnaliser et Generer</h6>
+                        <h6 class="mt-2 fw-semibold">Personnaliser et Generer</h6>
                         <hr class="mt-0" />
                     </div>
                     <div class="row mb-4">
@@ -178,12 +178,12 @@
                             </div>
                         </div>
                         <div class="col-3">
-                            <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalCenter">Select Cv </span> <i class="ti ti-plus"></i></button>
+                            <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalCenter">Sélectionnez Cv </span> <i class="ti ti-plus"></i></button>
                             <hr class="mt-0" />
                             <h5>Filtres de recherche</h5>
                             <input type="text" id="ao_name" class="form-control mb-4" placeholder="Rechercher" name="Recherche" />
                             <select id="roles" class="form-select mb-4">
-                                <option value="">Filter By Poste</option>
+                                <option value="">Filtrer par poste</option>
                                 <option value="Directeur projets">Directeur projets</option>
                                 <option value="Chef projets topographe">Chef projets topographe</option>
                                 <option value="Chef projet Hydrographe">Chef projet Hydrographe</option>
@@ -193,7 +193,7 @@
                                 <option value="Technicien SIG">Technicien SIG</option>
                             </select>
                             <select id="posts" class="form-select mb-4">
-                                <option value="">Filter By Departement</option>
+                                <option value="">Filtrer par Departement</option>
                                 <option value="DG">DG</option>
                                 <option value="DSI">DSI</option>
                                 <option value="SUP">SUP</option>
@@ -208,17 +208,17 @@
                             <hr class="mt-0" />
                             <h5>Generer les CVs</h5>
                             <select id="models" class="form-select mb-4" name="model">
-                                <option value="">Select Model Cv</option>
+                                <option value="">Sélectionnez le modèle du CVs</option>
                                 <option value="mondial">MODELE CV BANQUE MONDIALE</option>
                                 <option value="africaine">MODELE CV DE BANQUE AFRICAINE</option>
                             </select>
                             <select id="ao" class="form-select  mb-4" name="model">
-                                <option value="">Select Appel D'offer</option>
+                                <option value="">Sélectionnez Appel d'Offre</option>
                                 <option value="15-2023-MEF-AC-ARCHI">15-2023-MEF-AC-ARCHI</option>
                                 <option value="26-2023-MEF-AC-AU">26-2023-MEF-AC-AU</option>
                             </select>
                             <select id="langue_module" class="form-select  mb-4" name="langue_module">
-                                <option value="">Select Langue</option>
+                                <option value="">Sélectionnez la langue</option>
                                 <option value="fr">Francais</option>
                                 <option value="an">Anglais</option>
                             </select>
@@ -236,7 +236,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalCenterTitle">Select Cv</h5>
+                                <h5 class="modal-title" id="modalCenterTitle">Sélectionnez Cv</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body" id="modal-add-cv">
@@ -244,6 +244,7 @@
                                     <div class="col mb-3">
                                         <label class="form-label" for="roles">Poste</label>
                                         <select id="roles" class="form-select" name="role-0">
+                                            <option value="">Sélectionnez un poste</option>
                                             <option value="Directeur projets">Directeur projets</option>
                                             <option value="Chef projets topographe">Chef projets topographe</option>
                                             <option value="Chef projet Hydrographe">Chef projet Hydrographe</option>
@@ -258,7 +259,7 @@
                                     <div class="col mb-3">
                                         <label class="form-label" for="employees">Employee</label>
                                         <select id="employees" class="form-select" name="employee-0">
-                                            <option value="">Select Employee</option>
+                                            <option value="">Sélectionnez un cv</option>
                                         </select>
                                     </div>
                                 </div>

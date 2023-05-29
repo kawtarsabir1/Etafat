@@ -69,7 +69,8 @@ $(function () {
     const wizardCheckoutFormStep1 = wizardCheckoutForm.querySelector('#checkout-cart');
     const wizardCheckoutFormStep2 = wizardCheckoutForm.querySelector('#checkout-address');
     const wizardCheckoutFormStep3 = wizardCheckoutForm.querySelector('#checkout-payment');
-    const wizardCheckoutFormStep4 = wizardCheckoutForm.querySelector('#checkout-confirmation');
+    const wizardCheckoutFormStep4 = wizardCheckoutForm.querySelector('#projets-step');
+    const wizardCheckoutFormStep5 = wizardCheckoutForm.querySelector('#checkout-confirmation');
     // Wizard next prev button
     const wizardCheckoutNext = [].slice.call(wizardCheckoutForm.querySelectorAll('.btn-next'));
     const wizardCheckoutPrev = [].slice.call(wizardCheckoutForm.querySelectorAll('.btn-prev'));
@@ -141,8 +142,27 @@ $(function () {
       validationStepper.next();
     });
 
-    // Confirmation
     const FormValidation4 = FormValidation.formValidation(wizardCheckoutFormStep4, {
+      fields: {
+        // * Validate the fields here based on your requirements
+      },
+      plugins: {
+        trigger: new FormValidation.plugins.Trigger(),
+        bootstrap5: new FormValidation.plugins.Bootstrap5({
+          // Use this for enabling/changing valid/invalid class
+          // eleInvalidClass: '',
+          eleValidClass: ''
+          // rowSelector: '.col-lg-6'
+        }),
+        autoFocus: new FormValidation.plugins.AutoFocus(),
+        submitButton: new FormValidation.plugins.SubmitButton()
+      }
+    }).on('core.form.valid', function () {
+      validationStepper.next();
+    });
+
+    // Confirmation
+    const FormValidation5 = FormValidation.formValidation(wizardCheckoutFormStep5, {
       fields: {
         // * Validate the fields here based on your requirements
       },
@@ -183,6 +203,10 @@ $(function () {
 
           case 3:
             FormValidation4.validate();
+            break;
+
+          case 4:
+            FormValidation5.validate();
             break;
 
           default:

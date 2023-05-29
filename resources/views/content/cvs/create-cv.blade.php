@@ -414,9 +414,9 @@
                             <div class="col-12">
                                 <div class="col-12 d-flex justify-content-between">
                                     <button type="button" class="btn btn-label-secondary btn-prev" disabled> <i class="ti ti-arrow-left me-sm-1"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Précédente</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                                     </button>
-                                    <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivante</span> <i class="ti ti-arrow-right"></i></button>
+                                    <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -463,9 +463,9 @@
                                 </div>
                                 <div class="col-12 d-flex justify-content-between">
                                     <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                                     </button>
-                                    <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
+                                    <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -511,9 +511,9 @@
                         </div>
                         <div class="col-12 d-flex justify-content-between">
                             <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
-                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                             </button>
-                            <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
+                            <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -568,9 +568,9 @@
                         </div>
                         <div class="col-12 d-flex justify-content-between">
                             <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
-                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                             </button>
-                            <button type="button" class="btn btn-primary btn-next" data-target="#checkout-confirmation"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
+                            <button type="button" class="btn btn-primary btn-next" data-target="#checkout-confirmation"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -580,7 +580,7 @@
                     <p>Informations</p>
                     <div class="col-12 d-flex justify-content-between">
                         <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
-                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                            <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                         </button>
                         <button type="submit" class="btn btn-success btn-submit">Créer un CV</button>
                     </div>
