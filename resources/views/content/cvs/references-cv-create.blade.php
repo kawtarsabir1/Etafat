@@ -168,7 +168,7 @@
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                     <label class="form-label" for="ref-client">Montant</label>
-                                    <input type="text" name="mantant" class="form-control" placeholder="Etafat">
+                                    <input type="text" name="mantant" class="form-control" placeholder="1000000 DH">
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
@@ -193,7 +193,7 @@
 
                                 <div class="col-md-3 mb-4">
                                     <label for="selectpickerLiveSearch" class="form-label">Description des missions</label>
-                                    <textarea class="form-control" name="description" rows="3"></textarea>
+                                    <textarea class="form-control" name="description" placeholder="Description" rows="3"></textarea>
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
