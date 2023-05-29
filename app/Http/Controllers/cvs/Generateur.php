@@ -7,6 +7,7 @@ use App\Models\Experiences;
 use Illuminate\Http\Request;
 use App\Models\Taches;
 use App\Models\Refs;
+use App\Models\Projet;
 use App\Models\Formations;
 use App\Models\Informations;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -102,72 +103,139 @@ class Generateur extends Controller
 
     $refs = Refs::where('archived', 0)->get();
     $objRefs = [];
+    $projets = Projet::where('ID_Salarie', $id)->get();
     foreach ($refs as $key => $value) {
-      $objRefs[] = [
-        'id' => $value->ID_Ref,
-        'client' => $value->client,
-        'nMarche' => $value->nMarche,
-        'dateDebut' => $value->dateDebut,
-        'dateFin' => $value->dateFin,
-        'objet' => $value->objet,
-        'mantant' => $value->mantant,
-        'category' => $value->category,
-      ];
+      if($projets->isEmpty()){
+        $objRefs[] = [
+          'id' => $value->ID_Ref,
+          'client' => $value->client,
+          'annee' => $value->annee,
+          'missions' => $value->missions,
+          'category' => $value->category,
+        ];
+      }else{
+        foreach ($projets as $key => $value1) {
+        if($value1->ID_reference == $value->ID_Ref){
+          $objRefs[] = [
+            'id' => $value->ID_Ref,
+            'client' => $value->client,
+            'annee' => $value->annee,
+            'missions' => $value->missions,
+            'category' => $value->category,
+            'missionsParticipe' => $value1->missions,
+          ];
+        }else{
+          $objRefs[] = [
+            'id' => $value->ID_Ref,
+            'client' => $value->client,
+            'annee' => $value->annee,
+            'missions' => $value->missions,
+            'category' => $value->category,
+          ];
+        }
+      }
+      }
+      
     }
     $objEmployee['refs'] = $objRefs;
+
+    
+    
+    
+
 
     return response()->json($objEmployee);
   }
 
   public function generateCvs(Request $request)
 {
+  
     $ao_name = $request->ao;
     $model = $request->model;
     $langue_module = $request->langue_module;
     $cvs = json_decode($request->cvs, true);
-    $ao_folder_path = public_path('cvs/' . $ao_name);
-    // File::makeDirectory($ao_folder_path, 0777, true);
+    $ao_folder_path = storage_path('app/public/cvs') . DIRECTORY_SEPARATOR . $ao_name; 
+    File::makeDirectory($ao_folder_path, 0777, true);
 
-    var_dump($langue_module);
-    die();
+    foreach ($cvs as $cv) {
+        $cv_folder_name = $cv['nom'] . '_' . $cv['prenom'];
+        $cv_folder_path = $ao_folder_path . DIRECTORY_SEPARATOR . $cv_folder_name;
+        File::makeDirectory($cv_folder_path, 0777, true);
 
-    // foreach ($cvs as $cv) {
-    //     $cv_folder_name = $cv['nom'] . '_' . $cv['prenom'];
-    //     $cv_folder_path = $ao_folder_path . DIRECTORY_SEPARATOR . $cv_folder_name;
-    //     File::makeDirectory($cv_folder_path, 0777, true);
+        $file_name = $cv_folder_name . '.docx';
+        $template = new TemplateProcessor(storage_path('app/public/models/'.$langue_module.'/'.$model.'.docx'));
+        $template->setValue('nom', $cv['nom']);
+        $template->setValue('prenom', $cv['prenom']);
+        $template->setValue('email', $cv['email']);
+        $template->setValue('phone', $cv['telephonePortable']);
+        $template->setValue('date_naissance', $cv['dateNaissance']);
+        $template->setValue('nationalite', $cv['nationalite']);
+        $template->setValue('role', $cv['role']);
 
-    //     $file_name = $cv_folder_name . '.docx';
-    //     $template = new TemplateProcessor(storage_path('models/model1.docx'));
-    //     $template->setValue('nom', $cv['nom']);
-    //     $template->setValue('prenom', $cv['prenom']);
-    //     $template->setValue('email', $cv['email']);
-    //     $template->setValue('phone', $cv['telephonePortable']);
-    //     $template->setValue('date_naissance', $cv['dateNaissance']);
-    //     $template->setValue('nationalite', $cv['nationalite']);
+        $formations = $cv['formations'];
+        $variables = $template->getVariables();
+        $foramtionAttr = ['etablissement', 'obtention', 'intitule'];
+        $template->cloneRow('etablissement', count($formations));
+        foreach ($formations as $key => $value) {
+            foreach ($foramtionAttr as $attr) {
+                if(in_array($attr, $variables)){
+                  $template->setValue($attr . '#' . ($key + 1), $value[$attr]);
+                }
+            }
+        }
+
+        $experiences = $cv['experiences'];
+        $template->cloneRow('dateDebut', count($experiences));
+        $experiencesData = ['employeur', 'poste', 'dateDebut', 'dateFin', 'taches'];
+        foreach($experiences as $key => $value){
+            foreach ($experiencesData as $attr) {
+              if(in_array($attr, $variables)){
+                if($attr == 'taches'){
+                  $taches = $value['taches'];
+                  $tachesStr = '';
+                  foreach ($taches as $key1 => $value1) {
+                      $tachesStr .= $value1['tache'] . '/ ';
+                  }
+                  $template->setValue($attr . '#' . ($key + 1), $tachesStr);
+                }else{
+                    $template->setValue($attr . '#' . ($key + 1), $value[$attr]);
+                }
+              }
+            }
+        }
+
+        //set langues from string to array
+        $langues = explode(',', $cv['langue']);
+        $niveaux = explode(',', $cv['niveauLangue']);
+        $template->cloneRow('langue', count($langues));
+        foreach ($langues as $key => $value) {
+            $template->setValue('langue#' . ($key + 1), $value);
+            $template->setValue('niveauLangue#' . ($key + 1), $niveaux[$key]);
+        }
         
-    //     $file_path = $cv_folder_path . DIRECTORY_SEPARATOR . $file_name;
+        $file_path = $cv_folder_path . DIRECTORY_SEPARATOR . $file_name;
 
-    //     $Employee = Informations::where('ID_Salarie', $cv['id'])->first();
-    //     $photoIdentite = $Employee->PhotoIdentite;
-    //     $photoIdentite = storage_path('app/photos/' . $photoIdentite);
-    //     $ext = pathinfo($photoIdentite, PATHINFO_EXTENSION);
-    //     $cv['photo'] = 'photo' . '.'. $ext;
-    //     File::copy($photoIdentite, $cv_folder_path . DIRECTORY_SEPARATOR . $cv['photo']);
+        $Employee = Informations::where('ID_Salarie', $cv['id'])->first();
+        $photoIdentite = $Employee->PhotoIdentite;
+        $photoIdentite = storage_path('app/public/photos/' . $photoIdentite);
+        $ext = pathinfo($photoIdentite, PATHINFO_EXTENSION);
+        $cv['photo'] = 'photo' . '.'. $ext;
+        File::copy($photoIdentite, $cv_folder_path . DIRECTORY_SEPARATOR . $cv['photo']);
 
-    //     $formations = Formations::where('ID_Salarie', $cv['id'])->get();
-    //     foreach ($formations as $key => $value) {
-    //         if ($value->diplome != null) {
-    //             $diplome = $value->diplome;
-    //             $diplome = storage_path('app/formations/' . $diplome);
-    //             $ext = pathinfo($diplome, PATHINFO_EXTENSION);
-    //             $name = 'certificat_' . $value->intitule . '.' . $ext;
-    //             File::copy($diplome, $cv_folder_path . DIRECTORY_SEPARATOR . $name);
-    //         }
-    //     }
+        $formations = Formations::where('ID_Salarie', $cv['id'])->get();
+        foreach ($formations as $key => $value) {
+            if ($value->diplome != null) {
+                $diplome = $value->diplome;
+                $diplome = storage_path('app/public/formations/' . $diplome);
+                $ext = pathinfo($diplome, PATHINFO_EXTENSION);
+                $name = 'certificat_' . $value->intitule . '.' . $ext;
+                File::copy($diplome, $cv_folder_path . DIRECTORY_SEPARATOR . $name);
+            }
+        }
         
 
-    //     $template->saveAs($file_path);
-    // }
+        $template->saveAs($file_path);
+    }
 
     // $zip = new ZipArchive();
     // $zipFileName = public_path('cvs/' . $ao_name . '.zip');

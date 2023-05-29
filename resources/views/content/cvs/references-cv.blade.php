@@ -52,7 +52,6 @@
     <table class="datatables-users table border-top">
       <thead>
         <tr class="p-2 text-dark h6" style="background-color: rgba(0,104,171,.3);">
-          <!-- <th></th> -->
           <th>N° Ref</th>
           <th>Societe</th>
           <th>Client</th>

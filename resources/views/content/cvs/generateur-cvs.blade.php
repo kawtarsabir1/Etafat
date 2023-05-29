@@ -105,6 +105,7 @@
             formData.append('model', model);
             formData.append('langue_module', langue_module)
             formData.append('ao', ao);
+            console.log('test');
             $.ajax({
                 url: "/cv/generateCvs",
                 type: 'POST',
@@ -112,30 +113,30 @@
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    console.log(data.downloadLink);
-                    var downloadLink = data.downloadLink;
-                    var link = document.createElement("a");
-                    link.style.display = "none";
-                    link.href = downloadLink;
-                    link.download = "CVs.zip";
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    const parts = downloadLink.split('/');
-                    const zipFileName = parts[parts.length - 1];
-                    const folderName = zipFileName.replace('.zip', '');
-                    var formData = new FormData();
-                    formData.append('folderName', folderName);
-                    $.ajax({
-                        url: "/cv/deleteFolder",
-                        type: 'POST',
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            console.log(data);
-                        }
-                    });
+                    console.log('generated');
+                    // var downloadLink = data.downloadLink;
+                    // var link = document.createElement("a");
+                    // link.style.display = "none";
+                    // link.href = downloadLink;
+                    // link.download = "CVs.zip";
+                    // document.body.appendChild(link);
+                    // link.click();
+                    // document.body.removeChild(link);
+                    // const parts = downloadLink.split('/');
+                    // const zipFileName = parts[parts.length - 1];
+                    // const folderName = zipFileName.replace('.zip', '');
+                    // var formData = new FormData();
+                    // formData.append('folderName', folderName);
+                    // $.ajax({
+                    //     url: "/cv/deleteFolder",
+                    //     type: 'POST',
+                    //     data: formData,
+                    //     contentType: false,
+                    //     processData: false,
+                    //     success: function(data) {
+                    //         console.log(data);
+                    //     }
+                    // });
                 }
             });
         }
