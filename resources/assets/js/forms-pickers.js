@@ -11,7 +11,9 @@
     flatpickrTime = document.querySelector('#flatpickr-time'),
     flatpickrDateTime = document.querySelector('#flatpickr-datetime'),
     flatpickrMulti = document.querySelector('#flatpickr-multi'),
-    flatpickrRange = document.querySelector('#flatpickr-range'),
+    contratRange = document.querySelector('#contrat-range'),
+    refRange = document.querySelector('#ref-range'),
+    refNewRange = document.querySelector('#ref-new-range'),
     flatpickrInline = document.querySelector('#flatpickr-inline'),
     flatpickrFriendly = document.querySelector('#flatpickr-human-friendly'),
     flatpickrDisabledRange = document.querySelector('#flatpickr-disabled-range');
@@ -49,12 +51,26 @@
     });
   }
 
-  // Range
-  if (typeof flatpickrRange != undefined) {
-    flatpickrRange.flatpickr({
+ 
+  if (typeof refNewRange != undefined && refNewRange != null) {
+    refNewRange.flatpickr({
       mode: 'range'
     });
   }
+  
+  // Contrat Range
+  if (typeof contratRange != undefined && contratRange != null) {
+    contratRange.flatpickr({
+      mode: 'range'
+    });
+  }
+
+  if (typeof refRange != undefined && refRange != null) {
+    refRange.flatpickr({
+      mode: 'range'
+    });
+  }
+
 
   // Inline
   if (flatpickrInline) {

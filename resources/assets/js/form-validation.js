@@ -49,10 +49,11 @@
 //------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function (e) {
   (function () {
-    const formValidationExamples = document.getElementById('formValidationExamples'),
+    const formValidationExamples = document.getElementById('wizard-checkout-form'),
       formValidationSelect2Ele = jQuery(formValidationExamples.querySelector('[name="formValidationSelect2"]')),
       formValidationTechEle = jQuery(formValidationExamples.querySelector('[name="formValidationTech"]')),
       formValidationLangEle = formValidationExamples.querySelector('[name="formValidationLang"]'),
+      formValidationNivEle = formValidationExamples.querySelector('[name="formValidationNiv"]'),
       formValidationHobbiesEle = jQuery(formValidationExamples.querySelector('.selectpicker')),
       tech = [
         'ReactJS',
@@ -73,138 +74,198 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
     const fv = FormValidation.formValidation(formValidationExamples, {
       fields: {
-        formValidationName: {
+        Nom: {
           validators: {
             notEmpty: {
-              message: 'Please enter your name'
+              message: 'Veuillez saisir le nom/prénom'
             },
             stringLength: {
-              min: 6,
-              max: 30,
-              message: 'The name must be more than 6 and less than 30 characters long'
+              min: 2,
+              max: 20,
+              message: 'Le Nom doit comporter plus de 2 et moins de 20 caractères'
             },
             regexp: {
-              regexp: /^[a-zA-Z0-9 ]+$/,
-              message: 'The name can only consist of alphabetical, number and space'
+              regexp: /^[a-zA-Z]+$/,
+              message: 'Le nom ne peut être composé que de lettres alphabétiques'
             }
           }
         },
-        formValidationEmail: {
+        Prenom: {
           validators: {
             notEmpty: {
-              message: 'Please enter your email'
-            },
-            emailAddress: {
-              message: 'The value is not a valid email address'
-            }
-          }
-        },
-        formValidationPass: {
-          validators: {
-            notEmpty: {
-              message: 'Please enter your password'
-            }
-          }
-        },
-        formValidationConfirmPass: {
-          validators: {
-            notEmpty: {
-              message: 'Please confirm password'
-            },
-            identical: {
-              compare: function () {
-                return formValidationExamples.querySelector('[name="formValidationPass"]').value;
-              },
-              message: 'The password and its confirm are not the same'
-            }
-          }
-        },
-        formValidationFile: {
-          validators: {
-            notEmpty: {
-              message: 'Please select the file'
-            }
-          }
-        },
-        formValidationDob: {
-          validators: {
-            notEmpty: {
-              message: 'Please select your DOB'
-            },
-            date: {
-              format: 'YYYY/MM/DD',
-              message: 'The value is not a valid date'
-            }
-          }
-        },
-        formValidationSelect2: {
-          validators: {
-            notEmpty: {
-              message: 'Please select your country'
-            }
-          }
-        },
-        formValidationLang: {
-          validators: {
-            notEmpty: {
-              message: 'Please add your language'
-            }
-          }
-        },
-        formValidationTech: {
-          validators: {
-            notEmpty: {
-              message: 'Please select technology'
-            }
-          }
-        },
-        formValidationHobbies: {
-          validators: {
-            notEmpty: {
-              message: 'Please select your hobbies'
-            }
-          }
-        },
-        formValidationBio: {
-          validators: {
-            notEmpty: {
-              message: 'Please enter your bio'
+              message: 'Veuillez saisir le prénom'
             },
             stringLength: {
-              min: 100,
-              max: 500,
-              message: 'The bio must be more than 100 and less than 500 characters long'
+              min: 2,
+              max: 20,
+              message: 'Le Prenom doit comporter plus de 2 et moins de 20 caractères'
+            },
+            regexp: {
+              regexp: /^[a-zA-Z]+$/,
+              message: 'Le Prenom ne peut être composé que de lettres alphabétiques'
             }
           }
         },
-        formValidationGender: {
+        CIN: {
           validators: {
             notEmpty: {
-              message: 'Please select your gender'
+              message: 'Veuillez saisir le CIN'
+            },
+            stringLength: {
+              min: 5,
+              max: 10,
+              message: 'Le CIN doit comporter 5 caractères minimum'
+            },
+            regexp: {
+              regexp: /^[a-zA-Z0-9]+$/,
+              message: 'Le CIN ne peut être composé que de chiffres et lettres alphabétiques'
             }
           }
         },
-        formValidationPlan: {
+
+        Email: {
           validators: {
             notEmpty: {
-              message: 'Please select your preferred plan'
+              message: "Veuillez saisir l'email"
+            },
+            emailAddress: {
+              message: "La valeur n'est pas une adresse e-mail valide"
             }
           }
         },
-        formValidationSwitch: {
+
+        LieuNaissance: {
           validators: {
             notEmpty: {
-              message: 'Please select your preference'
+              message: "Veuillez saisir le lieu de naissance"
             }
           }
         },
-        formValidationCheckbox: {
+
+        NombreEnfants: {
           validators: {
             notEmpty: {
-              message: 'Please confirm our T&C'
+              message: "Veuillez saisir le Nombre d'enfants"
+            },
+            regexp: {
+              regexp: /^[0-9]+$/,
+              message: 'Le Nombre d\'enfants ne peut être composé que de chiffres'
+            }
+          }
+        },
+
+        Nationalite: {
+          validators: {
+            notEmpty: {
+              message: "Veuillez saisir la nationalité"
+            }
+          }
+        },
+
+        Adresse_1: {
+          validators: {
+            notEmpty: {
+              message: "Veuillez saisir l'adresse"
+            }
+          }
+        },
+
+        Code_Postal: {
+          validators: {
+            notEmpty: {
+              message: "Veuillez saisir le code postal"
+            },
+            regexp: {
+              regexp: /^[0-9]+$/,
+              message: 'Le code postal ne peut être composé que de chiffres'
+            }
+          }
+        },
+
+        TelephoneFixe: {
+          validators: {
+            notEmpty: {
+              message: "Veuillez saisir le numéro de téléphone fixe"
+            },
+            stringLength: {
+              max: 10,
+              message: 'Le CIN doit comporter 10 caractères maximum'
+            },
+            regexp: {
+              regexp: /^[0-9 ]+$/,
+              message: 'Le numéro de téléphone fixe ne peut être composé que de chiffres'
+            }
+          }
+        },
+
+        TelephonePortable: {
+          validators: {
+            notEmpty: {
+              message: "Veuillez saisir le numéro de téléphone mobile"
+            },
+            stringLength: {
+              max: 10,
+              message: 'Le CIN doit comporter 10 caractères maximum'
+            },
+            regexp: {
+              regexp: /^[0-9 ]+$/,
+              message: 'Le numéro de téléphone mobile ne peut être composé que de chiffres'
+            }
+          }
+        },
+
+        NumeroCNSS: {
+          validators: {
+            notEmpty: {
+              message: "Veuillez saisir le numéro de CNSS"
+            },
+            regexp: {
+              regexp: /^[0-9]+$/,
+              message: 'Le numéro de CNSS ne peut être composé que de chiffres'
+            }
+          }
+        },
+
+        ContratTravailNumero : {
+          validators: {
+            notEmpty: {
+              message: "Veuillez saisir le contrat de travail numéro"
+            },
+            regexp: {
+              regexp: /^[0-9]+$/,
+              message: 'Le numéro de contrat de travail ne peut être composé que de chiffres'
+            }
+          }
+        },
+
+        ao_name : {
+          validators: {
+            notEmpty: {
+              message: "Veuillez saisir le nom de l'appel d'offer"
+            },
+            stringLength: {
+              min: 4,
+              message: 'Le Nom doit comporter plus de 4 caractères'
+            }
+          }
+        },
+
+        marche_nbr : {
+          validators: {
+            notEmpty: {
+              message: "Veuillez saisir le numéro de marché"
+            },
+            regexp: {
+              regexp: /^[0-9/]+$/,
+              message: 'Le numéro de CNSS ne peut être composé que de chiffres'
             }
           }
         }
+
+
+
+        
+      
       },
       plugins: {
         trigger: new FormValidation.plugins.Trigger(),
@@ -215,18 +276,16 @@ document.addEventListener('DOMContentLoaded', function (e) {
           rowSelector: function (field, ele) {
             // field is the field name & ele is the field element
             switch (field) {
-              case 'formValidationName':
-              case 'formValidationEmail':
-              case 'formValidationPass':
-              case 'formValidationConfirmPass':
-              case 'formValidationFile':
-              case 'formValidationDob':
-              case 'formValidationSelect2':
-              case 'formValidationLang':
-              case 'formValidationTech':
-              case 'formValidationHobbies':
-              case 'formValidationBio':
-              case 'formValidationGender':
+              case 'Nom':
+              case 'Prenom':
+              case 'CIN':
+              case 'Email':
+              case 'Adresse_1':
+              case 'Code_Postal':
+              case 'TelephoneFixe':
+              case 'TelephonePortable':
+              case 'NumeroCNSS':
+              case 'ContratTravailNumero':                
                 return '.col-md-6';
               case 'formValidationPlan':
                 return '.col-xl-3';
@@ -240,8 +299,13 @@ document.addEventListener('DOMContentLoaded', function (e) {
         }),
         submitButton: new FormValidation.plugins.SubmitButton(),
         // Submit the form when all fields are valid
-        defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+        // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
         autoFocus: new FormValidation.plugins.AutoFocus()
+      },
+      onValidate: function (isValid) {
+        if (!isValid) {
+          alert('Please correct the errors before submitting the form.');
+        }
       },
       init: instance => {
         instance.on('plugins.message.placed', function (e) {
@@ -333,6 +397,13 @@ document.addEventListener('DOMContentLoaded', function (e) {
     formValidationLangEle.addEventListener('change', onChange);
     function onChange() {
       fv.revalidateField('formValidationLang');
+      console.log("test")
+    }
+
+    let formValidationNivTagify = new Tagify(formValidationNivEle);
+    formValidationNivEle.addEventListener('change', onChange);
+    function onChange() {
+      fv.revalidateField('formValidationNiv');
     }
 
     //Bootstrap select
