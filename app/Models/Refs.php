@@ -10,14 +10,19 @@ class Refs extends Model
     protected $primaryKey = 'ID_Ref';
 
     protected $fillable = [
-        'employeur',
-        'poste',
-        'dateDebut',
-        'dateFin',
-        'domaines',
+        'client',
+        'objet',
         'attestation',
         'archived',
-        'ID_Salarie'
+        'mantant',
+        'nMarche',
+        'category',
+        'fiche',
+        'nRef',
+        'societe',
+        'missions',
+        'description',
+        'annee'
     ];
 
     use HasFactory;

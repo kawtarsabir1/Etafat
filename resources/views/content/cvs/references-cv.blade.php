@@ -29,28 +29,37 @@
 
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
-  <span class="text-muted fw-light">CVtéque /</span> Gestion des CVs
+  <span class="text-muted fw-light">CVthèque /</span> Gestion des CVs
 </h4>
 
 <div class="card">
   <div class="card-header border-bottom">
     <h5 class="card-title mb-3">Search Filter</h5>
     <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0">
-      <div class="col-md-4 user_poste"></div>
-      <div class="col-md-4 user_Departement"></div>
-      <div class="col-md-4 user_profil"></div>
+      <div class="col-md-4 ref_Client"></div>
+      <div class="col-md-4 ref_category"></div>
+      <div class="col-md-4 ref_societe"></div>
+    </div>
+  </div>
+  <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <iframe src="" width="100%" height="680px"></iframe>
+      </div>
     </div>
   </div>
   <div class="card-datatable table-responsive">
     <table class="datatables-users table border-top">
       <thead>
-        <tr class="p-2 text-dark" style="background-color: rgba(115,103,240,.3);">
-          <th></th>
-          <th>Employeur</th>
-          <th>Employee</th>
-          <th>Poste</th>
-          <th>Domaine</th>
-          <th>Duree</th>
+        <tr class="p-2 text-dark h6" style="background-color: rgba(0,104,171,.3);">
+          <th>N° Ref</th>
+          <th>Societe</th>
+          <th>Client</th>
+          <th>N° Marche</th>
+          <th>Année</th>
+          <th>Mantant</th>
+          <th>Catégorie</th>
+          <th>Fiche</th>
           <th>Actions</th>
         </tr>
       </thead>

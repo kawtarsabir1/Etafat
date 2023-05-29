@@ -105,7 +105,7 @@
                 processData: false,
                 success: function(data) {
                     if ($.isEmptyObject(data.error)) {
-                        alert('Reference added');
+                        alert('Référence modifiée avec succès');
                         window.location.href = "/cv/references";
                     } else {
                         printErrorMsg(data.error);
@@ -125,12 +125,12 @@
 
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">CVtéque /</span> Edit Reference
+    <span class="text-muted fw-light">CVthèque /</span> Edit Reference
 </h4>
 
 <div class="row">
     <div id="wizard-checkout" class="bs-stepper wizard-icons wizard-icons-example mt-2">
-        <div class="bs-stepper-content border-top">
+        <div class="bs-stepper-content">
             <form id="wizard-checkout-form">
                 <div class="col-12">
                     <div class="col-12">
@@ -142,45 +142,82 @@
                             <div class="row">
                                 <input type="hidden" id="ID_Ref" value="{{ $Ref->ID_Ref }}" />
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                    <label class="form-label" for="ref-employeur">Employeur</label>
-                                    <input type="text" name="employeur" class="form-control" placeholder="Etafat" value="{{ $Ref->employeur }}" />
+                                    <label class="form-label" for="ref-client">Nom du societe</label>
+                                    <input type="text" name="societe" class="form-control" placeholder="Etafat" value="{{ $Ref->societe }}">
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                    <label class="form-label" for="ref-range">Range</label>
-                                    <input type="text" id="ref-new-range" class="form-control" placeholder="YYYY-MM-DD Au YYYY-MM-DD" name="range" value="{{ $Ref->dateDebut }} to {{ $Ref->dateFin }}" />
+                                    <label class="form-label" for="ref-client">N° du Reference</label>
+                                    <input type="text" name="nRef" class="form-control" placeholder="##" value="{{ $Ref->nRef }}">
+                                </div>
+                                
+
+                                <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                    <label class="form-label" for="ref-client">Client</label>
+                                    <input type="text" name="client" class="form-control" placeholder="Etafat" value="{{ $Ref->client }}" />
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                    <label class="form-label" for="ref-poste">Poste</label>
-                                    <input type="text" name="poste" class="form-control" placeholder="Directeur Etudes" value="{{ $Ref->poste }}" />
+                                    <label class="form-label" for="ref-marche">N° Marché</label>
+                                    <input type="text" name="nMarche" class="form-control" placeholder="26/2020/Exemple" value="{{ $Ref->nMarche }}" >
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                    <label class="form-label" for="form-repeater-1-4">Employee</label>
-                                    <select id="form-repeater-1-4" class="form-select" name="employee">
-                                        <option value="">Select Employee</option>
-                                        @foreach($informations as $info)
-                                        <option value="{{$info->ID_Salarie}}" {{$info->ID_Salarie == $Ref->ID_Salarie ? 'selected' : ''}}>{{$info->Nom}} {{$info->Prenom}}</option>
-                                        @endforeach
+                                    <label class="form-label" for="ref-annee">Année</label>
+                                    <input type="text" name="annee" class="form-control" placeholder="2023" value="{{ $Ref->annee }}">
+                                </div>
+
+                                <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                    <label class="form-label" for="ref-mantant">Montant</label>
+                                    <input type="text" name="mantant" class="form-control" placeholder="100 000,00" value="{{ $Ref->mantant }}" >
+                                </div>
+
+                                <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                    <label for="formValidationFile" class="form-label">Attestation (s'il y a)</label>
+                                    <input class="form-control" type="file" name="attestation">
+                                </div>
+
+                                <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                    <label for="formValidationFile" class="form-label">Fiche de projet</label>
+                                    <input class="form-control" type="file" name="fiche">
+                                </div>
+
+                                <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                    <label for="ref-objet" class="form-label">Objet</label>
+                                    <textarea class="form-control" name="objet" rows="3" placeholder="Objet de reference">{{ $Ref->objet }}</textarea>
+                                </div>
+
+                                <div class="col-md-3 mb-4">
+                                    <label for="selectpickerLiveSearch" class="form-label">Missions (séparées par une virgule)</label>
+                                    <textarea class="form-control" name="missions" rows="3" placeholder="Mission 1, Mission 2, Mission 3">{{ $Ref->missions }}</textarea>
+                                </div>
+
+                                <div class="col-md-3 mb-4">
+                                    <label for="selectpickerLiveSearch" class="form-label">Description des missions</label>
+                                    <textarea class="form-control" name="description" rows="3">{{ $Ref->description }}</textarea>
+                                </div>
+
+                                
+
+                                <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                    <label class="form-label" for="form-repeater-1-4">Categorie</label>
+                                    <select id="form-repeater-1-4" class="form-select" name="category">
+                                        <option value="">Select Categorie</option>
+                                        <option value="Topo" {{"Topo" == $Ref->category ? 'selected' : ''}}>TOPO</option>
+                                        <option value="Bathy" {{"Bathy" == $Ref->category ? 'selected' : ''}}>BATHY</option>
+                                        <option value="3D" {{"3D" == $Ref->category ? 'selected' : ''}}>3D</option>
+                                        <option value="SIG" {{"SIG" == $Ref->category ? 'selected' : ''}}>SIG</option>
+                                        <option value="PVA & Lidar" {{"PVA & Lidar" == $Ref->category ? 'selected' : ''}}>PVA & LIDAR</option>
+                                        <option value="DRONE" {{"DRONE" == $Ref->category ? 'selected' : ''}}>DRONE</option>
+                                        <option value="LIDAR" {{"LIDAR" == $Ref->category ? 'selected' : ''}}>LIDAR</option>
                                     </select>
-                                </div>
-
-                                <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                    <label for="ref-taches" class="form-label">Tache(s) (splite with comma)</label>
-                                    <textarea class="form-control" name="taches" rows="3" placeholder="Tache 1, Tache 2, Tache 3">{{ $Ref->taches }}</textarea>
-                                </div>
-
-                                <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                    <label for="ref-taches" class="form-label">Domaine(s) (splite with comma)</label>
-                                    <textarea class="form-control" name="domaines" rows="3" placeholder="Domaine 1, Domaine 2, Domaine 3">{{ $Ref->domaines }}</textarea>
                                 </div>
 
                                 <div class="col-12 d-flex justify-content-between">
                                     <button type="button" class="btn btn-label-secondary btn-prev">
-                                        <span class="align-middle d-sm-inline-block d-none">Cancel</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Annuler</span>
                                     </button>
-                                    <button type="button" class="btn btn-primary btn-create-ref"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Create Reference</span></button>
+                                    <button type="button" class="btn btn-primary btn-create-ref"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Modifier la référence</span></button>
                                 </div>
                             </div>
                         </div>

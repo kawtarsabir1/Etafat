@@ -87,7 +87,7 @@
         }
         let toFill = [];
         for (const [key, value] of formData.entries()) {
-            if (key != 'Adresse_2') {
+            if (key != 'attestation') {
                 if (!value) {
                     toFill.push(key);
                 }
@@ -105,7 +105,7 @@
                 processData: false,
                 success: function(data) {
                     if ($.isEmptyObject(data.error)) {
-                        alert('Reference added');
+                        alert('Référence ajoutée avec succès');
                         window.location.href = "/cv/references";
                     } else {
                         printErrorMsg(data.error);
@@ -125,12 +125,12 @@
 
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">CVtéque /</span> Créer un nouveau reference
+    <span class="text-muted fw-light">CVthèque /</span> Créer un nouveau reference
 </h4>
 
 <div class="row">
     <div id="wizard-checkout" class="bs-stepper wizard-icons wizard-icons-example mt-2">
-        <div class="bs-stepper-content border-top">
+        <div class="bs-stepper-content">
             <form id="wizard-checkout-form">
                 <div class="col-12">
                     <div class="col-12">
@@ -140,51 +140,81 @@
                     <div class="content-wrapper-refs">
                         <div class="content-refs">
                             <div class="row">
+
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                    <label class="form-label" for="ref-employeur">Employeur</label>
-                                    <input type="text" name="employeur" class="form-control" placeholder="Etafat">
+                                    <label class="form-label" for="ref-client">Nom du societe</label>
+                                    <input type="text" name="societe" class="form-control" placeholder="Etafat">
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                    <label class="form-label" for="ref-range">Range</label>
-                                    <input type="text" id="ref-new-range" class="form-control" placeholder="YYYY-MM-DD Au YYYY-MM-DD" name="range" />
+                                    <label class="form-label" for="ref-client">N° du Reference</label>
+                                    <input type="text" name="nRef" class="form-control" placeholder="##">
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                    <label class="form-label" for="ref-poste">Poste</label>
-                                    <input type="text" name="poste" class="form-control" placeholder="Directeur Etudes">
+                                    <label class="form-label" for="ref-client">Client</label>
+                                    <input type="text" name="client" class="form-control" placeholder="MASEN">
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                    <label class="form-label" for="form-repeater-1-4">Employee</label>
-                                    <select id="form-repeater-1-4" class="form-select" name="employee">
-                                        <option value="">Select Employee</option>
-                                        @foreach($informations as $info)
-                                        <option value="{{$info->ID_Salarie}}">{{$info->Nom}} {{$info->Prenom}}</option>
-                                        @endforeach
-                                    </select>
+                                    <label class="form-label" for="ref-client">N° Marché</label>
+                                    <input type="text" name="nMarche" class="form-control" placeholder="26/2020/Exemple">
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                    <label for="formValidationFile" class="form-label">Attestation reference (s'il y a)</label>
+                                    <label class="form-label" for="ref-annee">Année</label>
+                                    <input type="text" name="annee" class="form-control" placeholder="2023">
+                                </div>
+
+                                <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                    <label class="form-label" for="ref-client">Montant</label>
+                                    <input type="text" name="mantant" class="form-control" placeholder="Etafat">
+                                </div>
+
+                                <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                    <label for="formValidationFile" class="form-label">Attestation (s'il y a)</label>
                                     <input class="form-control" type="file" name="attestation">
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                    <label for="ref-taches" class="form-label">Tache(s) (splite with comma)</label>
-                                    <textarea class="form-control" name="taches" rows="3" placeholder="Tache 1, Tache 2, Tache 3"></textarea>
+                                    <label for="formValidationFile" class="form-label">Fiche de projet</label>
+                                    <input class="form-control" type="file" name="fiche">
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                    <label for="ref-taches" class="form-label">Domaine(s) (splite with comma)</label>
-                                    <textarea class="form-control" name="domaines" rows="3" placeholder="Domaine 1, Domaine 2, Domaine 3"></textarea>
+                                    <label for="ref-objet" class="form-label">Objet</label>
+                                    <textarea class="form-control" name="objet" rows="3" placeholder="Objet de reference"></textarea>
+                                </div>
+
+                                <div class="col-md-3 mb-4">
+                                    <label for="selectpickerLiveSearch" class="form-label">Missions (séparées par une virgule)</label>
+                                    <textarea class="form-control" name="missions" rows="3" placeholder="Mission 1, Mission 2, Mission 3"></textarea>
+                                </div>
+
+                                <div class="col-md-3 mb-4">
+                                    <label for="selectpickerLiveSearch" class="form-label">Description des missions</label>
+                                    <textarea class="form-control" name="description" rows="3"></textarea>
+                                </div>
+
+                                <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                    <label class="form-label" for="form-repeater-1-4">Catégorie</label>
+                                    <select id="form-repeater-1-4" class="form-select" name="category">
+                                        <option value="">Sélectionner Catégorie</option>
+                                        <option value="Topo">TOPO</option>
+                                        <option value="Bathy">BATHY</option>
+                                        <option value="3D">3D</option>
+                                        <option value="SIG">SIG</option>
+                                        <option value="PVA & Lidar">PVA & LIDAR</option>
+                                        <option value="PVA & Lidar">DRONE</option>
+                                        <option value="PVA & Lidar">LIDAR</option>
+                                    </select>
                                 </div>
 
                                 <div class="col-12 d-flex justify-content-between">
                                     <button type="button" class="btn btn-label-secondary btn-prev">
-                                        <span class="align-middle d-sm-inline-block d-none">Cancel</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Annuler</span>
                                     </button>
-                                    <button type="button" class="btn btn-primary btn-create-ref"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Create Reference</span></button>
+                                    <button type="button" class="btn btn-primary btn-create-ref"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Créer une référence</span></button>
                                 </div>
                             </div>
                         </div>

@@ -14,8 +14,11 @@ return new class extends Migration
     public function up()
     {
 
+        Schema::dropIfExists('experiences');
+        Schema::dropIfExists('projets');
         Schema::dropIfExists('formations');
         Schema::dropIfExists('informations');
+        
 
         Schema::create('informations', function (Blueprint $table) {
             $table->bigIncrements('ID_Salarie');
@@ -61,6 +64,29 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('experiences', function (Blueprint $table) {
+            $table->bigIncrements('ID_Experience');
+            $table->integer('ID_Salarie');
+            $table->foreign('ID_Salarie')->references('ID_Salarie')->on('informations');
+            $table->string('employeur');
+            $table->string('poste');
+            $table->date('dateDebut');
+            $table->date('dateFin');
+            $table->string('attestation')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('projets', function (Blueprint $table) {
+            $table->bigIncrements('ID_Projet');
+            $table->integer('ID_Salarie');
+            $table->foreign('ID_Salarie')->references('ID_Salarie')->on('informations');
+            $table->integer('ID_reference');
+            $table->string('poste');
+            $table->string('missions');
+            $table->string('description');
+            $table->timestamps();
+        });
+
 
     }
 
@@ -71,6 +97,8 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('experiences');
+        Schema::dropIfExists('projets');
         Schema::dropIfExists('formations');
         Schema::dropIfExists('informations');
     }

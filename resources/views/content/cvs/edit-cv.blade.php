@@ -71,75 +71,39 @@
 <script src="{{asset('assets/js/wizard-ex-checkout.js')}}"></script>
 
 <script type="text/javascript">
-    formationsArray = JSON.parse(localStorage.getItem('formationsArray')) || [];
-    if (formationsArray) {
-        localStorage.removeItem('formationsArray');
-    }
-    refsArray = JSON.parse(localStorage.getItem('refsArray')) || [];
-    if (refsArray) {
-        localStorage.removeItem('refsArray');
-    }
-    var dataFormation = [
-        @foreach ($objEmployee['formations'] as $formation)
-            {
-                'id': '{{ $formation['id'] }}',
-                'intitule': '{{ $formation['intitule'] }}',
-                'obtention': '{{ $formation['obtention'] }}',
-                'etablissement': '{{ $formation['etablissement'] }}'
-            },
-        @endforeach
-    ];
-    localStorage.setItem('formationsArray', JSON.stringify(dataFormation));
-
-    var dataRef = [
-        @foreach ($objEmployee['refs'] as $ref)
-            {
-                'id': '{{ $ref['id'] }}',
-                'employeur': '{{ $ref['employeur'] }}',
-                'poste': '{{ $ref['poste'] }}',
-                'dateDebut': '{{ $ref['dateDebut'] }}',
-                'dateFin': '{{ $ref['dateFin'] }}',
-                'taches': [
-                    @foreach ($ref['taches'] as $tache)
-                        '{{ $tache['tache'] }}',
-                    @endforeach
-                ]
-            },
-        @endforeach
-    ];
-    localStorage.setItem('refsArray', JSON.stringify(dataRef));
-
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 
-    $(".btn-submit").click(function(e) {
+    $(".btn-update").click(function(e) {
         e.preventDefault();
         var formData = new FormData($('#wizard-checkout-form')[0]);
         let toFill = [];
+        var userId = $('#userId').val();
 
         for (const [key, value] of formData.entries()) {
-            if(key != 'Adresse_2'){
+            if (key != 'Adresse_2') {
                 if (!value) {
                     toFill.push(key);
                 }
             }
         }
-        if(toFill.length > 0){
+        console.log('start updating')
+        if (toFill.length > 0) {
             alert('Please fill the fields : ' + toFill.join(', '));
             return false;
-        }else{
+        } else {
             var formationsArray = JSON.parse(localStorage.getItem('formationsArray'));
-            formData.append('formations', JSON.stringify(formationsArray));
-            //get formationArray from localStorage
             var refsArray = JSON.parse(localStorage.getItem('refsArray'));
-            formData.append('refs', JSON.stringify(refsArray));
+            var projetsArray = JSON.parse(localStorage.getItem('projetsArray'));
+            formData.append('formations', JSON.stringify(formationsArray));
+            formData.append('experiences', JSON.stringify(refsArray));
+            formData.append('projets', JSON.stringify(projetsArray));
             //send form data to the controller
             $.ajax({
-                url: "/cv/gestion/" + {{ $objEmployee['id'] }},
+                url: "/cv/gestion/" + userId,
                 type: 'POST',
                 data: formData,
                 contentType: false,
@@ -155,7 +119,6 @@
             });
         }
     });
-
 </script>
 @endsection
 
@@ -165,14 +128,16 @@
 
 
 @section('content')
-<h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">CVtéque /</span> Edit CV {{ $objEmployee['nom'] }}
-</h4>
 
+<h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light">CVthèque /</span> Edit CV {{ $objEmployee['nom'] }}
+</h4>
+<input type="hidden" id="myDataInput" value="{{ json_encode($objEmployee) }}">
+<input type="hidden" id="userId" value="{{ json_encode($objEmployee['id']) }}">
 <div class="row">
     <div id="wizard-checkout" class="bs-stepper wizard-icons wizard-icons-example mt-2">
         <div class="bs-stepper-header m-auto border-0 py-5">
-            <div class="step" data-target="#checkout-cart">
+            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-cart">
                 <button type="button" class="step-trigger">
                     <span class="bs-stepper-icon">
                         <svg viewBox="0 0 58 54">
@@ -185,7 +150,7 @@
             <div class="line">
                 <i class="ti ti-chevron-right"></i>
             </div>
-            <div class="step" data-target="#checkout-address">
+            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-address">
                 <button type="button" class="step-trigger">
                     <span class="bs-stepper-icon">
                         <svg viewBox="0 0 54 54">
@@ -198,7 +163,7 @@
             <div class="line">
                 <i class="ti ti-chevron-right"></i>
             </div>
-            <div class="step" data-target="#checkout-payment">
+            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-payment">
                 <button type="button" class="step-trigger">
                     <span class="bs-stepper-icon">
                         <svg viewBox="0 0 58 54">
@@ -211,7 +176,20 @@
             <div class="line">
                 <i class="ti ti-chevron-right"></i>
             </div>
-            <div class="step" data-target="#checkout-confirmation">
+            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#projets-step">
+                <button type="button" class="step-trigger">
+                    <span class="bs-stepper-icon">
+                        <svg viewBox="0 0 58 54">
+                            <use xlink:href="{{asset('assets/svg/icons/form-wizard-social-link.svg#wizardSocialLink')}}"></use>
+                        </svg>
+                    </span>
+                    <span class="bs-stepper-label">Projets</span>
+                </button>
+            </div>
+            <div class="line">
+                <i class="ti ti-chevron-right"></i>
+            </div>
+            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-confirmation">
                 <button type="button" class="step-trigger">
                     <span class="bs-stepper-icon">
                         <svg viewBox="0 0 58 54">
@@ -387,14 +365,12 @@
                                 $langues = explode(',', $objEmployee['langue']);
                                 $niveaux = explode(',', $objEmployee['niveauLangue']);
                                 @endphp
-
-                                
                                 <div class="content-language">
                                     @foreach ($langues as $index => $langue)
-                                    <div class="row language-elem">
+                                    <div class="row language-elem" id="language-elem">
                                         <div class="col-lg-6 col-xl-2 col-12 mb-3">
-                                            <label class="form-label" for="language-input">Langues</label>
-                                            <input type="text" id="language-input" value="{{ $langue }}" name="langue{{ $index == 0 ? '' : $index }}" class="form-control" placeholder="Language name">
+                                            <label class="form-label" for="language-input">Langue</label>
+                                            <input type="text" id="language-input" value="{{ $langue }}" name="langue{{ $index == 0 ? '' : $index }}" class="form-control" placeholder="Nom du langue">
                                         </div>
                                         <div class="col-lg-6 col-xl-2 col-12 mb-3">
                                             <label class="form-label" for="level-select">Niveau</label>
@@ -409,10 +385,10 @@
                                         <div class="col-lg-12 col-xl-2 col-12 d-flex align-items-end mb-3">
                                             <button class="btn btn-danger btn-remove"><i class="fa fa-trash"></i> Delete</button>
                                         </div>
-                                    </div> 
+                                    </div>
                                     @endforeach
                                 </div>
-                               
+
                             </div>
                             <div class="actions mb-4">
                                 <button type="button" class="btn btn-primary btn-add-language"><i class="fa fa-plus"></i> Add Language</button>
@@ -530,7 +506,7 @@
                                         <textarea class="form-control" id="ref-taches" rows="3" placeholder="Tache 1, Tache 2, Tache 3"></textarea>
                                     </div>
                                     <div class="actions mb-4">
-                                        <button type="button" class="btn btn-primary btn-save-ref"><i class="fa fa-plus"></i> Save formation</button>
+                                        <button type="button" class="btn btn-primary btn-save-ref"><i class="fa fa-plus"></i> Save Experience</button>
                                     </div>
                                     <div class="row content-refs-map">
                                         @foreach ($objEmployee['refs'] as $index => $ref)
@@ -538,7 +514,7 @@
                                             <div class="card card-action mb-4">
                                                 <div class="card-alert"></div>
                                                 <div class="card-header">
-                                                    <div class="card-action-title">Reference n°{{$index+1}}</div>
+                                                    <div class="card-action-title">Experience n°{{$index+1}}</div>
                                                     <div class="card-action-element">
                                                         <ul class="list-inline mb-0">
                                                             <li class="list-inline-item">
@@ -553,12 +529,12 @@
                                                     <p class="card-text">Date De {{$ref['dateDebut']}} Au {{$ref['dateDebut']}} </p>
                                                     <span class="card-title">Taches : </span>
                                                     <ul class="list-group list-group-flush">
-                                                    @foreach ($ref['taches'] as $tache)
+                                                        @foreach ($ref['taches'] as $tache)
                                                         <li class="list-group-item">{{ $tache['tache'] }}</li>
-                                                    @endforeach
+                                                        @endforeach
                                                     </ul>
                                                 </div>
-                                            </div>  
+                                            </div>
                                         </div>
                                         @endforeach
                                     </div>
@@ -575,13 +551,101 @@
                     </div>
                 </div>
 
+                <div id="projets-step" class="content">
+                    <div class="col-12">
+                        <div class="col-12">
+                            <h6 class="mt-2 fw-semibold">3. Projets Realise</h6>
+                            @php 
+                            var_dump($objEmployee['references'][0]['ID_Ref']);
+                            @endphp
+                            
+                            <hr class="mt-0" />
+                        </div>
+                        <div class="content-wrapper-projets">
+                            <div class="content-projets">
+                                <div class="row">
+                                    <div class="col-md-3 mb-4">
+                                        <label for="selectpickerLiveSearch" class="form-label">Reference</label>
+                                        <select id="selectpickerLiveSearch" class="projet-idRef selectpicker w-100" data-style="btn-default" data-live-search="true">
+                                            <option value="" data-tokens="">Selectionner une Reference</option>
+                                            @foreach($objEmployee['references'] as $ref)
+                                            <option value="{{$ref['ID_Ref']}}-{{$ref['nMarche']}} ({{$ref['client']}})" data-tokens="{{$ref['ID_Ref']}}">{{$ref['nMarche']}} ({{$ref['client']}})</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-4">
+                                        <label for="selectpickerLiveSearch" class="form-label">Poste</label>
+                                        <select id="selectpickerLiveSearch" class="projet-poste selectpicker w-100" data-style="btn-default" data-live-search="true">
+                                            <option value="" data-tokens="">Selectionner un poste</option>
+                                            <option value="Directeur projets" data-tokens="Directeur projets">Directeur projets</option>
+                                            <option value="Chef projets topographe" data-tokens="Chef projets topographe">Chef projets topographe</option>
+                                            <option value="Chef projet Hydrographe" data-tokens="Chef projet Hydrographe">Chef projet Hydrographe</option>
+                                            <option value="Chef projets SIG" data-tokens="Chef projets SIG">Chef projets SIG</option>
+                                            <option value="Technicien Topographe" data-tokens="Technicien Topographe">Technicien Topographe</option>
+                                            <option value="Technicien Hydrographe" data-tokens="Technicien Hydrographe">Technicien Hydrographe</option>
+                                            <option value="Technicien SIG" data-tokens="Technicien SIG">Technicien SIG</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-4">
+                                        <label for="selectpickerLiveSearch" class="form-label">Missions (séparées par une virgule)</label>
+                                        <textarea class="form-control" id="projet-missions" rows="3" placeholder="Mission 1, Mission 2, Mission 3"></textarea>
+                                    </div>
+                                    <div class="col-md-3 mb-4">
+                                        <label for="selectpickerLiveSearch" class="form-label">Description des missions</label>
+                                        <textarea class="form-control" id="projet-desc" rows="3"></textarea>
+                                    </div>
+                                    <div class="actions">
+                                        <button type="button" class="btn btn-primary btn-save-projet mb-3"><i class="fa fa-plus"></i> Save Projet</button>
+                                    </div>
+                                    <div class="row content-projets-map">
+                                        @foreach($objEmployee['projets'] as $index => $projet)
+                                        <div class="col-lg-6 col-xl-4 mb-3 content-one-projet">
+                                            <div class="card card-action mb-4">
+                                                <div class="card-alert"></div>
+                                                <div class="card-header">
+                                                    <div class="card-action-title">Projet n°{{$index+1}}</div>
+                                                    <div class="card-action-element">
+                                                        <ul class="list-inline mb-0">
+                                                            <li class="list-inline-item">
+                                                                <a href="javascript:void(0);" id="projet-{{$index+1}}" class="card-close"><i class="tf-icons ti ti-x ti-sm"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="card-text niveau_etude-cursus"><span class="card-title">Reference : </span>{{$projet['ref']}}</p>
+                                                    <p class="card-text"><span class="card-title">Poste : </span>{{$projet['poste']}}</p>
+                                                    <p class="card-text"><span class="card-title">Missions :</p>
+                                                    <ul class="list-group list-group-flush">
+                                                        @foreach($projet['missions'] as $mission)
+                                                            <li class="list-group-item">{{$mission}}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                    <hr class="mt-0" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex justify-content-between">
+                            <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
+                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-next" data-target="#checkout-confirmation"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="ti ti-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Confirmation -->
                 <div id="checkout-confirmation" class="content">
                     <div class="col-12 d-flex justify-content-between">
                         <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
                             <span class="align-middle d-sm-inline-block d-none">Previous</span>
                         </button>
-                        <button type="submit" class="btn btn-success btn-submit">Create Employee</button>
+                        <button type="submit" class="btn btn-success btn-update">Create Employee</button>
                     </div>
                 </div>
             </form>

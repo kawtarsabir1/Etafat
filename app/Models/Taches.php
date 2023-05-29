@@ -16,8 +16,4 @@ class Taches extends Model
         'ID_Ref'
     ];
 
-    public function ref()
-    {
-        return $this->belongsTo('Refs', 'ID_Ref');
-    }
 }

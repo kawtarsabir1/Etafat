@@ -15,7 +15,6 @@
               <hr class="mt-0" />
             </div>
             <input type="hidden" name="id" id="id">
-            <div class="content-custumize-language">
               <div class="content-language-custumize">
                 <div class="row language-elem">
                   <div class="col-lg-6 col-xl-4 col-12 mb-3">
@@ -37,8 +36,6 @@
                   </div>
                 </div>
               </div>
-
-            </div>
             <div class="actions mb-4">
               <button type="button" class="btn btn-primary btn-custumize-language"><i class="fa fa-plus"></i> Add Language</button>
             </div>
@@ -84,6 +81,44 @@
           </div>
 
           <div class="col-12">
+                        <div class="col-12">
+                            <h6 class="mt-2 fw-semibold">3. Experiences Professionnelles</h6>
+                            <hr class="mt-0" />
+                        </div>
+                        <div class="content-wrapper-experiences">
+                            <div class="content-refs">
+                                <div class="row">
+                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                        <label class="form-label" for="ref-employeur">Employeur</label>
+                                        <input type="text" id="ref-employeur" class="form-control" placeholder="Etafat">
+                                    </div>
+
+                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                        <label class="form-label" for="ref-range">Range</label>
+                                        <input type="text" class="form-control" placeholder="YYYY-MM-DD Au YYYY-MM-DD" id="ref-range" />
+                                    </div>
+
+                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                        <label class="form-label" for="ref-poste">Poste</label>
+                                        <input type="text" id="ref-poste" class="form-control" placeholder="Directeur Etudes">
+                                    </div>
+
+                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                        <label for="ref-taches" class="form-label">Taches (splite with comma)</label>
+                                        <textarea class="form-control" id="ref-taches" rows="3" placeholder="Tache 1, Tache 2, Tache 3"></textarea>
+                                    </div>
+                                    <div class="actions mb-4">
+                                        <button type="button" class="btn btn-primary btn-custom-Exp"><i class="fa fa-plus"></i> Save Experience</button>
+                                    </div>
+                                    <div class="row content-experiences-custumize">
+                                    </div>
+                                    <hr class="mt-0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+          <div class="col-12">
             <div class="col-12">
               <h6 class="mt-2 fw-semibold">3. Select les references</h6>
               <hr class="mt-0" />
@@ -93,8 +128,8 @@
           </div>
 
           <div class="col-12 text-center">
-            <button type="submit" class="btn btn-primary me-sm-3 me-1" id="btn-custumize" data-bs-dismiss="modal" aria-label="Close">Submit</button>
-            <button type="reset" class="btn btn-label-secondary" id="btn-cancel-cv" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+            <button type="submit" class="btn btn-primary me-sm-3 me-1" id="btn-custumize" data-bs-dismiss="modal" aria-label="Close">Appliquer</button>
+            <button type="button" class="btn btn-label-secondary" id="btn-cancel-cv" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
           </div>
         </form>
       </div>

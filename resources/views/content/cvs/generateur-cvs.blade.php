@@ -86,6 +86,7 @@
         //get models id input and ao id input
         let model = $("#models").val();
         let ao = $("#ao").val();
+        let langue_module = $("#langue_module").val();
         var toFill = [];
         if (model == '') {
             toFill.push('Model');
@@ -102,7 +103,9 @@
             let cardsCvs = localStorage.getItem('cardsCvs');
             formData.append('cvs', cardsCvs);
             formData.append('model', model);
+            formData.append('langue_module', langue_module)
             formData.append('ao', ao);
+            console.log('test');
             $.ajax({
                 url: "/cv/generateCvs",
                 type: 'POST',
@@ -110,7 +113,6 @@
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    console.log(data.downloadLink);
                     var downloadLink = data.downloadLink;
                     var link = document.createElement("a");
                     link.style.display = "none";
@@ -156,7 +158,7 @@
 
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">CVtéque /</span> Generez Cvs
+    <span class="text-muted fw-light">CVthèque /</span> Generez Cvs
 </h4>
 
 <div class="row">
@@ -215,7 +217,12 @@
                                 <option value="15-2023-MEF-AC-ARCHI">15-2023-MEF-AC-ARCHI</option>
                                 <option value="26-2023-MEF-AC-AU">26-2023-MEF-AC-AU</option>
                             </select>
-                            <button type="submit" class="btn btn-success btn-generate"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Generer</span> <i class="ti ti-arrow-right"></i></button>
+                            <select id="langue_module" class="form-select  mb-4" name="langue_module">
+                                <option value="">Select Langue</option>
+                                <option value="fr">Francais</option>
+                                <option value="an">Anglais</option>
+                            </select>
+                            <button type="submit" class="btn btn-success btn-generate"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Generer le cvs</span> <i class="ti ti-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>

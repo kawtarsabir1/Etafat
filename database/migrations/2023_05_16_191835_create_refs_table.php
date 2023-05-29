@@ -15,13 +15,18 @@ return new class extends Migration
     {
         Schema::create('refs', function (Blueprint $table) {
             $table->bigIncrements('ID_Ref');
-            $table->string('employeur');
-            $table->string('poste');
-            $table->string('dateDebut');
-            $table->string('dateFin');
+            $table->string('client');
+            $table->string('mantant');
+            $table->string('annee');
             $table->string('attestation')->nullable();
-            $table->string('domaines')->nullable();
-            $table->string('ID_Salarie');
+            $table->string('objet');
+            $table->string('nMarche');
+            $table->string('category');
+            $table->string('fiche');
+            $table->string('nRef');
+            $table->string('societe');
+            $table->string('missions');
+            $table->string('description');
             $table->boolean('archived');
             $table->timestamps();
         });
