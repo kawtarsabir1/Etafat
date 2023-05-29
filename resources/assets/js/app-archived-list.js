@@ -34,7 +34,7 @@ $(function () {
   // Users datatable
   if (dt_user_table.length) {
     var dt_user = dt_user_table.DataTable({
-      ajax: '/cv/gestion/allArchived', // JSON file to add data
+      ajax:  baseUrl + 'cv/gestion/allArchived', // JSON file to add data
       columns: [
         // columns according to JSON
         { data: '' },
@@ -344,7 +344,7 @@ $(function () {
               text: '<i class="ti ti-copy me-2" ></i>Active Cvs',
               className: 'dropdown-item',
               attr: {
-                onclick: 'window.location.href="/cv/gestion/"'
+                onclick: 'window.location.href="'+ baseUrl + 'cv/gestion/"'
               }
             }
           ]
@@ -353,7 +353,7 @@ $(function () {
           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Nouveau Employee</span>',
           className: 'btn btn-primary',
           attr: {
-            onclick: 'window.location.href="/cv/gestion/create"'
+            onclick: 'window.location.href="'+ baseUrl + 'cv/gestion/create"'
           }
         }
       ],
@@ -435,7 +435,7 @@ $(function () {
     //get the employee id from the id attr of the delete button
     var id = $(this).attr('id').split('-')[1];
     console.log(id);
-    var url = '/cv/gestion/restore/' + id;
+    var url = ''+ baseUrl +'cv/gestion/restore/' + id;
     var token = $('meta[name="csrf-token"]').attr('content');
     //confirm that you want to delete the employee
     if (!confirm('Are you sure you want to restore this employee?')) return;
@@ -463,5 +463,5 @@ $(function () {
 
 
 function editEmployee(id){
-  window.location.href='/cv/gestion/edit/'+id;
+  window.location.href= baseUrl +'cv/gestion/edit/'+id;
 }
