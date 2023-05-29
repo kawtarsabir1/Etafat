@@ -113,30 +113,29 @@
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    console.log('generated');
-                    // var downloadLink = data.downloadLink;
-                    // var link = document.createElement("a");
-                    // link.style.display = "none";
-                    // link.href = downloadLink;
-                    // link.download = "CVs.zip";
-                    // document.body.appendChild(link);
-                    // link.click();
-                    // document.body.removeChild(link);
-                    // const parts = downloadLink.split('/');
-                    // const zipFileName = parts[parts.length - 1];
-                    // const folderName = zipFileName.replace('.zip', '');
-                    // var formData = new FormData();
-                    // formData.append('folderName', folderName);
-                    // $.ajax({
-                    //     url: "/cv/deleteFolder",
-                    //     type: 'POST',
-                    //     data: formData,
-                    //     contentType: false,
-                    //     processData: false,
-                    //     success: function(data) {
-                    //         console.log(data);
-                    //     }
-                    // });
+                    var downloadLink = data.downloadLink;
+                    var link = document.createElement("a");
+                    link.style.display = "none";
+                    link.href = downloadLink;
+                    link.download = "CVs.zip";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    const parts = downloadLink.split('/');
+                    const zipFileName = parts[parts.length - 1];
+                    const folderName = zipFileName.replace('.zip', '');
+                    var formData = new FormData();
+                    formData.append('folderName', folderName);
+                    $.ajax({
+                        url: "/cv/deleteFolder",
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(data) {
+                            console.log(data);
+                        }
+                    });
                 }
             });
         }

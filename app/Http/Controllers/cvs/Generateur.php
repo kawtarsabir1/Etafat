@@ -237,16 +237,16 @@ class Generateur extends Controller
         $template->saveAs($file_path);
     }
 
-    // $zip = new ZipArchive();
-    // $zipFileName = public_path('cvs/' . $ao_name . '.zip');
-    // if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
-    //     $this->addFolderToZip($zip, $ao_folder_path, $ao_folder_path);
-    //     $zip->close();
-    //     $downloadLink = asset('cvs/' . $ao_name . '.zip');
-    //     return response()->json(['success' => true, 'message' => 'Zip file created successfully.', 'downloadLink' => $downloadLink]);
-    // }
+    $zip = new ZipArchive();
+    $zipFileName = storage_path('app/public/cvs/' . $ao_name . '.zip');
+    if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+        $this->addFolderToZip($zip, $ao_folder_path, $ao_folder_path);
+        $zip->close();
+        $downloadLink = url('storage/cvs/' . $ao_name . '.zip');
+        return response()->json(['success' => true, 'message' => 'Zip file created successfully.', 'downloadLink' => $downloadLink]);
+    }
 
-    // return response()->json(['success' => false, 'message' => 'Failed to create the zip file.']);
+    return response()->json(['success' => false, 'message' => 'Failed to create the zip file.']);
 }
 
 private function addFolderToZip($zip, $folderPath, $parentPath)
@@ -266,9 +266,9 @@ private function addFolderToZip($zip, $folderPath, $parentPath)
   public function deleteFolder(Request $request)
   {
     $folder = $request->folderName;
-    $folder_path = public_path('cvs/' . $folder);
+    $folder_path = storage_path('app/public/cvs/' . $folder);
     File::deleteDirectory($folder_path);
-    $zip_file_path = public_path('cvs/' . $folder . '.zip');
+    $zip_file_path = storage_path('app/public/cvs/' . $folder . '.zip');
     File::delete($zip_file_path);
     return response()->json(['success' => true, 'message' => 'Folder deleted successfully.']);
   }
