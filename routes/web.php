@@ -257,3 +257,6 @@ Route::post('/cv/reference/restore/{id}', $controller_path . '\cvs\references@re
 Route::get('/cv/references/archived', $controller_path . '\cvs\references@archived')->name('archived-page');
 
 Route::post('/cv/deleteFolder', $controller_path . '\cvs\generateur@deleteFolder')->name('delete-folder');
+
+//generate fiche
+Route::post('/cv/generate/fiche', $controller_path . '\cvs\references@generateFiche')->name('fiche-generate');

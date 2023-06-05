@@ -3,6 +3,7 @@
 @section('title', 'Create')
 
 @section('vendor-style')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/trumbowyg@2.25.1/dist/ui/trumbowyg.min.css">
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-select/bootstrap-select.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
@@ -62,6 +63,8 @@
 <script src="{{asset('assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/trumbowyg@2.25.1/dist/trumbowyg.min.js"></script>
 @endsection
 
 @section('page-script')
@@ -70,7 +73,19 @@
 <script src="{{asset('assets/js/forms-pickers.js')}}"></script>
 <!-- <script src="{{asset('assets/js/cards-actions.js')}}"></script> -->
 <script src="{{asset('assets/js/wizard-ex-checkout.js')}}"></script>
-
+<script src="https://cdn.tiny.cloud/1/8tfjkh53ljrw9556w1czhhfyvslie2pq78t3tmgejynutw12/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: 'textarea#ficheDesc',
+    plugins: 'code table lists',
+    toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
+  });
+  tinymce.init({
+    selector: 'textarea#ficheServices',
+    plugins: 'code table lists',
+    toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
+  });
+</script>
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {
@@ -115,6 +130,37 @@
         }
     });
 
+    $(".generate-fich").click(function(e) {
+        e.preventDefault();
+        var formData = new FormData();
+        formData.append('projet', $('#ficheProjet').val());
+        var ficheDescContent = tinymce.get('ficheDesc').getContent();
+        formData.append('description', ficheDescContent);
+        var ficheServicesContent = tinymce.get('ficheServices').getContent();
+        formData.append('services', ficheServicesContent);
+        formData.append('client', $('#ficheClient').val());
+        formData.append('objet', $('#ficheObjet').val());
+        formData.append('logo', $('#ficheLogo')[0].files[0]);
+        formData.append('localisation', $('#ficheLocal').val());
+
+        $.ajax({
+            url: "{{ route('fiche-generate') }}",
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                if ($.isEmptyObject(data.error)) {
+                    $('#fiche').val(data.fileName);
+                    alert('Fiche générée avec succès');
+                    $('#largeModal').modal('hide');
+                } else {
+                    printErrorMsg(data.error);
+                }
+            }
+        });
+    });
+
 </script>
 @endsection
 
@@ -153,7 +199,7 @@
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                     <label class="form-label" for="ref-client">Client</label>
-                                    <input type="text" name="client" class="form-control" placeholder="MASEN">
+                                    <input type="text" name="client" id="ficheClient" class="form-control" placeholder="MASEN">
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
@@ -172,28 +218,33 @@
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                    <label class="form-label" for="ref-client">Localisation</label>
+                                    <input type="text" name="localisation" id="ficheLocal" class="form-control" placeholder="Casablanca">
+                                </div>
+
+                                <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                    <label for="formValidationFile" class="form-label">Logo de client</label>
+                                    <input class="form-control" type="file" id="ficheLogo" name="logo">
+                                </div>
+
+                                <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                     <label for="formValidationFile" class="form-label">Attestation (s'il y a)</label>
                                     <input class="form-control" type="file" name="attestation">
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                    <label for="formValidationFile" class="form-label">Fiche de projet</label>
-                                    <input class="form-control" type="file" name="fiche">
-                                </div>
-
-                                <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                     <label for="ref-objet" class="form-label">Objet</label>
-                                    <textarea class="form-control" name="objet" rows="3" placeholder="Objet de reference"></textarea>
+                                    <textarea class="form-control" name="objet" id="ficheObjet" rows="1" placeholder="Objet de reference"></textarea>
                                 </div>
 
                                 <div class="col-md-3 mb-4">
                                     <label for="selectpickerLiveSearch" class="form-label">Missions (séparées par une virgule)</label>
-                                    <textarea class="form-control" name="missions" rows="3" placeholder="Mission 1, Mission 2, Mission 3"></textarea>
+                                    <textarea class="form-control" name="missions" rows="1" placeholder="Mission 1, Mission 2, Mission 3"></textarea>
                                 </div>
 
                                 <div class="col-md-3 mb-4">
                                     <label for="selectpickerLiveSearch" class="form-label">Description des missions</label>
-                                    <textarea class="form-control" name="description" placeholder="Description" rows="3"></textarea>
+                                    <textarea class="form-control" name="description" placeholder="Description" rows="1"></textarea>
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
@@ -210,11 +261,18 @@
                                     </select>
                                 </div>
 
+                                <div class="col-md-3 mb-4">
+                                    <input type="hidden" name="fiche" id="fiche">
+                                    <button type="button" class="btn btn-primary btn-generate-fiche" data-bs-toggle="modal" data-bs-target="#largeModal">
+                                        Générer fiche du projet
+                                    </button>
+                                </div>
+
                                 <div class="col-12 d-flex justify-content-between">
                                     <button type="button" class="btn btn-label-secondary btn-prev">
                                         <span class="align-middle d-sm-inline-block d-none">Annuler</span>
                                     </button>
-                                    <button type="button" class="btn btn-primary btn-create-ref"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Créer une référence</span></button>
+                                    <button type="button" class="btn btn-success btn-create-ref"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Créer une référence</span></button>
                                 </div>
                             </div>
                         </div>
@@ -224,6 +282,40 @@
         </div>
     </div>
 
+    <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel3">Generate Fiche Projet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col mb-3">
+                    <label for="nameLarge" class="form-label">Projet</label>
+                    <input type="text" id="ficheProjet" class="form-control" placeholder="Nom du Projet">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col mb-3">
+                    <label for="nameLarge" class="form-label">Description de projet</label>
+                    <textarea name="ficheDesc" id="ficheDesc"></textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col mb-3">
+                    <label for="nameLarge" class="form-label">Services fournis</label>
+                    <textarea name="ficheServices" id="ficheServices"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success generate-fich">Sauvegarder</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
 </div>
 

@@ -18,6 +18,8 @@ class Refs extends Model
         'nMarche',
         'category',
         'fiche',
+        'logo',
+        'localisation',
         'nRef',
         'societe',
         'missions',

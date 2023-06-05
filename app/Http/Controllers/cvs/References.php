@@ -8,8 +8,10 @@ use App\Models\Refs;
 use App\Models\Taches;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-use \DateTime;
-
+use Dompdf\Dompdf;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\Settings;
+use PhpOffice\PhpWord\TemplateProcessor;
 class References extends Controller
 {
     public function index()
@@ -36,12 +38,19 @@ class References extends Controller
             $fileName =  $client . uniqid() . '.' . $file1->getClientOriginalExtension();
             Storage::disk('public')->put('attestation/' . $fileName, file_get_contents($file1));
         }
-        $file2 = $request->file('fiche');
-        $client = $request->client; 
-        $ficheName = null;
-        if(file_exists($file2)){
-            $ficheName =  $client . uniqid() . '.' . $file2->getClientOriginalExtension();
-            Storage::disk('public')->put('fiches/' . $ficheName, file_get_contents($file2));
+        // $file2 = $request->file('fiche');
+        // $client = $request->client; 
+        // if(file_exists($file2)){
+        //     $ficheName =  $client . uniqid() . '.' . $file2->getClientOriginalExtension();
+        //     Storage::disk('public')->put('fiches/' . $ficheName, file_get_contents($file2));
+        // }
+
+        $file3 = $request->file('logo');
+        $client = $request->client;
+        $logoName = null;
+        if(file_exists($file3)){
+            $logoName =  $client . uniqid() . '.' . $file3->getClientOriginalExtension();
+            Storage::disk('public')->put('logos/' . $logoName, file_get_contents($file3));
         }
         Refs::create([
             'client' => $client,
@@ -50,7 +59,9 @@ class References extends Controller
             'annee' => $request->annee,
             'nMarche' => $request->nMarche,
             'attestation' => $fileName,
-            'fiche' => $ficheName,
+            'fiche' => $request->fiche,
+            'logo' => $logoName,
+            'localisation' => $request->localisation,
             'category' => $request->category,
             'missions' => $request->missions,
             'description' => $request->description,
@@ -108,5 +119,40 @@ class References extends Controller
         $Ref->archived = false;
         $Ref->save();
         return response()->json(['message' => 'References restored successfuly']);
+    }
+
+    public function generateFiche(Request $request)
+    {
+
+        $domPdfPath = base_path('vendor/dompdf/dompdf');
+        Settings::setPdfRendererPath($domPdfPath);
+        Settings::setPdfRendererName('DomPDF');
+
+        $templateProcessor = new TemplateProcessor(storage_path('app/public/models/fiche/fiche.docx'));
+        $templateProcessor->setValue('client', $request->client);
+        $templateProcessor->setValue('objet', $request->objet);
+        $templateProcessor->setValue('projet', $request->projet);
+        $templateProcessor->setValue('localisation', $request->localisation);
+        $templateProcessor->setValue('description', $request->description);
+        $templateProcessor->setValue('services', $request->services);
+        $templateProcessor->setImageValue('logo', [
+            'path' => $request->file('logo')->getPathname(),
+            'width' => 100,
+            'height' => 100,
+            'ratio' => false
+        ]);
+        $fileName = $request->client . uniqid();
+        $tempDocxPath = storage_path('app/public/fiches/' . $fileName . '.docx');
+        $templateProcessor->saveAs($tempDocxPath);
+
+        // Convert DOCX to PDF
+        $content = IOFactory::load($tempDocxPath);
+        $pdfWriter = IOFactory::createWriter($content, 'PDF');
+
+        // Save the PDF
+        $pdfPath = storage_path('app/public/fiches/' . $fileName . '.pdf');
+        $pdfWriter->save($pdfPath);
+
+        return response()->json(['message' => 'Fiche generated successfuly', 'fileName' => $fileName]);
     }
 }

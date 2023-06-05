@@ -433,8 +433,7 @@ function editEmployee(id){
 
 function openPdf(fiche){
   var modal = $("#exLargeModal");
-  //link is the public path /storage/fiches/file
-  var link = baseUrl+"../storage/app/public/fiches/"+fiche;
+  var link = baseUrl+"../storage/fiches/"+fiche;
   modal.find('iframe').attr('src', link);
   modal.modal("show");
 }

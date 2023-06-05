@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('nMarche');
             $table->string('category');
             $table->string('fiche');
+            $table->string('logo');
+            $table->string('localisation');
             $table->string('nRef');
             $table->string('societe');
             $table->string('missions');

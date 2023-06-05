@@ -13,7 +13,7 @@ use App\Models\Informations;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Illuminate\Support\Facades\File;
 use ZipArchive;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 
 
 class Generateur extends Controller
@@ -105,7 +105,7 @@ class Generateur extends Controller
     $objRefs = [];
     $projets = Projet::where('ID_Salarie', $id)->get();
     foreach ($refs as $key => $value) {
-      if($projets->isEmpty()){
+      if ($projets->isEmpty()) {
         $objRefs[] = [
           'id' => $value->ID_Ref,
           'client' => $value->client,
@@ -113,163 +113,140 @@ class Generateur extends Controller
           'missions' => $value->missions,
           'category' => $value->category,
         ];
-      }else{
+      } else {
         foreach ($projets as $key => $value1) {
-        if($value1->ID_reference == $value->ID_Ref){
-          $objRefs[] = [
-            'id' => $value->ID_Ref,
-            'client' => $value->client,
-            'annee' => $value->annee,
-            'missions' => $value->missions,
-            'category' => $value->category,
-            'missionsParticipe' => $value1->missions,
-          ];
-        }else{
-          $objRefs[] = [
-            'id' => $value->ID_Ref,
-            'client' => $value->client,
-            'annee' => $value->annee,
-            'missions' => $value->missions,
-            'category' => $value->category,
-          ];
+          if ($value1->ID_reference == $value->ID_Ref) {
+            $objRefs[] = [
+              'id' => $value->ID_Ref,
+              'client' => $value->client,
+              'annee' => $value->annee,
+              'missions' => $value->missions,
+              'category' => $value->category,
+              'missionsParticipe' => $value1->missions,
+            ];
+          } else {
+            $objRefs[] = [
+              'id' => $value->ID_Ref,
+              'client' => $value->client,
+              'annee' => $value->annee,
+              'missions' => $value->missions,
+              'category' => $value->category,
+            ];
+          }
         }
       }
-      }
-      
     }
     $objEmployee['refs'] = $objRefs;
 
-    
-    
-    
+
+
+
 
 
     return response()->json($objEmployee);
   }
 
   public function generateCvs(Request $request)
-{
-  
+  {
     $ao_name = $request->ao;
     $model = $request->model;
     $langue_module = $request->langue_module;
     $cvs = json_decode($request->cvs, true);
-    $ao_folder_path = storage_path('app/public/cvs') . DIRECTORY_SEPARATOR . $ao_name; 
+    $ao_folder_path = storage_path('app/public/cvs') . DIRECTORY_SEPARATOR . $ao_name;
+    //check if ao folder exist
+    if (File::exists($ao_folder_path)){
+      File::deleteDirectory($ao_folder_path);
+    }
     File::makeDirectory($ao_folder_path, 0777, true);
+    $cv_folder_path = $ao_folder_path;
 
+    $template = new TemplateProcessor(storage_path('app/public/models/' . $langue_module . '/' . $model . '.docx'));
+
+    //clone block block_cv for each cv and set data for each cv
+    $template->cloneBlock('block_cv', count($cvs), true, true);
+    $file_name = 'cvtheque.docx';
+    $data = ['nom', 'prenom', 'email', 'date_naissance', 'nationalite', 'role', 'phone'];
+    $database = ['nom', 'prenom', 'email', 'dateNaissance', 'nationalite', 'role', 'telephonePortable'];
+    $cvId = 1;
     foreach ($cvs as $cv) {
-        $cv_folder_name = $cv['nom'] . '_' . $cv['prenom'];
-        $cv_folder_path = $ao_folder_path . DIRECTORY_SEPARATOR . $cv_folder_name;
-        File::makeDirectory($cv_folder_path, 0777, true);
+      for($j = 0; $j < count($data); $j++) {
+        $template->setValue($data[$j] . '#' . $cvId, $cv[$database[$j]]);
+      }
 
-        $file_name = $cv_folder_name . '.docx';
-        $template = new TemplateProcessor(storage_path('app/public/models/'.$langue_module.'/'.$model.'.docx'));
-        $template->setValue('nom', $cv['nom']);
-        $template->setValue('prenom', $cv['prenom']);
-        $template->setValue('email', $cv['email']);
-        $template->setValue('phone', $cv['telephonePortable']);
-        $template->setValue('date_naissance', $cv['dateNaissance']);
-        $template->setValue('nationalite', $cv['nationalite']);
-        $template->setValue('role', $cv['role']);
+      $formations = $cv['formations'];
+      $template->cloneRow('diplome#' . $cvId, count($formations));
 
-        $formations = $cv['formations'];
-        $variables = $template->getVariables();
-        $foramtionAttr = ['etablissement', 'obtention', 'intitule'];
-        $template->cloneRow('etablissement', count($formations));
-        foreach ($formations as $key => $value) {
-            foreach ($foramtionAttr as $attr) {
-                if(in_array($attr, $variables)){
-                  $template->setValue($attr . '#' . ($key + 1), $value[$attr]);
-                }
-            }
+      $variables = $template->getVariables();
+      $foramtionAttr = ['etablissement', 'obtention', 'intitule'];
+      $template->cloneRow('etablissement'.'#'. $cvId , count($formations));
+      foreach ($formations as $key => $value) {
+        foreach ($foramtionAttr as $attr) {
+          if (in_array($attr.'#'. $cvId, $variables)) {
+            $template->setValue($attr.'#'. $cvId . '#' . ($key + 1), $value[$attr]);
+          }
         }
+      }
 
-        $experiences = $cv['experiences'];
-        $template->cloneRow('dateDebut', count($experiences));
-        $experiencesData = ['employeur', 'poste', 'dateDebut', 'dateFin', 'taches'];
-        foreach($experiences as $key => $value){
-            foreach ($experiencesData as $attr) {
-              if(in_array($attr, $variables)){
-                if($attr == 'taches'){
-                  $taches = $value['taches'];
-                  $tachesStr = '';
-                  foreach ($taches as $key1 => $value1) {
-                      $tachesStr .= $value1['tache'] . '/ ';
-                  }
-                  $template->setValue($attr . '#' . ($key + 1), $tachesStr);
-                }else{
-                    $template->setValue($attr . '#' . ($key + 1), $value[$attr]);
-                }
+      for ($i = 1; $i <= count($formations); $i++) {
+        $diplome = $formations[$i - 1]['diplome'];
+        $diplome = storage_path('app/public/formations/' . $diplome);
+        $ext = pathinfo($diplome, PATHINFO_EXTENSION);
+        $template->setImageValue('diplome'.'#'. $cvId . '#' . $i, array('path' => $diplome, 'width' => 580, 'height' => 300, 'ratio' => false));
+      }
+
+      $experiences = $cv['experiences'];
+      $template->cloneRow('dateDebut'.'#'. $cvId , count($experiences));
+      $experiencesData = ['employeur', 'poste', 'dateDebut', 'dateFin', 'taches'];
+      foreach ($experiences as $key => $value) {
+        foreach ($experiencesData as $attr) {
+          if (in_array($attr.'#'. $cvId, $variables)) {
+            if ($attr.'#'. $cvId == 'taches'.'#'. $cvId) {
+              $taches = $value['taches'];
+              $tachesStr = '';
+              foreach ($taches as $key1 => $value1) {
+                $tachesStr .= $value1['tache'] . '/ ';
               }
+              $template->setValue($attr.'#'. $cvId . '#' . ($key + 1), $tachesStr);
+            } else {
+              $template->setValue($attr.'#'. $cvId . '#' . ($key + 1), $value[$attr]);
             }
+          }
         }
+      }
 
-        //set langues from string to array
-        $langues = explode(',', $cv['langue']);
-        $niveaux = explode(',', $cv['niveauLangue']);
-        $template->cloneRow('langue', count($langues));
-        foreach ($langues as $key => $value) {
-            $template->setValue('langue#' . ($key + 1), $value);
-            $template->setValue('niveauLangue#' . ($key + 1), $niveaux[$key]);
+      $refs = $cv['refs'];
+      foreach ($refs as $key => $value) {
+        if(!isset($value['missionsParticipe'])) {
+          unset($refs[$key]);
         }
-        
-        $file_path = $cv_folder_path . DIRECTORY_SEPARATOR . $file_name;
-
-        $Employee = Informations::where('ID_Salarie', $cv['id'])->first();
-        $photoIdentite = $Employee->PhotoIdentite;
-        $photoIdentite = storage_path('app/public/photos/' . $photoIdentite);
-        $ext = pathinfo($photoIdentite, PATHINFO_EXTENSION);
-        $cv['photo'] = 'photo' . '.'. $ext;
-        File::copy($photoIdentite, $cv_folder_path . DIRECTORY_SEPARATOR . $cv['photo']);
-
-        $formations = Formations::where('ID_Salarie', $cv['id'])->get();
-        foreach ($formations as $key => $value) {
-            if ($value->diplome != null) {
-                $diplome = $value->diplome;
-                $diplome = storage_path('app/public/formations/' . $diplome);
-                $ext = pathinfo($diplome, PATHINFO_EXTENSION);
-                $name = 'certificat_' . $value->intitule . '.' . $ext;
-                File::copy($diplome, $cv_folder_path . DIRECTORY_SEPARATOR . $name);
+      }
+      $template->cloneRow('missions'.'#'. $cvId , count($refs));
+      $refsData = ['client', 'annee', 'missions'];
+      foreach ($refs as $key => $value) {
+        foreach ($refsData as $attr) {
+          if (in_array($attr.'#'. $cvId, $variables)) {
+            if($attr.'#'. $cvId == 'missions'.'#'. $cvId) {
+                $template->setValue($attr.'#'. $cvId . '#' . ($key + 1), $value['missionsParticipe']);
+            } else {
+              $template->setValue($attr.'#'. $cvId . '#' . ($key + 1), $value[$attr]);
             }
+          }
         }
-        
+      }
 
-        $template->saveAs($file_path);
+      $langues = explode(',', $cv['langue']);
+      $niveaux = explode(',', $cv['niveauLangue']);
+      $template->cloneRow('langue#'. $cvId, count($langues));
+      foreach ($langues as $key => $value) {
+        $template->setValue('langue#' . $cvId . '#' . ($key + 1), $value);
+        $template->setValue('niveauLangue#' . $cvId . '#' . ($key + 1), $niveaux[$key]);
+      }
+      $cvId++;
     }
 
-    $zip = new ZipArchive();
-    $zipFileName = storage_path('app/public/cvs/' . $ao_name . '.zip');
-    if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
-        $this->addFolderToZip($zip, $ao_folder_path, $ao_folder_path);
-        $zip->close();
-        $downloadLink = url('storage/cvs/' . $ao_name . '.zip');
-        return response()->json(['success' => true, 'message' => 'Zip file created successfully.', 'downloadLink' => $downloadLink]);
-    }
-
-    return response()->json(['success' => false, 'message' => 'Failed to create the zip file.']);
-}
-
-private function addFolderToZip($zip, $folderPath, $parentPath)
-{
-    $folderContents = glob($folderPath . '/*');
-
-    foreach ($folderContents as $item) {
-        if (is_dir($item)) {
-            $this->addFolderToZip($zip, $item, $parentPath);
-        } else {
-            $relativeFilePath = ltrim(str_replace($parentPath, '', $item), '/\\');
-            $zip->addFile($item, $relativeFilePath);
-        }
-    }
-}
-
-  public function deleteFolder(Request $request)
-  {
-    $folder = $request->folderName;
-    $folder_path = storage_path('app/public/cvs/' . $folder);
-    File::deleteDirectory($folder_path);
-    $zip_file_path = storage_path('app/public/cvs/' . $folder . '.zip');
-    File::delete($zip_file_path);
-    return response()->json(['success' => true, 'message' => 'Folder deleted successfully.']);
+    $template->saveAs($cv_folder_path . DIRECTORY_SEPARATOR . $file_name);
+    $fileUrl = url('storage/cvs/' . $ao_name . '/' . $file_name);
+    return response()->json(['success' => true, 'message' => 'CVs generated successfully.', 'fileUrl' => $fileUrl]);
   }
+
 }
