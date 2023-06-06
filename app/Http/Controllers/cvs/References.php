@@ -12,6 +12,9 @@ use Dompdf\Dompdf;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\TemplateProcessor;
+use PhpOffice\PhpWord\Shared\Html;
+use PhpOffice\PhpWord\Element\Text;
+
 class References extends Controller
 {
     public function index()
@@ -32,9 +35,9 @@ class References extends Controller
     public function store(Request $request)
     {
         $file1 = $request->file('attestation');
-        $client = $request->client; 
+        $client = $request->client;
         $fileName = null;
-        if(file_exists($file1)){
+        if (file_exists($file1)) {
             $fileName =  $client . uniqid() . '.' . $file1->getClientOriginalExtension();
             Storage::disk('public')->put('attestation/' . $fileName, file_get_contents($file1));
         }
@@ -48,7 +51,7 @@ class References extends Controller
         $file3 = $request->file('logo');
         $client = $request->client;
         $logoName = null;
-        if(file_exists($file3)){
+        if (file_exists($file3)) {
             $logoName =  $client . uniqid() . '.' . $file3->getClientOriginalExtension();
             Storage::disk('public')->put('logos/' . $logoName, file_get_contents($file3));
         }
@@ -73,17 +76,20 @@ class References extends Controller
         return response()->json(['message' => 'References added successfuly']);
     }
 
-    public function getRefs(){
+    public function getRefs()
+    {
         $Refs = Refs::where('archived', false)->get();
         return response()->json(['data' => $Refs]);
     }
 
-    public function getArchivedRefs(){
+    public function getArchivedRefs()
+    {
         $Refs = Refs::where('archived', true)->get();
         return response()->json(['data' => $Refs]);
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $Ref = Refs::where('ID_Ref', $id)->first();
         return view('content.cvs.reference-cv-edit', compact('Ref'));
     }
@@ -129,12 +135,21 @@ class References extends Controller
         Settings::setPdfRendererName('DomPDF');
 
         $templateProcessor = new TemplateProcessor(storage_path('app/public/models/fiche/fiche.docx'));
-        $templateProcessor->setValue('client', $request->client);
-        $templateProcessor->setValue('objet', $request->objet);
-        $templateProcessor->setValue('projet', $request->projet);
-        $templateProcessor->setValue('localisation', $request->localisation);
-        $templateProcessor->setValue('description', $request->description);
-        $templateProcessor->setValue('services', $request->services);
+        $templateProcessor->setValue('client', strip_tags($request->client));
+        $templateProcessor->setValue('objet', strip_tags($request->objet));
+        $templateProcessor->setValue('projet', strip_tags($request->projet));
+        $templateProcessor->setValue('localisation', strip_tags($request->localisation));
+        
+        $descriptionHtml = $request->description;
+        $descriptionText = $this->formatText($descriptionHtml);
+        $text = new \PhpOffice\PhpWord\Element\Text(html_entity_decode($descriptionText, ENT_QUOTES, 'UTF-8'));
+        $templateProcessor->setComplexValue('description', $text);
+
+        $servicesHtml = $request->services;
+        $servicesText = $this->formatText($servicesHtml);
+        $text = new \PhpOffice\PhpWord\Element\Text(html_entity_decode($servicesText, ENT_QUOTES, 'UTF-8'));
+        $templateProcessor->setComplexValue('services', $text);
+
         $templateProcessor->setImageValue('logo', [
             'path' => $request->file('logo')->getPathname(),
             'width' => 100,
@@ -145,14 +160,39 @@ class References extends Controller
         $tempDocxPath = storage_path('app/public/fiches/' . $fileName . '.docx');
         $templateProcessor->saveAs($tempDocxPath);
 
-        // Convert DOCX to PDF
-        $content = IOFactory::load($tempDocxPath);
-        $pdfWriter = IOFactory::createWriter($content, 'PDF');
 
-        // Save the PDF
-        $pdfPath = storage_path('app/public/fiches/' . $fileName . '.pdf');
-        $pdfWriter->save($pdfPath);
+        //convert docx to pdf
+        $phpWord = \PhpOffice\PhpWord\IOFactory::load($tempDocxPath);
+        $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'PDF');
+        $xmlWriter->save(storage_path('app/public/fiches/' . $fileName . '.pdf'));
+
 
         return response()->json(['message' => 'Fiche generated successfuly', 'fileName' => $fileName]);
+    }
+
+    public function formatText($Html)
+    {
+        $allowedTags = '<br><p><ul><li><ol><strong><em><u><span><h1><h2><h3><h4><h5><h6><img><table><tr><td><th><thead><tbody><tfoot>';
+        $Text = strip_tags($Html, $allowedTags);
+
+        // Replace <ul> and <ol> tags with formatted lists
+        $Text = preg_replace('/<ul.*?>/', "\n", $Text);
+        $Text = preg_replace('/<ol.*?>/', "\n", $Text);
+        $Text = preg_replace('/<\/ul>/', "\n", $Text);
+        $Text = preg_replace('/<\/ol>/', "\n", $Text);
+        $Text = preg_replace('/<li.*?>/', "\n• ", $Text);
+        $Text = preg_replace('/<\/li>/', "\n", $Text);
+
+        // Replace <br> tags with line breaks
+        $Text = preg_replace('/<br.*?>/', "\n", $Text);
+
+        // Replace <p> tags with line breaks
+        $Text = preg_replace('/<p.*?>/', "\n", $Text);
+        $Text = preg_replace('/<\/p>/', "\n", $Text);
+
+        // Remove remaining HTML tags
+        $Text = strip_tags($Text);
+
+        return $Text;
     }
 }
