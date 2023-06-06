@@ -705,8 +705,8 @@ function editCv(index) {
   modal.find('#id').val(cv.id);
   let languageElem = modal.find('.content-language-custumize');
 
-  let Langues = cv.langue.split(',');
-  let Niveaux = cv.niveauLangue.split(',');
+  let Langues = cv.langue.split(',') || [];
+  let Niveaux = cv.niveauLangue.split(',') || [];
   for (let i = 0; i < Langues.length; i++) {
     var clone = languageElem.find('.row:first').clone();
     let inputLanguage = clone.find('#language-input');

@@ -28,8 +28,8 @@
         contentType: false,
         processData: false,
         success: function(data) {
-          // alert('Données téléchargées avec succès');
-          // location.reload();
+          alert('Données téléchargées avec succès');
+          location.reload();
         }
       });
     });
