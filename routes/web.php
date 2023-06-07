@@ -256,7 +256,24 @@ Route::post('/cv/reference/restore/{id}', $controller_path . '\cvs\references@re
 
 Route::get('/cv/references/archived', $controller_path . '\cvs\references@archived')->name('archived-page');
 
+Route::get('/cv/projets/{id}', $controller_path . '\cvs\gestion@projets')->name('archived-page');
+
 Route::post('/cv/deleteFolder', $controller_path . '\cvs\generateur@deleteFolder')->name('delete-folder');
 
 //generate fiche
 Route::post('/cv/generate/fiche', $controller_path . '\cvs\references@generateFiche')->name('fiche-generate');
+
+Route::get('/cv/formgestion/rh', $controller_path . '\cvs\gestion@rhPage')->name('rhPage');
+Route::get('/cv/formgestion/postes', $controller_path . '\cvs\gestion@postesPage')->name('postesPage');
+Route::get('/cv/formgestion/departements', $controller_path . '\cvs\gestion@departementsPage')->name('departementsPage');
+Route::get('/cv/formgestion/societes', $controller_path . '\cvs\gestion@societesPage')->name('societesPage');
+
+Route::post('/cv/formgestion/rh', $controller_path . '\cvs\gestion@addRh')->name('rh-Add');
+Route::post('/cv/formgestion/postes', $controller_path . '\cvs\gestion@addPost')->name('postes-Add');
+Route::post('/cv/formgestion/departements', $controller_path . '\cvs\gestion@addDepart')->name('departements-Add');
+Route::post('/cv/formgestion/societe', $controller_path . '\cvs\gestion@addSociete')->name('societe-Add');
+
+Route::delete('/cv/deleteRh/{id}', $controller_path . '\cvs\gestion@deleteRh')->name('rh-delete');
+Route::delete('/cv/deletepost/{id}', $controller_path . '\cvs\gestion@deletePost')->name('postes-delete');
+Route::delete('/cv/deleteDepart/{id}', $controller_path . '\cvs\gestion@deleteDepart')->name('departements-delete');
+Route::delete('/cv/deleteSociete/{id}', $controller_path . '\cvs\gestion@deleteSociete')->name('societe-delete');

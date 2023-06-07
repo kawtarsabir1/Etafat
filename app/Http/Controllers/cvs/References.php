@@ -5,6 +5,7 @@ namespace App\Http\Controllers\cvs;
 use App\Http\Controllers\Controller;
 use App\Models\Informations;
 use App\Models\Refs;
+use App\Models\Societe;
 use App\Models\Taches;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -29,7 +30,9 @@ class References extends Controller
 
     public function create()
     {
-        return view('content.cvs.references-cv-create');
+        //get all societes
+        $societes = Societe::all();
+        return view('content.cvs.references-cv-create', compact('societes'));
     }
 
     public function store(Request $request)

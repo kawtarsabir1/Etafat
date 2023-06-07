@@ -189,7 +189,12 @@
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                     <label class="form-label" for="ref-client">Nom du societe</label>
-                                    <input type="text" name="societe" class="form-control" placeholder="Etafat">
+                                    <select id="form-repeater-1-4" class="form-select" name="societe">
+                                        <option value="">Sélectionner Societe</option>
+                                        @foreach($societes as $societe)
+                                        <option value="{{$societe->societeNom}}">{{$societe->societeNom}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">

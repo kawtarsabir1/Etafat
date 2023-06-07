@@ -28,6 +28,33 @@
           "name": "References",
           "icon": "menu-icon tf-icons ti ti-file-description",
           "slug": "references"
+        },
+        {
+          "name": "Gestion des Formulaire",
+          "icon": "menu-icon tf-icons ti ti-file-description",
+          "slug": "references",
+          "submenu": [
+            {
+              "url": "/cv/formgestion/rh",
+              "name": "RH",
+              "slug": "rh"
+            },
+            {
+              "url": "/cv/formgestion/postes",
+              "name": "Postes",
+              "slug": "postes"
+            },
+            {
+              "url": "/cv/formgestion/departements",
+              "name": "Departements",
+              "slug": "departements"
+            },
+            {
+              "url": "/cv/formgestion/societes",
+              "name": "Societes",
+              "slug": "societes"
+            }
+          ]
         }
       ]
     }

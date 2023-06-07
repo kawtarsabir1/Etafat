@@ -83,7 +83,6 @@
         }
         return true;
     }
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -249,7 +248,7 @@
 
                         <div class="col-md-6">
                             <label for="flatpickr-date" class="form-label">Date Naissance</label>
-                            <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date" name="DateNaissance" required />
+                            <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="flatpickr-date" name="DateNaissance" required />
                         </div>
 
                         <div class="col-md-6">
@@ -322,42 +321,42 @@
 
                         <div class="col-md-6">
                             <label class="form-label" for="NumeroCNSS">Numero CNSS</label>
-                            <input class="form-control" type="text" id="NumeroCNSS" name="NumeroCNSS" placeholder="AA1111" />
+                            <input class="form-control" type="text" id="NumeroCNSS" name="NumeroCNSS" placeholder="" />
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label" for="ResponsableHierarchique">Responsable hiérarchique</label>
+                            <label class="form-label" for="ResponsableHierarchique">Responsable hiérarchique
+                            </label>
                             <select id="form-repeater-1-4" class="form-select" name="ResponsableHierarchique">
-                                <option value="Imane">Imane</option>
+                                <option value="">Selectionner un responsable</option>
+                                @foreach($rhs as $rh)
+                                <option value="{{$rh->rhNom}}">{{$rh->rhNom}}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label" for="Poste">Poste</label>
                             <select id="form-repeater-1-4" class="form-select" name="Poste">
-                                <option value="RH">RH</option>
-                                <option value="Developer">Developer</option>
+                                <option value="">Selectionner un poste</option>
+                                @foreach($posts as $post)
+                                <option value="{{$post->postNom}}">{{$post->postNom}}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label" for="DateEmbauche">Date Embauche</label>
-                            <input type="text" class="form-control flatpickr-validation" name="DateEmbauche" id="DateEmbauche" required />
+                            <input type="text" class="form-control" name="DateEmbauche" placeholder="DD-MM-YYYY" id="flatpickr-dateEmbauche" required />
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label" for="DepartementAffectation">Departement Affectation</label>
                             <select id="form-repeater-1-4" class="form-select" name="DepartementAffectation">
-                                <option value="DG">DG</option>
-                                <option value="DSI">DSI</option>
-                                <option value="SUP">SUP</option>
-                                <option value="TCA">TCA</option>
-                                <option value="TGE">TGE</option>
-                                <option value="COP">COP</option>
-                                <option value="LAS">LAS</option>
-                                <option value="MMS">MMS</option>
-                                <option value="DRO">DRO</option>
-                                <option value="SIG">SIG</option>
+                                <option value="">Selectionner un departement</option>
+                                @foreach($departements as $departement)
+                                    <option value="{{$departement->departementNom}}">{{$departement->departementNom}}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -374,10 +373,14 @@
                             </select>
                         </div>
 
+                        <div class="col-md-6">
+                            <label class="form-label" for="DateEmbauche">Contrat Date Debut</label>
+                            <input type="text" class="form-control" name="contratDu" placeholder="DD-MM-YYYY" id="flatpickr-dateDu" required />
+                        </div>
 
                         <div class="col-md-6">
-                            <label for="contrat-range" class="form-label">Contrat Du</label>
-                            <input type="text" class="form-control" placeholder="YYYY-MM-DD Au YYYY-MM-DD" id="contrat-range" name="ContratRange" />
+                            <label class="form-label" for="DateEmbauche">Contrat Date Fin</label>
+                            <input type="text" class="form-control" name="contratAu" placeholder="DD-MM-YYYY" id="flatpickr-dateAu" />
                         </div>
 
                         <div class="col-12">
@@ -441,7 +444,7 @@
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                         <label class="form-label" for="formValidationEmbauche">Année d'obtention</label>
-                                        <input type="text" class="form-control flatpickr-validation" id="obtention" placeholder="YYYY-MM-DD" />
+                                        <input type="text" class="form-control" id="obtention" placeholder="DD-MM-YYYY" />
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
@@ -485,10 +488,15 @@
                                         <label class="form-label" for="ref-employeur">Employeur</label>
                                         <input type="text" id="ref-employeur" class="form-control" placeholder="Etafat">
                                     </div>
+                                    
+                                    <div class="col-md-6 col-xl-3 col-12 mb-3">
+                                        <label class="form-label" for="DateEmbauche">Date Debut</label>
+                                        <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="exp-dateDu" required />
+                                    </div>
 
-                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                        <label class="form-label" for="ref-range">Range</label>
-                                        <input type="text" class="form-control" placeholder="YYYY-MM-DD Au YYYY-MM-DD" id="ref-range" />
+                                    <div class="col-md-6 col-xl-3 col-12 mb-3">
+                                        <label class="form-label" for="DateEmbauche">Date Fin</label>
+                                        <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="exp-dateAu" />
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
@@ -540,13 +548,9 @@
                                         <label for="selectpickerLiveSearch" class="form-label">Poste</label>
                                         <select id="selectpickerLiveSearch" class="projet-poste selectpicker w-100" data-style="btn-default" data-live-search="true">
                                             <option value="" data-tokens="">Selectionner un poste</option>
-                                            <option value="Directeur projets" data-tokens="Directeur projets">Directeur projets</option>
-                                            <option value="Chef projets topographe" data-tokens="Chef projets topographe">Chef projets topographe</option>
-                                            <option value="Chef projet Hydrographe" data-tokens="Chef projet Hydrographe">Chef projet Hydrographe</option>
-                                            <option value="Chef projets SIG" data-tokens="Chef projets SIG">Chef projets SIG</option>
-                                            <option value="Technicien Topographe" data-tokens="Technicien Topographe">Technicien Topographe</option>
-                                            <option value="Technicien Hydrographe" data-tokens="Technicien Hydrographe">Technicien Hydrographe</option>
-                                            <option value="Technicien SIG" data-tokens="Technicien SIG">Technicien SIG</option>
+                                            @foreach($posts as $post)
+                                                <option value="{{$post->postNom}}" data-tokens="{{$post->postNom}}">{{$post->postNom}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-3 mb-4">
