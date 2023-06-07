@@ -39,10 +39,4 @@ class Informations extends Model
         'Archived'
     ];
 
-
-    public function formations()
-    {
-        return $this->hasMany('formations', 'ID_Salarie');
-    }
-
 }

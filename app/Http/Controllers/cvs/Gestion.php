@@ -8,6 +8,10 @@ use App\Models\Taches;
 use App\Models\Refs;
 use App\Models\Formations;
 use App\Models\Experiences;
+use App\Models\Rh;
+use App\Models\Departement;
+use App\Models\Post;
+use App\Models\Societe;
 use App\Models\Informations;
 use App\Models\Projet;
 use Illuminate\Support\Facades\Storage;
@@ -37,71 +41,17 @@ class Gestion extends Controller
 
   public function getArchived()
   {
-      $employees = Informations::all()->where('Archived', 1);
+      $employees = Informations::where('Archived', 1)->get();
 
-      $formattedEmployees = $employees->map(function ($employee) {
-        return [
-          'id' => $employee->ID_Salarie,
-          'Nom' => $employee->Nom,
-          'Prenom' => $employee->Prenom,
-          'DateNaissance' => $employee->DateNaissance,
-          'LieuNaissance' => $employee->LieuNaissance,
-          'Adresse' => $employee->Adresse_1,
-          'CIN' => $employee->CIN,
-          'Email' => $employee->Email,
-          'TelephoneFixe' => $employee->TelephoneFixe,
-          'TelephonePortable' => $employee->TelephonePortable,
-          'Profil' => $employee->Profil,
-          'NumeroCNSS' => $employee->NumeroCNSS,
-          'ResponsableHierarchique' => $employee->ResponsableHierarchique,
-          'Poste' => $employee->Poste,
-          'DateEmbauche' => $employee->DateEmbauche,
-          'DepartementAffectation' => $employee->DepartementAffectation,
-          'ContratTravailNumero' => $employee->ContratTravailNumero,
-          'TypeContrat' => $employee->TypeContrat,
-          'ContratDu' => $employee->ContratDu,
-          'ContratAu' => $employee->ContratAu,
-          'Langues' => $employee->Langues,
-          'Niveau' => $employee->Niveau
-        ];
-      });
+      return response()->json(['data' => $employees]);
 
-      return response()->json(['data' => $formattedEmployees]);
-    
   }
 
   public function getEmployees()
   {
-    $employees = Informations::all()->where('Archived', 0);
+    $employees = Informations::where('Archived', 0)->get();
 
-    $formattedEmployees = $employees->map(function ($employee) {
-      return [
-        'id' => $employee->ID_Salarie,
-        'Nom' => $employee->Nom,
-        'Prenom' => $employee->Prenom,
-        'DateNaissance' => $employee->DateNaissance,
-        'LieuNaissance' => $employee->LieuNaissance,
-        'Adresse' => $employee->Adresse_1,
-        'CIN' => $employee->CIN,
-        'Email' => $employee->Email,
-        'TelephoneFixe' => $employee->TelephoneFixe,
-        'TelephonePortable' => $employee->TelephonePortable,
-        'Profil' => $employee->Profil,
-        'NumeroCNSS' => $employee->NumeroCNSS,
-        'ResponsableHierarchique' => $employee->ResponsableHierarchique,
-        'Poste' => $employee->Poste,
-        'DateEmbauche' => $employee->DateEmbauche,
-        'DepartementAffectation' => $employee->DepartementAffectation,
-        'ContratTravailNumero' => $employee->ContratTravailNumero,
-        'TypeContrat' => $employee->TypeContrat,
-        'ContratDu' => $employee->ContratDu,
-        'ContratAu' => $employee->ContratAu,
-        'Langues' => $employee->Langues,
-        'Niveau' => $employee->Niveau
-      ];
-    });
-
-    return response()->json(['data' => $formattedEmployees]);
+    return response()->json(['data' => $employees]);
   }
 
   public function show($id)
@@ -179,7 +129,13 @@ class Gestion extends Controller
         'nMarche' => $value->nMarche,
       ];
     }
-    return view('content.cvs.create-cv', compact('objRefs'));
+    //get rh from database
+    $rhs = Rh::all();
+    //get postes from database
+    $posts = Post::all();
+    //get departements from database
+    $departements = Departement::all();
+    return view('content.cvs.create-cv', compact('objRefs', 'rhs', 'posts', 'departements'));
   }
 
   public function store(Request $request)
@@ -552,56 +508,137 @@ class Gestion extends Controller
   public function viewCv($id)
   {
     //get employee where ID_Salarie = $id
-    $employee = Informations::where('ID_Salarie', $id)->first();
-    $objEmployee = [
-      'id' => $employee->ID_Salarie,
-      'nom' => $employee->Nom,
-      'prenom' => $employee->Prenom,
-      'email' => $employee->Email,
-      'telephonePortable' => $employee->TelephonePortable,
-      'telephoneFixe' => $employee->TelephoneFixe,
-      'postal' => $employee->Code_Postal,
-      'profil' => $employee->Profil,
-      'dateNaissance' => $employee->DateNaissance,
-      'lieuNaissance' => $employee->LieuNaissance,
-      'nationalite' => $employee->Nationalite,
-      'situationFamiliale' => $employee->SituationFamiliale,
-      'nombreEnfants' => $employee->NombreEnfants,
-      'adresse' => $employee->Adresse_1,
-      'adresse2' => $employee->Adresse_2,
-      'cnss' => $employee->NumeroCNSS,
-      'cin' => $employee->CIN,
-      'DateEmbauche' => $employee->DateEmbauche,
-      'ContratTravailNumero' => $employee->ContratTravailNumero,
-      'ContratDu' => $employee->ContratDu,
-      'ContratAu' => $employee->ContratAu,
-      'TypeContrat' => $employee->TypeContrat,
-      'Poste' => $employee->Poste,
-      'DepartementAffectation' => $employee->DepartementAffectation,
-      'langue' => $employee->Langues,
-      'niveauLangue' => $employee->Niveau,
-      'PhotoIdentite' => $employee->PhotoIdentite,
-      'Archived' => $employee->Archived,
-    ];
+    $objEmployee = Informations::where('ID_Salarie', $id)->first();
+    $objFormations = Formations::where('ID_Salarie', $id)->get();
+    $objExperiences = Experiences::where('ID_Salarie', $id)->get();
+    $objProjets = Projet::where('ID_Salarie', $id)->get();
 
-    //get formations where ID_Salarie = $id
-    $formations = Formations::where('ID_Salarie', $id)->get();
-    $objFormations = [];
-    foreach ($formations as $key => $value) {
-      $objFormations[] = [
-        'id' => $value->ID_Formation,
-        'idSalarie' => $value->ID_Salarie,
-        'intituleFormation' => $value->IntituleFormation,
-        'dateDebut' => $value->DateDebut,
-        'dateFin' => $value->DateFin,
-        'etablissement' => $value->EtablissementFormation,
-        'paysEtablissement' => $value->Lieu,
-      ];
+    $objEmployee['formations'] = $objFormations;
+    $objEmployee['projets'] = $objProjets;
+
+    $objExpEtFormations = [];
+
+    
+    foreach ($objExperiences as $experience) {
+      $annee = explode('-', $experience->dateDebut);
+      $objExperience = new \stdClass();
+      $objExperience->subtitle = $experience->poste;
+      $objExperience->annee = $annee[0];
+      $objExperience->title = $experience->employeur . " (Experience Professionnelle)";
+      array_push($objExpEtFormations, $objExperience);
     }
 
-    //add cursus and formations to objEmployee
-    $objEmployee['formations'] = $objFormations;
+    foreach ($objFormations as $formation) {
+      $objFormation = new \stdClass();
+      $objFormation->subtitle = $formation->intitule;
+      $objFormation->annee = $formation->obtention;
+      $objFormation->title = $formation->etablissement . " (Formation / Cursus)";
+      array_push($objExpEtFormations, $objFormation);
+    }
+
+
+    usort($objExpEtFormations, function ($a, $b) {
+        return $b->annee - $a->annee;
+    });
+
+    $objEmployee['experiences'] = $objExpEtFormations;
+
 
     return view('content.cvs.view-cv', compact('objEmployee'));
+  }
+
+  public function rhPage()
+  {
+    $rhs = Rh::all();
+    return view('content.cvs.gestion.rh', compact('rhs'));
+  }
+  public function postesPage()
+  {
+    $posts = Post::all();
+    return view('content.cvs.gestion.posts', compact('posts'));
+  }
+  public function departementsPage()
+  {
+    $departements = Departement::all();
+    return view('content.cvs.gestion.departement', compact('departements'));
+  }
+
+  public function societesPage()
+  {
+    $societes = Societe::all();
+    return view('content.cvs.gestion.societe', compact('societes'));
+  }
+
+  public function addRh(Request $request)
+  { 
+    $nom = $request->input('nom');
+    $rh = new Rh;
+    $rh->rhNom = $nom;
+    $rh->save();
+  }
+  public function addPost(Request $request)
+  {
+    $nom = $request->input('nom');
+    $post = new Post;
+    $post->postNom = $nom;
+    $post->save();
+  }
+  public function addDepart(Request $request)
+  {
+    $nom = $request->input('nom');
+    $depart = new Departement;
+    $depart->departementNom = $nom;
+    $depart->save();
+  }
+
+  public function addSociete(Request $request)
+  {
+    $nom = $request->input('nom');
+    $societe = new Societe;
+    $societe->societeNom = $nom;
+    $societe->save();
+  }
+
+  public function deleteRh($id)
+  { 
+    //delete rh
+    $rh = Rh::find($id);
+    $rh->delete();
+  }
+  public function deletePost($id)
+  {
+    //delete post
+    $post = Post::find($id);
+    $post->delete();
+  }
+
+  public function deleteDepart($id)
+  {
+    //delete departement
+    $depart = Departement::find($id);
+    $depart->delete();
+  }
+  
+  public function deleteSociete($id)
+  {
+    //delete departement
+    $societe = Societe::find($id);
+    $societe->delete();
+  }
+
+  public function projets($id){
+    //get projets where ID_Salarie = $id
+    $projets = Projet::where('ID_Salarie', $id)->get();
+    //get references where ID_Ref = $projets->ID_reference
+    foreach ($projets as $key => $value) {
+      $ref = Refs::where('ID_Ref', $value->ID_reference)->get();
+      $projets[$key]['objet'] = $ref[0]->objet;
+      $projets[$key]['client'] = $ref[0]->client;
+      $projets[$key]['annee'] = $ref[0]->annee;
+    }
+    return response()->json([
+      'success' => true,
+      'data' => $projets
+    ]);
   }
 }

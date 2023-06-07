@@ -168,7 +168,7 @@ $(function () {
           render: function (data, type, full, meta) {
             return (
               '<div class="d-flex align-items-center">' +
-              '<a href="javascript:;" id="btn-'+full['id']+'" class="text-body delete-record"><i class="ti ti-rotate ti-sm mx-2"></i></a>' +
+              '<a href="javascript:;" id="btn-'+full['ID_Salarie']+'" class="text-body delete-record"><i class="ti ti-rotate ti-sm mx-2"></i></a>' +
               '<a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>' +
               '<div class="dropdown-menu dropdown-menu-end m-0">' +
               '<a href="' +
@@ -183,7 +183,7 @@ $(function () {
       ],
       // add class name to td
       createdRow: function (row, data, dataIndex) {
-        $(row).attr('id', 'row_' + data['id']);
+        $(row).attr('id', 'row_' + data['ID_Salarie']);
       },
       order: [[1, 'desc']],
       dom:
@@ -434,7 +434,6 @@ $(function () {
     //detete the employee from the database
     //get the employee id from the id attr of the delete button
     var id = $(this).attr('id').split('-')[1];
-    console.log(id);
     var url = ''+ baseUrl +'cv/gestion/restore/' + id;
     var token = $('meta[name="csrf-token"]').attr('content');
     //confirm that you want to delete the employee

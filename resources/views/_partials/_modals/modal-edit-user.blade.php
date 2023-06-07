@@ -92,10 +92,19 @@
                                         <label class="form-label" for="ref-employeur">Employeur</label>
                                         <input type="text" id="ref-employeur" class="form-control" placeholder="Etafat">
                                     </div>
-
+<!-- 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                         <label class="form-label" for="ref-range">Range</label>
                                         <input type="text" class="form-control" placeholder="YYYY-MM-DD Au YYYY-MM-DD" id="ref-range" />
+                                    </div> -->
+                                    <div class="col-md-6 col-xl-3 col-12 mb-3">
+                                        <label class="form-label" for="DateEmbauche">Date Debut</label>
+                                        <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="exp-dateDu" required />
+                                    </div>
+
+                                    <div class="col-md-6 col-xl-3 col-12 mb-3">
+                                        <label class="form-label" for="DateEmbauche">Date Fin</label>
+                                        <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="exp-dateAu" />
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
