@@ -433,7 +433,7 @@ function editEmployee(id){
 
 function openPdf(fiche){
   var modal = $("#exLargeModal");
-  var link = baseUrl+"../storage/fiches/"+fiche;
+  var link = baseUrl+"../storage/fiches/"+fiche+".pdf";
   modal.find('iframe').attr('src', link);
   modal.modal("show");
 }

@@ -8,6 +8,12 @@
   // Flat Picker
   // --------------------------------------------------------------------
   const flatpickrDate = document.querySelector('#flatpickr-date'),
+   dateEmbauche = document.querySelector('#flatpickr-dateEmbauche'),
+   obtention = document.querySelector('#obtention'),
+   dateDu = document.querySelector('#flatpickr-dateDu'),
+   dateAu = document.querySelector('#flatpickr-dateAu'),
+   expDateDu = document.querySelector('#exp-dateDu'),
+   expDateAu = document.querySelector('#exp-dateAu'),
     flatpickrTime = document.querySelector('#flatpickr-time'),
     flatpickrDateTime = document.querySelector('#flatpickr-datetime'),
     flatpickrMulti = document.querySelector('#flatpickr-multi'),
@@ -21,7 +27,50 @@
   // Date
   if (flatpickrDate) {
     flatpickrDate.flatpickr({
-      monthSelectorType: 'static'
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  if (dateEmbauche) {
+    dateEmbauche.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  if (obtention) {
+    obtention.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  if (dateDu) {
+    dateDu.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  if (dateAu) {
+    dateAu.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  if (expDateDu) {
+    expDateDu.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  if (expDateAu) {
+    expDateAu.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
     });
   }
 

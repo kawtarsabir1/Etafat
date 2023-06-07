@@ -291,18 +291,24 @@ $(function () {
   btnSave.click(async function () {
     let employeur = $('#ref-employeur').val();
     let poste = $('#ref-poste').val();
-    let range = $('#ref-range').val();
+    var dateDu = $('#exp-dateDu').val();
+    var dateAu = $('#exp-dateAu').val();
     let taches = $('#ref-taches').val();
 
-    if (!employeur || !poste || !range || !taches) {
+    if (!employeur || !poste  || !dateDu || !taches) {
       alert('Veuillez remplir tous les champs');
       return;
+    }
+
+    if(dateAu == ''){
+      dateAu = 'Aujourd\'hui';
     }
 
     let ref = {
       employeur: employeur,
       poste: poste,
-      range: range,
+      dateDu: dateDu,
+      dateAu: dateAu,
       taches: taches.split(',')
     };
     let refsArray = JSON.parse(localStorage.getItem('refsArray')) || [];
@@ -327,7 +333,7 @@ $(function () {
             <div class="card-body">
                 <p class="card-text niveau_etude-cursus"><span class="card-title">Employeur : </span>${ref.employeur}</p>
                 <p class="card-text"><span class="card-title">Poste : </span>${ref.poste}</p>
-                <p class="card-text">Date from ${ref.range} </p>
+                <p class="card-text">Date Du ${ref.dateDu} Au ${ref.dateAu}</p>
                 <span class="card-title">Taches : </span>
                 <ul class="list-group list-group-flush">
                   ${ref.taches.map(tache => `<li class="list-group-item">${tache}</li>`).join('')}
@@ -340,7 +346,8 @@ $(function () {
 
     $('#employeur').val('');
     $('#poste').val('');
-    $('#range').val('');
+    $('#exp-dateDu').val('');
+    $('#exp-dateAu').val('');
     $('#taches').val('');
 
   });
@@ -491,7 +498,7 @@ $(function () {
       let employees = data.data;
       console.log(employees)
       employees.forEach(employee => {
-        let option = `<option value="${employee.id}">${employee.Nom} ${employee.Prenom}</option>`;
+        let option = `<option value="${employee.ID_Salarie}">${employee.Nom} ${employee.Prenom}</option>`;
         $('#employees').append(option);
       });
     }
@@ -705,8 +712,18 @@ function editCv(index) {
   modal.find('#id').val(cv.id);
   let languageElem = modal.find('.content-language-custumize');
 
-  let Langues = cv.langue.split(',') || [];
-  let Niveaux = cv.niveauLangue.split(',') || [];
+  var Langues = [];
+  var Niveaux = [];
+  if(cv.langue != null || cv.niveauLangue != null){
+    console.log(cv.langue);
+    Langues = cv.langue.split(',');
+    Niveaux = cv.niveauLangue.split(',');
+  }
+
+  if(Langues.length == 0){
+    var clone = languageElem.find('.row:first').clone();
+    languageElem.append(clone);
+  }
   for (let i = 0; i < Langues.length; i++) {
     var clone = languageElem.find('.row:first').clone();
     let inputLanguage = clone.find('#language-input');
@@ -774,7 +791,7 @@ function editCv(index) {
             <div class="card-body">
                 <p class="card-text"><span class="card-title">Employeur : </span>${experiences[i].employeur}</p>
                 <p class="card-text"><span class="card-title">Poste : </span>${experiences[i].poste}</p>
-                <p class="card-text">Date De ${experiences[i].dateDebut} Au ${experiences[i].dateFin} </p>
+                <p class="card-text">Date Du ${experiences[i].dateDebut} Au ${experiences[i].dateFin} </p>
             </div>
         </div>  
     </div>`;
@@ -1013,18 +1030,24 @@ $(function () {
     //get inputs values
     var form = $('.content-wrapper-experiences');
     var employeur = form.find('#ref-employeur').val();
-    var range = form.find('#ref-range').val();
+    var dateDu = form.find('#exp-dateDu').val();
+    var dateAu = form.find('#exp-dateAu').val();
     var poste = form.find('#ref-poste').val();
     var taches = form.find('#ref-taches').val();
 
-    if(!employeur || !range || !poste || !taches) {
+    if(!employeur || !dateDu || !poste || !taches) {
       alert('Veuillez remplir tous les champs');
       return;
     }
 
+    if(dateAu == ''){
+      dateAu = 'Aujourd\'hui';
+    }
+
     let experience = {
       employeur: employeur,
-      range: range,
+      dateDu: dateDu,
+      dateAu: dateAu,
       poste: poste,
       taches: taches.split(',')
     };
@@ -1052,7 +1075,7 @@ $(function () {
                 <div class="card-body">
                     <p class="card-text">Employeur : ${experience.employeur}</p>
                     <p class="card-text">Poste : ${experience.poste}</p>
-                    <p class="card-text">Date de ${experience.taches[0]} Au ${experience.taches[1]}</p>
+                    <p class="card-text">Date Du ${experience.dateDu} Au ${experience.dateAu}</p>
                 </div>
             </div>
         </div>`;
