@@ -666,41 +666,41 @@ function ListeCvs() {
 
 }
 
-function generateCvs() {
-  //post request to generate cvs
-  $.ajax({
-    url: baseUrl + 'cv/generateCvs',
-    type: 'POST',
-    data: {
-      "ao_name": "AO2023A4",
-      "ao_type": "topographie",
-      "num_marche": "112023",
-      "cvs": [
-        {
-          "nom": "Ayoub",
-          "prenom": "Basidi",
-          "email": "ayoub@gmail.com",
-          "phone": "0612345678",
-          "nationalite": "Marocaine",
-          "date_naissance": "1998-01-01",
-          "poste": "Developpeur"
-        },
-        {
-          "nom": "Jhon",
-          "prenom": "Doe",
-          "email": "jhondoe@gmail.com",
-          "phone": "0612345608",
-          "nationalite": "Marocaine",
-          "date_naissance": "1998-01-01",
-          "poste": "Responsable RH"
-        }
-      ],
-      "model": "model1.docx"
-    }
-  }).done(function (data) {
-    console.log(data);
-  });
-}
+// function generateCvs() {
+//   //post request to generate cvs
+//   $.ajax({
+//     url: baseUrl + 'cv/generateCvs',
+//     type: 'POST',
+//     data: {
+//       "ao_name": "AO2023A4",
+//       "ao_type": "topographie",
+//       "num_marche": "112023",
+//       "cvs": [
+//         {
+//           "nom": "Ayoub",
+//           "prenom": "Basidi",
+//           "email": "ayoub@gmail.com",
+//           "phone": "0612345678",
+//           "nationalite": "Marocaine",
+//           "date_naissance": "1998-01-01",
+//           "poste": "Developpeur"
+//         },
+//         {
+//           "nom": "Jhon",
+//           "prenom": "Doe",
+//           "email": "jhondoe@gmail.com",
+//           "phone": "0612345608",
+//           "nationalite": "Marocaine",
+//           "date_naissance": "1998-01-01",
+//           "poste": "Responsable RH"
+//         }
+//       ],
+//       "model": "model1.docx"
+//     }
+//   }).done(function (data) {
+//     console.log(data);
+//   });
+// }
 
 function editCv(index) {
   let cardsCvs = JSON.parse(localStorage.getItem('cardsCvs'));
@@ -715,7 +715,6 @@ function editCv(index) {
   var Langues = [];
   var Niveaux = [];
   if(cv.langue != null || cv.niveauLangue != null){
-    console.log(cv.langue);
     Langues = cv.langue.split(',');
     Niveaux = cv.niveauLangue.split(',');
   }
@@ -1121,11 +1120,13 @@ $(function () {
     var languagesData = [];
     var niveauxData = [];
     for (var key of formData.keys()) {
-      if (key.includes('langue')) {
-        languagesData.push(formData.getAll(key));
-      }
-      if (key.includes('niveau')) {
-        niveauxData.push(formData.getAll(key));
+      if(formData.getAll(key)[0] != ''){
+        if (key.includes('langue')) {
+            languagesData.push(formData.getAll(key));
+        }
+        if (key.includes('niveau')) {
+          niveauxData.push(formData.getAll(key));
+        }
       }
     }
     card['langue'] = languagesData.join(',');
@@ -1298,6 +1299,103 @@ function intialiseCursusEtRefsEtExp() {
   contentExperiencesCustumize.empty();
 }
 
+
+$(function () {
+  //get card-Ao class and get id from the element
+  $('.card-Ao').click(function () {
+    var id = $(this).attr('id');
+    $.ajax({
+      url: '/cv/generatedCvs/' + id,
+      type: 'GET',
+      success: function (data) {
+        if(localStorage.getItem('cardsCvs') != null) {
+          localStorage.removeItem('cardsCvs');
+        }
+        let cvsData = data.ao.cvs;
+        localStorage.setItem('cardsCvs', JSON.stringify(cvsData));
+        let cardCvs = JSON.parse(localStorage.getItem('cardsCvs'));
+        let cvsArray = [];
+        for(let i = 0; i < cardCvs.length; i++) {
+          cvsArray.push({
+            employee: cardCvs[i].id,
+            role: cardCvs[i].role,
+          });
+        }
+        localStorage.setItem('cvsArray', JSON.stringify(cvsArray));
+        if (cvsArray.length != 0) {
+          $('.no-data').css('display', 'none');
+        }
+
+        $('#langue_module').find('option[value="' + data.ao.langue + '"]').attr('selected', true);
+        $('#models').find('option[value="' + data.ao.modele + '"]').attr('selected', true);
+        $('#ao').find('option[value="' + data.ao.ao_nom + '"]').attr('selected', true);
+
+
+        
+
+
+        $('#largeModal').modal('hide');
+        ListeCvsAlreadyGenerated();
+      }
+    });
+  });
+});
+
+function ListeCvsAlreadyGenerated() {
+  //get content-list-cvs element
+  let contentListCvs = $('#content-list-cvs');
+  //get cvsArray from localstorage
+  let cvsArray = JSON.parse(localStorage.getItem('cvsArray'));
+  //get cardsCvs from localstorage
+  let cardsCvs = JSON.parse(localStorage.getItem('cardsCvs'));
+
+  //get the last cv in cardsCvs
+  let lastCv = cvsArray[cvsArray.length - 1];
+  var backgrounds = [
+    'bg-primary',
+    'bg-success',
+    'bg-danger',
+    'bg-secondary',
+    'bg-warning',
+    'bg-info',
+    'bg-dark'
+  ];
+
+  for(let i = 0; i < cardsCvs.length ; i++){
+      let index = cardsCvs.indexOf(cardsCvs[i]);
+      let data = cardsCvs[i];
+      let card = `<div class="col-lg-4 col-md-6 mb-4" id="cv-card-${index}">
+                    <div class="card rounded shadow-sm border-0 cursor-pointer">
+                        <div class="card-body p-0">
+                            <div class="card-overlay" style="display:none;z-index: 1;">
+                              <div class="bg-dark p-2 text-dark position-absolute w-100 h-100 rounded" style="opacity: 0.3;">
+                              </div>
+                                <a onclick="removeCv(${index})" class="btn btn-danger btn-sm text-white" style="position: absolute; bottom: 10px; right: 10px;opacity: 1;">Remove</a>
+                                <a onclick="editCv(${index})" class="btn btn-primary btn-sm text-white" style="position: absolute; bottom: 10px; left: 10px;opacity: 1;">Personnaliser</a>
+                            </div>
+                            
+                            <div class="${backgrounds[index % backgrounds.length]} px-5 py-4 text-center card-img-top"><img src="/storage/photos/${data.photo}" alt="..." width="100" class="rounded-circle mb-2 img-thumbnail d-block mx-auto">
+                                <h5 class="text-white mb-0">${data.nom} ${data.prenom}</h5>
+                                <p class="small text-white mb-0">${data.role}</p>
+                            </div>
+                            <div class="p-4 d-flex justify-content-center">
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item">
+                                        <h6 class="font-weight-bold mb-0 d-block">Poste</h6><small class="text-muted"><i class="fa fa-picture-o mr-1 text-info"></i>${data.Poste}</small>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <h6 class="font-weight-bold mb-0 d-block">Departement</h6><small class="text-muted"><i class="fa fa-user-circle-o mr-1 text-info"></i>${data.DepartementAffectation}</small>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+      contentListCvs.append(card);
+  }
+
+
+}
 
 
 

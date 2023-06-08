@@ -70,7 +70,7 @@
         <tr class="p-2 text-dark" style="background-color: rgba(0,104,171,.3);">
           <th></th>
           <th>Employé</th>
-          <th>Télphone Portable</th>
+          <th>Téléphone</th>
           <th>Poste</th>
           <th></th>
           <th>Profil</th>

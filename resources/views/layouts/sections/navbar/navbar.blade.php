@@ -36,19 +36,19 @@ $navbarDetached = ($navbarDetached ?? '');
       <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
         <!-- Search -->
-        <div class="navbar-nav align-items-center">
+        <!-- <div class="navbar-nav align-items-center">
           <div class="nav-item navbar-search-wrapper mb-0">
             <a class="nav-item nav-link search-toggler d-flex align-items-center px-0" href="javascript:void(0);">
               <i class="ti ti-search ti-md me-2"></i>
               <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
             </a>
           </div>
-        </div>
+        </div> -->
         <!-- /Search -->
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
           <!-- Language -->
-          <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
+          <!-- <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
               <i class='fi fi-us fis rounded-circle me-1 fs-3'></i>
             </a>
@@ -78,7 +78,7 @@ $navbarDetached = ($navbarDetached ?? '');
                 </a>
               </li>
             </ul>
-          </li>
+          </li> -->
           <!--/ Language -->
 
           <!-- Style Switcher -->
@@ -90,7 +90,7 @@ $navbarDetached = ($navbarDetached ?? '');
           <!--/ Style Switcher -->
 
           <!-- Quick links  -->
-          <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
+          <!-- <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
               <i class='ti ti-layout-grid-add ti-md'></i>
             </a>
@@ -168,7 +168,7 @@ $navbarDetached = ($navbarDetached ?? '');
                 </div>
               </div>
             </div>
-          </li>
+          </li> -->
           <!-- Quick links -->
 
           <!-- Notification -->
@@ -405,14 +405,14 @@ $navbarDetached = ($navbarDetached ?? '');
                 </a>
               </li>
               @endif
-              <li>
+              <!-- <li>
                 <a class="dropdown-item" href="{{url('app/invoice/list')}}">
                   <span class="d-flex align-items-center align-middle">
                     <i class="flex-shrink-0 ti ti-credit-card me-2 ti-sm"></i>
                     <span class="flex-grow-1 align-middle">Billing</span>
                     <span class="flex-shrink-0 badge badge-center rounded-pill bg-label-danger w-px-20 h-px-20">2</span>
                   </span> </a>
-              </li>
+              </li> -->
               @if (Auth::User() && Laravel\Jetstream\Jetstream::hasTeamFeatures())
               <li>
                 <div class="dropdown-divider"></div>
@@ -471,7 +471,7 @@ $navbarDetached = ($navbarDetached ?? '');
               <li>
                 <a class="dropdown-item" href="{{ Route::has('login') ? route('login') : 'javascript:void(0)' }}">
                   <i class='ti ti-login me-2'></i>
-                  <span class="align-middle">Login</span>
+                  <span class="align-middle">Logout</span>
                 </a>
               </li>
               @endif

@@ -1,0 +1,232 @@
+[
+    {
+        "id": 1,
+        "nom": "MENICHI",
+        "prenom": "ABDESSAMAD",
+        "email": "abdessamadm@etafat.ma",
+        "telephonePortable": "aucun",
+        "telephoneFixe": "aucun",
+        "postal": 20000,
+        "profil": "aucun",
+        "photo": "aucun",
+        "dateNaissance": "1997-03-28",
+        "lieuNaissance": "casablanca",
+        "nationalite": "marocaine",
+        "situationFamiliale": "c\u00e9libataire",
+        "nombreEnfants": 0,
+        "adresse": "Amal 04 Rue 56 NR 8 Bernoussi",
+        "adresse2": null,
+        "cnss": "139216239",
+        "cin": "BB148538",
+        "DateEmbauche": "10\/3\/2022",
+        "ContratTravailNumero": "22\/009",
+        "ContratDu": "aucun",
+        "ContratAu": "aucun",
+        "TypeContrat": "CDI",
+        "Poste": "chef de projet",
+        "DepartementAffectation": "3DRC",
+        "langue": null,
+        "niveauLangue": null,
+        "formations": [
+            {
+                "id": 1,
+                "intitule": "ing\u00e9nieur en sciences et ing\u00e9nierie topographique",
+                "obtention": "2021",
+                "etablissement": "IAV Hassan II",
+                "diplome": "Diplome BB148538.jpg"
+            }
+        ],
+        "experiences": [
+            {
+                "id": 1,
+                "dateDebut": "2022-01-01",
+                "dateFin": "2022-09-01",
+                "employeur": "GEO LAMBRET",
+                "poste": "chef de projet",
+                "taches": [
+                    {
+                        "id": 1,
+                        "tache": "pilotage des projets topographique g\u00e9n\u00e9rale"
+                    }
+                ]
+            }
+        ],
+        "refs": [
+            {
+                "id": 1,
+                "client": "MASEN",
+                "annee": "2020",
+                "missions": "M1,M2,M3",
+                "category": "Topo"
+            },
+            {
+                "id": 2,
+                "client": "LYDEC",
+                "annee": "2019",
+                "missions": "M1,M2",
+                "category": "Topo"
+            },
+            {
+                "id": 3,
+                "client": "ANP",
+                "annee": "2021",
+                "missions": "M1,M2,M3",
+                "category": "Bathy"
+            }
+        ],
+        "role": "Directeur projets"
+    },
+    {
+        "id": 3,
+        "nom": "BENMORGHI",
+        "prenom": "Wafaa",
+        "email": "wafaa.b@etafat.ma",
+        "telephonePortable": "aucun",
+        "telephoneFixe": "aucun",
+        "postal": 20000,
+        "profil": "aucun",
+        "photo": "aucun",
+        "dateNaissance": "1998-02-26",
+        "lieuNaissance": "marrakech",
+        "nationalite": "marocaine",
+        "situationFamiliale": "c\u00e9libataire",
+        "nombreEnfants": 0,
+        "adresse": "Lycee College el jadida",
+        "adresse2": null,
+        "cnss": "177024048",
+        "cin": "EE825632",
+        "DateEmbauche": "8\/15\/2022",
+        "ContratTravailNumero": "23\/002",
+        "ContratDu": "aucun",
+        "ContratAu": "aucun",
+        "TypeContrat": "CDI",
+        "Poste": "chef de projet",
+        "DepartementAffectation": "3DRC",
+        "langue": null,
+        "niveauLangue": null,
+        "formations": [
+            {
+                "id": 2,
+                "intitule": "ing\u00e9nieur en sciences et ing\u00e9nierie topographique",
+                "obtention": "2021",
+                "etablissement": "IAV Hassan II",
+                "diplome": "Diplome EE825632.jpg"
+            }
+        ],
+        "experiences": [],
+        "refs": [
+            {
+                "id": 1,
+                "client": "MASEN",
+                "annee": "2020",
+                "missions": "M1,M2,M3",
+                "category": "Topo"
+            },
+            {
+                "id": 2,
+                "client": "LYDEC",
+                "annee": "2019",
+                "missions": "M1,M2",
+                "category": "Topo"
+            },
+            {
+                "id": 3,
+                "client": "ANP",
+                "annee": "2021",
+                "missions": "M1,M2,M3",
+                "category": "Bathy"
+            }
+        ],
+        "role": "Chef projets topographe"
+    },
+    {
+        "id": 5,
+        "nom": "ADOUANE",
+        "prenom": "WISSAL",
+        "email": "wissala@etafat.ma",
+        "telephonePortable": "aucun",
+        "telephoneFixe": "aucun",
+        "postal": 20000,
+        "profil": "aucun",
+        "photo": "aucun",
+        "dateNaissance": "1979-03-30",
+        "lieuNaissance": "casablanca",
+        "nationalite": "marocaine",
+        "situationFamiliale": "c\u00e9libataire",
+        "nombreEnfants": 1,
+        "adresse": "53 RUE TIZNIT DB TAZI A M 12001",
+        "adresse2": null,
+        "cnss": "118049066",
+        "cin": "BE719755",
+        "DateEmbauche": "3\/30\/1979",
+        "ContratTravailNumero": "aucun",
+        "ContratDu": "aucun",
+        "ContratAu": "aucun",
+        "TypeContrat": "CDI",
+        "Poste": "Chef d\u00e9partement Management G\u00e9n\u00e9ral",
+        "DepartementAffectation": "Management & D\u00e9veloppement",
+        "langue": null,
+        "niveauLangue": null,
+        "formations": [
+            {
+                "id": 4,
+                "intitule": "Dipl\u00f4me d'etude sup\u00e9rieure sp\u00e9cialis\u00e9 -assurance-qualit\u00e9",
+                "obtention": "2004",
+                "etablissement": "universit\u00e9 de tours",
+                "diplome": "Diplome BE719755.jpg"
+            }
+        ],
+        "experiences": [
+            {
+                "id": 3,
+                "dateDebut": "2004-01-01",
+                "dateFin": "2005-01-01",
+                "employeur": "ABSIM SARL",
+                "poste": "Responsable qualit\u00e9",
+                "taches": [
+                    {
+                        "id": 3,
+                        "tache": "responsble de la qualit\u00e9 g\u00e9n\u00e9rale de l'entreprise"
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "dateDebut": "2004-01-01",
+                "dateFin": "2004-01-01",
+                "employeur": "VALEO",
+                "poste": "stagiaire",
+                "taches": [
+                    {
+                        "id": 4,
+                        "tache": "PFE"
+                    }
+                ]
+            }
+        ],
+        "refs": [
+            {
+                "id": 1,
+                "client": "MASEN",
+                "annee": "2020",
+                "missions": "M1,M2,M3",
+                "category": "Topo"
+            },
+            {
+                "id": 2,
+                "client": "LYDEC",
+                "annee": "2019",
+                "missions": "M1,M2",
+                "category": "Topo"
+            },
+            {
+                "id": 3,
+                "client": "ANP",
+                "annee": "2021",
+                "missions": "M1,M2,M3",
+                "category": "Bathy"
+            }
+        ],
+        "role": "Technicien SIG"
+    }
+]

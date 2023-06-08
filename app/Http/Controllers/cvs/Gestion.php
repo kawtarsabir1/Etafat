@@ -170,10 +170,6 @@ class Gestion extends Controller
     }
     $information['Langues'] = implode(",", $langues);
     $information['Niveau'] = implode(",", $Niveau);
-    $contratRange = explode(' to ', $information['ContratRange']);
-    $information['ContratDu'] = $contratRange[0];
-    $information['ContratAu'] = $contratRange[1];
-    unset($information['ContratRange']);
     $information['Archived'] = 0;
     $employee = Informations::create($information);
 
@@ -205,13 +201,12 @@ class Gestion extends Controller
     //store refs
     if($refs != null){
       foreach ($refs as $refsItems) {
-        $ranges = explode(' to ', $refsItems->range);
         $Ref = Experiences::create([
           'ID_Salarie' => $employee->ID_Salarie,
           'employeur' => $refsItems->employeur,
           'poste' => $refsItems->poste,
-          'dateDebut' => $ranges[0],
-          'dateFin' => $ranges[1],
+          'dateDebut' => $refsItems->dateDu,
+          'dateFin' => $refsItems->dateAu,
         ]);
 
         foreach ($refsItems->taches as $tache) {
@@ -266,6 +261,7 @@ class Gestion extends Controller
       'cin' => $employee->CIN,
       'DateEmbauche' => $employee->DateEmbauche,
       'ContratTravailNumero' => $employee->ContratTravailNumero,
+      'ResponsableHierarchique' => $employee->ResponsableHierarchique,
       'ContratDu' => $employee->ContratDu,
       'ContratAu' => $employee->ContratAu,
       'TypeContrat' => $employee->TypeContrat,
@@ -322,7 +318,14 @@ class Gestion extends Controller
     $references = Refs::all();
     $objEmployee['references'] = $references;
 
-    return view('content.cvs.edit-cv', compact('objEmployee'));
+    //get rh from database
+    $rhs = Rh::all();
+    //get postes from database
+    $posts = Post::all();
+    //get departements from database
+    $departements = Departement::all();
+
+    return view('content.cvs.edit-cv', compact('objEmployee', 'rhs', 'posts', 'departements'));
   }
 
   public function update(Request $request, $id)
@@ -333,7 +336,7 @@ class Gestion extends Controller
     $projets = json_decode($request->input('projets'));
 
     //store information
-    if(false){
+    if($request->hasFile('PhotoIdentite')){
       $Image = $request->file('PhotoIdentite');
       $Prenom = $request->input('Prenom');
       $uniqueFileName = $Prenom . uniqid() . '.' . $Image->getClientOriginalExtension();
@@ -355,10 +358,6 @@ class Gestion extends Controller
     }
     $information['Langues'] = implode(",", $langues);
     $information['Niveau'] = implode(",", $Niveau); 
-    $contratRange = explode(' to ', $information['ContratRange']);
-    $information['ContratDu'] = $contratRange[0];
-    $information['ContratAu'] = $contratRange[1];
-    unset($information['ContratRange']);
     Informations::where('ID_Salarie', $id)->update($information);
 
     //get formations where ID_Salarie = $id
@@ -420,13 +419,12 @@ class Gestion extends Controller
     }
 
     foreach ($experiences as $expsItems) {
-      $ranges = explode(' to ', $expsItems->range);
       $Exp = Experiences::create([
         'ID_Salarie' => $id,
         'employeur' => $expsItems->employeur,
         'poste' => $expsItems->poste,
-        'dateDebut' => $ranges[0],
-        'dateFin' => $ranges[1],
+        'dateDebut' => $expsItems->dateDebut,
+        'dateFin' => $expsItems->dateFin,
       ]);
     foreach ($expsItems->taches as $tache) {
       Taches::create([
@@ -535,7 +533,6 @@ class Gestion extends Controller
       $objFormation->title = $formation->etablissement . " (Formation / Cursus)";
       array_push($objExpEtFormations, $objFormation);
     }
-
 
     usort($objExpEtFormations, function ($a, $b) {
         return $b->annee - $a->annee;

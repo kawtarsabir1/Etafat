@@ -75,6 +75,9 @@
 
 <script type="text/javascript">
 
+function selectAncienAo(id){
+  console.log(id)
+}
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -94,7 +97,7 @@
         if (ao == '') {
             toFill.push('AO');
         }
-        
+
         if (toFill.length > 0) {
             alert('Please fill the fields : ' + toFill.join(', '));
             return false;
@@ -157,7 +160,10 @@
                             </div>
                         </div>
                         <div class="col-3">
-                            <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalCenter">Sélectionnez Cv </span> <i class="ti ti-plus"></i></button>
+                            <div class="row d-flex justify-content-center">
+                                <button type="button" class="btn btn-primary mb-2 col-10" data-bs-toggle="modal" data-bs-target="#modalCenter">Sélectionnez Cv </span> <i class="ti ti-plus"></i></button>
+                                <button type="button" class="btn btn-warning mb-2 col-10" data-bs-toggle="modal" data-bs-target="#largeModal">CVs Générés Antérieurement </span> <i class="ti ti-file-description"></i></button>
+                            </div>
                             <hr class="mt-0" />
                             <h5>Filtres de recherche</h5>
                             <input type="text" id="ao_name" class="form-control mb-4" placeholder="Rechercher" name="Recherche" />
@@ -249,6 +255,48 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel3">Sélectionnez les anciens CVs générés par Ao</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        @foreach($generatedAos as $generatedAo)
+                        <div class="col-md-6 col-lg-4 mb-3 cursor-pointer card-Ao" id="{{ $generatedAo->id }}">
+                            <div class="card h-100">
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <h5 class="card-title h6">{{ $generatedAo->ao_nom }}</h5>
+                                    <h6 class="card-subtitle text-muted">{{ $generatedAo->modele }}</h6>
+                                </div>
+                                <hr class="mx-4 my-0" />
+                                <div class="card-body d-flex flex-row justify-content-between py-3">
+                                    <span class="card-link">{{ ($generatedAo->langue == 'fr') ? 'Francais' : 'Anglais' }}</span>
+                                    @php
+                                        $fullDate = explode(' ',$generatedAo->created_at);
+                                        $date = $fullDate[0];
+                                        $time = explode(':' , $fullDate[1]);
+                                        $time = $time[0] . ':' . $time[1];
+                                    @endphp
+                                    <span class="card-link d-flex flex-column align-items-end">
+                                        <span>{{ $date }}</span>
+                                        <span>{{ $time }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

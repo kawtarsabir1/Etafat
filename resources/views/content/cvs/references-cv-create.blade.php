@@ -266,7 +266,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-3 mb-4">
+                                <div class="col-md-3 d-flex align-items-center">
                                     <input type="hidden" name="fiche" id="fiche">
                                     <button type="button" class="btn btn-primary btn-generate-fiche" data-bs-toggle="modal" data-bs-target="#largeModal">
                                         Générer fiche du projet

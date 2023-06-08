@@ -9,7 +9,6 @@
   // --------------------------------------------------------------------
   const flatpickrDate = document.querySelector('#flatpickr-date'),
    dateEmbauche = document.querySelector('#flatpickr-dateEmbauche'),
-   obtention = document.querySelector('#obtention'),
    dateDu = document.querySelector('#flatpickr-dateDu'),
    dateAu = document.querySelector('#flatpickr-dateAu'),
    expDateDu = document.querySelector('#exp-dateDu'),
@@ -34,13 +33,6 @@
 
   if (dateEmbauche) {
     dateEmbauche.flatpickr({
-      monthSelectorType: 'static',
-      dateFormat: 'd/m/Y',
-    });
-  }
-
-  if (obtention) {
-    obtention.flatpickr({
       monthSelectorType: 'static',
       dateFormat: 'd/m/Y',
     });

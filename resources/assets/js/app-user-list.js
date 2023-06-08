@@ -68,11 +68,11 @@ $(function () {
             var $name = full['Nom']+ ' ' +full['Prenom'],
               $Email = full['Email'],
               $Id = full['ID_Salarie'],
-              $image = full['avatar'];
-            if ($image) {
+              $image = full['PhotoIdentite'];
+            if ($image != 'aucun') {
               // For Avatar image
               var $output =
-                '<img src="' + assetsPath + 'img/avatars/' + $image + '" alt="Avatar" class="rounded-circle">';
+                '<img src="/storage/photos/' + $image + '" alt="Avatar" class="rounded-circle">';
             } else {
               // For Avatar badge
               var stateNum = Math.floor(Math.random() * 6);
@@ -87,9 +87,12 @@ $(function () {
             var $row_output =
               '<div class="d-flex justify-content-start align-items-center user-name">' +
               '<div class="avatar-wrapper">' +
+              '<a href="' +
+              userView+ $Id +
+              '" >' +
               '<div class="avatar avatar-sm me-3">' +
               $output +
-              '</div>' +
+              '</div></a>' +
               '</div>' +
               '<div class="d-flex flex-column">' +
               '<a href="' +
@@ -206,7 +209,7 @@ $(function () {
       buttons: [
         {
           extend: 'collection',
-          className: 'btn btn-label-secondary dropdown-toggle ml-3',
+          className: 'btn btn-label-secondary dropdown-toggle mx-3',
           text: '<i class="ti ti-screen-share me-1 ti-xs"></i>Plus',
           buttons: [
             {
@@ -353,14 +356,14 @@ $(function () {
         },
         {
           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Télécharger</span>',
-          className: 'btn btn-info btn-gradient mx-3',
+          className: 'btn btn-info btn-gradient',
           attr: {
             onclick: "$('#uploadExcel').click();"
           }
         },
         {
           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Nouvel Employé</span>',
-          className: 'btn btn-primary btn-gradient',
+          className: 'btn btn-primary btn-gradient mx-3',
           attr: {
             onclick: 'window.location.href="' + baseUrl + 'cv/gestion/create"'
           }

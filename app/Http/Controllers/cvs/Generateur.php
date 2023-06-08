@@ -7,6 +7,7 @@ use App\Models\Experiences;
 use Illuminate\Http\Request;
 use App\Models\Taches;
 use App\Models\Refs;
+use App\Models\GeneratedAo;
 use App\Models\Projet;
 use App\Models\Formations;
 use App\Models\Informations;
@@ -20,11 +21,14 @@ class Generateur extends Controller
 {
   public function index()
   {
-    return view('content.cvs.generateur-cvs');
+    $generatedAos = GeneratedAo::all();
+    return view('content.cvs.generateur-cvs', compact('generatedAos'));
   }
 
   public function generate()
   {
+    //get generated aos
+    
     return view('content.cvs.generate-cvs');
   }
 
@@ -153,7 +157,6 @@ class Generateur extends Controller
     $langue_module = $request->langue_module;
     $cvs = json_decode($request->cvs, true);
     $ao_folder_path = storage_path('app/public/cvs') . DIRECTORY_SEPARATOR . $ao_name;
-    //check if ao folder exist
     if (File::exists($ao_folder_path)){
       File::deleteDirectory($ao_folder_path);
     }
@@ -216,7 +219,10 @@ class Generateur extends Controller
 
       $refs = $cv['refs'];
       foreach ($refs as $key => $value) {
-        if(!isset($value['missionsParticipe'])) {
+        if(!isset($value['missionsParticipe'])){
+          $value['missionsParticipe'] = '';
+        }
+        if($value['missionsParticipe'] == '') {
           unset($refs[$key]);
         }
       }
@@ -236,6 +242,10 @@ class Generateur extends Controller
 
       $langues = explode(',', $cv['langue']);
       $niveaux = explode(',', $cv['niveauLangue']);
+      if(count($langues) == 1 && $langues[0] == '') {
+        $langues = [];
+        $niveaux = [];
+      }
       $template->cloneRow('langue#'. $cvId, count($langues));
       foreach ($langues as $key => $value) {
         $template->setValue('langue#' . $cvId . '#' . ($key + 1), $value);
@@ -246,7 +256,39 @@ class Generateur extends Controller
 
     $template->saveAs($cv_folder_path . DIRECTORY_SEPARATOR . $file_name);
     $fileUrl = url('storage/cvs/' . $ao_name . '/' . $file_name);
+    $this->SaveGeneratedCvs($ao_name, $model, $langue_module, $cvs);
     return response()->json(['success' => true, 'message' => 'CVs generated successfully.', 'fileUrl' => $fileUrl]);
   }
 
+  public function SaveGeneratedCvs($ao_name, $model, $langue_module, $cvs)
+  {
+    $ao = new GeneratedAo();
+    $ao->ao_nom = $ao_name;
+    $ao->modele = $model;
+    $ao->langue = $langue_module;
+    $ao->save();
+
+    $jsonFilePath = storage_path('app/public/jsons/' . $ao_name . '-' . $ao->id . '.json');
+    $jsonData = json_encode($cvs, JSON_PRETTY_PRINT);
+    if ($jsonData === false) {
+      return false;
+    }
+
+    $result = file_put_contents($jsonFilePath, $jsonData);
+
+    if ($result === false) {
+      return false;
+    }
+    return true;
+  }
+
+  public function getgeneratedCvs($id)
+  {
+    $ao = GeneratedAo::find($id);
+    $jsonFilePath = storage_path('app/public/jsons/' . $ao->ao_nom . '-' . $ao->id . '.json');
+    $json = file_get_contents($jsonFilePath);
+    $cvs = json_decode($json, true);
+    $ao->cvs = $cvs;
+    return response()->json(['success' => true, 'ao' => $ao]);
+  }
 }

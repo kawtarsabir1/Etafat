@@ -377,11 +377,12 @@ $(function () {
   btnSave.click(async function () {
     let employeur = $('#ref-employeur').val();
     let poste = $('#ref-poste').val();
-    let range = $('#ref-range').val();
+    let dateDebut = $('#exp-dateAu').val();
+    let dateFin = $('#exp-dateDu').val();
     let taches = $('#ref-taches').val();
     let diplome = $('#diplome').prop('files')[0] || null;
 
-    if(!employeur || !poste || !range || !taches) {
+    if(!employeur || !poste || !dateDebut || !dateFin || !taches) {
       alert('Veuillez remplir tous les champs');
       return;
     }
@@ -389,7 +390,8 @@ $(function () {
     let ref = {
       employeur: employeur,
       poste: poste,
-      range: range,
+      dateDebut: dateDebut,
+      dateFin: dateFin,
       taches: taches.split(','),
       diplome: diplome
     };

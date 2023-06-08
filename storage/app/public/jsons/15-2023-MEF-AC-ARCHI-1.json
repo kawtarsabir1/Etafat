@@ -1,0 +1,79 @@
+[
+    {
+        "id": 1,
+        "nom": "MENICHI",
+        "prenom": "ABDESSAMAD",
+        "email": "abdessamadm@etafat.ma",
+        "telephonePortable": "aucun",
+        "telephoneFixe": "aucun",
+        "postal": 20000,
+        "profil": "aucun",
+        "photo": "aucun",
+        "dateNaissance": "1997-03-28",
+        "lieuNaissance": "casablanca",
+        "nationalite": "marocaine",
+        "situationFamiliale": "c\u00e9libataire",
+        "nombreEnfants": 0,
+        "adresse": "Amal 04 Rue 56 NR 8 Bernoussi",
+        "adresse2": null,
+        "cnss": "139216239",
+        "cin": "BB148538",
+        "DateEmbauche": "10\/3\/2022",
+        "ContratTravailNumero": "22\/009",
+        "ContratDu": "aucun",
+        "ContratAu": "aucun",
+        "TypeContrat": "CDI",
+        "Poste": "chef de projet",
+        "DepartementAffectation": "3DRC",
+        "langue": null,
+        "niveauLangue": null,
+        "formations": [
+            {
+                "id": 1,
+                "intitule": "ing\u00e9nieur en sciences et ing\u00e9nierie topographique",
+                "obtention": "2021",
+                "etablissement": "IAV Hassan II",
+                "diplome": "Diplome BB148538.jpg"
+            }
+        ],
+        "experiences": [
+            {
+                "id": 1,
+                "dateDebut": "2022-01-01",
+                "dateFin": "2022-09-01",
+                "employeur": "GEO LAMBRET",
+                "poste": "chef de projet",
+                "taches": [
+                    {
+                        "id": 1,
+                        "tache": "pilotage des projets topographique g\u00e9n\u00e9rale"
+                    }
+                ]
+            }
+        ],
+        "refs": [
+            {
+                "id": 1,
+                "client": "MASEN",
+                "annee": "2020",
+                "missions": "M1,M2,M3",
+                "category": "Topo"
+            },
+            {
+                "id": 2,
+                "client": "LYDEC",
+                "annee": "2019",
+                "missions": "M1,M2",
+                "category": "Topo"
+            },
+            {
+                "id": 3,
+                "client": "ANP",
+                "annee": "2021",
+                "missions": "M1,M2,M3",
+                "category": "Bathy"
+            }
+        ],
+        "role": "Directeur projets"
+    }
+]

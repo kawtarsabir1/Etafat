@@ -277,3 +277,5 @@ Route::delete('/cv/deleteRh/{id}', $controller_path . '\cvs\gestion@deleteRh')->
 Route::delete('/cv/deletepost/{id}', $controller_path . '\cvs\gestion@deletePost')->name('postes-delete');
 Route::delete('/cv/deleteDepart/{id}', $controller_path . '\cvs\gestion@deleteDepart')->name('departements-delete');
 Route::delete('/cv/deleteSociete/{id}', $controller_path . '\cvs\gestion@deleteSociete')->name('societe-delete');
+
+Route::get('/cv/generatedCvs/{id}', $controller_path . '\cvs\generateur@getgeneratedCvs')->name('generated-Cvs');

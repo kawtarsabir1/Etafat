@@ -100,7 +100,7 @@
                 }
             }
         }
-        if (toFill.length > 0) {
+        if (false) {
             alert('Please fill the fields : ' + toFill.join(', '));
             return false;
         } else {
@@ -375,12 +375,12 @@
 
                         <div class="col-md-6">
                             <label class="form-label" for="DateEmbauche">Contrat Date Debut</label>
-                            <input type="text" class="form-control" name="contratDu" placeholder="DD-MM-YYYY" id="flatpickr-dateDu" required />
+                            <input type="text" class="form-control" name="ContratDu" placeholder="DD-MM-YYYY" id="flatpickr-dateDu" required />
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label" for="DateEmbauche">Contrat Date Fin</label>
-                            <input type="text" class="form-control" name="contratAu" placeholder="DD-MM-YYYY" id="flatpickr-dateAu" />
+                            <input type="text" class="form-control" name="ContratAu" placeholder="DD-MM-YYYY" id="flatpickr-dateAu" />
                         </div>
 
                         <div class="col-12">
@@ -444,7 +444,7 @@
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                         <label class="form-label" for="formValidationEmbauche">Année d'obtention</label>
-                                        <input type="text" class="form-control" id="obtention" placeholder="DD-MM-YYYY" />
+                                        <input type="text" class="form-control" id="obtention" placeholder="YYYY" />
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">

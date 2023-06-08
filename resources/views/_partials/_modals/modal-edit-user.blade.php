@@ -24,6 +24,7 @@
                   <div class="col-lg-6 col-xl-4 col-12 mb-3">
                     <label class="form-label" for="level-select">Niveau</label>
                     <select id="level-select" class="form-select" name="niveau">
+                      <option value="">Selectionner un niveau</option>
                       <option value="Débutant">Débutant</option>
                       <option value="Intermédiaire">Intermédiaire</option>
                       <option value="Avancé">Avancé</option>
@@ -92,11 +93,7 @@
                                         <label class="form-label" for="ref-employeur">Employeur</label>
                                         <input type="text" id="ref-employeur" class="form-control" placeholder="Etafat">
                                     </div>
-<!-- 
-                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                        <label class="form-label" for="ref-range">Range</label>
-                                        <input type="text" class="form-control" placeholder="YYYY-MM-DD Au YYYY-MM-DD" id="ref-range" />
-                                    </div> -->
+
                                     <div class="col-md-6 col-xl-3 col-12 mb-3">
                                         <label class="form-label" for="DateEmbauche">Date Debut</label>
                                         <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="exp-dateDu" required />
