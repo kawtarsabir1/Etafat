@@ -30,6 +30,12 @@
           "slug": "references"
         },
         {
+          "url": "/ao/gestion",
+          "name": "Appels d'offres",
+          "icon": "menu-icon tf-icons ti ti-file-description",
+          "slug": "appeles-doffres"
+        },
+        {
           "name": "Gestion des Formulaire",
           "icon": "menu-icon tf-icons ti ti-file-description",
           "slug": "references",
@@ -43,6 +49,11 @@
               "url": "/cv/formgestion/postes",
               "name": "Postes",
               "slug": "postes"
+            },
+            {
+              "url": "/cv/formgestion/BUs",
+              "name": "BUs",
+              "slug": "BUs"
             },
             {
               "url": "/cv/formgestion/departements",

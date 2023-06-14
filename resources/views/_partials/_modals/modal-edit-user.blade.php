@@ -9,9 +9,26 @@
           <p class="text-muted">Personnaliser cv details just for generating.</p>
         </div>
         <form id="personaliserCv" class="row g-3" onsubmit="return false">
+
+        <div class="col-12">
+            <div class="col-12">
+              <h6 class="mt-2 fw-semibold">1. Modifier le poste</h6>
+              <hr class="mt-0" />
+            </div>
+            <div class="col-lg-6 col-xl-4 col-12 mb-3">
+              <label class="form-label" for="role">Poste</label>
+              <select id="role-select" class="form-select" name="role">
+                <option value="">Sélectionnez un poste</option>
+                @foreach($postes as $poste)
+                  <option value="{{$poste->postNom}}">{{$poste->postNom}}</option>
+                @endforeach
+            </select>
+            </div>
+          </div>
+
           <div class="col-12">
             <div class="col-12">
-              <h6 class="mt-2 fw-semibold">1. Personnaliser les languages</h6>
+              <h6 class="mt-2 fw-semibold">2. Personnaliser les languages</h6>
               <hr class="mt-0" />
             </div>
             <input type="hidden" name="id" id="id">
@@ -44,7 +61,7 @@
 
           <div class="col-12">
             <div class="col-12">
-              <h6 class="mt-2 fw-semibold">2. Personaliser les cursus et formations</h6>
+              <h6 class="mt-2 fw-semibold">3. Personaliser les cursus et formations</h6>
               <hr class="mt-0" />
             </div>
             <div class="content-custumize-cursus">
@@ -83,7 +100,7 @@
 
           <div class="col-12">
                         <div class="col-12">
-                            <h6 class="mt-2 fw-semibold">3. Experiences Professionnelles</h6>
+                            <h6 class="mt-2 fw-semibold">4. Experiences Professionnelles</h6>
                             <hr class="mt-0" />
                         </div>
                         <div class="content-wrapper-experiences">
@@ -126,7 +143,7 @@
 
           <div class="col-12">
             <div class="col-12">
-              <h6 class="mt-2 fw-semibold">3. Select les references</h6>
+              <h6 class="mt-2 fw-semibold">5. Select les references</h6>
               <hr class="mt-0" />
             </div>
             <div class="content-custumize-refs">

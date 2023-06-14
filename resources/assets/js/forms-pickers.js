@@ -13,6 +13,9 @@
    dateAu = document.querySelector('#flatpickr-dateAu'),
    expDateDu = document.querySelector('#exp-dateDu'),
    expDateAu = document.querySelector('#exp-dateAu'),
+   date_limit_ao = document.querySelector('#date_limit_ao'),
+   date_adjudication_ao = document.querySelector('#date_adjudication_ao'),
+   date_signature_ao = document.querySelector('#date_signature_ao'),
     flatpickrTime = document.querySelector('#flatpickr-time'),
     flatpickrDateTime = document.querySelector('#flatpickr-datetime'),
     flatpickrMulti = document.querySelector('#flatpickr-multi'),
@@ -65,6 +68,29 @@
       dateFormat: 'd/m/Y',
     });
   }
+
+  //AOs Dates
+  if (date_limit_ao) {
+    date_limit_ao.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  if (date_adjudication_ao) {
+    date_adjudication_ao.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  if (date_signature_ao) {
+    date_signature_ao.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+  
 
   // Time
   if (flatpickrTime) {

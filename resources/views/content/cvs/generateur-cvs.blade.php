@@ -89,6 +89,7 @@ function selectAncienAo(id){
         //get models id input and ao id input
         let model = $("#models").val();
         let ao = $("#ao").val();
+        let diplome_module = $("#diplome_module").val();
         let langue_module = $("#langue_module").val();
         var toFill = [];
         if (model == '') {
@@ -106,7 +107,8 @@ function selectAncienAo(id){
             let cardsCvs = localStorage.getItem('cardsCvs');
             formData.append('cvs', cardsCvs);
             formData.append('model', model);
-            formData.append('langue_module', langue_module)
+            formData.append('langue_module', langue_module);
+            formData.append('diplome_module', diplome_module);
             formData.append('ao', ao);
             $.ajax({
                 url: baseUrl + "cv/generateCvs",
@@ -116,7 +118,7 @@ function selectAncienAo(id){
                 processData: false,
                 success: function(data) {
                     var link = document.createElement('a');
-                    link.href = data.fileUrl;
+                    link.href = data.downloadLink;
                     link.click();
                 }
             });
@@ -199,13 +201,20 @@ function selectAncienAo(id){
                             </select>
                             <select id="ao" class="form-select  mb-4" name="model">
                                 <option value="">Sélectionnez Appel d'Offre</option>
-                                <option value="15-2023-MEF-AC-ARCHI">15-2023-MEF-AC-ARCHI</option>
-                                <option value="26-2023-MEF-AC-AU">26-2023-MEF-AC-AU</option>
+                                @foreach($aos as $ao)
+                                <option value="{{$ao->n_ao}}">{{$ao->n_ao}}</option>
+                                @endforeach
+
                             </select>
                             <select id="langue_module" class="form-select  mb-4" name="langue_module">
                                 <option value="">Sélectionnez la langue</option>
                                 <option value="fr">Francais</option>
                                 <option value="an">Anglais</option>
+                            </select>
+                            <select id="diplome_module" class="form-select  mb-4" name="diplome_module">
+                                <option value="">Sélectionnez le Type</option>
+                                <option value="avec">Avec Diplômes</option>
+                                <option value="sans">Sans Diplômes</option>
                             </select>
                             <button type="submit" class="btn btn-success btn-generate"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Generer le cvs</span> <i class="ti ti-arrow-right"></i></button>
                         </div>
@@ -230,13 +239,9 @@ function selectAncienAo(id){
                                         <label class="form-label" for="roles">Poste</label>
                                         <select id="roles" class="form-select" name="role-0">
                                             <option value="">Sélectionnez un poste</option>
-                                            <option value="Directeur projets">Directeur projets</option>
-                                            <option value="Chef projets topographe">Chef projets topographe</option>
-                                            <option value="Chef projet Hydrographe">Chef projet Hydrographe</option>
-                                            <option value="Chef projets SIG">Chef projets SIG</option>
-                                            <option value="Technicien Topographe">Technicien Topographe</option>
-                                            <option value="Technicien Hydrographe">Technicien Hydrographe</option>
-                                            <option value="Technicien SIG">Technicien SIG</option>
+                                            @foreach($postes as $poste)
+                                            <option value="{{$poste->postNom}}">{{$poste->postNom}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

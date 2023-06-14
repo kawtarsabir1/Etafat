@@ -267,15 +267,31 @@ Route::get('/cv/formgestion/rh', $controller_path . '\cvs\gestion@rhPage')->name
 Route::get('/cv/formgestion/postes', $controller_path . '\cvs\gestion@postesPage')->name('postesPage');
 Route::get('/cv/formgestion/departements', $controller_path . '\cvs\gestion@departementsPage')->name('departementsPage');
 Route::get('/cv/formgestion/societes', $controller_path . '\cvs\gestion@societesPage')->name('societesPage');
+Route::get('/cv/formgestion/BUs', $controller_path . '\cvs\gestion@BUsPage')->name('BUsPage');
 
 Route::post('/cv/formgestion/rh', $controller_path . '\cvs\gestion@addRh')->name('rh-Add');
 Route::post('/cv/formgestion/postes', $controller_path . '\cvs\gestion@addPost')->name('postes-Add');
 Route::post('/cv/formgestion/departements', $controller_path . '\cvs\gestion@addDepart')->name('departements-Add');
 Route::post('/cv/formgestion/societe', $controller_path . '\cvs\gestion@addSociete')->name('societe-Add');
+Route::post('/cv/formgestion/Bu', $controller_path . '\cvs\gestion@addBu')->name('Bu-Add');
 
 Route::delete('/cv/deleteRh/{id}', $controller_path . '\cvs\gestion@deleteRh')->name('rh-delete');
 Route::delete('/cv/deletepost/{id}', $controller_path . '\cvs\gestion@deletePost')->name('postes-delete');
 Route::delete('/cv/deleteDepart/{id}', $controller_path . '\cvs\gestion@deleteDepart')->name('departements-delete');
 Route::delete('/cv/deleteSociete/{id}', $controller_path . '\cvs\gestion@deleteSociete')->name('societe-delete');
+Route::delete('/cv/deleteBu/{id}', $controller_path . '\cvs\gestion@deleteBu')->name('Bu-delete');
 
 Route::get('/cv/generatedCvs/{id}', $controller_path . '\cvs\generateur@getgeneratedCvs')->name('generated-Cvs');
+
+
+//appel d'offre
+Route::get('/ao/gestion', $controller_path . '\aos\gestion@index')->name('appel-offre-gestion');
+Route::get('ao/gestion/archived', $controller_path . '\aos\gestion@archived')->name('appel-offre-archived-page');
+Route::get('/ao/create', $controller_path . '\aos\gestion@create')->name('appel-offre-create-page');
+Route::get('/ao/edit/{id}', $controller_path . '\aos\gestion@edit')->name('appel-offre-edit-page');
+Route::post('/ao', $controller_path . '\aos\gestion@store')->name('appel-offre-store');
+Route::post('/ao/{id}', $controller_path . '\aos\gestion@update')->name('appel-offre-update');
+Route::get('/ao/getAos', $controller_path . '\aos\gestion@aos')->name('all-appel-offre');
+Route::get('/ao/getArchived', $controller_path . '\aos\gestion@aosArchived')->name('all-appel-offre-archived');
+Route::delete('/ao/{id}', $controller_path . '\aos\gestion@archive')->name('appel-offre-delete');
+Route::post('/ao/restore/{id}', $controller_path . '\aos\gestion@unarchive')->name('appel-offre-restore');

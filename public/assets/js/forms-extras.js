@@ -642,7 +642,7 @@ function ListeCvs() {
                             
                             <div class="${backgrounds[index % backgrounds.length]} px-5 py-4 text-center card-img-top"><img src="/storage/photos/${data.photo}" alt="..." width="100" class="rounded-circle mb-2 img-thumbnail d-block mx-auto">
                                 <h5 class="text-white mb-0">${data.nom} ${data.prenom}</h5>
-                                <p class="small text-white mb-0">${data.role}</p>
+                                <p class="small text-white mb-0 card-role">${data.role}</p>
                             </div>
                             <div class="p-4 d-flex justify-content-center">
                                 <ul class="list-inline mb-0">
@@ -710,6 +710,11 @@ function editCv(index) {
   //Set Languages
   let modal = $('#editUser');
   modal.find('#id').val(cv.id);
+
+  let role = cv.role; 
+  let selectRole = modal.find('#role-select');
+  selectRole.find(`option[value="${role}"]`).attr('selected', 'selected');
+
   let languageElem = modal.find('.content-language-custumize');
 
   var Langues = [];
@@ -763,7 +768,7 @@ function editCv(index) {
                       <p class="card-text">Date d'obtention : ${formations[i].obtention}</p>
                   </div>
               </div>
-          </div>`;
+          </div>`;editCv
     contentCursus.append(card);
   }
 
@@ -1045,8 +1050,8 @@ $(function () {
 
     let experience = {
       employeur: employeur,
-      dateDu: dateDu,
-      dateAu: dateAu,
+      dateDebut: dateDu,
+      dateFin: dateAu,
       poste: poste,
       taches: taches.split(',')
     };
@@ -1196,8 +1201,19 @@ $(function () {
     cardsCv[index] = card;
     localStorage.setItem('cardsCvs', JSON.stringify(cardsCv));
 
-    
-
+    //get role-select from modal
+    var roleSelect = $('#role-select');
+    var role = roleSelect.val();
+    var card = $(`#cv-card-${index}`);
+    card.find('.card-role').text(role);
+    //update cvsArray in localStorage
+    var cvsArray = JSON.parse(localStorage.getItem('cvsArray'));
+    cvsArray[index]['role'] = role;
+    localStorage.setItem('cvsArray', JSON.stringify(cvsArray));
+    //update cardsCvs in localStorage
+    var cardsCvs = JSON.parse(localStorage.getItem('cardsCvs'));
+    cardsCvs[index]['role'] = role;
+    localStorage.setItem('cardsCvs', JSON.stringify(cardsCvs));
 
     // var formData = new FormData(formCostumize[0]);
     // var languagesData = [];
@@ -1305,7 +1321,7 @@ $(function () {
   $('.card-Ao').click(function () {
     var id = $(this).attr('id');
     $.ajax({
-      url: '/cv/generatedCvs/' + id,
+      url: baseUrl + 'cv/generatedCvs/' + id,
       type: 'GET',
       success: function (data) {
         if(localStorage.getItem('cardsCvs') != null) {
@@ -1376,7 +1392,7 @@ function ListeCvsAlreadyGenerated() {
                             
                             <div class="${backgrounds[index % backgrounds.length]} px-5 py-4 text-center card-img-top"><img src="/storage/photos/${data.photo}" alt="..." width="100" class="rounded-circle mb-2 img-thumbnail d-block mx-auto">
                                 <h5 class="text-white mb-0">${data.nom} ${data.prenom}</h5>
-                                <p class="small text-white mb-0">${data.role}</p>
+                                <p class="small text-white mb-0 card-role">${data.role}</p>
                             </div>
                             <div class="p-4 d-flex justify-content-center">
                                 <ul class="list-inline mb-0">

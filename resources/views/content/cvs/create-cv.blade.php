@@ -350,6 +350,16 @@
                             <input type="text" class="form-control" name="DateEmbauche" placeholder="DD-MM-YYYY" id="flatpickr-dateEmbauche" required />
                         </div>
 
+                        <!-- <div class="col-md-6">
+                            <label class="form-label" for="DepartementAffectation">BU</label>
+                            <select id="form-repeater-1-4" class="form-select" name="DepartementAffectation">
+                                <option value="">Selectionner un BU</option>
+                                @foreach($departements as $departement)
+                                    <option value="{{$departement->departementNom}}">{{$departement->departementNom}}</option>
+                                @endforeach
+                            </select>
+                        </div> -->
+
                         <div class="col-md-6">
                             <label class="form-label" for="DepartementAffectation">Departement Affectation</label>
                             <select id="form-repeater-1-4" class="form-select" name="DepartementAffectation">

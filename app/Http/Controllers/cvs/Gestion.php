@@ -12,6 +12,7 @@ use App\Models\Rh;
 use App\Models\Departement;
 use App\Models\Post;
 use App\Models\Societe;
+use App\Models\Busunit;
 use App\Models\Informations;
 use App\Models\Projet;
 use Illuminate\Support\Facades\Storage;
@@ -566,6 +567,12 @@ class Gestion extends Controller
     return view('content.cvs.gestion.societe', compact('societes'));
   }
 
+  public function BUsPage()
+  {
+    $BUs = Busunit::all();
+    return view('content.cvs.gestion.bu', compact('BUs'));
+  }
+
   public function addRh(Request $request)
   { 
     $nom = $request->input('nom');
@@ -596,6 +603,14 @@ class Gestion extends Controller
     $societe->save();
   }
 
+  public function addBU(Request $request)
+  {
+    $nom = $request->input('nom');
+    $Bu = new Busunit;
+    $Bu->buNom = $nom;
+    $Bu->save();
+  }
+
   public function deleteRh($id)
   { 
     //delete rh
@@ -621,6 +636,12 @@ class Gestion extends Controller
     //delete departement
     $societe = Societe::find($id);
     $societe->delete();
+  }
+
+  public function deleteBu($id)
+  {
+    $bu = Busunit::find($id);
+    $bu->delete();
   }
 
   public function projets($id){
