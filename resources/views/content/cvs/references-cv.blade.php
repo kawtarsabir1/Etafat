@@ -23,6 +23,29 @@
 @endsection
 
 @section('page-script')
+<script>
+  $(function() {
+    //get input uploadExcel
+    var input = $('#uploadExcel');
+
+    $('#uploadExcel').change(function() {
+      var formData = new FormData();
+      formData.append('file', input.prop('files')[0]);
+      formData.append('_token', '{{ csrf_token() }}');
+      $.ajax({
+        url: "{{ route('refs-uploadExcel') }}",
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          alert('Données téléchargées avec succès');
+          location.reload();
+        }
+      });
+    });
+  });
+</script>
 <script src="{{asset('assets/js/app-ref-list.js')}}"></script>
 @endsection
 
@@ -39,6 +62,7 @@
       <div class="col-md-4 ref_Client"></div>
       <div class="col-md-4 ref_category"></div>
       <div class="col-md-4 ref_societe"></div>
+      <input type="file" id="uploadExcel" style="display:none" accept=".xlsx,.xls,.csv" />
     </div>
   </div>
   <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true">

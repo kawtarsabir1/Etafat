@@ -59,7 +59,7 @@
     <h5 class="card-title mb-3">Filtre de recherche</h5>
     <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0">
       <div class="col-md-3 ao_type"></div>
-      <div class="col-md-3 ao_client"></div>
+      <div class="col-md-3 maître_ao"></div>
       <div class="col-md-3 ao_bu"></div>
       <div class="col-md-3 ao_rh"></div>
       <input type="file" id="uploadExcel" style="display:none" accept=".xlsx,.xls,.csv" />
@@ -72,7 +72,7 @@
           <th>N°AO</th>
           <th>Type</th>
           <th>Pays</th>
-          <th>Client</th>
+          <th>Maître d'ouvrage</th>
           <th>Montant</th>
           <th>BU</th>
           <th></th>

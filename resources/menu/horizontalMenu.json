@@ -26,17 +26,30 @@
         {
           "url": "/cv/references",
           "name": "References",
-          "icon": "menu-icon tf-icons ti ti-file-description",
+          "icon": "menu-icon tf-icons ti ti-database",
           "slug": "references"
         },
         {
           "url": "/ao/gestion",
-          "name": "Appels d'offres",
-          "icon": "menu-icon tf-icons ti ti-file-description",
-          "slug": "appeles-doffres"
+          "name": "Register des offres",
+          "icon": "menu-icon tf-icons ti ti-briefcase",
+          "slug": "register-des-offres"
         },
         {
-          "name": "Gestion des Formulaire",
+          "url": "/clients/gestion",
+          "name": "Clients",
+          "icon": "menu-icon tf-icons ti ti-users",
+          "slug": "clients"
+        }
+      ]
+    },
+    {
+      "name": "Paramétrage",
+      "icon": "menu-icon tf-icons ti ti-settings",
+      "slug": "layouts",
+      "submenu": [
+        {
+          "name": "Champs des CVs",
           "icon": "menu-icon tf-icons ti ti-file-description",
           "slug": "references",
           "submenu": [
@@ -64,6 +77,58 @@
               "url": "/cv/formgestion/societes",
               "name": "Societes",
               "slug": "societes"
+            }
+          ]
+        },
+        {
+          "name": "Champs des AO",
+          "icon": "menu-icon tf-icons ti ti-briefcase",
+          "slug": "references",
+          "submenu": [
+            {
+              "url": "/ao/champ/type",
+              "name": "Type",
+              "slug": "type"
+            },
+            {
+              "url": "/ao/champ/pay",
+              "name": "Pays",
+              "slug": "pays"
+            },
+            {
+              "url": "/ao/champ/secteur",
+              "name": "Secteur",
+              "slug": "secteur"
+            },
+            {
+              "url": "/ao/champ/financement",
+              "name": "Financement",
+              "slug": "financement"
+            },
+            {
+              "url": "/ao/champ/ministere",
+              "name": "Ministere",
+              "slug": "ministere"
+            },
+            {
+              "url": "/ao/champ/motif",
+              "name": "Motif",
+              "slug": "motif"
+            },
+            {
+              "url": "/ao/champ/partenaire",
+              "name": "Partenaire",
+              "slug": "partenaire"
+            },
+            {
+              "url" : "/ao/champ/soustraitant",
+              "name" : "Sous-traitant",
+              "slug" : "soutraitant"
+            },
+            {
+              "url" : "/ao/champ/adjudication",
+              "name" : "Adjudication",
+              "slug" : "adjudication"
             }
           ]
         }

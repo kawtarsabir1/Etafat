@@ -31,7 +31,7 @@ class ExperiencesImport implements ToModel,WithHeadingRow
         ]);
         $experience->save();
 
-        $taches = explode(',' , $row['taches']);
+        $taches = explode('-' , $row['taches']);
         foreach($taches as $tache){
             $newTache = new Taches([
                 'ID_Ref' => $experience->ID_Experience,

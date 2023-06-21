@@ -199,6 +199,7 @@ Route::resource('/user-list', UserManagement::class);
 Route::get('/cv/generateur', $controller_path . '\cvs\generateur@index')->name('cv-generateur');
 
 Route::post('/cv/gestion/uploadExcel', $controller_path . '\cvs\gestion@upload')->name('cv-uploadExcel');
+Route::post('/cv/gestion/uploadExcelRefs', $controller_path . '\cvs\references@upload')->name('refs-uploadExcel');
 
 Route::get('/cv/gestion', $controller_path . '\cvs\gestion@index')->name('cv-gestion');
 
@@ -295,3 +296,61 @@ Route::get('/ao/getAos', $controller_path . '\aos\gestion@aos')->name('all-appel
 Route::get('/ao/getArchived', $controller_path . '\aos\gestion@aosArchived')->name('all-appel-offre-archived');
 Route::delete('/ao/{id}', $controller_path . '\aos\gestion@archive')->name('appel-offre-delete');
 Route::post('/ao/restore/{id}', $controller_path . '\aos\gestion@unarchive')->name('appel-offre-restore');
+
+//routes of type
+Route::get('/ao/champ/type', $controller_path . '\aos\champs@getAllTypes')->name('types-page');
+Route::post('/ao/champ/type', $controller_path . '\aos\champs@addType')->name('type-add');
+Route::delete('/ao/champ/type/{id}', $controller_path . '\aos\champs@deleteType')->name('type-delete');
+
+//routes of pay
+Route::get('/ao/champ/pay', $controller_path . '\aos\champs@getAllPays')->name('pays-page');
+Route::post('/ao/champ/pay', $controller_path . '\aos\champs@addPay')->name('pay-add');
+Route::delete('/ao/champ/pay/{id}', $controller_path . '\aos\champs@deletePay')->name('pay-delete');
+
+//routes of secteur
+Route::get('/ao/champ/secteur', $controller_path . '\aos\champs@getAllSecteurs')->name('secteurs-page');
+Route::post('/ao/champ/secteur', $controller_path . '\aos\champs@addSecteur')->name('secteur-add');
+Route::delete('/ao/champ/secteur/{id}', $controller_path . '\aos\champs@deleteSecteur')->name('secteur-delete');
+
+//routes of Financement
+Route::get('/ao/champ/financement', $controller_path . '\aos\champs@getAllFinancements')->name('financements-page');
+Route::post('/ao/champ/financement', $controller_path . '\aos\champs@addFinancement')->name('financement-add');
+Route::delete('/ao/champ/financement/{id}', $controller_path . '\aos\champs@deleteFinancement')->name('financement-delete');
+
+//routes of Ministere
+Route::get('/ao/champ/ministere', $controller_path . '\aos\champs@getAllMinisteres')->name('ministeres-page');
+Route::post('/ao/champ/ministere', $controller_path . '\aos\champs@addMinistere')->name('ministere-add');
+Route::delete('/ao/champ/ministere/{id}', $controller_path . '\aos\champs@deleteMinistere')->name('ministere-delete');
+
+//routes of Motif
+Route::get('/ao/champ/motif', $controller_path . '\aos\champs@getAllMotifs')->name('motifs-page');
+Route::post('/ao/champ/motif', $controller_path . '\aos\champs@addMotif')->name('motif-add');
+Route::delete('/ao/champ/motif/{id}', $controller_path . '\aos\champs@deleteMotif')->name('motif-delete');
+
+//routes of Partenaire
+Route::get('/ao/champ/partenaire', $controller_path . '\aos\champs@getAllPartenaires')->name('partenaires-page');
+Route::post('/ao/champ/partenaire', $controller_path . '\aos\champs@addPartenaire')->name('partenaire-add');
+Route::delete('/ao/champ/partenaire/{id}', $controller_path . '\aos\champs@deletePartenaire')->name('partenaire-delete');
+
+//routes of Soustraitant
+Route::get('/ao/champ/soustraitant', $controller_path . '\aos\champs@getAllSoustraitants')->name('soustraitants-page');
+Route::post('/ao/champ/soustraitant', $controller_path . '\aos\champs@addSoustraitant')->name('soustraitant-add');
+Route::delete('/ao/champ/soustraitant/{id}', $controller_path . '\aos\champs@deleteSoustraitant')->name('soustraitant-delete');
+
+//routes of Adjudication
+Route::get('/ao/champ/adjudication', $controller_path . '\aos\champs@getAllAdjudications')->name('adjudications-page');
+Route::post('/ao/champ/adjudication', $controller_path . '\aos\champs@addAdjudication')->name('adjudication-add');
+Route::delete('/ao/champ/adjudication/{id}', $controller_path . '\aos\champs@deleteAdjudication')->name('adjudication-delete');
+
+//routes of Responsables
+Route::get('/cv/all/rhs', $controller_path . '\cvs\gestion@AllRhs')->name('responsables-page');
+
+//routes of client
+Route::get('/clients/gestion', $controller_path . '\aos\clients@index')->name('client-gestion');
+Route::get('/create/client', $controller_path . '\aos\clients@create')->name('client-create-page');
+Route::get('/edit/client/{id}', $controller_path . '\aos\clients@edit')->name('client-edit-page');
+Route::post('/new/client', $controller_path . '\aos\clients@store')->name('client-store');
+Route::post('/update/client/{id}', $controller_path . '\aos\clients@update')->name('client-update');
+
+
+

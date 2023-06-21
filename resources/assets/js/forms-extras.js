@@ -194,6 +194,97 @@ $(function () {
 });
 
 $(function () {
+  var contentWrapper = $('.content-wrapper-departement'),
+    content = $('.content-departement'),
+    btnAdd = $('.btn-add-departement'),
+    btnRemove = $('.btn-remove');
+
+  // Add new departement
+  btnAdd.click(function () {
+    var clone = content.clone();
+    clone.find('input').val('');
+    clone.find('select').prop('selectedIndex', 0);
+    clone.find('input').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-departement').length;
+      $(this).attr('name', name + index);
+    });
+    clone.find('select').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-departement').length;
+      $(this).attr('name', name + index);
+    });
+    clone.appendTo(contentWrapper);
+  });
+
+  // Remove departement
+  contentWrapper.on('click', '.btn-remove', function () {
+    $(this).closest('.content-departement').remove();
+  });
+});
+
+$(function () {
+  var contentWrapper = $('.content-wrapper-partenaire'),
+    content = $('.content-partenaire'),
+    btnAdd = $('.btn-add-partenaire'),
+    btnRemove = $('.btn-remove');
+
+  // Add new partenaire
+  btnAdd.click(function () {
+    var clone = content.clone();
+    clone.find('input').val('');
+    clone.find('select').prop('selectedIndex', 0);
+    clone.find('input').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-partenaire').length;
+      $(this).attr('name', name + index);
+    });
+    clone.find('select').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-partenaire').length;
+      $(this).attr('name', name + index);
+    });
+    clone.appendTo(contentWrapper);
+  });
+
+  // Remove partenaire
+  contentWrapper.on('click', '.btn-remove', function () {
+    $(this).closest('.content-partenaire').remove();
+  });
+});
+
+$(function () {
+  var contentWrapper = $('.content-wrapper-sousTraitant'),
+    content = $('.content-sousTraitant'),
+    btnAdd = $('.btn-add-sousTraitant'),
+    btnRemove = $('.btn-remove');
+
+  // Add new sousTraitant
+  btnAdd.click(function () {
+    var clone = content.clone();
+    clone.find('input').val('');
+    clone.find('select').prop('selectedIndex', 0);
+    clone.find('input').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-sousTraitant').length;
+      $(this).attr('name', name + index);
+    });
+    clone.find('select').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-sousTraitant').length;
+      $(this).attr('name', name + index);
+    });
+    clone.appendTo(contentWrapper);
+  });
+
+  // Remove sousTraitant
+  contentWrapper.on('click', '.btn-remove', function () {
+    $(this).closest('.content-sousTraitant').remove();
+  });
+});
+
+
+$(function () {
   var btnSave = $('.btn-save'),
     contentCursus = $('.content-cursus-map'),
     formationsArray = JSON.parse(localStorage.getItem('formationsArray')) || [];
@@ -1412,6 +1503,35 @@ function ListeCvsAlreadyGenerated() {
 
 
 }
+
+//function on change adjudication_ao select element
+$(function () {
+  let adjudication_ao = $('#adjudication_ao');
+  let adjudicataire_ao = $('#adjudicataire_ao');
+  let societe_ao = $('#societe_ao');
+  let date_adjudication_ao = $('#date_adjudication_ao');
+
+  adjudication_ao.change(function () {
+    let value = $(this).val();
+    console.log(value);
+    if (value == 'retenu') {
+      adjudicataire_ao.val(societe_ao.val());
+      date_adjudication_ao.attr('disabled', false);
+    }else{
+      adjudicataire_ao.val('');
+      date_adjudication_ao.attr('disabled', true);
+    }
+  });
+
+  societe_ao.change(function () {
+    let value = adjudication_ao.val();
+    if (value == 'retenu') {
+      adjudicataire_ao.val(societe_ao.val());
+    }else{
+      adjudicataire_ao.val('');
+    }
+  });
+});
 
 
 

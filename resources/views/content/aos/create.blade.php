@@ -65,10 +65,12 @@
 @endsection
 
 @section('page-script')
+<script src="{{asset('assets/js/forms-selects.js')}}"></script>
 <script src="{{asset('assets/js/forms-extras.js')}}"></script>
 <script src="{{asset('assets/js/form-validation.js')}}"></script>
 <script src="{{asset('assets/js/forms-pickers.js')}}"></script>
 <script src="{{asset('assets/js/wizard-ex-checkout.js')}}"></script>
+<script src="{{asset('assets/js/multi-select.js')}}"></script>
 
 <script type="text/javascript">
     $.ajaxSetup({
@@ -80,6 +82,27 @@
     $(".btn-create").click(function(e) {
         e.preventDefault();
         var formData = new FormData($('#wizard-checkout-form')[0]);
+        var departementPart = 0;
+        var partenairePart = 0;
+        var soustraitantPart = 0;
+        for (var pair of formData.entries()) {
+            if (pair[0] == 'mantant_soumission_ao') {
+                montant = parseFloat(pair[1].replace(" ", ""));
+            }
+            if (pair[0].includes('departement_part')) {
+                departementPart += parseFloat(pair[1].replace(" ", ""));
+            }
+            if (pair[0].includes('partenaire_part')) {
+                partenairePart += parseFloat(pair[1].replace(" ", ""));
+            }
+            if (pair[0].includes('soustraitant_part')) {
+                soustraitantPart += parseFloat(pair[1].replace(" ", ""));
+            }
+        }
+        if (departementPart + partenairePart + soustraitantPart != montant) {
+            alert(`La somme des parts doit être égale au montant de soumission\n- La somme des parts est : ${departementPart + partenairePart + soustraitantPart}\n- Le montant de soumission est : ${montant}`);
+            return false;
+        }
         $.ajax({
             url: "{{ route('appel-offre-store') }}",
             type: 'POST',
@@ -95,7 +118,7 @@
                 }
             }
         });
-        
+
     });
 
     function printErrorMsg(msg) {
@@ -125,180 +148,275 @@
                 <!-- @csrf -->
                 <!-- Infos -->
                 <div>
-                <div class="col-12 row">
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="type_ao">Type</label>
-        <select class="form-select" id="type_ao" name="type_ao">
-            <option selected>Selectionner le type</option>
-            <option value="Consultation nationale">Consultation nationale</option>
-            <option value="AO National">AO National</option>
-            <option value="AMI">AMI</option>
-        </select>
-    </div>
+                    <div class="col-12 row">
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="type_ao">Type</label>
+                            <select class="form-select" id="type_ao" name="type_ao">
+                                <option selected>Selectionner le type</option>
+                                @foreach($types as $type)
+                                <option value="{{$type->type}}">{{$type->type}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="pay_ao">Pays</label>
-        <input class="form-control" type="text" id="pay_ao" name="pay_ao" placeholder="Pays" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="pay_ao">Pays</label>
+                            <select id="select2Basic" class="select2 form-select form-select-lg" name="pay_ao" data-allow-clear="true">
+                                @foreach($pays as $pay)
+                                <option value="{{$pay->pay}}">{{$pay->pay}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="secteur_ao">Secteur</label>
-        <select class="form-select" id="secteur_ao" name="secteur_ao">
-            <option selected>Selectionner le secteur</option>
-            <option value="Infrastructures">Infrastructures</option>
-            <option value="Energie">Energie</option>
-            <option value="Inspection">Inspection</option>
-        </select>
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="secteur_ao">Secteur</label>
+                            <select class="form-select" id="secteur_ao" name="secteur_ao">
+                                <option selected>Selectionner le secteur</option>
+                                @foreach($secteurs as $secteur)
+                                <option value="{{$secteur->secteur}}">{{$secteur->secteur}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="financement_ao">Financement</label>
-        <input type="text" class="form-control" id="financement_ao" name="financement_ao" placeholder="Financement" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="financement_ao">Financement</label>
+                            <select class="form-select" id="financement_ao" name="financement_ao">
+                                <option selected>Selectionner le financement</option>
+                                @foreach($financements as $financement)
+                                <option value="{{$financement->financement}}">{{$financement->financement}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="ministere_ao">Ministère de tutelle</label>
-        <input class="form-control" type="text" id="ministere_ao" name="ministere_ao" placeholder="Ministère de tutelle" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="ministere_ao">Ministère de tutelle</label>
+                            <select class="form-select" id="ministere_ao" name="ministere_ao">
+                                <option selected>Selectionner le ministère</option>
+                                @foreach($ministeres as $ministere)
+                                <option value="{{$ministere->ministere}}">{{$ministere->ministere}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="n_ao">N°AO</label>
-        <input class="form-control" type="text" id="n_ao" name="n_ao" placeholder="N°AO" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="societe_ao">Sociète</label>
+                            <select class="form-select" id="societe_ao" name="societe_ao">
+                                <option value="" selected>Selectionner la Sociète</option>
+                                @foreach($societes as $societe)
+                                <option value="{{$societe->societeNom}}">{{$societe->societeNom}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="marche_ao">MARCHE N°</label>
-        <input class="form-control" type="text" id="marche_ao" name="marche_ao" placeholder="MARCHE N°" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="n_ao">N°AO</label>
+                            <input class="form-control" type="text" id="n_ao" name="n_ao" placeholder="N°AO" />
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="lot_ao">Lot N°</label>
-        <input class="form-control" type="text" id="lot_ao" name="lot_ao" placeholder="Lot N°" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="lot_ao">Lot N°</label>
+                            <input class="form-control" type="text" id="lot_ao" name="lot_ao" placeholder="Lot N°" />
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="objet_ao">Objet</label>
-        <textarea class="form-control" id="objet_ao" name="objet_ao" rows="1"></textarea>
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="objet_ao">Objet</label>
+                            <textarea class="form-control" id="objet_ao" name="objet_ao" rows="1"></textarea>
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="client_ao">Client</label>
-        <input class="form-control" type="text" id="client_ao" name="client_ao" placeholder="Client" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="maître_ao">Maître d'ouvrage</label>
+                            <input class="form-control" type="text" id="maître_ao" name="maître_ao" placeholder="Client" />
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="caution_provisoire_ao">Caution Provisoire</label>
-        <input class="form-control" type="text" id="caution_provisoire_ao" name="caution_provisoire_ao" placeholder="Caution Provisoire" />
-    </div>
+                        <div class="col-md-6 mb-4">
+                            <label for="TagifyUserList" class="form-label">Responsables</label>
+                            <input id="TagifyUserList" name="responsable" class="form-control" />
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="annulation_ao">Annulation caution</label>
-        <input class="form-control" type="text" id="annulation_ao" name="annulation_ao" placeholder="Annulation caution" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="caution_provisoire_ao">Caution Provisoire</label>
+                            <input class="form-control" type="text" id="caution_provisoire_ao" name="caution_provisoire_ao" placeholder="Caution Provisoire" />
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="budget_ao">Budget</label>
-        <input class="form-control" type="text" id="budget_ao" name="budget_ao" placeholder="Budget" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="annulation_ao">Annulation caution</label>
+                            <input class="form-control" type="text" id="annulation_ao" name="annulation_ao" placeholder="Annulation caution" />
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="date_limit_ao">Date Limite</label>
-        <input type="text" class="form-control" id="date_limit_ao" name="date_limit_ao" placeholder="DD/MM/YYYY" required />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="budget_ao">Budget</label>
+                            <input class="form-control" type="text" id="budget_ao" name="budget_ao" placeholder="Budget" />
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="mantant_soumission_ao">Montant Soumission</label>
-        <input class="form-control" type="text" id="mantant_soumission_ao" name="mantant_soumission_ao" placeholder="Montant Soumission" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="date_limit_ao">Date Limite</label>
+                            <input type="text" class="form-control" id="date_limit_ao" name="date_limit_ao" placeholder="DD/MM/YYYY" required />
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="bu_ao">BU</label>
-        <select class="form-select" id="bu_ao" name="bu_ao">
-            <option selected>Selectionner le BU</option>
-            @foreach($bus as $bu)
-            <option value="{{$bu->buNom}}">{{$bu->buNom}}</option>
-            @endforeach
-        </select>
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="mantant_soumission_ao">Montant Soumission</label>
+                            <input class="form-control" type="text" id="mantant_soumission_ao" name="mantant_soumission_ao" placeholder="Montant Soumission" />
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="departement_ao">Département</label>
-        <select class="form-select" id="departement_ao" name="departement_ao">
-            <option selected>Selectionner le Département</option>
-            @foreach($departements as $departement)
-            <option value="{{$departement->departementNom}}">{{$departement->departementNom}}</option>
-            @endforeach
-        </select>
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="bu_ao">BU</label>
+                            <select class="form-select" id="bu_ao" name="bu_ao">
+                                <option selected>Selectionner le BU</option>
+                                @foreach($bus as $bu)
+                                <option value="{{$bu->buNom}}">{{$bu->buNom}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="responsable_ao">Responsable</label>
-        <select class="form-select" id="responsable_ao" name="responsable_ao">
-            <option selected>Selectionner le Responsable</option>
-            @foreach($rhs as $rh)
-            <option value="{{$rh->rhNom}}">{{$rh->rhNom}}</option>
-            @endforeach
-        </select>
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="adjudication_ao">Adjudication</label>
+                            <select class="form-select" id="adjudication_ao" name="adjudication_ao">
+                                <option selected>Selectionner l'adjudication</option>
+                                @foreach($adjudications as $adjudication)
+                                <option value="{{$adjudication->adjudication}}">{{$adjudication->adjudication}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="adjudication_ao">Adjudication</label>
-        <input class="form-control" type="text" id="adjudication_ao" name="adjudication_ao" placeholder="Adjudication" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="date_adjudication_ao">Date Adjudication</label>
+                            <input class="form-control" type="text" id="date_adjudication_ao" name="date_adjudication_ao" placeholder="DD/MM/YYYY" disabled />
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="date_adjudication_ao">Date Adjudication</label>
-        <input class="form-control" type="text" id="date_adjudication_ao" name="date_adjudication_ao" placeholder="DD/MM/YYYY" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="motif_ao">Motif du rejet</label>
+                            <select class="form-select" id="motif_ao" name="motif_ao">
+                                <option selected>Selectionner le Motif</option>
+                                @foreach($motifs as $motif)
+                                <option value="{{$motif->motif}}">{{$motif->motif}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="motif_ao">Motif du rejet</label>
-        <input class="form-control" type="text" id="motif_ao" name="motif_ao" placeholder="Motif du rejet" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="rejet_ao">Rejet observation</label>
+                            <input class="form-control" type="text" id="rejet_ao" name="rejet_ao" placeholder="Rejet observation" />
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="caution_definitive_ao">Caution Définitive</label>
-        <input class="form-control" type="text" id="caution_definitive_ao" name="caution_definitive_ao" placeholder="Caution Définitive" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="adjudicataire_ao">Adjudicataire</label>
+                            <input class="form-control" type="text" id="adjudicataire_ao" name="adjudicataire_ao" placeholder="Adjudicataire" />
+                        </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="rejet_ao">Rejet observation</label>
-        <input class="form-control" type="text" id="rejet_ao" name="rejet_ao" placeholder="Rejet observation" />
-    </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="mantant_moins_ao">Montant Moins Disant</label>
+                            <input class="form-control" type="text" id="mantant_moins_ao" name="mantant_moins_ao" placeholder="Montant Moins Disant" />
+                        </div>
+                    </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="adjudicataire_ao">Adjudicataire</label>
-        <input class="form-control" type="text" id="adjudicataire_ao" name="adjudicataire_ao" placeholder="Adjudicataire" />
-    </div>
+                </div>
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="mantant_moins_ao">Montant Moins Disant</label>
-        <input class="form-control" type="text" id="mantant_moins_ao" name="mantant_moins_ao" placeholder="Montant Moins Disant" />
-    </div>
+                <hr class="my-5" />
 
-    <div class="col-md-6 mb-2">
-        <label class="form-label" for="partenariat_ao">Partenariat</label>
-        <input class="form-control" type="text" id="partenariat_ao" name="partenariat_ao" placeholder="Partenariat" />
-    </div>
+                <div>
+                    <h5>La sélectionne des départements</h5>
+                    <div class="content-wrapper-departement">
+                        <div class="content-departement">
+                            <div class="row">
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label" for="">Département Nom</label>
+                                    <select class="form-select" id="departement" name="departement_nom">
+                                        <option selected>Selectionner le Département</option>
+                                        @foreach($departements as $departement)
+                                        <option value="{{$departement->departementNom}}">{{$departement->departementNom}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label" for="">Département part</label>
+                                    <input class="form-control" type="text" placeholder="Entrer le part du département" name="departement_part" />
+                                </div>
+                                <div class="col-lg-12 col-xl-2 col-12 d-flex align-items-end mb-3">
+                                    <button class="btn btn-danger btn-remove"><i class="fa fa-trash"></i> Supprimer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions mb-4">
+                        <button type="button" class="btn btn-primary btn-add-departement"><i class="fa fa-plus"></i> Ajouter une Département</button>
+                    </div>
+                </div>
 
-    <div class="col-md-6 mb-4">
-        <label class="form-label" for="date_signature_ao">Date signature</label>
-        <input class="form-control" type="text" id="date_signature_ao" name="date_signature_ao" placeholder="DD/MM/YYYY" />
-    </div>
 
-    <div class="col-12">
-        <div class="col-12">
-            <div class="col-12 d-flex justify-content-between">
-                <button type="button" class="btn btn-label-secondary btn-prev">
-                    <span class="align-middle d-sm-inline-block d-none" onclick="window.history.back();">Annuler</span>
-                </button>
-                <button type="button" class="btn btn-success btn-create"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Ajouter</span></button>
-            </div>
-        </div>
-    </div>
+                <hr class="my-5" />
 
-</div>
+                <div>
+                    <h5>La sélectionne des partenaires</h5>
+                    <div class="content-wrapper-partenaire">
+                        <div class="content-partenaire">
+                            <div class="row">
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label" for="">Partenaire Nom</label>
+                                    <select class="form-select" id="partenaire" name="partenaire_nom">
+                                        <option selected>Selectionner le Partenaire</option>
+                                        @foreach($partenaires as $partenaire)
+                                        <option value="{{$partenaire->partenaire}}">{{$partenaire->partenaire}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label" for="">Partenaire part</label>
+                                    <input class="form-control" type="text" placeholder="Entrer le part du Partenaire" name="partenaire_part" />
+                                </div>
+                                <div class="col-lg-12 col-xl-2 col-12 d-flex align-items-end mb-3">
+                                    <button class="btn btn-danger btn-remove"><i class="fa fa-trash"></i> Supprimer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions mb-4">
+                        <button type="button" class="btn btn-primary btn-add-partenaire"><i class="fa fa-plus"></i> Ajouter un Partenaire</button>
+                    </div>
+                </div>
 
+
+                <hr class="my-5" />
+
+                <div>
+                    <h5>La sélectionne des Sous Traitants</h5>
+                    <div class="content-wrapper-sousTraitant">
+                        <div class="content-sousTraitant">
+                            <div class="row">
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label" for="">Sous Traitants Nom</label>
+                                    <select class="form-select" id="sousTraitant" name="sousTraitant_nom">
+                                        <option selected>Selectionner le sousTraitant</option>
+                                        @foreach($soustraitants as $soustraitant)
+                                        <option value="{{$soustraitant->soustraitant}}">{{$soustraitant->soustraitant}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label" for="">Sous Traitants part</label>
+                                    <input class="form-control" type="text" placeholder="Entrer le part du Sous Traitants" name="soustraitant_part" />
+                                </div>
+                                <div class="col-lg-12 col-xl-2 col-12 d-flex align-items-end mb-3">
+                                    <button class="btn btn-danger btn-remove"><i class="fa fa-trash"></i> Supprimer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions mb-4">
+                        <button type="button" class="btn btn-primary btn-add-sousTraitant"><i class="fa fa-plus"></i> Ajouter un Sous Traitants</button>
+                    </div>
+                </div>
+
+
+
+                <div class="col-12">
+                    <div class="col-12">
+                        <div class="col-12 d-flex justify-content-between">
+                            <button type="button" class="btn btn-label-secondary btn-prev">
+                                <span class="align-middle d-sm-inline-block d-none" onclick="window.history.back();">Annuler</span>
+                            </button>
+                            <button type="button" class="btn btn-success btn-create"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Ajouter</span></button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

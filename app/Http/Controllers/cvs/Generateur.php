@@ -119,6 +119,7 @@ class Generateur extends Controller
         'client' => $value->client,
         'annee' => $value->annee,
         'missions' => $value->missions,
+        'objet' => $value->objet,
         'category' => $value->category,
         'missionsParticipe' => $missionsParticipe
       ];
@@ -242,32 +243,13 @@ class Generateur extends Controller
   //   return response()->json(['success' => true, 'message' => 'CVs generated successfully.', 'fileUrl' => $fileUrl]);
   // }
 
-  // public function SaveGeneratedCvs($ao_name, $model, $langue_module, $cvs)
-  // {
-  //   $ao = new GeneratedAo();
-  //   $ao->ao_nom = $ao_name;
-  //   $ao->modele = $model;
-  //   $ao->langue = $langue_module;
-  //   $ao->save();
-
-  //   $jsonFilePath = storage_path('app/public/jsons/' . $ao_name . '-' . $ao->id . '.json');
-  //   $jsonData = json_encode($cvs, JSON_PRETTY_PRINT);
-  //   if ($jsonData === false) {
-  //     return false;
-  //   }
-
-  //   $result = file_put_contents($jsonFilePath, $jsonData);
-
-  //   if ($result === false) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
+  
 
   public function generateCvs(Request $request)
 {
   
     $ao_name = $request->ao;
+    $ao_name = str_replace('/', '-', $ao_name);
     $model = $request->model;
     $langue_module = $request->langue_module;
     $diplome_module = $request->diplome_module;
@@ -304,9 +286,9 @@ class Generateur extends Controller
                   $template->setValue($attr . '#' . ($key + 1), $value[$attr]);
                 }
             }
-            if(isset($value['diplome'])){
-              $countOfDiplomes++;
-            }
+            // if(isset($value['diplome'])){
+            //   $countOfDiplomes++;
+            // }
         }
         $experiences = $cv['experiences'];
         $template->cloneRow('dateDebut', count($experiences));
@@ -316,15 +298,18 @@ class Generateur extends Controller
               if(in_array($attr, $variables)){
                 if($attr == 'taches'){
                   $taches = $value['taches'];
-                  $tachesStr = '';
-                  foreach ($taches as $key1 => $value1) {
-                    if(isset($value1['tache'])){
-                      $tachesStr .= $value1['tache'] . '/ ';
-                    }else{
-                      $tachesStr .= $value1 . '/ ';
-                    }
+                  // $tachesStr = '';
+                  // foreach ($taches as $key1 => $value1) {
+                  //   if(isset($value1['tache'])){
+                  //     $tachesStr .= $value1['tache'] . '/ ';
+                  //   }else{
+                  //     $tachesStr .= $value1 . '/ ';
+                  //   }
+                  // }
+                  $template->cloneBlock('taches_block'.'#'. ($key + 1), count($taches), true, true);
+                  for($i = 0; $i < count($taches); $i++) {
+                    $template->setValue($attr .'#'. ($key + 1) . '#' . ($i + 1), $taches[$i]['tache']);
                   }
-                  $template->setValue($attr . '#' . ($key + 1), $tachesStr);
                 }else{
                     $template->setValue($attr . '#' . ($key + 1), $value[$attr]);
                 }
@@ -350,7 +335,7 @@ class Generateur extends Controller
 
         $langues = explode(',', $cv['langue']);
         $niveaux = explode(',', $cv['niveauLangue']);
-        if(count($langues) == 1 && $langues[0] == '') {
+        if(count($langues) == 1 && $langues[0] == '' || count($niveaux) == 1 && $niveaux[0] == '') {
           $langues = [];
           $niveaux = [];
         }
@@ -363,15 +348,15 @@ class Generateur extends Controller
         $file_path = $cv_folder_path . DIRECTORY_SEPARATOR . $file_name;
 
         $formations = Formations::where('ID_Salarie', $cv['id'])->get();
-        foreach ($formations as $key => $value) {
-            if ($value->diplome != null) {
-                $diplome = $value->diplome;
-                $diplome = storage_path('app/public/formations/' . $diplome);
-                $ext = pathinfo($diplome, PATHINFO_EXTENSION);
-                $name = 'certificat_' . $value->intitule . '.' . $ext;
-                File::copy($diplome, $cv_folder_path . DIRECTORY_SEPARATOR . $name);
-            }
-        }
+        // foreach ($formations as $key => $value) {
+        //     if ($value->diplome != null) {
+        //         $diplome = $value->diplome;
+        //         $diplome = storage_path('app/public/formations/' . $diplome);
+        //         $ext = pathinfo($diplome, PATHINFO_EXTENSION);
+        //         $name = 'certificat_' . $value->intitule . '.' . $ext;
+        //         File::copy($diplome, $cv_folder_path . DIRECTORY_SEPARATOR . $name);
+        //     }
+        // }
 
         $refs = $cv['refs'];
         foreach ($refs as $key => $value) {
@@ -381,25 +366,34 @@ class Generateur extends Controller
           if($value['missionsParticipe'] == '') {
             unset($refs[$key]);
           }
+          
         }
+
         $template->cloneRow('missions', count($refs));
-        $refsData = ['client', 'annee', 'missions'];
+        $refsData = ['client', 'annee', 'missions', 'objet' ];
+        $index = 1;
         foreach ($refs as $key => $value) {
           foreach ($refsData as $attr) 
-          {
-              $index = $key + 1;
+          {   
               if($attr == 'missions') {
-                $template->setValue($attr.'#'. $index, $value['missionsParticipe']);
+                $value['missionsParticipe'] = explode(',', $value['missionsParticipe']);
+                $template->cloneBlock('missions_block'.'#'. $index, count($value['missionsParticipe']), true, true);
+                for($i = 0; $i < count($value['missionsParticipe']); $i++) {
+                  $template->setValue('missions#' . $index . '#' . ($i + 1), $value['missionsParticipe'][$i]);
+                }
               } else {
                 $template->setValue($attr.'#'. $index, $value[$attr]);
+                // echo $attr.'#'. $index;
               }
           }
+          $index++;
         }
         
 
         $template->saveAs($file_path);
     }
 
+    $this->SaveGeneratedCvs($ao_name, $model, $langue_module, $cvs);
     $zip = new ZipArchive();
     $zipFileName = storage_path('app/public/cvs/' . $ao_name . '.zip');
     if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
@@ -443,6 +437,68 @@ private function addFolderToZip($zip, $folderPath, $parentPath)
     $json = file_get_contents($jsonFilePath);
     $cvs = json_decode($json, true);
     $ao->cvs = $cvs;
+    $refs = Refs::all();
+    $refsIds = [];
+    for($i = 0; $i < count($refs); $i++) {
+      $refsIds[] = $refs[$i]['ID_Ref'];
+    }
+    for($k = 0 ; $k < count($cvs) ; $k++) {
+      $refsStored = $cvs[$k]['refs'];
+      $refsStoredIds = [];
+      for($j = 0; $j < count($refsStored); $j++) {
+        $refsStoredIds[] = $refsStored[$j]['id'];
+      }
+
+      $keepRefs = [];
+      $newRefs = [];
+
+      foreach ($refsIds as $refId) {
+          if (in_array($refId, $refsStoredIds) || in_array($refId, $keepRefs)) {
+              $keepRefs[] = $refId;
+          } else {
+              $newRefs[] = $refId;
+          }
+      }
+
+      $finalRefs = [];
+
+      foreach ($refsStored as $ref) {
+          if (in_array($ref['id'], $keepRefs)) {
+              $finalRefs[] = $ref;
+          }
+      }
+
+      foreach ($refs as $ref) {
+          if (in_array($ref['ID_Ref'], $newRefs)) {
+              $finalRefs[] = $ref;
+          }
+      }
+
+      $cvs[$k]['refs'] = $finalRefs;
+    }
     return response()->json(['success' => true, 'ao' => $ao]);
+  }
+
+  public function SaveGeneratedCvs($ao_name, $model, $langue_module, $cvs)
+  {
+    $ao_name = str_replace('/', '-', $ao_name);
+    $ao = new GeneratedAo();
+    $ao->ao_nom = $ao_name;
+    $ao->modele = $model;
+    $ao->langue = $langue_module;
+    $ao->save();
+
+    $jsonFilePath = storage_path('app/public/jsons/' . $ao_name . '-' . $ao->id . '.json');
+    $jsonData = json_encode($cvs, JSON_PRETTY_PRINT);
+    if ($jsonData === false) {
+      return false;
+    }
+
+    $result = file_put_contents($jsonFilePath, $jsonData);
+
+    if ($result === false) {
+      return false;
+    }
+    return true;
   }
 }

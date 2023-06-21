@@ -13,14 +13,21 @@ use Dompdf\Dompdf;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\TemplateProcessor;
-use PhpOffice\PhpWord\Shared\Html;
-use PhpOffice\PhpWord\Element\Text;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\RefsImport;
 
 class References extends Controller
 {
     public function index()
     {
         return view('content.cvs.references-cv');
+    }
+
+    public function upload(Request $request)
+    {
+      $file = $request->file('file');
+      Excel::import(new RefsImport, $file);
+      return response()->json(['message' => 'Employees added successfuly']);
     }
 
     public function archived(Request $request)

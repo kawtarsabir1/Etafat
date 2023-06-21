@@ -315,8 +315,15 @@ $(function () {
           ]
         },
         {
+          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Télécharger</span>',
+          className: 'btn btn-info btn-gradient',
+          attr: {
+            onclick: "$('#uploadExcel').click();"
+          }
+        },
+        {
           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Nouvelle référence</span>',
-          className: 'btn btn-primary btn-gradient',
+          className: 'btn btn-primary btn-gradient mx-3',
           attr: {
             onclick: 'window.location.href="'+ baseUrl + 'cv/reference/create"'
           }

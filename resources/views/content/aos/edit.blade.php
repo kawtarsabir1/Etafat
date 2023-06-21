@@ -169,11 +169,6 @@
                         </div>
 
                         <div class="col-md-6 mb-2">
-                            <label class="form-label" for="marche_ao">MARCHE N°</label>
-                            <input class="form-control" type="text" id="marche_ao" name="marche_ao" placeholder="MARCHE N°" value="{{$ao->marche_ao}}" />
-                        </div>
-
-                        <div class="col-md-6 mb-2">
                             <label class="form-label" for="lot_ao">Lot N°</label>
                             <input class="form-control" type="text" id="lot_ao" name="lot_ao" placeholder="Lot N°" value="{{$ao->lot_ao}}" />
                         </div>
@@ -184,8 +179,8 @@
                         </div>
 
                         <div class="col-md-6 mb-2">
-                            <label class="form-label" for="client_ao">Client</label>
-                            <input class="form-control" type="text" id="client_ao" name="client_ao" placeholder="Client" value="{{$ao->client_ao}}" />
+                            <label class="form-label" for="maître_ao">Maître d'ouvrage</label>
+                            <input class="form-control" type="text" id="maître_ao" name="maître_ao" placeholder="Client" value="{{$ao->maître_ao}}" />
                         </div>
 
                         <div class="col-md-6 mb-2">
@@ -276,16 +271,6 @@
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="mantant_moins_ao">Montant Moins Disant</label>
                             <input class="form-control" type="text" id="mantant_moins_ao" name="mantant_moins_ao" placeholder="Montant Moins Disant" value="{{$ao->mantant_moins_ao}}" />
-                        </div>
-
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="partenariat_ao">Partenariat</label>
-                            <input class="form-control" type="text" id="partenariat_ao" name="partenariat_ao" placeholder="Partenariat" value="{{$ao->partenariat_ao}}" />
-                        </div>
-
-                        <div class="col-md-6 mb-4">
-                            <label class="form-label" for="date_signature_ao">Date signature</label>
-                            <input class="form-control" type="text" id="date_signature_ao" name="date_signature_ao" placeholder="DD/MM/YYYY" value="{{$ao->date_signature_ao}}" />
                         </div>
 
                         <div class="col-12">

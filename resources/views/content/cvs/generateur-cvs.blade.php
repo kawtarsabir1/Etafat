@@ -66,6 +66,7 @@
 @endsection
 
 @section('page-script')
+<script src="{{asset('assets/js/forms-selects.js')}}"></script>
 <script src="{{asset('assets/js/forms-extras.js')}}"></script>
 <script src="{{asset('assets/js/form-validation.js')}}"></script>
 <script src="{{asset('assets/js/forms-pickers.js')}}"></script>
@@ -248,7 +249,7 @@ function selectAncienAo(id){
                                 <div class="row">
                                     <div class="col mb-3">
                                         <label class="form-label" for="employees">Employee</label>
-                                        <select id="employees" class="form-select" name="employee-0">
+                                        <select id="employees" class="form-select select2 form-select form-select-lg" name="employee-0">
                                             <option value="">Sélectionnez un cv</option>
                                         </select>
                                     </div>

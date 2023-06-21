@@ -659,4 +659,13 @@ class Gestion extends Controller
       'data' => $projets
     ]);
   }
+
+  public function AllRhs()
+  {
+    $data = Rh::all();
+    foreach ($data as $key => $value) {
+      $data[$key]['value'] = $value['id'];
+    }
+    return response()->json($data);
+  }
 }
