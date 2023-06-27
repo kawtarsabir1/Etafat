@@ -18,6 +18,8 @@ use App\Models\Champs\Adjudication;
 use App\Models\Societe;
 use App\Models\Champs\Soustraitant;
 use App\Models\Champs\Partenaire;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\AosImport;
 
 class Gestion extends Controller
 {
@@ -126,6 +128,13 @@ class Gestion extends Controller
 
     $ao->update($request->all());
     return redirect()->route('appel-offre-gestion');
+  }
+
+  public function upload(Request $request)
+  {
+    $file = $request->file('file');
+    Excel::import(new AosImport, $file);
+    return response()->json(['message' => 'Employees added successfuly']);
   }
 
   public function store(Request $request)

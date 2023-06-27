@@ -13,27 +13,27 @@
 
 @section('vendor-script')
 <script>
-  // $(function() {
-  //   //get input uploadExcel
-  //   var input = $('#uploadExcel');
+  $(function() {
+    //get input uploadExcel
+    var input = $('#uploadExcel');
 
-  //   $('#uploadExcel').change(function() {
-  //     var formData = new FormData();
-  //     formData.append('file', input.prop('files')[0]);
-  //     formData.append('_token', '{{ csrf_token() }}');
-  //     $.ajax({
-  //       url: "{{ route('cv-uploadExcel') }}",
-  //       type: 'POST',
-  //       data: formData,
-  //       contentType: false,
-  //       processData: false,
-  //       success: function(data) {
-  //         alert('Données téléchargées avec succès');
-  //         location.reload();
-  //       }
-  //     });
-  //   });
-  // });
+    $('#uploadExcel').change(function() {
+      var formData = new FormData();
+      formData.append('file', input.prop('files')[0]);
+      formData.append('_token', '{{ csrf_token() }}');
+      $.ajax({
+        url: "{{ route('ao-uploadExcel') }}",
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          alert('Données téléchargées avec succès');
+          location.reload();
+        }
+      });
+    });
+  });
 </script>
 <script src="{{asset('assets/vendor/libs/moment/moment.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>

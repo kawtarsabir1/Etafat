@@ -273,7 +273,7 @@ $(function () {
           .every(function () {
             var column = this;
             var select = $(
-              '<select id="UserPlan" class="form-select text-capitalize"><option value=""> Sélectionnez Par Maître d\'ouvrage </option></select>'
+              '<select id="UserPlan" class="form-select text-capitalize"><option value=""> Sélectionnez Par Pay </option></select>'
             )
               .appendTo('.maître_ao')
               .on('change', function () {
@@ -291,7 +291,7 @@ $(function () {
           });
         // Adding Profil filter once table initialized
         this.api()
-          .columns(5)
+          .columns(6)
           .every(function () {
             var column = this;
             var select = $(
@@ -314,7 +314,7 @@ $(function () {
 
         // Adding Profil filter once table initialized
         this.api()
-          .columns(6)
+          .columns(7)
           .every(function () {
             var column = this;
             var select = $(

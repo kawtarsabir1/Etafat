@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('n_ao');
             $table->string('lot_ao')->nullable();
             $table->string('maître_ao');
-            $table->string('objet_ao');
+            $table->text('objet_ao');
             $table->string('caution_provisoire_ao')->nullable();
             $table->string('annulation_ao')->nullable();
             $table->string('budget_ao')->nullable();

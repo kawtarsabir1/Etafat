@@ -200,6 +200,7 @@ Route::get('/cv/generateur', $controller_path . '\cvs\generateur@index')->name('
 
 Route::post('/cv/gestion/uploadExcel', $controller_path . '\cvs\gestion@upload')->name('cv-uploadExcel');
 Route::post('/cv/gestion/uploadExcelRefs', $controller_path . '\cvs\references@upload')->name('refs-uploadExcel');
+Route::post('/ao/gestion/uploadExcelAos', $controller_path . '\aos\gestion@upload')->name('ao-uploadExcel');
 
 Route::get('/cv/gestion', $controller_path . '\cvs\gestion@index')->name('cv-gestion');
 
