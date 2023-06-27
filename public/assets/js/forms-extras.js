@@ -1103,15 +1103,15 @@ function editCv(index) {
 
   var btnFilterRefs = $('.btn-filter-refs');
   btnFilterRefs.on('click', function () {
-    var filterCategory = $('#filter-category').val();
-    var filterMontant = $('#filter-montant').val();
-    var filterAnciente = $('#filter-anciente').val();
     var contentRefs = $('.content-custumize-refs');
     let refs = cv.refs;
     localStorage.setItem('refsArray', JSON.stringify(refs));
     console.log(filterCategory , filterMontant , filterAnciente);
     contentRefs.empty();
     for (let i = 0; i < refs.length; i++) {
+      var filterCategory = $('#filter-category').val();
+      var filterMontant = $('#filter-montant').val();
+      var filterAnciente = $('#filter-anciente').val();
       let ref = refs[i];
       console.log(ref);
       if(ref.missions == null || ref.missions == ''){
@@ -1138,6 +1138,7 @@ function editCv(index) {
 
       if(filterMontant != ''){
         let refMontant = ref.montant
+        refMontant = refMontant.split(' ').join('');
         if(filterMontant.includes("+")){
           filterMontant = filterMontant.replace("+", "");
           filterMontant = parseInt(filterMontant);
