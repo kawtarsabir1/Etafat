@@ -377,12 +377,13 @@ $(function () {
   btnSave.click(async function () {
     let employeur = $('#ref-employeur').val();
     let poste = $('#ref-poste').val();
+    let pay = $('#ref-pay').val();
     let dateDebut = $('#exp-dateAu').val();
     let dateFin = $('#exp-dateDu').val();
     let taches = $('#ref-taches').val();
     let diplome = $('#diplome').prop('files')[0] || null;
 
-    if(!employeur || !poste || !dateDebut || !dateFin || !taches) {
+    if(!employeur || !poste || !dateDebut || !dateFin || !taches || !pay) {
       alert('Veuillez remplir tous les champs');
       return;
     }
@@ -390,6 +391,7 @@ $(function () {
     let ref = {
       employeur: employeur,
       poste: poste,
+      pay: pay,
       dateDebut: dateDebut,
       dateFin: dateFin,
       taches: taches.split(','),
@@ -417,6 +419,7 @@ $(function () {
             <div class="card-body">
                 <p class="card-text niveau_etude-cursus"><span class="card-title">Employeur : </span>${ref.employeur}</p>
                 <p class="card-text"><span class="card-title">Poste : </span>${ref.poste}</p>
+                <p class="card-text"><span class="card-title">Pay : </span>${ref.pay}</p>
                 <p class="card-text">Date from ${ref.range} </p>
                 <span class="card-title">Taches : </span>
                 <ul class="list-group list-group-flush">

@@ -515,6 +515,11 @@
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                        <label class="form-label" for="ref-pay">Pay</label>
+                                        <input type="text" id="ref-pay" class="form-control" placeholder="Maroc">
+                                    </div>
+
+                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                         <label for="ref-taches" class="form-label">Taches (splite with comma)</label>
                                         <textarea class="form-control" id="ref-taches" rows="3" placeholder="Tache 1, Tache 2, Tache 3"></textarea>
                                     </div>

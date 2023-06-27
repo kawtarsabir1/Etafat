@@ -197,7 +197,40 @@ $(function () {
   var contentWrapper = $('.content-wrapper-departement'),
     content = $('.content-departement'),
     btnAdd = $('.btn-add-departement'),
-    btnRemove = $('.btn-remove');
+    btnRemove = $('.btn-remove'),
+    id = $('#id_ao').val();
+
+    if(id != ''){
+      $.ajax({
+        url: baseUrl + 'ao/getAo/' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (res) {
+          let departements = res.data.departements_ao;
+          departements = departements.split(',')
+          let parts = res.data.departements_part;
+          parts = parts.split(',')
+          $.each(departements, function (i, item) {
+            var clone = content.clone();
+            clone.find('input').val(parts[i]);
+            clone.find('select').val(item);
+            clone.find('input').each(function () {
+              var name = $(this).attr('name');
+              var index = $('.content-departement').length;
+              $(this).attr('name', name + index);
+            });
+            clone.find('select').each(function () {
+              var name = $(this).attr('name');
+              var index = $('.content-departement').length;
+              $(this).attr('name', name + index);
+            });
+            clone.appendTo(contentWrapper);
+          });
+          //remove first
+          $('.content-departement').first().remove();
+        }
+      });
+    }
 
   // Add new departement
   btnAdd.click(function () {
@@ -227,7 +260,40 @@ $(function () {
   var contentWrapper = $('.content-wrapper-partenaire'),
     content = $('.content-partenaire'),
     btnAdd = $('.btn-add-partenaire'),
-    btnRemove = $('.btn-remove');
+    btnRemove = $('.btn-remove'),
+    id = $('#id_ao').val();
+
+    if(id != ''){
+      $.ajax({
+        url: baseUrl + 'ao/getAo/' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (res) {
+          let partenaires = res.data.partenaires_ao;
+          partenaires = partenaires.split(',');
+          let parts = res.data.partenaires_part;
+          parts = parts.split(',');
+          $.each(partenaires, function (i, item) {
+            var clone = content.clone();
+            clone.find('input').val(parts[i]);
+            clone.find('select').val(item);
+            clone.find('input').each(function () {
+              var name = $(this).attr('name');
+              var index = $('.content-partenaire').length;
+              $(this).attr('name', name + index);
+            });
+            clone.find('select').each(function () {
+              var name = $(this).attr('name');
+              var index = $('.content-partenaire').length;
+              $(this).attr('name', name + index);
+            });
+            clone.appendTo(contentWrapper);
+          });
+          //remove first
+          $('.content-partenaire').first().remove();
+        }
+      });
+    }
 
   // Add new partenaire
   btnAdd.click(function () {
@@ -257,7 +323,40 @@ $(function () {
   var contentWrapper = $('.content-wrapper-sousTraitant'),
     content = $('.content-sousTraitant'),
     btnAdd = $('.btn-add-sousTraitant'),
-    btnRemove = $('.btn-remove');
+    btnRemove = $('.btn-remove'),
+    id = $('#id_ao').val();
+
+    if(id != ''){
+      $.ajax({
+        url: baseUrl + 'ao/getAo/' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (res) {
+          let soustraitants = res.data.soustraitants_ao;
+          soustraitants = soustraitants.split(',')
+          let parts = res.data.soustraitants_part;
+          parts = parts.split(',')
+          $.each(soustraitants, function (i, item) {
+            var clone = content.clone();
+            clone.find('input').val(parts[i]);
+            clone.find('select').val(item);
+            clone.find('input').each(function () {
+              var name = $(this).attr('name');
+              var index = $('.content-sousTraitant').length;
+              $(this).attr('name', name + index);
+            });
+            clone.find('select').each(function () {
+              var name = $(this).attr('name');
+              var index = $('.content-sousTraitant').length;
+              $(this).attr('name', name + index);
+            });
+            clone.appendTo(contentWrapper);
+          });
+          //remove first
+          $('.content-sousTraitant').first().remove();
+        }
+      });
+    }
 
   // Add new sousTraitant
   btnAdd.click(function () {
@@ -385,8 +484,9 @@ $(function () {
     var dateDu = $('#exp-dateDu').val();
     var dateAu = $('#exp-dateAu').val();
     let taches = $('#ref-taches').val();
+    let pay = $('#ref-pay').val();
 
-    if (!employeur || !poste  || !dateDu || !taches) {
+    if (!employeur || !poste  || !dateDu || !taches || !pay) {
       alert('Veuillez remplir tous les champs');
       return;
     }
@@ -400,6 +500,7 @@ $(function () {
       poste: poste,
       dateDu: dateDu,
       dateAu: dateAu,
+      pay: pay,
       taches: taches.split(',')
     };
     let refsArray = JSON.parse(localStorage.getItem('refsArray')) || [];
@@ -424,6 +525,7 @@ $(function () {
             <div class="card-body">
                 <p class="card-text niveau_etude-cursus"><span class="card-title">Employeur : </span>${ref.employeur}</p>
                 <p class="card-text"><span class="card-title">Poste : </span>${ref.poste}</p>
+                <p class="card-text"><span class="card-title">Pay : </span>${ref.pay}</p>
                 <p class="card-text">Date Du ${ref.dateDu} Au ${ref.dateAu}</p>
                 <span class="card-title">Taches : </span>
                 <ul class="list-group list-group-flush">
@@ -437,6 +539,7 @@ $(function () {
 
     $('#employeur').val('');
     $('#poste').val('');
+    $('#pay').val('');
     $('#exp-dateDu').val('');
     $('#exp-dateAu').val('');
     $('#taches').val('');
@@ -587,13 +690,50 @@ $(function () {
     type: 'GET',
     success: function (data) {
       let employees = data.data;
-      console.log(employees)
       employees.forEach(employee => {
         let option = `<option value="${employee.ID_Salarie}">${employee.Nom} ${employee.Prenom}</option>`;
         $('#employees').append(option);
       });
     }
   });
+
+  $(document).on('change', '#diplome', function () {
+    let diplome = $(this).val();
+    if(diplome!=""){
+      $('#anciente').attr('disabled', false);
+    }
+    $.ajax({
+      url: baseUrl + 'cv/gestion/allEmployees/diplome/' + diplome,
+      type: 'GET',
+      success: function (data) {
+        let employees = data.data;
+        $('#employees').html('');
+        employees.forEach(employee => {
+          let option = `<option value="${employee.ID_Salarie}">${employee.Nom} ${employee.Prenom}</option>`;
+          $('#employees').append(option);
+        });
+      }
+    });
+  });
+
+  $(document).on('change', '#anciente', function () {
+    let anciente = $(this).val();
+    let diplome = $('#diplome').val();
+    $.ajax({
+      url: baseUrl + 'cv/gestion/allEmployees/anciente/'+diplome+'/' + anciente,
+      type: 'GET',
+      success: function (data) {
+        let employees = data.data;
+        $('#employees').html('');
+        employees.forEach(employee => {
+          let option = `<option value="${employee.ID_Salarie}">${employee.Nom} ${employee.Prenom}</option>`;
+          $('#employees').append(option);
+        });
+      }
+    });
+  });
+
+
 
   //onhover on .card element in document
   $(document).on('mouseenter', '.card', function () {
@@ -942,7 +1082,116 @@ function editCv(index) {
     contentRefs.append(checkbox);
   }
 
+
+  //get filter category filter-category
+  var filterCategory = $('#filter-category');
+  $.ajax({
+    url: baseUrl + 'cv/all/categories',
+    type: 'GET',
+    dataType: 'json',
+    success: function (data) {
+      let categories = data;
+      for (let i = 0; i < categories.length; i++) {
+        let option = `<option value="${categories[i].categoryNom}">${categories[i].categoryNom}</option>`;
+        filterCategory.append(option);
+      }
+    },
+    error: function (error) {
+      console.log(error);
+    }
+  });
+
+  var btnFilterRefs = $('.btn-filter-refs');
+  btnFilterRefs.on('click', function () {
+    var filterCategory = $('#filter-category').val();
+    var filterMontant = $('#filter-montant').val();
+    var filterAnciente = $('#filter-anciente').val();
+    var contentRefs = $('.content-custumize-refs');
+    let refs = cv.refs;
+    localStorage.setItem('refsArray', JSON.stringify(refs));
+    console.log(filterCategory , filterMontant , filterAnciente);
+    contentRefs.empty();
+    for (let i = 0; i < refs.length; i++) {
+      let ref = refs[i];
+      console.log(ref);
+      if(ref.missions == null || ref.missions == ''){
+        var missions = [];
+      }else{
+        var missions = ref.missions.split(',');
+      }
+      
   
+      if(ref.missionsParticipe == null || ref.missionsParticipe == ''){
+        var missionsParticipe = [];
+      }else{
+        var missionsParticipe = ref.missionsParticipe.split(',');
+      }
+
+      let category = true;
+      let montant = true;
+      let anciante = true;
+
+      if(filterCategory != ''){
+        let refCategory = ref.categories
+        category = refCategory.includes(filterCategory);
+      }
+
+      if(filterMontant != ''){
+        let refMontant = ref.montant
+        if(filterMontant.includes("+")){
+          filterMontant = filterMontant.replace("+", "");
+          filterMontant = parseInt(filterMontant);
+          refMontant = parseInt(refMontant);
+          montant = refMontant >= filterMontant;
+        }else if(filterMontant.includes("-")){
+          filterMontant = filterMontant.replace("-", "");
+          filterMontant = parseInt(filterMontant);
+          refMontant = parseInt(refMontant);
+          montant = refMontant <= filterMontant;
+        }else{
+          filterMontant = parseInt(filterMontant);
+          refMontant = parseInt(refMontant);
+          montant = refMontant == filterMontant;
+        }
+      }
+
+      if(filterAnciente != ''){
+        let refAnciente = ref.annee
+        let currentYear = new Date().getFullYear();
+        console.log((currentYear - filterAnciente) , refAnciente)
+        anciante = currentYear - filterAnciente >= refAnciente;
+      }
+
+      if(category && montant && anciante){
+        let checkbox = `
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input check" id="ref-${ref.id}" name="ref${i}" value="${ref.id}">
+              ${ref.client} (${ref.category}) - ${ref.annee}
+              ${missions.map(mission => `
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input sous-check" id="mission-${ref.id}" value="${mission}" name="ref${i}">
+                    ${mission}
+                  </label>
+                </div>
+              `).join('')}
+              ${missionsParticipe.map(mission => `
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input sous-check" id="mission-${ref.id}" value="${mission}" name="ref${i}" checked>
+                    ${mission}
+                  </label>
+                </div>
+              `).join('')}
+            </label>
+          </div>
+        `;
+        contentRefs.append(checkbox);
+      }
+    }
+  });
+
 
 }
 
@@ -1529,6 +1778,20 @@ $(function () {
       adjudicataire_ao.val(societe_ao.val());
     }else{
       adjudicataire_ao.val('');
+    }
+  });
+});
+
+$(function () {
+  let checkbox = $('#group-checkbox');
+  let part = $('#part');
+
+  checkbox.change(function () {
+    if ($(this).is(':checked')) {
+      part.attr('disabled', false);
+    } else {
+      part.val('');
+      part.attr('disabled', true);
     }
   });
 });

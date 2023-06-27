@@ -24,7 +24,18 @@ class Generateur extends Controller
     $generatedAos = GeneratedAo::all();
     $postes = Post::all();
     $aos = AOs::all();
-    return view('content.cvs.generateur-cvs', compact('generatedAos' , 'postes', 'aos'));
+    $employees = Informations::all();
+    $diploms = [];
+    for($i = 0; $i < count($employees); $i++)
+    {
+      $formations = Formations::where('ID_Salarie', $employees[$i]->ID_Salarie)->get();
+      for($j = 0; $j < count($formations); $j++)
+      {
+        array_push($diploms, $formations[$j]->intitule);
+      }
+    }
+    $diploms = array_unique($diploms);
+    return view('content.cvs.generateur-cvs', compact('generatedAos' , 'postes', 'aos', 'diploms'));
   }
 
   public function generate()
@@ -117,10 +128,11 @@ class Generateur extends Controller
       $objRefs[] = [
         'id' => $value->ID_Ref,
         'client' => $value->client,
+        'montant' => $value->mantant,
         'annee' => $value->annee,
         'missions' => $value->missions,
         'objet' => $value->objet,
-        'category' => $value->category,
+        'categories' => $value->categories,
         'missionsParticipe' => $missionsParticipe
       ];
     }
@@ -292,7 +304,7 @@ class Generateur extends Controller
         }
         $experiences = $cv['experiences'];
         $template->cloneRow('dateDebut', count($experiences));
-        $experiencesData = ['employeur', 'poste', 'dateDebut', 'dateFin', 'taches'];
+        $experiencesData = ['employeur', 'poste' , 'pay', 'dateDebut', 'dateFin', 'taches'];
         foreach($experiences as $key => $value){
             foreach ($experiencesData as $attr) {
               if(in_array($attr, $variables)){

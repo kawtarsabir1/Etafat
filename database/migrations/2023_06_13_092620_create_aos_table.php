@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('secteur_ao')->nullable();
             $table->string('financement_ao')->nullable();
             $table->string('ministere_ao')->nullable();
+            $table->string('societe_ao')->nullable();
             $table->string('n_ao');
             $table->string('lot_ao')->nullable();
             $table->string('maître_ao');
@@ -31,8 +32,11 @@ return new class extends Migration
             $table->string('mantant_soumission_ao');
             $table->string('bu_ao');
             $table->string('departements_ao');
+            $table->string('departements_part');
             $table->string('partenaires_ao');
+            $table->string('partenaires_part');
             $table->string('soustraitants_ao');
+            $table->string('soustraitants_part');
             $table->string('responsable_ao');
             $table->string('adjudication_ao');
             $table->string('date_adjudication_ao')->nullable();

@@ -68,14 +68,17 @@
   <div class="card-datatable table-responsive">
     <table class="datatables-users table border-top">
       <thead>
-        <tr class="p-2 text-dark" style="background-color: rgba(0,104,171,.3);">
+        <tr class="p-2 text-dark" style="background-color: rgba(0,104,171,.3)">
           <th>N°AO</th>
           <th>Type</th>
-          <th>Pays</th>
+          <th>Societe</th>
+          <th>Pay</th>
           <th>Maître d'ouvrage</th>
-          <th>Montant</th>
+          <th>Montant TTC</th>
           <th>BU</th>
-          <th></th>
+          <th>Responsables</th>
+          <th>Adjudication</th>
+          <th>Departements</th>
           <th>Date limite</th>
           <th>Actions</th>
         </tr>

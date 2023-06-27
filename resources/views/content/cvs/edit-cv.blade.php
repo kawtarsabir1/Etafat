@@ -518,6 +518,11 @@
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                        <label class="form-label" for="ref-pay">Pay</label>
+                                        <input type="text" id="ref-pay" class="form-control" placeholder="Directeur Etudes">
+                                    </div>
+
+                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                         <label for="ref-taches" class="form-label">Taches (splite with comma)</label>
                                         <textarea class="form-control" id="ref-taches" rows="3" placeholder="Tache 1, Tache 2, Tache 3"></textarea>
                                     </div>
@@ -542,6 +547,7 @@
                                                 <div class="card-body">
                                                     <p class="card-text niveau_etude-cursus"><span class="card-title">Employeur : </span>{{$ref['employeur']}}</p>
                                                     <p class="card-text"><span class="card-title">Poste : </span>{{$ref['poste']}}</p>
+                                                    <p class="card-text"><span class="card-title">Pay : </span>{{$ref['pay']}}</p>
                                                     <p class="card-text">Date De {{$ref['dateDebut']}} Au {{$ref['dateDebut']}} </p>
                                                     <span class="card-title">Taches : </span>
                                                     <ul class="list-group list-group-flush">

@@ -54,29 +54,34 @@
           "slug": "references",
           "submenu": [
             {
-              "url": "/cv/formgestion/rh",
+              "url": "/cv/form/rh",
               "name": "RH",
               "slug": "rh"
             },
             {
-              "url": "/cv/formgestion/postes",
+              "url": "/cv/form/postes",
               "name": "Postes",
               "slug": "postes"
             },
             {
-              "url": "/cv/formgestion/BUs",
+              "url": "/cv/form/BUs",
               "name": "BUs",
               "slug": "BUs"
             },
             {
-              "url": "/cv/formgestion/departements",
+              "url": "/cv/form/departements",
               "name": "Departements",
               "slug": "departements"
             },
             {
-              "url": "/cv/formgestion/societes",
+              "url": "/cv/form/societes",
               "name": "Societes",
               "slug": "societes"
+            },
+            {
+              "url": "/cv/form/categories",
+              "name": "Categories",
+              "slug": "Categories"
             }
           ]
         },

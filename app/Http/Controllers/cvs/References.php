@@ -51,35 +51,42 @@ class References extends Controller
             $fileName =  $client . uniqid() . '.' . $file1->getClientOriginalExtension();
             Storage::disk('public')->put('attestation/' . $fileName, file_get_contents($file1));
         }
-        // $file2 = $request->file('fiche');
-        // $client = $request->client; 
-        // if(file_exists($file2)){
-        //     $ficheName =  $client . uniqid() . '.' . $file2->getClientOriginalExtension();
-        //     Storage::disk('public')->put('fiches/' . $ficheName, file_get_contents($file2));
-        // }
 
-        $file3 = $request->file('logo');
+        $file2 = $request->file('logo');
         $client = $request->client;
         $logoName = null;
+        if (file_exists($file2)) {
+            $logoName =  $client . uniqid() . '.' . $file2->getClientOriginalExtension();
+            Storage::disk('public')->put('logos/' . $logoName, file_get_contents($file2));
+        }
+
+        $file3 = $request->file('ficheExist');
+        $client = $request->client;
+        $ficheExistName = null;
         if (file_exists($file3)) {
-            $logoName =  $client . uniqid() . '.' . $file3->getClientOriginalExtension();
-            Storage::disk('public')->put('logos/' . $logoName, file_get_contents($file3));
+            $ficheExistName =  $client . uniqid() . '.' . $file3->getClientOriginalExtension();
+            Storage::disk('public')->put('fichesExist/' . $ficheExistName, file_get_contents($file3));
         }
         Refs::create([
             'client' => $client,
             'objet' => $request->objet,
-            'mantant' => $request->mantant,
+            'mantant' => str_replace(' ', '', $request->mantant),
+            'montantTraveaux' => str_replace(' ', '', $request->montantTraveaux),
             'annee' => $request->annee,
             'nMarche' => $request->nMarche,
             'attestation' => $fileName,
             'fiche' => $request->fiche,
             'logo' => $logoName,
             'localisation' => $request->localisation,
-            'category' => $request->category,
+            'categories' => $request->categories,
             'missions' => $request->missions,
             'description' => $request->description,
             'societe' => $request->societe,
             'nRef' => $request->nRef,
+            'nIntern' => $request->nIntern,
+            'groupement' => $request->groupement,
+            'part' => str_replace('%', '', $request->part),
+            'ficheExist' => $ficheExistName,
             'archived' => false
         ]);
 
@@ -101,7 +108,8 @@ class References extends Controller
     public function edit($id)
     {
         $Ref = Refs::where('ID_Ref', $id)->first();
-        return view('content.cvs.reference-cv-edit', compact('Ref'));
+        $societes = Societe::all();
+        return view('content.cvs.reference-cv-edit', compact('Ref', 'societes'));
     }
 
     public function update(Request $request, $id)
@@ -111,12 +119,19 @@ class References extends Controller
         $Ref->nMarche = $request->nMarche;
         $Ref->client = $request->client;
         $Ref->mantant = $request->mantant;
-        $Ref->category = $request->category;
+        $Ref->montantTraveaux = $request->montantTraveaux;
+        $Ref->categories = $request->categories;
         $Ref->annee = $request->annee;
         $Ref->description = $request->description;
         $Ref->nRef = $request->nRef;
+        $Ref->nIntern = $request->nIntern;
+        $Ref->groupement = $request->groupement;
+        $Ref->part = $request->part;
         $Ref->societe = $request->societe;
         $Ref->missions = $request->missions;
+        $Ref->localisation = $request->localisation;
+        $Ref->objet = $request->objet;
+        $Ref->fiche = $request->fiche;
         $Ref->save();
         return response()->json(['message' => 'References updated successfuly']);
     }
@@ -139,27 +154,22 @@ class References extends Controller
 
     public function generateFiche(Request $request)
     {
-
         $domPdfPath = base_path('vendor/dompdf/dompdf');
         Settings::setPdfRendererPath($domPdfPath);
         Settings::setPdfRendererName('DomPDF');
-
         $templateProcessor = new TemplateProcessor(storage_path('app/public/models/fiche/fiche.docx'));
         $templateProcessor->setValue('client', strip_tags($request->client));
         $templateProcessor->setValue('objet', strip_tags($request->objet));
         $templateProcessor->setValue('projet', strip_tags($request->projet));
         $templateProcessor->setValue('localisation', strip_tags($request->localisation));
-        
         $descriptionHtml = $request->description;
         $descriptionText = $this->formatText($descriptionHtml);
         $text = new \PhpOffice\PhpWord\Element\Text(html_entity_decode($descriptionText, ENT_QUOTES, 'UTF-8'));
         $templateProcessor->setComplexValue('description', $text);
-
         $servicesHtml = $request->services;
         $servicesText = $this->formatText($servicesHtml);
         $text = new \PhpOffice\PhpWord\Element\Text(html_entity_decode($servicesText, ENT_QUOTES, 'UTF-8'));
         $templateProcessor->setComplexValue('services', $text);
-
         $templateProcessor->setImageValue('logo', [
             'path' => $request->file('logo')->getPathname(),
             'width' => 100,

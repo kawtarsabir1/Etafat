@@ -12,6 +12,7 @@ class Experiences extends Model
         'ID_Salarie',
         'employeur',
         'poste',
+        'pay',
         'dateDebut',
         'dateFin',
         'attestation'

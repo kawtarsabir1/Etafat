@@ -80,9 +80,13 @@
           <th>Societe</th>
           <th>Client</th>
           <th>N° Marche</th>
+          <th>N° Intern</th>
           <th>Année</th>
           <th>Mantant</th>
-          <th>Catégorie</th>
+          <th>Mantant Traveaux</th>
+          <th>Localisation</th>
+          <th>Objet</th>
+          <th>Catégories</th>
           <th>Fiche</th>
           <th>Actions</th>
         </tr>
@@ -90,7 +94,6 @@
     </table>
   </div>
 </div>
-
 
 
 @endsection

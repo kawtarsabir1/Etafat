@@ -54,7 +54,7 @@
               <img class="img-fluid rounded mb-3 pt-1 mt-4" src="{{ asset('/storage/photos/' . $objEmployee['PhotoIdentite']) }}" height="100" width="100" alt="User avatar" />
               @else
               @php
-                  $stateNum = rand(0, 5);
+                  $stateNum = rand(0, 4);
                   $states = ['success', 'danger', 'warning', 'info', 'primary'];
                   $state = $states[$stateNum];
                   $name = $objEmployee['Nom']. ' ' .$objEmployee['Prenom'];
@@ -200,7 +200,7 @@
 
     <!-- Activity Timeline -->
     <div class="card mb-4">
-      <h5 class="card-header">Chronologie des expériences utilisateur</h5>
+      <h5 class="card-header">Chronologie des expériences d'employee</h5>
       <div class="card-body pb-0">
         <ul class="timeline mb-0">
         @php
@@ -213,10 +213,45 @@
             <span class="timeline-point {{ $cssClasses[$cssClassIndex % count($cssClasses)] }}"></span>
             <div class="timeline-event">
               <div class="timeline-header mb-1">
-                <h6 class="mb-0">{{ $experience->title }}</h6>
-                <small class="text-muted">{{ $experience->annee }}</small>
+                <h6 class="mb-0">{{ $experience->poste }}</h6>
+                <small class="text-muted">de {{ $experience->dateDebut }} à {{ $experience->dateFin }}</small>
               </div>
-              <p class="mb-2">{{ $experience->subtitle }}</p>
+              <p class="mb-2">{{ $experience->employeur }} ({{ $experience->pay }})</p>
+              <div class="d-flex flex-wrap gap-2 pt-1">
+                <a href="javascript:void(0)" class="me-3">
+                  <img src="{{asset('assets/img/icons/misc/pdf.png') }}" alt="Document image" width="15" class="me-2">
+                  <span class="fw-semibold text-heading">Attestation</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          @php
+          $cssClassIndex++;
+          @endphp
+        @endforeach
+        </ul>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <h5 class="card-header">Chronologie des formations d'employee</h5>
+      <div class="card-body pb-0">
+        <ul class="timeline mb-0">
+        @php
+          $cssClasses = ['timeline-point-warning' ,'timeline-point-primary', 'timeline-point-info', 'timeline-point-success'];
+          $cssClassIndex = 0;
+        @endphp
+
+        @foreach($objEmployee['formations'] as $formation)
+          <li class="timeline-item timeline-item-transparent">
+            <span class="timeline-point {{ $cssClasses[$cssClassIndex % count($cssClasses)] }}"></span>
+            <div class="timeline-event">
+              <div class="timeline-header mb-1">
+                <h6 class="mb-0">{{ $formation->intitule }}</h6>
+                <small class="text-muted">{{ $formation->obtention }}</small>
+              </div>
+              <p class="mb-2">{{ $formation->etablissement }}</p>
             </div>
           </li>
 

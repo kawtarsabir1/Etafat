@@ -69,6 +69,8 @@
 <script src="{{asset('assets/js/form-validation.js')}}"></script>
 <script src="{{asset('assets/js/forms-pickers.js')}}"></script>
 <script src="{{asset('assets/js/wizard-ex-checkout.js')}}"></script>
+<script src="{{asset('assets/js/forms-selects.js')}}"></script>
+<script src="{{asset('assets/js/multi-select.js')}}"></script>
 
 <script type="text/javascript">
     $.ajaxSetup({
@@ -126,41 +128,65 @@
                 <!-- @csrf -->
                 <!-- Infos -->
                 <div>
+                    <input type="hidden" id="id_ao" name="id_ao" value="{{$ao->id_ao}}">
                     <div class="col-12 row">
-                        <input type="hidden" id="id_ao" value="{{$ao->id_ao}}">
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="type_ao">Type</label>
                             <select class="form-select" id="type_ao" name="type_ao">
                                 <option selected>Selectionner le type</option>
-                                <option value="Consultation nationale" {{ $ao->type_ao == 'Consultation nationale' ? 'selected' : '' }}>Consultation nationale</option>
-                                <option value="AO National" {{ $ao->type_ao == 'AO National' ? 'selected' : '' }}>AO National</option>
-                                <option value="AMI" {{ $ao->type_ao == 'AMI' ? 'selected' : '' }}>AMI</option>
+                                @foreach($types as $type)
+                                <option value="{{$type->type}}" {{ $ao->type_ao == $type->type ? 'selected' : '' }}>{{$type->type}}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="pay_ao">Pays</label>
-                            <input class="form-control" type="text" id="pay_ao" name="pay_ao" placeholder="Pays" value="{{$ao->pay_ao}}" />
+                            <select id="select2Basic" class="select2 form-select form-select-lg" name="pay_ao" data-allow-clear="true">
+                                @foreach($pays as $pay)
+                                <option value="{{$pay->pay}}" {{ $ao->pay_ao == $pay->pay ? 'selected' : '' }}>{{$pay->pay}}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="secteur_ao">Secteur</label>
                             <select class="form-select" id="secteur_ao" name="secteur_ao">
                                 <option selected>Selectionner le secteur</option>
-                                <option value="Infrastructures" {{ $ao->secteur_ao == 'Infrastructures' ? 'selected' : '' }}>Infrastructures</option>
-                                <option value="Energie" {{ $ao->secteur_ao == 'Energie' ? 'selected' : '' }}>Energie</option>
-                                <option value="Inspection" {{ $ao->secteur_ao == 'Inspection' ? 'selected' : '' }}>Inspection</option>
+                                @foreach($secteurs as $secteur)
+                                <option value="{{$secteur->secteur}}" {{ $ao->secteur_ao == $secteur->secteur ? 'selected' : '' }}>{{$secteur->secteur}}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="financement_ao">Financement</label>
-                            <input type="text" class="form-control" id="financement_ao" name="financement_ao" placeholder="Financement" value="{{$ao->financement_ao}}" />
+                            <select class="form-select" id="financement_ao" name="financement_ao">
+                                <option selected>Selectionner le financement</option>
+                                @foreach($financements as $financement)
+                                <option value="{{$financement->financement}}" {{ $ao->financement_ao == $financement->financement ? 'selected' : '' }}>{{$financement->financement}}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="ministere_ao">Ministère de tutelle</label>
-                            <input class="form-control" type="text" id="ministere_ao" name="ministere_ao" placeholder="Ministère de tutelle" value="{{$ao->ministere_ao}}" />
+                            <select class="form-select" id="ministere_ao" name="ministere_ao">
+                                <option selected>Selectionner le ministère</option>
+                                @foreach($ministeres as $ministere)
+                                <option value="{{$ministere->ministere}}" {{ $ao->ministere_ao == $ministere->ministere ? 'selected' : '' }}>{{$ministere->ministere}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label" for="societe_ao">Sociète</label>
+                            <select class="form-select" id="societe_ao" name="societe_ao">
+                                <option value="" selected>Selectionner la Sociète</option>
+                                @foreach($societes as $societe)
+                                <option value="{{$societe->societeNom}}" {{ $ao->societe_ao == $societe->societeNom ? 'selected' : '' }}>{{$societe->societeNom}}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="col-md-6 mb-2">
@@ -175,12 +201,17 @@
 
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="objet_ao">Objet</label>
-                            <textarea class="form-control" id="objet_ao" name="objet_ao" rows="1">{{$ao->objet_ao}}</textarea>
+                            <textarea class="form-control" id="objet_ao" name="objet_ao" rows="1" placeholder="Enter objet d'appel d'offre" >{{$ao->objet_ao}}</textarea>
                         </div>
 
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="maître_ao">Maître d'ouvrage</label>
                             <input class="form-control" type="text" id="maître_ao" name="maître_ao" placeholder="Client" value="{{$ao->maître_ao}}" />
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label for="TagifyResponsablesList" class="form-label">Responsables</label>
+                            <input id="TagifyResponsablesList" name="responsable" class="form-control" placeholder="Select responsables" value="{{$ao->responsable_ao}}" />
                         </div>
 
                         <div class="col-md-6 mb-2">
@@ -200,7 +231,7 @@
 
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="date_limit_ao">Date Limite</label>
-                            <input type="text" class="form-control" id="date_limit_ao" name="date_limit_ao" placeholder="DD/MM/YYYY" value="{{$ao->date_limit_ao}}" />
+                            <input type="text" class="form-control" id="date_limit_ao" name="date_limit_ao" placeholder="DD/MM/YYYY" required value="{{$ao->date_limit_ao}}" />
                         </div>
 
                         <div class="col-md-6 mb-2">
@@ -219,43 +250,28 @@
                         </div>
 
                         <div class="col-md-6 mb-2">
-                            <label class="form-label" for="departement_ao">Département</label>
-                            <select class="form-select" id="departement_ao" name="departement_ao">
-                                <option selected>Selectionner le Département</option>
-                                @foreach($departements as $departement)
-                                <option value="{{$departement->departementNom}}" {{ $ao->departement_ao == $departement->departementNom ? 'selected' : '' }}>{{$departement->departementNom}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="responsable_ao">Responsable</label>
-                            <select class="form-select" id="responsable_ao" name="responsable_ao">
-                                <option selected>Selectionner le Responsable</option>
-                                @foreach($rhs as $rh)
-                                <option value="{{$rh->rhNom}}" {{ $ao->responsable_ao == $rh->rhNom ? 'selected' : '' }}>{{$rh->rhNom}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="col-md-6 mb-2">
                             <label class="form-label" for="adjudication_ao">Adjudication</label>
-                            <input class="form-control" type="text" id="adjudication_ao" name="adjudication_ao" placeholder="Adjudication" value="{{$ao->adjudication_ao}}" />
+                            <select class="form-select" id="adjudication_ao" name="adjudication_ao">
+                                <option selected>Selectionner l'adjudication</option>
+                                @foreach($adjudications as $adjudication)
+                                <option value="{{$adjudication->adjudication}}" {{ $ao->adjudication_ao == $adjudication->adjudication ? 'selected' : '' }}>{{$adjudication->adjudication}}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="date_adjudication_ao">Date Adjudication</label>
-                            <input class="form-control" type="text" id="date_adjudication_ao" name="date_adjudication_ao" placeholder="DD/MM/YYYY" value="{{$ao->date_adjudication_ao}}" />
+                            <input class="form-control" type="text" id="date_adjudication_ao" name="date_adjudication_ao" placeholder="DD/MM/YYYY" disabled value="{{$ao->date_adjudication_ao}}" />
                         </div>
 
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="motif_ao">Motif du rejet</label>
-                            <input class="form-control" type="text" id="motif_ao" name="motif_ao" placeholder="Motif du rejet" value="{{$ao->motif_ao}}" />
-                        </div>
-
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="caution_definitive_ao">Caution Définitive</label>
-                            <input class="form-control" type="text" id="caution_definitive_ao" name="caution_definitive_ao" placeholder="Caution Définitive" value="{{$ao->caution_definitive_ao}}" />
+                            <select class="form-select" id="motif_ao" name="motif_ao">
+                                <option selected>Selectionner le Motif</option>
+                                @foreach($motifs as $motif)
+                                <option value="{{$motif->motif}}" {{ $ao->motif_ao == $motif->motif ? 'selected' : '' }}>{{$motif->motif}}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="col-md-6 mb-2">
@@ -272,20 +288,114 @@
                             <label class="form-label" for="mantant_moins_ao">Montant Moins Disant</label>
                             <input class="form-control" type="text" id="mantant_moins_ao" name="mantant_moins_ao" placeholder="Montant Moins Disant" value="{{$ao->mantant_moins_ao}}" />
                         </div>
+                    </div>
 
-                        <div class="col-12">
-                            <div class="col-12">
-                                <div class="col-12 d-flex justify-content-between">
-                                    <button type="button" class="btn btn-label-secondary btn-prev">
-                                        <span class="align-middle d-sm-inline-block d-none" onclick="window.history.back();">Annuler</span>
-                                    </button>
-                                    <button type="button" class="btn btn-success btn-update"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Modifier</span></button>
+                </div>
+
+                <hr class="my-5" />
+
+                <div>
+                    <h5>La sélectionne des départements</h5>
+                    <div class="content-wrapper-departement">
+                        <div class="content-departement">
+                            <div class="row">
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label" for="">Département Nom</label>
+                                    <select class="form-select" id="departement" name="departement_nom">
+                                        <option selected>Selectionner le Département</option>
+                                        @foreach($departements as $departement)
+                                        <option value="{{$departement->departementNom}}">{{$departement->departementNom}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label" for="">Département part</label>
+                                    <input class="form-control" type="text" placeholder="Entrer le part du département" name="departement_part" />
+                                </div>
+                                <div class="col-lg-12 col-xl-2 col-12 d-flex align-items-end mb-3">
+                                    <button class="btn btn-danger btn-remove"><i class="fa fa-trash"></i> Supprimer</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="actions mb-4">
+                        <button type="button" class="btn btn-primary btn-add-departement"><i class="fa fa-plus"></i> Ajouter une Département</button>
+                    </div>
+                </div>
 
+
+                <hr class="my-5" />
+
+                <div>
+                    <h5>La sélectionne des partenaires</h5>
+                    <div class="content-wrapper-partenaire">
+                        <div class="content-partenaire">
+                            <div class="row">
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label" for="">Partenaire Nom</label>
+                                    <select class="form-select" id="partenaire" name="partenaire_nom">
+                                        <option selected>Selectionner le Partenaire</option>
+                                        @foreach($partenaires as $partenaire)
+                                        <option value="{{$partenaire->partenaire}}">{{$partenaire->partenaire}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label" for="">Partenaire part</label>
+                                    <input class="form-control" type="text" placeholder="Entrer le part du Partenaire" name="partenaire_part" />
+                                </div>
+                                <div class="col-lg-12 col-xl-2 col-12 d-flex align-items-end mb-3">
+                                    <button class="btn btn-danger btn-remove"><i class="fa fa-trash"></i> Supprimer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions mb-4">
+                        <button type="button" class="btn btn-primary btn-add-partenaire"><i class="fa fa-plus"></i> Ajouter un Partenaire</button>
+                    </div>
+                </div>
+
+
+                <hr class="my-5" />
+
+                <div>
+                    <h5>La sélectionne des Sous Traitants</h5>
+                    <div class="content-wrapper-sousTraitant">
+                        <div class="content-sousTraitant">
+                            <div class="row">
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label" for="">Sous Traitants Nom</label>
+                                    <select class="form-select" id="sousTraitant" name="sousTraitant_nom">
+                                        <option selected>Selectionner le sousTraitant</option>
+                                        @foreach($soustraitants as $soustraitant)
+                                        <option value="{{$soustraitant->soustraitant}}">{{$soustraitant->soustraitant}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <label class="form-label" for="">Sous Traitants part</label>
+                                    <input class="form-control" type="text" placeholder="Entrer le part du Sous Traitants" name="soustraitant_part" />
+                                </div>
+                                <div class="col-lg-12 col-xl-2 col-12 d-flex align-items-end mb-3">
+                                    <button class="btn btn-danger btn-remove"><i class="fa fa-trash"></i> Supprimer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions mb-4">
+                        <button type="button" class="btn btn-primary btn-add-sousTraitant"><i class="fa fa-plus"></i> Ajouter un Sous Traitants</button>
                     </div>
 
+                    <div class="col-12">
+                    <div class="col-12">
+                        <div class="col-12 d-flex justify-content-between">
+                            <button type="button" class="btn btn-label-secondary btn-prev">
+                                <span class="align-middle d-sm-inline-block d-none" onclick="window.history.back();">Annuler</span>
+                            </button>
+                            <button type="button" class="btn btn-success btn-update"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Modifier</span></button>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </form>
         </div>

@@ -15,6 +15,7 @@ use App\Models\Societe;
 use App\Models\Busunit;
 use App\Models\Informations;
 use App\Models\Projet;
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\CvsImport;
@@ -54,6 +55,42 @@ class Gestion extends Controller
 
     return response()->json(['data' => $employees]);
   }
+
+  public function employeesFiltredDiplome($diplome)
+  {
+    $employees = Informations::where('Archived', 0)->get();
+    $employeesFiltred = [];
+    foreach ($employees as $key => $value) {
+      $formations = Formations::where('ID_Salarie', $value->ID_Salarie)->get();
+      foreach ($formations as $key1 => $value1) {
+        if(str_contains($value1->intitule, $diplome) || str_contains($diplome, $value1->intitule)){
+          $employeesFiltred[] = $value;
+        }
+      }
+    }
+    $employeesFiltred = array_unique($employeesFiltred, SORT_REGULAR);
+    return response()->json(['data' => $employeesFiltred]);
+  }
+
+  public function employeesFiltredAnciente($diplome , $anciente)
+  {
+    $employees = Informations::where('Archived', 0)->get();
+    $employeesFiltred = [];
+    foreach ($employees as $key => $value) {
+      $formations = Formations::where('ID_Salarie', $value->ID_Salarie)->get();
+      foreach ($formations as $key1 => $value1) {
+        if(str_contains($value1->intitule, $diplome) || str_contains($diplome, $value1->intitule)){
+          $diff = date('Y') - $anciente;
+          if($diff <= $value1->obtention){
+            $employeesFiltred[] = $value;
+          }
+        }
+      }
+    }
+    $employeesFiltred = array_unique($employeesFiltred, SORT_REGULAR);
+    return response()->json(['data' => $employeesFiltred]);
+  }
+
 
   public function show($id)
   {
@@ -206,6 +243,7 @@ class Gestion extends Controller
           'ID_Salarie' => $employee->ID_Salarie,
           'employeur' => $refsItems->employeur,
           'poste' => $refsItems->poste,
+          'pay' => $refsItems->pay,
           'dateDebut' => $refsItems->dateDu,
           'dateFin' => $refsItems->dateAu,
         ]);
@@ -292,6 +330,7 @@ class Gestion extends Controller
         'id' => $value->ID_Experience,
         'employeur' => $value->employeur,
         'poste' => $value->poste,
+        'pay' => $value->pay,
         'dateDebut' => $value->dateDebut,
         'dateFin' => $value->dateFin,
         'taches' => Taches::where('ID_Ref', $value->ID_Experience)->get(),
@@ -424,6 +463,7 @@ class Gestion extends Controller
         'ID_Salarie' => $id,
         'employeur' => $expsItems->employeur,
         'poste' => $expsItems->poste,
+        'pay' => $expsItems->pay,
         'dateDebut' => $expsItems->dateDebut,
         'dateFin' => $expsItems->dateFin,
       ]);
@@ -514,32 +554,8 @@ class Gestion extends Controller
 
     $objEmployee['formations'] = $objFormations;
     $objEmployee['projets'] = $objProjets;
-
-    $objExpEtFormations = [];
-
-    
-    foreach ($objExperiences as $experience) {
-      $annee = explode('-', $experience->dateDebut);
-      $objExperience = new \stdClass();
-      $objExperience->subtitle = $experience->poste;
-      $objExperience->annee = $annee[0];
-      $objExperience->title = $experience->employeur . " (Experience Professionnelle)";
-      array_push($objExpEtFormations, $objExperience);
-    }
-
-    foreach ($objFormations as $formation) {
-      $objFormation = new \stdClass();
-      $objFormation->subtitle = $formation->intitule;
-      $objFormation->annee = $formation->obtention;
-      $objFormation->title = $formation->etablissement . " (Formation / Cursus)";
-      array_push($objExpEtFormations, $objFormation);
-    }
-
-    usort($objExpEtFormations, function ($a, $b) {
-        return $b->annee - $a->annee;
-    });
-
-    $objEmployee['experiences'] = $objExpEtFormations;
+    $objEmployee['formations'] = $objFormations;
+    $objEmployee['experiences'] = $objExperiences;
 
 
     return view('content.cvs.view-cv', compact('objEmployee'));
@@ -572,6 +588,14 @@ class Gestion extends Controller
     $BUs = Busunit::all();
     return view('content.cvs.gestion.bu', compact('BUs'));
   }
+
+  public function categoriesPage()
+  {
+    $categories = Category::all();
+    return view('content.cvs.gestion.category', compact('categories'));
+  }
+
+
 
   public function addRh(Request $request)
   { 
@@ -611,6 +635,14 @@ class Gestion extends Controller
     $Bu->save();
   }
 
+  public function addCategory(Request $request)
+  {
+    $nom = $request->input('nom');
+    $Category = new Category;
+    $Category->categoryNom = $nom;
+    $Category->save();
+  }
+
   public function deleteRh($id)
   { 
     //delete rh
@@ -644,6 +676,12 @@ class Gestion extends Controller
     $bu->delete();
   }
 
+  public function deleteCategory($id)
+  {
+    $Category = Category::find($id);
+    $Category->delete();
+  }
+
   public function projets($id){
     //get projets where ID_Salarie = $id
     $projets = Projet::where('ID_Salarie', $id)->get();
@@ -667,5 +705,14 @@ class Gestion extends Controller
       $data[$key]['value'] = $value['id'];
     }
     return response()->json($data);
+  }
+
+  public function AllCategories()
+  {
+    $categories = Category::all();
+    foreach ($categories as $key => $value) {
+      $categories[$key]['value'] = $value['id'];
+    }
+    return response()->json($categories);
   }
 }

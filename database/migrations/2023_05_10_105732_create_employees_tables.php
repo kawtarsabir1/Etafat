@@ -70,6 +70,7 @@ return new class extends Migration
             $table->foreign('ID_Salarie')->references('ID_Salarie')->on('informations');
             $table->string('employeur');
             $table->string('poste');
+            $table->string('pay');
             $table->string('dateDebut');
             $table->string('dateFin');
             $table->string('attestation')->nullable();

@@ -75,10 +75,9 @@
 <script src="{{asset('assets/js/modal-edit-user.js')}}"></script>
 
 <script type="text/javascript">
-
-function selectAncienAo(id){
-  console.log(id)
-}
+    function selectAncienAo(id) {
+        console.log(id)
+    }
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -248,6 +247,23 @@ function selectAncienAo(id){
                                 </div>
                                 <div class="row">
                                     <div class="col mb-3">
+                                        <label class="form-label" for="diplome">Diplome</label>
+                                        <select id="diplome" class="form-select">
+                                            <option value="">Sélectionnez un diplome</option>
+                                            @foreach($diploms as $diplom)
+                                            <option value="{{$diplom}}">{{$diplom}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-3">
+                                        <label class="form-label" for="anciente">Ancienneté (en années)</label>
+                                        <input type="text" id="anciente" class="form-control" placeholder="Ex: 10" disabled>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-3">
                                         <label class="form-label" for="employees">Employee</label>
                                         <select id="employees" class="form-select select2 form-select form-select-lg" name="employee-0">
                                             <option value="">Sélectionnez un cv</option>
@@ -286,10 +302,10 @@ function selectAncienAo(id){
                                 <div class="card-body d-flex flex-row justify-content-between py-3">
                                     <span class="card-link">{{ ($generatedAo->langue == 'fr') ? 'Francais' : 'Anglais' }}</span>
                                     @php
-                                        $fullDate = explode(' ',$generatedAo->created_at);
-                                        $date = $fullDate[0];
-                                        $time = explode(':' , $fullDate[1]);
-                                        $time = $time[0] . ':' . $time[1];
+                                    $fullDate = explode(' ',$generatedAo->created_at);
+                                    $date = $fullDate[0];
+                                    $time = explode(':' , $fullDate[1]);
+                                    $time = $time[0] . ':' . $time[1];
                                     @endphp
                                     <span class="card-link d-flex flex-column align-items-end">
                                         <span>{{ $date }}</span>

@@ -37,7 +37,7 @@ $(function () {
       ajax: baseUrl + 'cv/gestion/allEmployees', // JSON file to add data
       columns: [
         // columns according to JSON
-        { data: '' },
+        { data: 'CIN' },
         { data: 'Nom' },
         { data: 'TelephonePortable' },
         { data: 'Poste' },
@@ -51,12 +51,11 @@ $(function () {
         {
           // For Responsive
           className: 'control',
-          searchable: false,
-          orderable: false,
           responsivePriority: 2,
           targets: 0,
           render: function (data, type, full, meta) {
-            return '';
+            var cin = full['CIN'];
+            return '<span class="fw-semibold">' + cin + '</span>';
           }
         },
         //add attribute id each tr
@@ -107,62 +106,7 @@ $(function () {
               '</div>';
             return $row_output;
           }
-        },
-        {
-          // Plans
-          targets: 2,
-          render: function (data, type, full, meta) {
-            var $phone = full['TelephonePortable'];
-
-            return '<span class="fw-semibold">' + $phone + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 3,
-          render: function (data, type, full, meta) {
-            var $poste = full['Poste'];
-
-            return '<span class="fw-semibold">' + $poste + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 4,
-          orderable: false,
-          render: function (data, type, full, meta) {
-            var $type = full['TypeContrat'];
-
-            return '<span class="d-none">' + $type + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 5,
-          render: function (data, type, full, meta) {
-            var $profile = full['Profil'];
-
-            return '<span class="fw-semibold">' + $profile + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 6,
-          orderable: false,
-          render: function (data, type, full, meta) {
-            var $responsable = full['ResponsableHierarchique'];
-            return '<span class="d-none">' + $responsable + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 7,
-          render: function (data, type, full, meta) {
-            var $departement = full['DepartementAffectation'];
-
-            return '<span class="fw-semibold">' + $departement + '</span>';
-          }
-        },    
+        }, 
         {
           // Actions
           targets: -1,
@@ -207,6 +151,10 @@ $(function () {
       },
       // Buttons with Dropdown
       buttons: [
+        {
+          text: '<i class="ti ti-columns me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Choisir les Champs</span>',
+          className: 'btn btn-success btn-gradient btn-cols-select mx-3',
+        },
         {
           extend: 'collection',
           className: 'btn btn-label-secondary dropdown-toggle mx-3',
@@ -471,6 +419,47 @@ $(function () {
     $('.dataTables_filter .form-control').removeClass('form-control-sm');
     $('.dataTables_length .form-select').removeClass('form-select-sm');
   }, 300);
+
+
+  $('.btn-cols-select').on('click', function () {
+    modal.modal('show');
+  });
+  
+  var modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="columnSelectionModalLabel" aria-hidden="true"></div>');
+    var dialog = $('<div class="modal-dialog"></div>').appendTo(modal);
+    var content = $('<div class="modal-content"></div>').appendTo(dialog);
+
+    var header = $('<div class="modal-header"></div>').appendTo(content);
+    $('<h5 class="modal-title">Choose Columns to Display</h5>').appendTo(header);
+    $('<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>').appendTo(header);
+
+    var body = $('<div class="modal-body"></div>').appendTo(content);
+    var columns = dt_user_table.DataTable().columns().header().toArray();
+    console.log(columns);
+    columns.forEach(function (column, index) {
+      var columnName = $(column).text();
+      var isChecked = dt_user_table.DataTable().column(index).visible();
+      var checkbox = $('<div class="form-check"></div>').appendTo(body);
+      $('<input class="form-check-input" type="checkbox" value="' + index + '" ' + (isChecked ? 'checked' : '') + '>').appendTo(checkbox);
+      $('<label class="form-check-label">' + columnName + '</label>').appendTo(checkbox);
+    });
+  
+    // Modal footer
+    var footer = $('<div class="modal-footer"></div>').appendTo(content);
+    $('<button type="button" class="btn btn-primary btn-apply-cols">Apply</button>').appendTo(footer);
+  
+  $(document).on('click', '.btn-apply-cols', function () {
+    var modal = $('.modal');
+    var selectedColumns = modal.find('input:checked').map(function () {
+      return parseInt($(this).val());
+    }).get();
+    dt_user_table.DataTable().columns().visible(false);
+    selectedColumns.forEach(function (columnIndex) {
+      dt_user_table.DataTable().column(columnIndex).visible(true);
+    });
+    console.log(selectedColumns)
+    modal.modal('hide');
+  });
 });
 
 

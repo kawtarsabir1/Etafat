@@ -96,12 +96,15 @@
                 partenairePart += parseFloat(pair[1].replace(" ", ""));
             }
             if (pair[0].includes('soustraitant_part')) {
-                soustraitantPart += parseFloat(pair[1].replace(" ", ""));
+                soustraitantPart += parseFloat(pair[1].replace(" ", ""))
             }
         }
         if (departementPart + partenairePart + soustraitantPart != montant) {
             alert(`La somme des parts doit être égale au montant de soumission\n- La somme des parts est : ${departementPart + partenairePart + soustraitantPart}\n- Le montant de soumission est : ${montant}`);
             return false;
+        }
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]);
         }
         $.ajax({
             url: "{{ route('appel-offre-store') }}",
@@ -146,8 +149,8 @@
         <div class="bs-stepper-content">
             <form id="wizard-checkout-form" class="formInfos">
                 <!-- @csrf -->
-                <!-- Infos -->
                 <div>
+                    <input type="hidden" id="id_ao" name="id_ao" value="">
                     <div class="col-12 row">
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="type_ao">Type</label>
@@ -220,7 +223,7 @@
 
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="objet_ao">Objet</label>
-                            <textarea class="form-control" id="objet_ao" name="objet_ao" rows="1"></textarea>
+                            <textarea class="form-control" id="objet_ao" name="objet_ao" rows="1" placeholder="Enter objet d'appel d'offre" ></textarea>
                         </div>
 
                         <div class="col-md-6 mb-2">
@@ -229,8 +232,8 @@
                         </div>
 
                         <div class="col-md-6 mb-4">
-                            <label for="TagifyUserList" class="form-label">Responsables</label>
-                            <input id="TagifyUserList" name="responsable" class="form-control" />
+                            <label for="TagifyResponsablesList" class="form-label">Responsables</label>
+                            <input id="TagifyResponsablesList" name="responsable" class="form-control" placeholder="Select responsables" />
                         </div>
 
                         <div class="col-md-6 mb-2">

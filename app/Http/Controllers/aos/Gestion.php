@@ -26,6 +26,12 @@ class Gestion extends Controller
     return view('content.aos.gestion');
   }
 
+  public function view($id)
+  {
+    $ao = Aos::find($id);
+    return view('content.aos.view', compact('ao'));
+  }
+
   public function archived()
   {
     return view('content.aos.archived');
@@ -55,22 +61,28 @@ class Gestion extends Controller
     $rhs = Rh::all();
     $departements = Departement::all();
     $bus = Busunit::all();
-    return view('content.aos.edit', compact('rhs', 'departements', 'bus', 'ao'));
+    $types = Type::all();
+    $pays = Pay::all();
+    $secteurs = Secteur::all();
+    $financements = Financement::all();
+    $ministeres = Ministere::all();
+    $motifs = Motif::all();
+    $adjudications = Adjudication::all();
+    $societes = Societe::all();
+    $soustraitants = Soustraitant::all();
+    $partenaires = Partenaire::all();
+    return view('content.aos.edit', compact('rhs', 'departements', 'bus', 'ao', 'types', 'pays', 'secteurs', 'financements', 'ministeres', 'motifs', 'adjudications', 'societes', 'soustraitants', 'partenaires'));
   }
 
   public function update(Request $request, $id)
   {
     $ao = Aos::find($id);
-    $ao->update($request->all());
-    return redirect()->route('appel-offre-gestion');
-  }
-
-  public function store(Request $request)
-  {
-
     $departementValues = [];
+    $departementsParts = [];
     $partenairesValues = [];
+    $partenairesParts = [];
     $soustraitantsValues = [];
+    $soustraitantsParts = [];
 
     foreach ($request->all() as $key => $value) {
         if (strpos($key, 'departement_nom') !== false) {
@@ -81,6 +93,12 @@ class Gestion extends Controller
         }
         else if (strpos($key, 'sousTraitant_nom') !== false) {
             $soustraitantsValues[] = $value;
+        }else if(strpos($key, 'departement_part') !== false){
+            $departementsParts[] = $value;
+        }else if(strpos($key, 'partenaire_part') !== false){
+            $partenairesParts[] = $value;
+        }else if(strpos($key, 'soustraitant_part') !== false){
+            $soustraitantsParts[] = $value;
         }
     }
 
@@ -90,15 +108,75 @@ class Gestion extends Controller
     foreach ($responsableArray as $responsable) {
         $rhNomArray[] = $responsable->rhNom;
     }
-
     $rhNom = implode(',', $rhNomArray);
     $departementValues = implode(',', $departementValues);
     $partenairesValues = implode(',', $partenairesValues);
     $soustraitantsValues = implode(',', $soustraitantsValues);
+    $departementsParts = implode(',', $departementsParts);
+    $partenairesParts = implode(',', $partenairesParts);
+    $soustraitantsParts = implode(',', $soustraitantsParts);
+
     $request->merge(['responsable_ao' => $rhNom]);
     $request->merge(['departements_ao' => $departementValues]);
+    $request->merge(['departements_part' => $departementsParts]);
     $request->merge(['partenaires_ao' => $partenairesValues]);
+    $request->merge(['partenaires_part' => $partenairesParts]);
     $request->merge(['soustraitants_ao' => $soustraitantsValues]);
+    $request->merge(['soustraitants_part' => $soustraitantsParts]);
+
+    $ao->update($request->all());
+    return redirect()->route('appel-offre-gestion');
+  }
+
+  public function store(Request $request)
+  {
+    $departementValues = [];
+    $departementsParts = [];
+    $partenairesValues = [];
+    $partenairesParts = [];
+    $soustraitantsValues = [];
+    $soustraitantsParts = [];
+
+    foreach ($request->all() as $key => $value) {
+        if (strpos($key, 'departement_nom') !== false) {
+            $departementValues[] = $value;
+        }
+        else if (strpos($key, 'partenaire_nom') !== false) {
+            $partenairesValues[] = $value;
+        }
+        else if (strpos($key, 'sousTraitant_nom') !== false) {
+            $soustraitantsValues[] = $value;
+        }else if(strpos($key, 'departement_part') !== false){
+            $departementsParts[] = $value;
+        }else if(strpos($key, 'partenaire_part') !== false){
+            $partenairesParts[] = $value;
+        }else if(strpos($key, 'soustraitant_part') !== false){
+            $soustraitantsParts[] = $value;
+        }
+    }
+
+    $responsableArray = json_decode($request->responsable);
+
+    $rhNomArray = [];
+    foreach ($responsableArray as $responsable) {
+        $rhNomArray[] = $responsable->rhNom;
+    }
+    $rhNom = implode(',', $rhNomArray);
+    $departementValues = implode(',', $departementValues);
+    $partenairesValues = implode(',', $partenairesValues);
+    $soustraitantsValues = implode(',', $soustraitantsValues);
+    $departementsParts = implode(',', $departementsParts);
+    $partenairesParts = implode(',', $partenairesParts);
+    $soustraitantsParts = implode(',', $soustraitantsParts);
+
+    $request->merge(['responsable_ao' => $rhNom]);
+    $request->merge(['departements_ao' => $departementValues]);
+    $request->merge(['departements_part' => $departementsParts]);
+    $request->merge(['partenaires_ao' => $partenairesValues]);
+    $request->merge(['partenaires_part' => $partenairesParts]);
+    $request->merge(['soustraitants_ao' => $soustraitantsValues]);
+    $request->merge(['soustraitants_part' => $soustraitantsParts]);
+
     $ao = Aos::create($request->all());
     return redirect()->route('appel-offre-gestion');
   }
@@ -130,4 +208,11 @@ class Gestion extends Controller
     $ao->save();
     return response()->json(['success' => 'AO désarchivé avec succès']);
   }
+
+  public function getAo($id)
+  {
+    $ao = Aos::find($id);
+    return response()->json(['data' => $ao]);
+  }
+
 }

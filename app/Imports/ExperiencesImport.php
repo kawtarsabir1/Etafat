@@ -25,6 +25,7 @@ class ExperiencesImport implements ToModel,WithHeadingRow
             'ID_Salarie' => $salarie->ID_Salarie,
             'employeur' => $row['employeur'],
             'poste'=> $row['poste'],
+            'pay'=> $row['pay'],
             'dateDebut' => $row['date_du'],
             'dateFin' => $row['date_au'],
             'attestation' => $row['attestation']
