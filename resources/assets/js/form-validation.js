@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
               message: 'Le Nom doit comporter plus de 2 et moins de 20 caractères'
             },
             regexp: {
-              regexp: /^[a-zA-Z]+$/,
+              regexp: /^[a-zA-Z- _.]+$/,
               message: 'Le nom ne peut être composé que de lettres alphabétiques'
             }
           }
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
               message: 'Le Prenom doit comporter plus de 2 et moins de 20 caractères'
             },
             regexp: {
-              regexp: /^[a-zA-Z]+$/,
+              regexp: /^[a-zA-Z- _.]+$/,
               message: 'Le Prenom ne peut être composé que de lettres alphabétiques'
             }
           }
@@ -162,14 +162,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
           }
         },
 
-        Adresse_1: {
-          validators: {
-            notEmpty: {
-              message: "Veuillez saisir l'adresse"
-            }
-          }
-        },
-
         Code_Postal: {
           validators: {
             notEmpty: {
@@ -184,9 +176,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
         TelephoneFixe: {
           validators: {
-            notEmpty: {
-              message: "Veuillez saisir le numéro de téléphone fixe"
-            },
             stringLength: {
               max: 10,
               message: 'Le CIN doit comporter 10 caractères maximum'
@@ -200,9 +189,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
         TelephonePortable: {
           validators: {
-            notEmpty: {
-              message: "Veuillez saisir le numéro de téléphone mobile"
-            },
             stringLength: {
               max: 10,
               message: 'Le CIN doit comporter 10 caractères maximum'
@@ -214,26 +200,11 @@ document.addEventListener('DOMContentLoaded', function (e) {
           }
         },
 
-        NumeroCNSS: {
-          validators: {
-            notEmpty: {
-              message: "Veuillez saisir le numéro de CNSS"
-            },
-            regexp: {
-              regexp: /^[0-9]+$/,
-              message: 'Le numéro de CNSS ne peut être composé que de chiffres'
-            }
-          }
-        },
-
         ContratTravailNumero : {
           validators: {
-            notEmpty: {
-              message: "Veuillez saisir le contrat de travail numéro"
-            },
             regexp: {
-              regexp: /^[0-9]+$/,
-              message: 'Le numéro de contrat de travail ne peut être composé que de chiffres'
+              regexp: /^[a-zA-Z0-9]+$/,
+              message: 'Le numéro de contrat de travail ne peut être composé que de chiffres et lettres alphabétiques'
             }
           }
         },

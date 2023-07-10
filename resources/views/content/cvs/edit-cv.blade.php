@@ -189,7 +189,7 @@
             <div class="line">
                 <i class="ti ti-chevron-right"></i>
             </div>
-            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-confirmation">
+            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-confirmation" onclick="FillConfirmation()">
                 <button type="button" class="step-trigger">
                     <span class="bs-stepper-icon">
                         <svg viewBox="0 0 58 54">
@@ -229,7 +229,7 @@
 
                         <div class="col-md-6">
                             <label for="flatpickr-date" class="form-label">Date Naissance</label>
-                            <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date" name="DateNaissance" value="{{ $objEmployee['dateNaissance'] }}" required />
+                            <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="flatpickr-date" name="DateNaissance" value="{{ $objEmployee['dateNaissance'] }}" required />
                         </div>
 
                         <div class="col-md-6">
@@ -273,6 +273,11 @@
                         </div>
 
                         <div class="col-md-6">
+                            <label for="PhotoIdentite" class="form-label">Photo Identite</label>
+                            <input class="form-control" type="file" id="PhotoIdentite" name="PhotoIdentite">
+                        </div>
+
+                        <div class="col-md-6">
                             <label class="form-label" for="Email">Email</label>
                             <input class="form-control" type="email" id="Email" name="Email" placeholder="john.doe" value="{{ $objEmployee['email'] }}" />
                         </div>
@@ -303,36 +308,32 @@
                         <div class="col-md-6">
                             <label class="form-label" for="ResponsableHierarchique">Responsable hiérarchique</label>
                             <select id="form-repeater-1-4" class="form-select" name="ResponsableHierarchique">
-                                <option value="Imane">Imane</option>
+                                @foreach($rhs as $rh)
+                                <option value="{{$rh->id}}" {{ $objEmployee['ResponsableHierarchique'] == $rh->id ? 'selected' : '' }}>{{$rh->rhNom}}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label" for="Poste">Poste</label>
                             <select id="form-repeater-1-4" class="form-select" name="Poste">
-                                <option value="RH" {{ $objEmployee['Poste'] == 'RH' ? 'selected' : '' }}>RH</option>
-                                <option value="Developer" {{ $objEmployee['Poste'] == 'Developer' ? 'selected' : '' }}>Developer</option>
+                                @foreach($posts as $post)
+                                <option value="{{$post->id}}" {{ $objEmployee['Poste'] == $post->id ? 'selected' : '' }}>{{$post->postNom}}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label" for="DateEmbauche">Date Embauche</label>
-                            <input type="text" class="form-control flatpickr-validation" name="DateEmbauche" id="DateEmbauche" value="{{ $objEmployee['DateEmbauche'] }}" required />
+                            <input type="text" class="form-control" name="DateEmbauche" id="flatpickr-dateEmbauche" value="{{ $objEmployee['DateEmbauche'] }}" required />
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label" for="DepartementAffectation">Departement Affectation</label>
                             <select id="form-repeater-1-4" class="form-select" name="DepartementAffectation">
-                                <option value="DG" {{ $objEmployee['DepartementAffectation'] == 'DG' ? 'selected' : '' }}>DG</option>
-                                <option value="DSI" {{ $objEmployee['DepartementAffectation'] == 'DSI' ? 'selected' : '' }}>DSI</option>
-                                <option value="SUP" {{ $objEmployee['DepartementAffectation'] == 'SUP' ? 'selected' : '' }}>SUP</option>
-                                <option value="TCA" {{ $objEmployee['DepartementAffectation'] == 'TCA' ? 'selected' : '' }}>TCA</option>
-                                <option value="TGE" {{ $objEmployee['DepartementAffectation'] == 'TGE' ? 'selected' : '' }}>TGE</option>
-                                <option value="COP" {{ $objEmployee['DepartementAffectation'] == 'COP' ? 'selected' : '' }}>COP</option>
-                                <option value="LAS" {{ $objEmployee['DepartementAffectation'] == 'LAS' ? 'selected' : '' }}>LAS</option>
-                                <option value="MMS" {{ $objEmployee['DepartementAffectation'] == 'MMS' ? 'selected' : '' }}>MMS</option>
-                                <option value="DRO" {{ $objEmployee['DepartementAffectation'] == 'DRO' ? 'selected' : '' }}>DRO</option>
-                                <option value="SIG" {{ $objEmployee['DepartementAffectation'] == 'SIG' ? 'selected' : '' }}>SIG</option>
+                                @foreach($departements as $departement)
+                                    <option value="{{$departement->id}}" {{ $objEmployee['DepartementAffectation'] == $departement->id ? 'selected' : '' }}>{{$departement->departementNom}}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -350,9 +351,19 @@
                         </div>
 
 
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <label for="contrat-range" class="form-label">Contrat Du</label>
                             <input type="text" class="form-control" placeholder="YYYY-MM-DD Au YYYY-MM-DD" id="contrat-range" name="ContratRange" value="{{ $objEmployee['ContratDu'] }} to {{ $objEmployee['ContratAu'] }}" />
+                        </div> -->
+
+                        <div class="col-md-6">
+                            <label class="form-label" for="DateEmbauche">Contrat Date Debut</label>
+                            <input type="text" class="form-control" name="ContratDu" placeholder="DD-MM-YYYY" id="flatpickr-dateDu" value="{{ $objEmployee['ContratDu'] }}" required />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label" for="DateEmbauche">Contrat Date Fin</label>
+                            <input type="text" class="form-control" name="ContratAu" placeholder="DD-MM-YYYY" id="flatpickr-dateAu" value="{{ $objEmployee['ContratAu'] }}"/>
                         </div>
 
                         <div class="col-12">
@@ -423,7 +434,7 @@
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                         <label class="form-label" for="formValidationEmbauche">Année d'obtention</label>
-                                        <input type="text" class="form-control flatpickr-validation" id="obtention" placeholder="YYYY-MM-DD" />
+                                        <input type="text" class="form-control" id="obtention" placeholder="YYYY" />
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
@@ -491,14 +502,24 @@
                                         <input type="text" id="ref-employeur" class="form-control" placeholder="Etafat">
                                     </div>
 
-                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                        <label class="form-label" for="ref-range">Range</label>
-                                        <input type="text" class="form-control" placeholder="YYYY-MM-DD Au YYYY-MM-DD" id="ref-range" />
+                                    <div class="col-md-6 col-xl-3 col-12 mb-3">
+                                        <label class="form-label" for="DateEmbauche">Date Debut</label>
+                                        <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="exp-dateDu" required />
+                                    </div>
+
+                                    <div class="col-md-6 col-xl-3 col-12 mb-3">
+                                        <label class="form-label" for="DateEmbauche">Date Fin</label>
+                                        <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="exp-dateAu" />
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                         <label class="form-label" for="ref-poste">Poste</label>
                                         <input type="text" id="ref-poste" class="form-control" placeholder="Directeur Etudes">
+                                    </div>
+
+                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                        <label class="form-label" for="ref-pay">Pay</label>
+                                        <input type="text" id="ref-pay" class="form-control" placeholder="Directeur Etudes">
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
@@ -526,6 +547,7 @@
                                                 <div class="card-body">
                                                     <p class="card-text niveau_etude-cursus"><span class="card-title">Employeur : </span>{{$ref['employeur']}}</p>
                                                     <p class="card-text"><span class="card-title">Poste : </span>{{$ref['poste']}}</p>
+                                                    <p class="card-text"><span class="card-title">Pay : </span>{{$ref['pay']}}</p>
                                                     <p class="card-text">Date De {{$ref['dateDebut']}} Au {{$ref['dateDebut']}} </p>
                                                     <span class="card-title">Taches : </span>
                                                     <ul class="list-group list-group-flush">
@@ -573,13 +595,6 @@
                                         <label for="selectpickerLiveSearch" class="form-label">Poste</label>
                                         <select id="selectpickerLiveSearch" class="projet-poste selectpicker w-100" data-style="btn-default" data-live-search="true">
                                             <option value="" data-tokens="">Selectionner un poste</option>
-                                            <option value="Directeur projets" data-tokens="Directeur projets">Directeur projets</option>
-                                            <option value="Chef projets topographe" data-tokens="Chef projets topographe">Chef projets topographe</option>
-                                            <option value="Chef projet Hydrographe" data-tokens="Chef projet Hydrographe">Chef projet Hydrographe</option>
-                                            <option value="Chef projets SIG" data-tokens="Chef projets SIG">Chef projets SIG</option>
-                                            <option value="Technicien Topographe" data-tokens="Technicien Topographe">Technicien Topographe</option>
-                                            <option value="Technicien Hydrographe" data-tokens="Technicien Hydrographe">Technicien Hydrographe</option>
-                                            <option value="Technicien SIG" data-tokens="Technicien SIG">Technicien SIG</option>
                                         </select>
                                     </div>
                                     <div class="col-md-3 mb-4">
@@ -630,7 +645,7 @@
                             <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
                                 <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                             </button>
-                            <button type="button" class="btn btn-primary btn-next" data-target="#checkout-confirmation"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
+                            <button type="button" class="btn btn-primary btn-next" data-target="#checkout-confirmation" onclick="FillConfirmation()"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -638,10 +653,11 @@
                 <!-- Confirmation -->
                 <div id="checkout-confirmation" class="content">
                     <div class="col-12 d-flex justify-content-between">
-                        <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
+                        <button type="button" class="btn btn-label-secondary btn-prev">
+                            <i class="ti ti-arrow-left me-sm-1"></i>
                             <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                         </button>
-                        <button type="submit" class="btn btn-success btn-update">Modifier le CV</button>
+                        <button type="submit" class="btn btn-success btn-submit">Create CV</button>
                     </div>
                 </div>
             </form>

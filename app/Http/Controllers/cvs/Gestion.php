@@ -12,8 +12,10 @@ use App\Models\Rh;
 use App\Models\Departement;
 use App\Models\Post;
 use App\Models\Societe;
+use App\Models\Busunit;
 use App\Models\Informations;
 use App\Models\Projet;
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\CvsImport;
@@ -42,7 +44,15 @@ class Gestion extends Controller
   public function getArchived()
   {
       $employees = Informations::where('Archived', 1)->get();
-
+      foreach($employees as $key => $value){
+        $rh = Rh::where('id', $value->ResponsableHierarchique)->first();
+        $departement = Departement::where('id', $value->DepartementAffectation)->first();
+        $post = Post::where('id', $value->Poste)->first();
+  
+        $employees[$key]->ResponsableHierarchique = $rh->rhNom;
+        $employees[$key]->DepartementAffectation = $departement->departementNom;
+        $employees[$key]->Poste = $post->postNom;
+      }
       return response()->json(['data' => $employees]);
 
   }
@@ -50,9 +60,53 @@ class Gestion extends Controller
   public function getEmployees()
   {
     $employees = Informations::where('Archived', 0)->get();
+    foreach($employees as $key => $value){
+      $rh = Rh::where('id', $value->ResponsableHierarchique)->first();
+      $departement = Departement::where('id', $value->DepartementAffectation)->first();
+      $post = Post::where('id', $value->Poste)->first();
 
+      $employees[$key]->ResponsableHierarchique = $rh->rhNom;
+      $employees[$key]->DepartementAffectation = $departement->departementNom;
+      $employees[$key]->Poste = $post->postNom;
+    }
     return response()->json(['data' => $employees]);
   }
+
+  public function employeesFiltredDiplome($diplome)
+  {
+    $employees = Informations::where('Archived', 0)->get();
+    $employeesFiltred = [];
+    foreach ($employees as $key => $value) {
+      $formations = Formations::where('ID_Salarie', $value->ID_Salarie)->get();
+      foreach ($formations as $key1 => $value1) {
+        if(str_contains($value1->intitule, $diplome) || str_contains($diplome, $value1->intitule)){
+          $employeesFiltred[] = $value;
+        }
+      }
+    }
+    $employeesFiltred = array_unique($employeesFiltred, SORT_REGULAR);
+    return response()->json(['data' => $employeesFiltred]);
+  }
+
+  public function employeesFiltredAnciente($diplome , $anciente)
+  {
+    $employees = Informations::where('Archived', 0)->get();
+    $employeesFiltred = [];
+    foreach ($employees as $key => $value) {
+      $formations = Formations::where('ID_Salarie', $value->ID_Salarie)->get();
+      foreach ($formations as $key1 => $value1) {
+        if(str_contains($value1->intitule, $diplome) || str_contains($diplome, $value1->intitule)){
+          $diff = date('Y') - $anciente;
+          if($diff <= $value1->obtention){
+            $employeesFiltred[] = $value;
+          }
+        }
+      }
+    }
+    $employeesFiltred = array_unique($employeesFiltred, SORT_REGULAR);
+    return response()->json(['data' => $employeesFiltred]);
+  }
+
 
   public function show($id)
   {
@@ -170,10 +224,6 @@ class Gestion extends Controller
     }
     $information['Langues'] = implode(",", $langues);
     $information['Niveau'] = implode(",", $Niveau);
-    $contratRange = explode(' to ', $information['ContratRange']);
-    $information['ContratDu'] = $contratRange[0];
-    $information['ContratAu'] = $contratRange[1];
-    unset($information['ContratRange']);
     $information['Archived'] = 0;
     $employee = Informations::create($information);
 
@@ -205,13 +255,13 @@ class Gestion extends Controller
     //store refs
     if($refs != null){
       foreach ($refs as $refsItems) {
-        $ranges = explode(' to ', $refsItems->range);
         $Ref = Experiences::create([
           'ID_Salarie' => $employee->ID_Salarie,
           'employeur' => $refsItems->employeur,
           'poste' => $refsItems->poste,
-          'dateDebut' => $ranges[0],
-          'dateFin' => $ranges[1],
+          'pay' => $refsItems->pay,
+          'dateDebut' => $refsItems->dateDu,
+          'dateFin' => $refsItems->dateAu,
         ]);
 
         foreach ($refsItems->taches as $tache) {
@@ -266,6 +316,7 @@ class Gestion extends Controller
       'cin' => $employee->CIN,
       'DateEmbauche' => $employee->DateEmbauche,
       'ContratTravailNumero' => $employee->ContratTravailNumero,
+      'ResponsableHierarchique' => $employee->ResponsableHierarchique,
       'ContratDu' => $employee->ContratDu,
       'ContratAu' => $employee->ContratAu,
       'TypeContrat' => $employee->TypeContrat,
@@ -295,6 +346,7 @@ class Gestion extends Controller
         'id' => $value->ID_Experience,
         'employeur' => $value->employeur,
         'poste' => $value->poste,
+        'pay' => $value->pay,
         'dateDebut' => $value->dateDebut,
         'dateFin' => $value->dateFin,
         'taches' => Taches::where('ID_Ref', $value->ID_Experience)->get(),
@@ -322,7 +374,14 @@ class Gestion extends Controller
     $references = Refs::all();
     $objEmployee['references'] = $references;
 
-    return view('content.cvs.edit-cv', compact('objEmployee'));
+    //get rh from database
+    $rhs = Rh::all();
+    //get postes from database
+    $posts = Post::all();
+    //get departements from database
+    $departements = Departement::all();
+
+    return view('content.cvs.edit-cv', compact('objEmployee', 'rhs', 'posts', 'departements'));
   }
 
   public function update(Request $request, $id)
@@ -333,7 +392,7 @@ class Gestion extends Controller
     $projets = json_decode($request->input('projets'));
 
     //store information
-    if(false){
+    if($request->hasFile('PhotoIdentite')){
       $Image = $request->file('PhotoIdentite');
       $Prenom = $request->input('Prenom');
       $uniqueFileName = $Prenom . uniqid() . '.' . $Image->getClientOriginalExtension();
@@ -355,10 +414,6 @@ class Gestion extends Controller
     }
     $information['Langues'] = implode(",", $langues);
     $information['Niveau'] = implode(",", $Niveau); 
-    $contratRange = explode(' to ', $information['ContratRange']);
-    $information['ContratDu'] = $contratRange[0];
-    $information['ContratAu'] = $contratRange[1];
-    unset($information['ContratRange']);
     Informations::where('ID_Salarie', $id)->update($information);
 
     //get formations where ID_Salarie = $id
@@ -420,13 +475,13 @@ class Gestion extends Controller
     }
 
     foreach ($experiences as $expsItems) {
-      $ranges = explode(' to ', $expsItems->range);
       $Exp = Experiences::create([
         'ID_Salarie' => $id,
         'employeur' => $expsItems->employeur,
         'poste' => $expsItems->poste,
-        'dateDebut' => $ranges[0],
-        'dateFin' => $ranges[1],
+        'pay' => $expsItems->pay,
+        'dateDebut' => $expsItems->dateDebut,
+        'dateFin' => $expsItems->dateFin,
       ]);
     foreach ($expsItems->taches as $tache) {
       Taches::create([
@@ -515,33 +570,16 @@ class Gestion extends Controller
 
     $objEmployee['formations'] = $objFormations;
     $objEmployee['projets'] = $objProjets;
+    $objEmployee['formations'] = $objFormations;
+    $objEmployee['experiences'] = $objExperiences;
 
-    $objExpEtFormations = [];
+    $rh = Rh::where('id', $objEmployee->ResponsableHierarchique)->first();
+    $departement = Departement::where('id', $objEmployee->DepartementAffectation)->first();
+    $post = Post::where('id', $objEmployee->Poste)->first();
 
-    
-    foreach ($objExperiences as $experience) {
-      $annee = explode('-', $experience->dateDebut);
-      $objExperience = new \stdClass();
-      $objExperience->subtitle = $experience->poste;
-      $objExperience->annee = $annee[0];
-      $objExperience->title = $experience->employeur . " (Experience Professionnelle)";
-      array_push($objExpEtFormations, $objExperience);
-    }
-
-    foreach ($objFormations as $formation) {
-      $objFormation = new \stdClass();
-      $objFormation->subtitle = $formation->intitule;
-      $objFormation->annee = $formation->obtention;
-      $objFormation->title = $formation->etablissement . " (Formation / Cursus)";
-      array_push($objExpEtFormations, $objFormation);
-    }
-
-
-    usort($objExpEtFormations, function ($a, $b) {
-        return $b->annee - $a->annee;
-    });
-
-    $objEmployee['experiences'] = $objExpEtFormations;
+    $objEmployee->ResponsableHierarchique = $rh->rhNom;
+    $objEmployee->DepartementAffectation = $departement->departementNom;
+    $objEmployee->Poste = $post->postNom;
 
 
     return view('content.cvs.view-cv', compact('objEmployee'));
@@ -568,6 +606,20 @@ class Gestion extends Controller
     $societes = Societe::all();
     return view('content.cvs.gestion.societe', compact('societes'));
   }
+
+  public function BUsPage()
+  {
+    $BUs = Busunit::all();
+    return view('content.cvs.gestion.bu', compact('BUs'));
+  }
+
+  public function categoriesPage()
+  {
+    $categories = Category::all();
+    return view('content.cvs.gestion.category', compact('categories'));
+  }
+
+
 
   public function addRh(Request $request)
   { 
@@ -599,6 +651,22 @@ class Gestion extends Controller
     $societe->save();
   }
 
+  public function addBU(Request $request)
+  {
+    $nom = $request->input('nom');
+    $Bu = new Busunit;
+    $Bu->buNom = $nom;
+    $Bu->save();
+  }
+
+  public function addCategory(Request $request)
+  {
+    $nom = $request->input('nom');
+    $Category = new Category;
+    $Category->categoryNom = $nom;
+    $Category->save();
+  }
+
   public function deleteRh($id)
   { 
     //delete rh
@@ -626,6 +694,67 @@ class Gestion extends Controller
     $societe->delete();
   }
 
+  public function deleteBu($id)
+  {
+    $bu = Busunit::find($id);
+    $bu->delete();
+  }
+
+  public function deleteCategory($id)
+  {
+    $Category = Category::find($id);
+    $Category->delete();
+  }
+
+
+  public function updateSociete(Request $request, $id)
+  {
+    $nom = $request->input('nom');
+    $societe = Societe::find($id);
+    $societe->societeNom = $nom;
+    $societe->save();
+  }
+
+  public function updateRh(Request $request, $id)
+  {
+    $nom = $request->input('nom');
+    $rh = Rh::find($id);
+    $rh->rhNom = $nom;
+    $rh->save();
+  }
+
+  public function updatePost(Request $request, $id)
+  {
+    $nom = $request->input('nom');
+    $post = Post::find($id);
+    $post->postNom = $nom;
+    $post->save();
+  }
+
+  public function updateDepartement(Request $request, $id)
+  {
+    $nom = $request->input('nom');
+    $depart = Departement::find($id);
+    $depart->departementNom = $nom;
+    $depart->save();
+  }
+
+  public function updateBu(Request $request, $id)
+  {
+    $nom = $request->input('nom');
+    $bu = Busunit::find($id);
+    $bu->buNom = $nom;
+    $bu->save();
+  }
+
+  public function updateCategory(Request $request, $id)
+  {
+    $nom = $request->input('nom');
+    $Category = Category::find($id);
+    $Category->categoryNom = $nom;
+    $Category->save();
+  }
+
   public function projets($id){
     //get projets where ID_Salarie = $id
     $projets = Projet::where('ID_Salarie', $id)->get();
@@ -640,5 +769,23 @@ class Gestion extends Controller
       'success' => true,
       'data' => $projets
     ]);
+  }
+
+  public function AllRhs()
+  {
+    $data = Rh::all();
+    foreach ($data as $key => $value) {
+      $data[$key]['value'] = $value['id'];
+    }
+    return response()->json($data);
+  }
+
+  public function AllCategories()
+  {
+    $categories = Category::all();
+    foreach ($categories as $key => $value) {
+      $categories[$key]['value'] = $value['id'];
+    }
+    return response()->json($categories);
   }
 }

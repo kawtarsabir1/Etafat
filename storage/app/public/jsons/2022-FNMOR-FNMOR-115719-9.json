@@ -1,0 +1,1174 @@
+[
+    {
+        "id": 4,
+        "nom": "NAZIH",
+        "prenom": "Jihane",
+        "email": "jihanen@etafat.ma",
+        "telephonePortable": "0665891756",
+        "telephoneFixe": "aucun",
+        "postal": 20000,
+        "profil": "Interne",
+        "photo": "aucun",
+        "dateNaissance": "28\/3\/2000",
+        "lieuNaissance": "CASABLANCA",
+        "nationalite": "Marocaine",
+        "situationFamiliale": "mari\u00e9e",
+        "nombreEnfants": 2,
+        "adresse": "HY Youssra R\u00e9sidence Maghreb Ara Imm3 N4 bournazel",
+        "adresse2": null,
+        "cnss": "178472562",
+        "cin": "BH246943",
+        "DateEmbauche": "01\/03\/2007",
+        "ContratTravailNumero": "aucun",
+        "ContratDu": "aucun",
+        "ContratAu": "jusqu'\u00e0 pr\u00e9sent",
+        "TypeContrat": "CDI",
+        "Poste": "Directrice BU Etafat Ing",
+        "DepartementAffectation": "DG",
+        "langue": "Arabe,Fran\u00e7ais, Anglais",
+        "niveauLangue": "avanc\u00e9,avanc\u00e9,int\u00e9rmediate",
+        "formations": [
+            {
+                "id": 4,
+                "intitule": "Ing\u00e9nieur d'\u00e9tat G\u00e9nie rural (IAV)",
+                "obtention": "2005",
+                "etablissement": "IAV",
+                "diplome": "G\u00e9nie rural "
+            }
+        ],
+        "experiences": [
+            {
+                "id": 2,
+                "dateDebut": "2011",
+                "dateFin": "\u00e0 ce jour",
+                "employeur": "cedev",
+                "poste": "Directeur G\u00e9nerale \n\n\n",
+                "taches": [
+                    {
+                        "id": 2,
+                        "tache": "Aplication SIG web"
+                    },
+                    {
+                        "id": 11,
+                        "tache": ""
+                    },
+                    {
+                        "id": 28,
+                        "tache": ""
+                    },
+                    {
+                        "id": 44,
+                        "tache": ""
+                    }
+                ]
+            }
+        ],
+        "refs": [
+            {
+                "id": 86,
+                "client": "ARSAT MOHAMMEDIA SARL",
+                "annee": "2016",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 87,
+                "client": "JAWHARATE DAR BOUAZZA",
+                "annee": "2016",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 88,
+                "client": "CASADIAA",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 89,
+                "client": "PROMOTION IMMOBILIERE ZNIKA",
+                "annee": "2016",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 90,
+                "client": "DYAR DAKHAMA SARL",
+                "annee": "2015",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 91,
+                "client": "DYAR DAKHAMA SARL",
+                "annee": "2015",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 92,
+                "client": "DYAR DAKHAMA SARL",
+                "annee": "2015",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 93,
+                "client": "GHITASITRALLAH SARL",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 94,
+                "client": "GHITASITRALLAH SARL",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 95,
+                "client": "ARSAT MOHAMMEDIA SARL",
+                "annee": "2015",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 96,
+                "client": "ARSAT DAR BOUAZZA SARL",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 97,
+                "client": "PROMOTION IMMOBILIERE AGADIR EL ALIA",
+                "annee": "2013",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 98,
+                "client": "PROMOTION IMMOBILIERE BOABDIL",
+                "annee": "2015",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 99,
+                "client": "ETAFAT",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 100,
+                "client": "ETAFAT",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 101,
+                "client": "PREFECTURE MOHAMMEDIA",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 102,
+                "client": "PREFECTURE MOHAMMEDIA",
+                "annee": "2016",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 103,
+                "client": "ETAFAT",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 104,
+                "client": "MAPRINVEST",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 105,
+                "client": "MAPRINVEST",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 106,
+                "client": "MAPRINVEST",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 107,
+                "client": "LYDEC",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 108,
+                "client": "LYDEC",
+                "annee": "2013",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 109,
+                "client": "LYDEC",
+                "annee": "2013",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 110,
+                "client": "LYDEC",
+                "annee": "2013",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 111,
+                "client": "LYDEC",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 112,
+                "client": "LYDEC",
+                "annee": "2008",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 113,
+                "client": "LYDEC",
+                "annee": "2013",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 114,
+                "client": "LYDEC",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 115,
+                "client": "ETAFAT",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 116,
+                "client": "ETAFAT",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 117,
+                "client": "ETAFAT",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 118,
+                "client": "ETAFAT",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 119,
+                "client": "ETAFAT",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 120,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 121,
+                "client": "CASA TRANSPORT",
+                "annee": "2016",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 122,
+                "client": "PREFECTURE MOHAMMEDIA",
+                "annee": "2016",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 123,
+                "client": "casa amenagement",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 124,
+                "client": "SNTL",
+                "annee": "2015",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 125,
+                "client": "ETAFAT",
+                "annee": "2017",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 126,
+                "client": "ETAFAT",
+                "annee": "2017",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 127,
+                "client": "RABAR REGION AMENAGEMENT",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 128,
+                "client": "DYAR DAKHAMA SARL",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 129,
+                "client": "RYAD DROUA",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 130,
+                "client": "DYAR DAKHAMA SARL",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 131,
+                "client": "CINQ HUIT IMMO",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 132,
+                "client": "TAWFIQ JADIDA SARL",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 133,
+                "client": "CASA TRANSPORT",
+                "annee": "2018",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 134,
+                "client": "DYAR DAKHAMA SARL",
+                "annee": "2019",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 135,
+                "client": "LYDEC",
+                "annee": "2017",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 136,
+                "client": "RAYANE IMMOBILIERE SARL",
+                "annee": "2019",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 137,
+                "client": "CASA TRANSPORT",
+                "annee": "2020",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 138,
+                "client": "RABAT REGION AMENAGEMENT",
+                "annee": "2019",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 139,
+                "client": "PREFECTURE MOHAMMEDIA",
+                "annee": "2017",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 140,
+                "client": "ETAFAT",
+                "annee": "2016",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 141,
+                "client": "SNAMAR",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 142,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 143,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 144,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 145,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 146,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 147,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 148,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 149,
+                "client": "YASMINE PREMIUM",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 150,
+                "client": "TEMARA DEVELOPEMENT",
+                "annee": "2022",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 151,
+                "client": "MIDPARC",
+                "annee": "2020",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 152,
+                "client": "casa amenagement",
+                "annee": "2023",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 153,
+                "client": "oasis industrie",
+                "annee": "2022",
+                "missions": "sans",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 154,
+                "client": "IMMOLOG",
+                "annee": "2011",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 155,
+                "client": "DOUJA PROMOTION",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 156,
+                "client": "AL MAKANE AL JAMIL",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 157,
+                "client": "AL MAKANE AL JAMIL",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 158,
+                "client": "IMMOLOG",
+                "annee": "2011",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 159,
+                "client": "IMMOLOG",
+                "annee": "2011",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 160,
+                "client": "ADDOHA ESSALAM",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 161,
+                "client": "ADDOHA ESSALAM",
+                "annee": "2011",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 162,
+                "client": "DOUJA PROMOTION",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 163,
+                "client": "DOUJA PROMOTION",
+                "annee": "2011",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 164,
+                "client": "IMMOLOG",
+                "annee": "2011",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 165,
+                "client": "IMMOLOG",
+                "annee": "2013",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 166,
+                "client": "IMMOLOG",
+                "annee": "2013",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 167,
+                "client": "DOUJA PROMOTION",
+                "annee": "2013",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 168,
+                "client": "DOUJA PROMOTION",
+                "annee": "2011",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 169,
+                "client": "DOUJA PROMOTION",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 170,
+                "client": "DOUJA PROMOTION",
+                "annee": "2011",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 171,
+                "client": "DOUJA PROMOTION",
+                "annee": "2011",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 172,
+                "client": "DOUJA PROMOTION",
+                "annee": "2013",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 173,
+                "client": "DOUJA PROMOTION",
+                "annee": "2013",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 174,
+                "client": "DOUJA PROMOTION",
+                "annee": "2011",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 175,
+                "client": "TANGER SAKANE",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 176,
+                "client": "TANGER SAKANE",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 177,
+                "client": "TANGER SAKANE",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 178,
+                "client": "TANGER SAKANE",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 179,
+                "client": "DAR JAWDA",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 180,
+                "client": "ADDOHA ESSALAM",
+                "annee": "2011",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 181,
+                "client": "DOUJA PROMOTION",
+                "annee": "2013",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 182,
+                "client": "ADDOHA ESSALAM",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 183,
+                "client": "DOUJA PROMOTION",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 184,
+                "client": "DOUJA PROMOTION",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 185,
+                "client": "DAR JAWDA",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 186,
+                "client": "ADDOHA ESSALAM",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 187,
+                "client": "DOUJA PROMOTION",
+                "annee": "2013",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 188,
+                "client": "DOUJA PROMOTION",
+                "annee": "2013",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 189,
+                "client": "PRESTIGIA",
+                "annee": "2011",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 190,
+                "client": "PRESTIGIA",
+                "annee": "2011",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 191,
+                "client": "CITA",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 192,
+                "client": "DOUJA PROMOTION",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 193,
+                "client": "IMMOLOG",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 194,
+                "client": "DOUJA PROMOTION",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 195,
+                "client": "DOUJA PROMOTION",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 196,
+                "client": "DAR JAWDA",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 197,
+                "client": "CITA",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 198,
+                "client": "CITA",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 199,
+                "client": "PRESTIGIA",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 200,
+                "client": "BELADI",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 201,
+                "client": "IMMOLOG",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 202,
+                "client": "IMMOLOG",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 203,
+                "client": "CITA",
+                "annee": "2015",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 204,
+                "client": "CITA",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 205,
+                "client": "CITA",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 206,
+                "client": "DOUJA PROMOTION",
+                "annee": "2011",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 207,
+                "client": "DOUJA PROMOTION",
+                "annee": "2012",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 208,
+                "client": "CITA",
+                "annee": "2014",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 209,
+                "client": "CITA",
+                "annee": "2016",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 210,
+                "client": "CITA",
+                "annee": "sans",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 211,
+                "client": "CITA",
+                "annee": "2015",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 212,
+                "client": "PRESTIGIA",
+                "annee": "2017",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 213,
+                "client": "CITA",
+                "annee": "2018",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 214,
+                "client": "PRESTIGIA",
+                "annee": "2018",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 215,
+                "client": "CITA",
+                "annee": "2016",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 216,
+                "client": "IMMOLOG",
+                "annee": "2017",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 217,
+                "client": "IMMOLOG",
+                "annee": "2017",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 218,
+                "client": "PRESTIGIA",
+                "annee": "2018",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 219,
+                "client": "IMMOLOG",
+                "annee": "2016",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 220,
+                "client": "IMMOLOG",
+                "annee": "2013",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 221,
+                "client": "IMMOLOG",
+                "annee": "2016",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 222,
+                "client": "CASA TRANSPORT",
+                "annee": "2019",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 223,
+                "client": "IMMOLOG",
+                "annee": "2018",
+                "missions": "sans",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            }
+        ],
+        "role": "chef de projet"
+    }
+]

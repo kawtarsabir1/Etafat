@@ -8,6 +8,14 @@
   // Flat Picker
   // --------------------------------------------------------------------
   const flatpickrDate = document.querySelector('#flatpickr-date'),
+   dateEmbauche = document.querySelector('#flatpickr-dateEmbauche'),
+   dateDu = document.querySelector('#flatpickr-dateDu'),
+   dateAu = document.querySelector('#flatpickr-dateAu'),
+   expDateDu = document.querySelector('#exp-dateDu'),
+   expDateAu = document.querySelector('#exp-dateAu'),
+   date_limit_ao = document.querySelector('#date_limit_ao'),
+   date_adjudication_ao = document.querySelector('#date_adjudication_ao'),
+   date_signature_ao = document.querySelector('#date_signature_ao'),
     flatpickrTime = document.querySelector('#flatpickr-time'),
     flatpickrDateTime = document.querySelector('#flatpickr-datetime'),
     flatpickrMulti = document.querySelector('#flatpickr-multi'),
@@ -21,9 +29,68 @@
   // Date
   if (flatpickrDate) {
     flatpickrDate.flatpickr({
-      monthSelectorType: 'static'
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
     });
   }
+
+  if (dateEmbauche) {
+    dateEmbauche.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  if (dateDu) {
+    dateDu.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  if (dateAu) {
+    dateAu.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  if (expDateDu) {
+    expDateDu.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  if (expDateAu) {
+    expDateAu.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  //AOs Dates
+  if (date_limit_ao) {
+    date_limit_ao.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  if (date_adjudication_ao) {
+    date_adjudication_ao.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+
+  if (date_signature_ao) {
+    date_signature_ao.flatpickr({
+      monthSelectorType: 'static',
+      dateFormat: 'd/m/Y',
+    });
+  }
+  
 
   // Time
   if (flatpickrTime) {

@@ -15,15 +15,20 @@ class Refs extends Model
         'attestation',
         'archived',
         'mantant',
+        'montantTraveaux',
         'nMarche',
-        'category',
+        'categories',
         'fiche',
+        'ficheExist',
         'logo',
         'localisation',
         'nRef',
+        'nIntern',
         'societe',
         'missions',
         'description',
+        'groupement',
+        'part',
         'annee'
     ];
 

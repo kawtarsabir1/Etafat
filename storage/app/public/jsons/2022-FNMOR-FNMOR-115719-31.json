@@ -1,0 +1,1295 @@
+[
+    {
+        "id": 4,
+        "nom": "NAZIH",
+        "prenom": "Jihane",
+        "email": "jihanen@etafat.ma",
+        "telephonePortable": "0665891756",
+        "telephoneFixe": "aucun",
+        "postal": 20000,
+        "profil": "Interne",
+        "photo": "aucun",
+        "dateNaissance": "28\/3\/2000",
+        "lieuNaissance": "CASABLANCA",
+        "nationalite": "Marocaine",
+        "situationFamiliale": "mari\u00e9e",
+        "nombreEnfants": 2,
+        "adresse": "HY Youssra R\u00e9sidence Maghreb Ara Imm3 N4 bournazel",
+        "adresse2": null,
+        "cnss": "178472562",
+        "cin": "BH246943",
+        "DateEmbauche": "01\/03\/2007",
+        "ContratTravailNumero": "aucun",
+        "ContratDu": "aucun",
+        "ContratAu": "jusqu'\u00e0 pr\u00e9sent",
+        "TypeContrat": "CDI",
+        "Poste": "Directrice BU Etafat Ing",
+        "DepartementAffectation": "DG",
+        "langue": "Arabe,Fran\u00e7ais, Anglais",
+        "niveauLangue": "",
+        "formations": [
+            {
+                "id": 4,
+                "intitule": "Ing\u00e9nieur d'\u00e9tat G\u00e9nie rural (IAV)",
+                "obtention": "2005",
+                "etablissement": "IAV",
+                "diplome": "G\u00e9nie rural "
+            }
+        ],
+        "experiences": [
+            {
+                "id": 2,
+                "dateDebut": "2011",
+                "dateFin": "\u00e0 ce jour",
+                "employeur": "cedev",
+                "poste": "Directeur G\u00e9nerale \n\n\n",
+                "taches": []
+            }
+        ],
+        "refs": [
+            {
+                "id": 87,
+                "client": "JAWHARATE DAR BOUAZZA",
+                "annee": "2016",
+                "missions": "sans",
+                "objet": "ABOUAB ALAMANE-Etudes et suivi des travaux VRD+OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 88,
+                "client": "CASADIAA",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "COMPLEXE RESIDENTIEL DE VILLAS-Etudes et suivi des travaux v-ass-aep",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 89,
+                "client": "PROMOTION IMMOBILIERE ZNIKA",
+                "annee": "2016",
+                "missions": "sans",
+                "objet": "FAL AZUR-Etudes et suivi des travaux VRD+OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 90,
+                "client": "DYAR DAKHAMA SARL",
+                "annee": "2015",
+                "missions": "sans",
+                "objet": "DYAR DAKHAMA-Etudes et suivi des travaux VRD",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 91,
+                "client": "DYAR DAKHAMA SARL",
+                "annee": "2015",
+                "missions": "sans",
+                "objet": "DYAR DAKHAMA II-Etudes et suivi des travaux VRD+HS",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 92,
+                "client": "DYAR DAKHAMA SARL",
+                "annee": "2015",
+                "missions": "sans",
+                "objet": "DYAR DAKHAMA III-Etudes et suivi des travaux VRD+HS",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 93,
+                "client": "GHITASITRALLAH SARL",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "KENZI DERWA-Etudes et suivi V ASS",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 94,
+                "client": "GHITASITRALLAH SARL",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "KENZI SETTAT 2 -Etudes et suivi des travaux V ASS",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 95,
+                "client": "ARSAT MOHAMMEDIA SARL",
+                "annee": "2015",
+                "missions": "sans",
+                "objet": "ARSAT LISSASFA-Etudes et suivi des travaux VRD+OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 96,
+                "client": "ARSAT DAR BOUAZZA SARL",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "ARSAT DAR BOUAZZA-Etudes et suivi des travaux VRD",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 97,
+                "client": "PROMOTION IMMOBILIERE AGADIR EL ALIA",
+                "annee": "2013",
+                "missions": "sans",
+                "objet": "AGADIR EL ALIA TRANCHE 1-Etudes et suivi des travaux VRD",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 98,
+                "client": "PROMOTION IMMOBILIERE BOABDIL",
+                "annee": "2015",
+                "missions": "sans",
+                "objet": "CITE FAL NOOR-Etudes et suivi des travaux VRD",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 99,
+                "client": "ETAFAT",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "COMMUNE URBAINE BOUSKOURA-VOIES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 100,
+                "client": "ETAFAT",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "COMMUNE URBAINE BOUSKOURA-VOIES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 101,
+                "client": "PREFECTURE MOHAMMEDIA",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "BD HASSAN 2",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 102,
+                "client": "PREFECTURE MOHAMMEDIA",
+                "annee": "2016",
+                "missions": "sans",
+                "objet": "BD LA RESISTANCE",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 103,
+                "client": "ETAFAT",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "ZONE URBANISATION + CU BOUSKOURA",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 104,
+                "client": "MAPRINVEST",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "LOTISSEMENT AGDAL-Etudes des travaux V ASS AEPGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 105,
+                "client": "MAPRINVEST",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "LOTISSEMENT AGDAL-Etudes OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 106,
+                "client": "MAPRINVEST",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "LOTISSEMENT AGDAL-Etudes des travaux ELEC+TEL",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 107,
+                "client": "LYDEC",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "LOTISSEMENT AGDAL-Etudes des travaux VRD+OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 108,
+                "client": "LYDEC",
+                "annee": "2013",
+                "missions": "sans",
+                "objet": "BGC-Etudes des travaux ASS-AEP+OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 109,
+                "client": "LYDEC",
+                "annee": "2013",
+                "missions": "sans",
+                "objet": "AL WAHDA-Etudes des travaux ASS-AEP+OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 110,
+                "client": "LYDEC",
+                "annee": "2013",
+                "missions": "sans",
+                "objet": "VILLE VERT BOUSKOURA-Etudes des travaux ASS-AEP+OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 111,
+                "client": "LYDEC",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "CITE ESSALAM-Etudes des travaux ASS-AEP+OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 112,
+                "client": "LYDEC",
+                "annee": "2008",
+                "missions": "sans",
+                "objet": "AL AMANE-Etudes des travaux ASS",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 113,
+                "client": "LYDEC",
+                "annee": "2013",
+                "missions": "sans",
+                "objet": "OULAD AZOUZ-Etudes des travaux ASS-AEP+OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 114,
+                "client": "LYDEC",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "AL KHOUZAMA-Etudes des travaux ASS-AEP",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 115,
+                "client": "ETAFAT",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "ZONE URBANISATION BOUSKOURA-VOIES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 116,
+                "client": "ETAFAT",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "ZONE URBANISATION BOUSKOURA-OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 117,
+                "client": "ETAFAT",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "ZONE URBANISATION BOUSKOURA-OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 118,
+                "client": "ETAFAT",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "ZONE URBANISATION BOUSKOURA-OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 119,
+                "client": "ETAFAT",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "ZONE URBANISATION BOUSKOURA-ASS",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 120,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "PORT TANGER MED",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 121,
+                "client": "CASA TRANSPORT",
+                "annee": "2016",
+                "missions": "sans",
+                "objet": "PRESTATIONS DE SYNTHESE DES RESEAUX DES CONCESSIONNAIRES DES LIGNES TRAMWAY T1-T2",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 122,
+                "client": "PREFECTURE MOHAMMEDIA",
+                "annee": "2016",
+                "missions": "sans",
+                "objet": "BD LA RESISTANCE",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 123,
+                "client": "casa amenagement",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "zoo ain sebaa",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 124,
+                "client": "SNTL",
+                "annee": "2015",
+                "missions": "sans",
+                "objet": "EXPERTISE",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 125,
+                "client": "ETAFAT",
+                "annee": "2017",
+                "missions": "sans",
+                "objet": "RECENSEMENT G\u00c9N\u00c9RAL DE L'AGRICULTURE-DSS TAFILALT",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 126,
+                "client": "ETAFAT",
+                "annee": "2017",
+                "missions": "sans",
+                "objet": "RECENSEMENT G\u00c9N\u00c9RAL DE L'AGRICULTURE-DSS SOUSS MASSA",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 127,
+                "client": "RABAR REGION AMENAGEMENT",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "Etudes technique et suivi des travaux de l'avenue Mehdi Ben Barka-tranche 1",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 128,
+                "client": "DYAR DAKHAMA SARL",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "DYAR DAKHAMA II",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 129,
+                "client": "RYAD DROUA",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "DYAR DAKHAMA",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 130,
+                "client": "DYAR DAKHAMA SARL",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "DYAR DAKHAMA III",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 131,
+                "client": "CINQ HUIT IMMO",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "DYAR DAKHAMA ZENATA",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 132,
+                "client": "TAWFIQ JADIDA SARL",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "TAWFIQ JADIDA",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 133,
+                "client": "CASA TRANSPORT",
+                "annee": "2018",
+                "missions": "sans",
+                "objet": "PRESTATIONS DE SYNTHESE DES RESEAUX DES CONCESSIONNAIRES DES LIGNES TRAMWAY T3-T4-T5",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 134,
+                "client": "DYAR DAKHAMA SARL",
+                "annee": "2019",
+                "missions": "sans",
+                "objet": "DYAR DAKHAMA III+II+IV+ZENATA-Etudes et suivi des travaux VRD+OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 135,
+                "client": "LYDEC",
+                "annee": "2017",
+                "missions": "sans",
+                "objet": "AMENAGEMENT TREMIE DU BD ABDELHADI BOUTALEB",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 136,
+                "client": "RAYANE IMMOBILIERE SARL",
+                "annee": "2019",
+                "missions": "sans",
+                "objet": "LOTISSEMENT ET CONSTRUCTION D UN GROUPE D HABITATION",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 137,
+                "client": "CASA TRANSPORT",
+                "annee": "2020",
+                "missions": "sans",
+                "objet": "LIGNES BHNS L5 ET L6",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 138,
+                "client": "RABAT REGION AMENAGEMENT",
+                "annee": "2019",
+                "missions": "sans",
+                "objet": "ETUDES ET SUIVI DES TRAVAUX D AMENAGEMENT DES VOIES DU CENTRE DE SIDI YAHYA ZAER R403-P4026-P4036",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 139,
+                "client": "PREFECTURE MOHAMMEDIA",
+                "annee": "2017",
+                "missions": "sans",
+                "objet": "BD HASSAN 2",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 140,
+                "client": "ETAFAT",
+                "annee": "2016",
+                "missions": "sans",
+                "objet": "DEVELOPEMNT SIG \"RNA\"",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 141,
+                "client": "SNAMAR",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "USINE SNAMAR",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 142,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "BD OULED ZIANE ET MED VI",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 143,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "PIPELINE COTE D IVOIRE",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 144,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "TRAMWAY T3.-T4",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 145,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "USINE OULMES",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 146,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "bd RIF",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 147,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "OCP JORF LASFER",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 148,
+                "client": "ETAFAT",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "INSTITUT PASTEUR",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 149,
+                "client": "YASMINE PREMIUM",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "USINE COCA COLA",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 150,
+                "client": "TEMARA DEVELOPEMENT",
+                "annee": "2022",
+                "missions": "sans",
+                "objet": "SOUK HEBDOMADAIRE",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 151,
+                "client": "MIDPARC",
+                "annee": "2020",
+                "missions": "sans",
+                "objet": "15 UNITES INDUSTRIELS",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 152,
+                "client": "casa amenagement",
+                "annee": "2023",
+                "missions": "sans",
+                "objet": "corniche dar bouaaza",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 153,
+                "client": "oasis industrie",
+                "annee": "2022",
+                "missions": "sans",
+                "objet": "oasis industrie",
+                "category": "Clients Divers",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 154,
+                "client": "IMMOLOG",
+                "annee": "2011",
+                "missions": "sans",
+                "objet": "FIRDAOUS",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 155,
+                "client": "DOUJA PROMOTION",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "BARAKA",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 156,
+                "client": "AL MAKANE AL JAMIL",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "PERLE DE BOUZNIKA",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 157,
+                "client": "AL MAKANE AL JAMIL",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "PERLE DE BOUZNIKA",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 158,
+                "client": "IMMOLOG",
+                "annee": "2011",
+                "missions": "sans",
+                "objet": "FIRDAOUS",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 159,
+                "client": "IMMOLOG",
+                "annee": "2011",
+                "missions": "sans",
+                "objet": "FIRDAOUS",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 160,
+                "client": "ADDOHA ESSALAM",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "CITE ESSALAM",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 161,
+                "client": "ADDOHA ESSALAM",
+                "annee": "2011",
+                "missions": "sans",
+                "objet": "CITE ESSALAM",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 162,
+                "client": "DOUJA PROMOTION",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "LES PORTES DE MARRAKECH",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 163,
+                "client": "DOUJA PROMOTION",
+                "annee": "2011",
+                "missions": "sans",
+                "objet": "LES PORTES DE MARRAKECH",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 164,
+                "client": "IMMOLOG",
+                "annee": "2011",
+                "missions": "sans",
+                "objet": "LES PORTES DE MARRAKECH",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 165,
+                "client": "IMMOLOG",
+                "annee": "2013",
+                "missions": "sans",
+                "objet": "LES PORTES DE MARRAKECH",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 166,
+                "client": "IMMOLOG",
+                "annee": "2013",
+                "missions": "sans",
+                "objet": "LES PORTES DE MARRAKECH",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 167,
+                "client": "DOUJA PROMOTION",
+                "annee": "2013",
+                "missions": "sans",
+                "objet": "LES PORTES DE MARRAKECH",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 168,
+                "client": "DOUJA PROMOTION",
+                "annee": "2011",
+                "missions": "sans",
+                "objet": "BARAKA 2",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 169,
+                "client": "DOUJA PROMOTION",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "BARAKA 2",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 170,
+                "client": "DOUJA PROMOTION",
+                "annee": "2011",
+                "missions": "sans",
+                "objet": "BARAKA 2",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 171,
+                "client": "DOUJA PROMOTION",
+                "annee": "2011",
+                "missions": "sans",
+                "objet": "BARAKA 1",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 172,
+                "client": "DOUJA PROMOTION",
+                "annee": "2013",
+                "missions": "sans",
+                "objet": "BARAKA 1+2",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 173,
+                "client": "DOUJA PROMOTION",
+                "annee": "2013",
+                "missions": "sans",
+                "objet": "OUISLANE ECO",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 174,
+                "client": "DOUJA PROMOTION",
+                "annee": "2011",
+                "missions": "sans",
+                "objet": "OUISLANE",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 175,
+                "client": "TANGER SAKANE",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "SABLE D OR",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 176,
+                "client": "TANGER SAKANE",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "SABLE D OR",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 177,
+                "client": "TANGER SAKANE",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "SABLE D OR",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 178,
+                "client": "TANGER SAKANE",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "SABLE D OR",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 179,
+                "client": "DAR JAWDA",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "HAY NAHDA",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 180,
+                "client": "ADDOHA ESSALAM",
+                "annee": "2011",
+                "missions": "sans",
+                "objet": "AL YOUSR",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 181,
+                "client": "DOUJA PROMOTION",
+                "annee": "2013",
+                "missions": "sans",
+                "objet": "AL WAHDA",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 182,
+                "client": "ADDOHA ESSALAM",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "AL YASMINE",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 183,
+                "client": "DOUJA PROMOTION",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "ASSOROUR",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 184,
+                "client": "DOUJA PROMOTION",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "AL WAHDA",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 185,
+                "client": "DAR JAWDA",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "HAY NAHDA",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 186,
+                "client": "ADDOHA ESSALAM",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "AL AZHAR S 1",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 187,
+                "client": "DOUJA PROMOTION",
+                "annee": "2013",
+                "missions": "sans",
+                "objet": "ERRAHMA",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 188,
+                "client": "DOUJA PROMOTION",
+                "annee": "2013",
+                "missions": "sans",
+                "objet": "LES PORTES DE MARRAKECH",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 189,
+                "client": "PRESTIGIA",
+                "annee": "2011",
+                "missions": "sans",
+                "objet": "RAA TRANCHE 1",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 190,
+                "client": "PRESTIGIA",
+                "annee": "2011",
+                "missions": "sans",
+                "objet": "RAA TRANCHE 1",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 191,
+                "client": "CITA",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "BGC",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 192,
+                "client": "DOUJA PROMOTION",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "CITE ESSALAM",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 193,
+                "client": "IMMOLOG",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "FIRDAOUS",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 194,
+                "client": "DOUJA PROMOTION",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "ISLANE",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 195,
+                "client": "DOUJA PROMOTION",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "ENNAHDA",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 196,
+                "client": "DAR JAWDA",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "HAY NAHDA",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 197,
+                "client": "CITA",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "BGC",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 198,
+                "client": "CITA",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "BGC",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 199,
+                "client": "PRESTIGIA",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "PLAGES DES NATIONS",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 200,
+                "client": "BELADI",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "HALF MOON",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 201,
+                "client": "IMMOLOG",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "FIRDAOUS T1",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 202,
+                "client": "IMMOLOG",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "FIRDAOUS T1",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 203,
+                "client": "CITA",
+                "annee": "2015",
+                "missions": "sans",
+                "objet": "BGC",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 204,
+                "client": "CITA",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "COMMUNE URBAINE BOUSKOURA",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 205,
+                "client": "CITA",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "ZONE D URBANISATION",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 206,
+                "client": "DOUJA PROMOTION",
+                "annee": "2011",
+                "missions": "sans",
+                "objet": "VOIE AL AFAQ+TARGA",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 207,
+                "client": "DOUJA PROMOTION",
+                "annee": "2012",
+                "missions": "sans",
+                "objet": "VOIE ROCADE",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 208,
+                "client": "CITA",
+                "annee": "2014",
+                "missions": "sans",
+                "objet": "COMMUNE URBAINE",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 209,
+                "client": "CITA",
+                "annee": "2016",
+                "missions": "sans",
+                "objet": "COMMUNE URBAINE BOUSKOURA",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 210,
+                "client": "CITA",
+                "annee": "sans",
+                "missions": "sans",
+                "objet": "ZONE D URBANISATION",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 211,
+                "client": "CITA",
+                "annee": "2015",
+                "missions": "sans",
+                "objet": "BGC",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 212,
+                "client": "PRESTIGIA",
+                "annee": "2017",
+                "missions": "sans",
+                "objet": "RAA TRANCHE 1",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 213,
+                "client": "CITA",
+                "annee": "2018",
+                "missions": "sans",
+                "objet": "BGC",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 214,
+                "client": "PRESTIGIA",
+                "annee": "2018",
+                "missions": "sans",
+                "objet": "RAA TRANCHE 1",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 215,
+                "client": "CITA",
+                "annee": "2016",
+                "missions": "sans",
+                "objet": "COMMUNE URBAINE",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 216,
+                "client": "IMMOLOG",
+                "annee": "2017",
+                "missions": "sans",
+                "objet": "FIRDAOUS PHASE 2",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 217,
+                "client": "IMMOLOG",
+                "annee": "2017",
+                "missions": "sans",
+                "objet": "FIRDAOUS PHASE 1",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 218,
+                "client": "PRESTIGIA",
+                "annee": "2018",
+                "missions": "sans",
+                "objet": "BGC",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 219,
+                "client": "IMMOLOG",
+                "annee": "2016",
+                "missions": "sans",
+                "objet": "PDM",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 220,
+                "client": "IMMOLOG",
+                "annee": "2013",
+                "missions": "sans",
+                "objet": "FIRDAOUS",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 221,
+                "client": "IMMOLOG",
+                "annee": "2016",
+                "missions": "sans",
+                "objet": "LA PERLE DE BOUZNIKA",
+                "category": "Addoha",
+                "missionsParticipe": ""
+            },
+            {
+                "id": 222,
+                "client": "CASA TRANSPORT",
+                "annee": "2019",
+                "missions": "",
+                "objet": "BHNS",
+                "category": "Addoha",
+                "missionsParticipe": "sans"
+            },
+            {
+                "id": 223,
+                "client": "IMMOLOG",
+                "annee": "2018",
+                "missions": "",
+                "objet": "marche communal\/PDM",
+                "category": "Addoha",
+                "missionsParticipe": "sans"
+            },
+            {
+                "id": 86,
+                "client": "ARSAT MOHAMMEDIA SARL",
+                "annee": "2016",
+                "missions": "",
+                "objet": "ARSAT AL AMANE-ERRAHMA Etudes et suivi des travaux VRD+OUVRAGES",
+                "category": "Clients Divers",
+                "missionsParticipe": "M1,M2,M3"
+            }
+        ],
+        "role": "chef de projet"
+    }
+]

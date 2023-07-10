@@ -90,6 +90,7 @@
     });
 
     $(".btn-submit").click(function(e) {
+        console.log('clicked')
         e.preventDefault();
         var formData = new FormData($('#wizard-checkout-form')[0]);
         let toFill = [];
@@ -100,7 +101,7 @@
                 }
             }
         }
-        if (toFill.length > 0) {
+        if (false) {
             alert('Please fill the fields : ' + toFill.join(', '));
             return false;
         } else {
@@ -208,7 +209,7 @@
             <div class="line">
                 <i class="ti ti-chevron-right"></i>
             </div>
-            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-confirmation">
+            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-confirmation" onclick="FillConfirmation()">
                 <button type="button" class="step-trigger">
                     <span class="bs-stepper-icon">
                         <svg viewBox="0 0 58 54">
@@ -350,6 +351,16 @@
                             <input type="text" class="form-control" name="DateEmbauche" placeholder="DD-MM-YYYY" id="flatpickr-dateEmbauche" required />
                         </div>
 
+                        <!-- <div class="col-md-6">
+                            <label class="form-label" for="DepartementAffectation">BU</label>
+                            <select id="form-repeater-1-4" class="form-select" name="DepartementAffectation">
+                                <option value="">Selectionner un BU</option>
+                                @foreach($departements as $departement)
+                                    <option value="{{$departement->departementNom}}">{{$departement->departementNom}}</option>
+                                @endforeach
+                            </select>
+                        </div> -->
+
                         <div class="col-md-6">
                             <label class="form-label" for="DepartementAffectation">Departement Affectation</label>
                             <select id="form-repeater-1-4" class="form-select" name="DepartementAffectation">
@@ -375,12 +386,12 @@
 
                         <div class="col-md-6">
                             <label class="form-label" for="DateEmbauche">Contrat Date Debut</label>
-                            <input type="text" class="form-control" name="contratDu" placeholder="DD-MM-YYYY" id="flatpickr-dateDu" required />
+                            <input type="text" class="form-control" name="ContratDu" placeholder="DD-MM-YYYY" id="flatpickr-dateDu" required />
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label" for="DateEmbauche">Contrat Date Fin</label>
-                            <input type="text" class="form-control" name="contratAu" placeholder="DD-MM-YYYY" id="flatpickr-dateAu" />
+                            <input type="text" class="form-control" name="ContratAu" placeholder="DD-MM-YYYY" id="flatpickr-dateAu" />
                         </div>
 
                         <div class="col-12">
@@ -444,7 +455,7 @@
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                         <label class="form-label" for="formValidationEmbauche">Année d'obtention</label>
-                                        <input type="text" class="form-control" id="obtention" placeholder="DD-MM-YYYY" />
+                                        <input type="text" class="form-control" id="obtention" placeholder="YYYY" />
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
@@ -505,6 +516,11 @@
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                        <label class="form-label" for="ref-pay">Pays</label>
+                                        <input type="text" id="ref-pay" class="form-control" placeholder="Maroc">
+                                    </div>
+
+                                    <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                         <label for="ref-taches" class="form-label">Taches (splite with comma)</label>
                                         <textarea class="form-control" id="ref-taches" rows="3" placeholder="Tache 1, Tache 2, Tache 3"></textarea>
                                     </div>
@@ -521,7 +537,7 @@
                             <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
                                 <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                             </button>
-                            <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
+                            <button type="button" class="btn btn-primary btn-next" onclick="FillConfirmation()"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -564,7 +580,7 @@
                                     <div class="actions">
                                         <button type="button" class="btn btn-primary btn-save-projet mb-3"><i class="fa fa-plus"></i> Save Projet</button>
                                     </div>
-                                    <div class="row content-formation-map">
+                                    <div class="row content-projets-map">
                                     </div>
                                     <hr class="mt-0" />
                                 </div>
@@ -581,12 +597,12 @@
 
                 <!-- Confirmation -->
                 <div id="checkout-confirmation" class="content">
-                    <p>Informations</p>
                     <div class="col-12 d-flex justify-content-between">
-                        <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
+                        <button type="button" class="btn btn-label-secondary btn-prev">
+                            <i class="ti ti-arrow-left me-sm-1"></i>
                             <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                         </button>
-                        <button type="submit" class="btn btn-success btn-submit">Créer un CV</button>
+                        <button type="submit" class="btn btn-success btn-submit">Create CV</button>
                     </div>
                 </div>
             </form>

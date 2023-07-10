@@ -37,7 +37,7 @@ $(function () {
       ajax: baseUrl + 'cv/gestion/allEmployees', // JSON file to add data
       columns: [
         // columns according to JSON
-        { data: '' },
+        { data: 'CIN' },
         { data: 'Nom' },
         { data: 'TelephonePortable' },
         { data: 'Poste' },
@@ -51,12 +51,11 @@ $(function () {
         {
           // For Responsive
           className: 'control',
-          searchable: false,
-          orderable: false,
           responsivePriority: 2,
           targets: 0,
           render: function (data, type, full, meta) {
-            return '';
+            var cin = full['CIN'];
+            return '<span class="fw-semibold">' + cin + '</span>';
           }
         },
         //add attribute id each tr
@@ -68,11 +67,11 @@ $(function () {
             var $name = full['Nom']+ ' ' +full['Prenom'],
               $Email = full['Email'],
               $Id = full['ID_Salarie'],
-              $image = full['avatar'];
-            if ($image) {
+              $image = full['PhotoIdentite'];
+            if ($image != 'aucun') {
               // For Avatar image
               var $output =
-                '<img src="' + assetsPath + 'img/avatars/' + $image + '" alt="Avatar" class="rounded-circle">';
+                '<img src="/storage/photos/' + $image + '" alt="Avatar" class="rounded-circle">';
             } else {
               // For Avatar badge
               var stateNum = Math.floor(Math.random() * 6);
@@ -87,9 +86,12 @@ $(function () {
             var $row_output =
               '<div class="d-flex justify-content-start align-items-center user-name">' +
               '<div class="avatar-wrapper">' +
+              '<a href="' +
+              userView+ $Id +
+              '" >' +
               '<div class="avatar avatar-sm me-3">' +
               $output +
-              '</div>' +
+              '</div></a>' +
               '</div>' +
               '<div class="d-flex flex-column">' +
               '<a href="' +
@@ -104,62 +106,7 @@ $(function () {
               '</div>';
             return $row_output;
           }
-        },
-        {
-          // Plans
-          targets: 2,
-          render: function (data, type, full, meta) {
-            var $phone = full['TelephonePortable'];
-
-            return '<span class="fw-semibold">' + $phone + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 3,
-          render: function (data, type, full, meta) {
-            var $poste = full['Poste'];
-
-            return '<span class="fw-semibold">' + $poste + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 4,
-          orderable: false,
-          render: function (data, type, full, meta) {
-            var $type = full['TypeContrat'];
-
-            return '<span class="d-none">' + $type + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 5,
-          render: function (data, type, full, meta) {
-            var $profile = full['Profil'];
-
-            return '<span class="fw-semibold">' + $profile + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 6,
-          orderable: false,
-          render: function (data, type, full, meta) {
-            var $responsable = full['ResponsableHierarchique'];
-            return '<span class="d-none">' + $responsable + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 7,
-          render: function (data, type, full, meta) {
-            var $departement = full['DepartementAffectation'];
-
-            return '<span class="fw-semibold">' + $departement + '</span>';
-          }
-        },    
+        }, 
         {
           // Actions
           targets: -1,
@@ -176,7 +123,6 @@ $(function () {
               '<a href="' +
               userView+full['ID_Salarie']+
               '" class="dropdown-item">View</a>' +
-              '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
               '</div>' +
               '</div>'
             );
@@ -197,16 +143,30 @@ $(function () {
         '<"col-sm-12 col-md-6"i>' +
         '<"col-sm-12 col-md-6"p>' +
         '>',
-      language: {
-        sLengthMenu: '_MENU_',
-        search: '',
-        searchPlaceholder: 'Recherche Avancée..'
-      },
+        language: {
+          sLengthMenu: 'Montrer: _MENU_',
+          search: '',
+          zeroRecords: 'Aucun enregistrement correspondant trouvé',
+          emptyTable: 'Aucune donnée disponible',
+          searchPlaceholder: 'Recherche avancée ...',
+          paginate:{
+            next : "Suivant",
+            previous : "Précédent"
+          },
+          loadingRecords: 'Chargement ...',
+          infoEmpty: "Aucun enregistrement disponible",
+          infoFiltered: "(filtré sur _MAX_ enregistrements au total)",
+          info: "Affichage de _START_ à _END_ sur _TOTAL_ enregistrements",
+        },
       // Buttons with Dropdown
       buttons: [
         {
+          text: '<i class="ti ti-columns me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Choisir les Champs</span>',
+          className: 'btn btn-success btn-gradient btn-cols-select mx-3',
+        },
+        {
           extend: 'collection',
-          className: 'btn btn-label-secondary dropdown-toggle ml-3',
+          className: 'btn btn-label-secondary dropdown-toggle',
           text: '<i class="ti ti-screen-share me-1 ti-xs"></i>Plus',
           buttons: [
             {
@@ -318,30 +278,6 @@ $(function () {
                 }
               }
             },
-            // {
-            //   extend: 'copy',
-            //   text: '<i class="ti ti-copy me-2" ></i>Copy',
-            //   className: 'dropdown-item',
-            //   exportOptions: {
-            //     columns: [1, 2, 3, 4, 5],
-            //     // prevent avatar to be display
-            //     format: {
-            //       body: function (inner, coldex, rowdex) {
-            //         if (inner.length <= 0) return inner;
-            //         var el = $.parseHTML(inner);
-            //         var result = '';
-            //         $.each(el, function (index, item) {
-            //           if (item.classList !== undefined && item.classList.contains('user-name')) {
-            //             result = result + item.lastChild.firstChild.textContent;
-            //           } else if (item.innerText === undefined) {
-            //             result = result + item.textContent;
-            //           } else result = result + item.innerText;
-            //         });
-            //         return result;
-            //       }
-            //     }
-            //   }
-            // },
             {
               text: '<i class="ti ti-copy me-2" ></i>Archived Cvs',
               className: 'dropdown-item',
@@ -379,7 +315,7 @@ $(function () {
               .appendTo('.user_Departement')
               .on('change', function () {
                 var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                // column.search(val ? '^' + val + '$' : '', true, false).draw();
+                column.search(val ? '^' + val + '$' : '', true, false).draw();
               });
 
             column
@@ -468,6 +404,65 @@ $(function () {
     $('.dataTables_filter .form-control').removeClass('form-control-sm');
     $('.dataTables_length .form-select').removeClass('form-select-sm');
   }, 300);
+
+
+  $('.btn-cols-select').on('click', function () {
+    modal.modal('show');
+  });
+
+  let columnnsStored = JSON.parse(localStorage.getItem('columnsUncheckedCV'));
+  if(columnnsStored != null || columnnsStored != undefined){
+    console.log(columnnsStored)
+    columnnsStored.forEach(element => {
+      dt_user_table.DataTable().column(element).visible(false);
+    });
+  }
+  
+  
+  var modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="columnSelectionModalLabel" aria-hidden="true"></div>');
+    var dialog = $('<div class="modal-dialog"></div>').appendTo(modal);
+    var content = $('<div class="modal-content"></div>').appendTo(dialog);
+
+    var header = $('<div class="modal-header"></div>').appendTo(content);
+    $('<h5 class="modal-title">Choisissez les colonnes à afficher</h5>').appendTo(header);
+    $('<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>').appendTo(header);
+
+    var body = $('<div class="modal-body"></div>').appendTo(content);
+    var columns = dt_user_table.DataTable().columns().header().toArray();
+    console.log(columns);
+    columns.forEach(function (column, index) {
+      var columnName = $(column).text();
+      var isChecked = dt_user_table.DataTable().column(index).visible();
+      var checkbox = $('<div class="form-check"></div>').appendTo(body);
+      $('<input class="form-check-input" type="checkbox" value="' + index + '" ' + (isChecked ? 'checked' : '') + '>').appendTo(checkbox);
+      $('<label class="form-check-label">' + columnName + '</label>').appendTo(checkbox);
+    });
+  
+    // Modal footer
+    var footer = $('<div class="modal-footer"></div>').appendTo(content);
+    $('<button type="button" class="btn btn-primary btn-apply-cols">Appliquer</button>').appendTo(footer);
+  
+    $(document).on('click', '.btn-apply-cols', function () {
+      var modal = $('.modal');
+      var columnsStored = JSON.parse(localStorage.getItem('columnsUncheckedCV'));
+      var selectedColumns = modal.find('input:checked').map(function () {
+        return parseInt($(this).val());
+      }).get();
+      var columnsUnchecked = modal.find('input:not(:checked)').map(function () {
+        return parseInt($(this).val());
+      }).get();
+      localStorage.setItem('columnsUncheckedCV', JSON.stringify(columnsUnchecked));
+      dt_user_table.DataTable().columns().visible(false);
+      selectedColumns.forEach(function (columnIndex) {
+        var index = columnsStored.indexOf(columnIndex);
+        if(index > -1){
+          columnsStored.splice(index, 1);
+        }
+        dt_user_table.DataTable().column(columnIndex).visible(true);
+      });
+      console.log(selectedColumns)
+      modal.modal('hide');
+    });
 });
 
 

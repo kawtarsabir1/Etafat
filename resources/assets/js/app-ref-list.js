@@ -31,92 +31,44 @@ $(function () {
     });
   }
 
+  
+  var columnns = [
+    { data: 'nRef' },
+    { data: 'societe' },
+    { data: 'client' },
+    { data: 'nMarche' },
+    { data: 'nIntern' },
+    { data: 'annee' },
+    { data: 'mantant' },
+    { data: 'montantTraveaux' },
+    { data: 'localisation' },
+    { data: 'objet' },
+    { data: 'categories' },
+    { data: 'fiche' },
+    { data: 'action' },
+  ];
+
   // Users datatable
   if (dt_user_table.length) {
     var dt_user = dt_user_table.DataTable({
       ajax: baseUrl + 'cv/getRefs', // JSON file to add data
-      columns: [
-        // columns according to JSON
-        // { data: '' },
-        { data: 'nRef' },
-        { data: 'societe' },
-        { data: 'client' },
-        { data: 'nMarche' },
-        { data: 'nMarche' },
-        { data: 'mantant' },
-        { data: 'category' },
-        { data: 'fiche' },
-        { data: 'action' },
-      ],
+      columns: columnns,
       columnDefs: [
         {
           // Plans
+          className: 'control',
+          responsivePriority: 2,
           targets: 0,
           render: function (data, type, full, meta) {
             var nRef = full['nRef'];
-
             return '<span class="fw-normal h6">' + nRef + '</span>';
           }
         },
         {
           // Plans
-          targets: 1,
-          render: function (data, type, full, meta) {
-            var societe = full['societe'];
-
-            return '<span class="fw-normal h6">' + societe + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 2,
-          render: function (data, type, full, meta) {
-            var client = full['client'];
-
-            return '<span class="fw-normal h6">' + client + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 3,
-          render: function (data, type, full, meta) {
-            var nMarche = full['nMarche'];
-
-            return '<span class="fw-normal h6">' + nMarche + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 4,
-          render: function (data, type, full, meta) {
-            var annee = full['annee'];
-            return '<span class="fw-normal h6">' + annee + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 5,
-          render: function (data, type, full, meta) {
-            var mantant = full['mantant'];
-
-            return '<span class="fw-normal h6">' + mantant + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 6,
-          render: function (data, type, full, meta) {
-            var category = full['category'];
-
-            return '<span class="fw-normal h6 ">' + category + '</span>';
-          }
-        }, 
-        {
-          // Plans
-          targets: 7,
+          targets: 11,
           render: function (data, type, full, meta) {
             var fiche = full['fiche'];
-
             return `
               <div class="d-flex align-items-center">
                 <a href="javascript:;" onclick="openPdf('${fiche}')" class="text-body"><i class="ti ti-eye text-success ti-sm me-2"></i></a>
@@ -167,6 +119,10 @@ $(function () {
       },
       // Buttons with Dropdown
       buttons: [
+        {
+          text: '<i class="ti ti-columns me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Choisir les Champs</span>',
+          className: 'btn btn-success btn-gradient btn-cols-select mx-3',
+        },
         {
           extend: 'collection',
           className: 'btn btn-label-secondary dropdown-toggle mx-3',
@@ -315,8 +271,15 @@ $(function () {
           ]
         },
         {
+          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Télécharger</span>',
+          className: 'btn btn-info btn-gradient',
+          attr: {
+            onclick: "$('#uploadExcel').click();"
+          }
+        },
+        {
           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Nouvelle référence</span>',
-          className: 'btn btn-primary btn-gradient',
+          className: 'btn btn-primary btn-gradient mx-3',
           attr: {
             onclick: 'window.location.href="'+ baseUrl + 'cv/reference/create"'
           }
@@ -424,6 +387,52 @@ $(function () {
     $('.dataTables_filter .form-control').removeClass('form-control-sm');
     $('.dataTables_length .form-select').removeClass('form-select-sm');
   }, 300);
+
+
+  $('.btn-cols-select').on('click', function () {
+    modal.modal('show');
+  });
+
+  dt_user_table.DataTable().column(7).visible(false);
+  dt_user_table.DataTable().column(8).visible(false);
+  dt_user_table.DataTable().column(9).visible(false);
+  dt_user_table.DataTable().column(10).visible(false);
+
+  var modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="columnSelectionModalLabel" aria-hidden="true"></div>');
+    var dialog = $('<div class="modal-dialog"></div>').appendTo(modal);
+    var content = $('<div class="modal-content"></div>').appendTo(dialog);
+
+    var header = $('<div class="modal-header"></div>').appendTo(content);
+    $('<h5 class="modal-title">Choose Columns to Display</h5>').appendTo(header);
+    $('<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>').appendTo(header);
+
+    var body = $('<div class="modal-body"></div>').appendTo(content);
+    var columns = dt_user_table.DataTable().columns().header().toArray();
+    console.log(columns);
+    columns.forEach(function (column, index) {
+      var columnName = $(column).text();
+      var isChecked = dt_user_table.DataTable().column(index).visible();
+      var checkbox = $('<div class="form-check"></div>').appendTo(body);
+      $('<input class="form-check-input" type="checkbox" value="' + index + '" ' + (isChecked ? 'checked' : '') + '>').appendTo(checkbox);
+      $('<label class="form-check-label">' + columnName + '</label>').appendTo(checkbox);
+    });
+  
+    // Modal footer
+    var footer = $('<div class="modal-footer"></div>').appendTo(content);
+    $('<button type="button" class="btn btn-primary btn-apply-cols">Apply</button>').appendTo(footer);
+  
+  $(document).on('click', '.btn-apply-cols', function () {
+    var modal = $('.modal');
+    var selectedColumns = modal.find('input:checked').map(function () {
+      return parseInt($(this).val());
+    }).get();
+    dt_user_table.DataTable().columns().visible(false);
+    selectedColumns.forEach(function (columnIndex) {
+      dt_user_table.DataTable().column(columnIndex).visible(true);
+    });
+    console.log(selectedColumns)
+    modal.modal('hide');
+  });
 });
 
 
@@ -433,7 +442,7 @@ function editEmployee(id){
 
 function openPdf(fiche){
   var modal = $("#exLargeModal");
-  var link = baseUrl+"../storage/fiches/"+fiche;
+  var link = baseUrl+"../storage/fiches/"+fiche+".pdf";
   modal.find('iframe').attr('src', link);
   modal.modal("show");
 }

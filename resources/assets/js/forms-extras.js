@@ -194,6 +194,196 @@ $(function () {
 });
 
 $(function () {
+  var contentWrapper = $('.content-wrapper-departement'),
+    content = $('.content-departement'),
+    btnAdd = $('.btn-add-departement'),
+    btnRemove = $('.btn-remove'),
+    id = $('#id_ao').val();
+
+    if(id != ''){
+      $.ajax({
+        url: baseUrl + 'ao/getAo/' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (res) {
+          let departements = res.data.departements_ao;
+          departements = departements.split(',')
+          let parts = res.data.departements_part;
+          parts = parts.split(',')
+          $.each(departements, function (i, item) {
+            var clone = content.clone();
+            clone.find('input').val(parts[i]);
+            clone.find('select').val(item);
+            clone.find('input').each(function () {
+              var name = $(this).attr('name');
+              var index = $('.content-departement').length;
+              $(this).attr('name', name + index);
+            });
+            clone.find('select').each(function () {
+              var name = $(this).attr('name');
+              var index = $('.content-departement').length;
+              $(this).attr('name', name + index);
+            });
+            clone.appendTo(contentWrapper);
+          });
+          //remove first
+          $('.content-departement').first().remove();
+        }
+      });
+    }
+
+  // Add new departement
+  btnAdd.click(function () {
+    var clone = content.clone();
+    clone.find('input').val('');
+    clone.find('select').prop('selectedIndex', 0);
+    clone.find('input').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-departement').length;
+      $(this).attr('name', name + index);
+    });
+    clone.find('select').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-departement').length;
+      $(this).attr('name', name + index);
+    });
+    clone.appendTo(contentWrapper);
+  });
+
+  // Remove departement
+  contentWrapper.on('click', '.btn-remove', function () {
+    $(this).closest('.content-departement').remove();
+  });
+});
+
+$(function () {
+  var contentWrapper = $('.content-wrapper-partenaire'),
+    content = $('.content-partenaire'),
+    btnAdd = $('.btn-add-partenaire'),
+    btnRemove = $('.btn-remove'),
+    id = $('#id_ao').val();
+
+    if(id != ''){
+      $.ajax({
+        url: baseUrl + 'ao/getAo/' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (res) {
+          let partenaires = res.data.partenaires_ao;
+          partenaires = partenaires.split(',');
+          let parts = res.data.partenaires_part;
+          parts = parts.split(',');
+          $.each(partenaires, function (i, item) {
+            var clone = content.clone();
+            clone.find('input').val(parts[i]);
+            clone.find('select').val(item);
+            clone.find('input').each(function () {
+              var name = $(this).attr('name');
+              var index = $('.content-partenaire').length;
+              $(this).attr('name', name + index);
+            });
+            clone.find('select').each(function () {
+              var name = $(this).attr('name');
+              var index = $('.content-partenaire').length;
+              $(this).attr('name', name + index);
+            });
+            clone.appendTo(contentWrapper);
+          });
+          //remove first
+          $('.content-partenaire').first().remove();
+        }
+      });
+    }
+
+  // Add new partenaire
+  btnAdd.click(function () {
+    var clone = content.clone();
+    clone.find('input').val('');
+    clone.find('select').prop('selectedIndex', 0);
+    clone.find('input').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-partenaire').length;
+      $(this).attr('name', name + index);
+    });
+    clone.find('select').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-partenaire').length;
+      $(this).attr('name', name + index);
+    });
+    clone.appendTo(contentWrapper);
+  });
+
+  // Remove partenaire
+  contentWrapper.on('click', '.btn-remove', function () {
+    $(this).closest('.content-partenaire').remove();
+  });
+});
+
+$(function () {
+  var contentWrapper = $('.content-wrapper-sousTraitant'),
+    content = $('.content-sousTraitant'),
+    btnAdd = $('.btn-add-sousTraitant'),
+    btnRemove = $('.btn-remove'),
+    id = $('#id_ao').val();
+
+    if(id != ''){
+      $.ajax({
+        url: baseUrl + 'ao/getAo/' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (res) {
+          let soustraitants = res.data.soustraitants_ao;
+          soustraitants = soustraitants.split(',')
+          let parts = res.data.soustraitants_part;
+          parts = parts.split(',')
+          $.each(soustraitants, function (i, item) {
+            var clone = content.clone();
+            clone.find('input').val(parts[i]);
+            clone.find('select').val(item);
+            clone.find('input').each(function () {
+              var name = $(this).attr('name');
+              var index = $('.content-sousTraitant').length;
+              $(this).attr('name', name + index);
+            });
+            clone.find('select').each(function () {
+              var name = $(this).attr('name');
+              var index = $('.content-sousTraitant').length;
+              $(this).attr('name', name + index);
+            });
+            clone.appendTo(contentWrapper);
+          });
+          //remove first
+          $('.content-sousTraitant').first().remove();
+        }
+      });
+    }
+
+  // Add new sousTraitant
+  btnAdd.click(function () {
+    var clone = content.clone();
+    clone.find('input').val('');
+    clone.find('select').prop('selectedIndex', 0);
+    clone.find('input').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-sousTraitant').length;
+      $(this).attr('name', name + index);
+    });
+    clone.find('select').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-sousTraitant').length;
+      $(this).attr('name', name + index);
+    });
+    clone.appendTo(contentWrapper);
+  });
+
+  // Remove sousTraitant
+  contentWrapper.on('click', '.btn-remove', function () {
+    $(this).closest('.content-sousTraitant').remove();
+  });
+});
+
+
+$(function () {
   var btnSave = $('.btn-save'),
     contentCursus = $('.content-cursus-map'),
     formationsArray = JSON.parse(localStorage.getItem('formationsArray')) || [];
@@ -291,18 +481,26 @@ $(function () {
   btnSave.click(async function () {
     let employeur = $('#ref-employeur').val();
     let poste = $('#ref-poste').val();
-    let range = $('#ref-range').val();
+    var dateDu = $('#exp-dateDu').val();
+    var dateAu = $('#exp-dateAu').val();
     let taches = $('#ref-taches').val();
+    let pay = $('#ref-pay').val();
 
-    if (!employeur || !poste || !range || !taches) {
+    if (!employeur || !poste  || !dateDu || !taches || !pay) {
       alert('Veuillez remplir tous les champs');
       return;
+    }
+
+    if(dateAu == ''){
+      dateAu = 'Aujourd\'hui';
     }
 
     let ref = {
       employeur: employeur,
       poste: poste,
-      range: range,
+      dateDu: dateDu,
+      dateAu: dateAu,
+      pay: pay,
       taches: taches.split(',')
     };
     let refsArray = JSON.parse(localStorage.getItem('refsArray')) || [];
@@ -327,7 +525,8 @@ $(function () {
             <div class="card-body">
                 <p class="card-text niveau_etude-cursus"><span class="card-title">Employeur : </span>${ref.employeur}</p>
                 <p class="card-text"><span class="card-title">Poste : </span>${ref.poste}</p>
-                <p class="card-text">Date from ${ref.range} </p>
+                <p class="card-text"><span class="card-title">Pay : </span>${ref.pay}</p>
+                <p class="card-text">Date Du ${ref.dateDu} Au ${ref.dateAu}</p>
                 <span class="card-title">Taches : </span>
                 <ul class="list-group list-group-flush">
                   ${ref.taches.map(tache => `<li class="list-group-item">${tache}</li>`).join('')}
@@ -340,7 +539,9 @@ $(function () {
 
     $('#employeur').val('');
     $('#poste').val('');
-    $('#range').val('');
+    $('#pay').val('');
+    $('#exp-dateDu').val('');
+    $('#exp-dateAu').val('');
     $('#taches').val('');
 
   });
@@ -489,13 +690,50 @@ $(function () {
     type: 'GET',
     success: function (data) {
       let employees = data.data;
-      console.log(employees)
       employees.forEach(employee => {
-        let option = `<option value="${employee.id}">${employee.Nom} ${employee.Prenom}</option>`;
+        let option = `<option value="${employee.ID_Salarie}">${employee.Nom} ${employee.Prenom}</option>`;
         $('#employees').append(option);
       });
     }
   });
+
+  $(document).on('change', '#diplome', function () {
+    let diplome = $(this).val();
+    if(diplome!=""){
+      $('#anciente').attr('disabled', false);
+    }
+    $.ajax({
+      url: baseUrl + 'cv/gestion/allEmployees/diplome/' + diplome,
+      type: 'GET',
+      success: function (data) {
+        let employees = data.data;
+        $('#employees').html('');
+        employees.forEach(employee => {
+          let option = `<option value="${employee.ID_Salarie}">${employee.Nom} ${employee.Prenom}</option>`;
+          $('#employees').append(option);
+        });
+      }
+    });
+  });
+
+  $(document).on('change', '#anciente', function () {
+    let anciente = $(this).val();
+    let diplome = $('#diplome').val();
+    $.ajax({
+      url: baseUrl + 'cv/gestion/allEmployees/anciente/'+diplome+'/' + anciente,
+      type: 'GET',
+      success: function (data) {
+        let employees = data.data;
+        $('#employees').html('');
+        employees.forEach(employee => {
+          let option = `<option value="${employee.ID_Salarie}">${employee.Nom} ${employee.Prenom}</option>`;
+          $('#employees').append(option);
+        });
+      }
+    });
+  });
+
+
 
   //onhover on .card element in document
   $(document).on('mouseenter', '.card', function () {
@@ -635,7 +873,7 @@ function ListeCvs() {
                             
                             <div class="${backgrounds[index % backgrounds.length]} px-5 py-4 text-center card-img-top"><img src="/storage/photos/${data.photo}" alt="..." width="100" class="rounded-circle mb-2 img-thumbnail d-block mx-auto">
                                 <h5 class="text-white mb-0">${data.nom} ${data.prenom}</h5>
-                                <p class="small text-white mb-0">${data.role}</p>
+                                <p class="small text-white mb-0 card-role">${data.role}</p>
                             </div>
                             <div class="p-4 d-flex justify-content-center">
                                 <ul class="list-inline mb-0">
@@ -659,41 +897,41 @@ function ListeCvs() {
 
 }
 
-function generateCvs() {
-  //post request to generate cvs
-  $.ajax({
-    url: baseUrl + 'cv/generateCvs',
-    type: 'POST',
-    data: {
-      "ao_name": "AO2023A4",
-      "ao_type": "topographie",
-      "num_marche": "112023",
-      "cvs": [
-        {
-          "nom": "Ayoub",
-          "prenom": "Basidi",
-          "email": "ayoub@gmail.com",
-          "phone": "0612345678",
-          "nationalite": "Marocaine",
-          "date_naissance": "1998-01-01",
-          "poste": "Developpeur"
-        },
-        {
-          "nom": "Jhon",
-          "prenom": "Doe",
-          "email": "jhondoe@gmail.com",
-          "phone": "0612345608",
-          "nationalite": "Marocaine",
-          "date_naissance": "1998-01-01",
-          "poste": "Responsable RH"
-        }
-      ],
-      "model": "model1.docx"
-    }
-  }).done(function (data) {
-    console.log(data);
-  });
-}
+// function generateCvs() {
+//   //post request to generate cvs
+//   $.ajax({
+//     url: baseUrl + 'cv/generateCvs',
+//     type: 'POST',
+//     data: {
+//       "ao_name": "AO2023A4",
+//       "ao_type": "topographie",
+//       "num_marche": "112023",
+//       "cvs": [
+//         {
+//           "nom": "Ayoub",
+//           "prenom": "Basidi",
+//           "email": "ayoub@gmail.com",
+//           "phone": "0612345678",
+//           "nationalite": "Marocaine",
+//           "date_naissance": "1998-01-01",
+//           "poste": "Developpeur"
+//         },
+//         {
+//           "nom": "Jhon",
+//           "prenom": "Doe",
+//           "email": "jhondoe@gmail.com",
+//           "phone": "0612345608",
+//           "nationalite": "Marocaine",
+//           "date_naissance": "1998-01-01",
+//           "poste": "Responsable RH"
+//         }
+//       ],
+//       "model": "model1.docx"
+//     }
+//   }).done(function (data) {
+//     console.log(data);
+//   });
+// }
 
 function editCv(index) {
   let cardsCvs = JSON.parse(localStorage.getItem('cardsCvs'));
@@ -703,10 +941,24 @@ function editCv(index) {
   //Set Languages
   let modal = $('#editUser');
   modal.find('#id').val(cv.id);
+
+  let role = cv.role; 
+  let selectRole = modal.find('#role-select');
+  selectRole.find(`option[value="${role}"]`).attr('selected', 'selected');
+
   let languageElem = modal.find('.content-language-custumize');
 
-  let Langues = cv.langue.split(',') || [];
-  let Niveaux = cv.niveauLangue.split(',') || [];
+  var Langues = [];
+  var Niveaux = [];
+  if(cv.langue != null || cv.niveauLangue != null){
+    Langues = cv.langue.split(',');
+    Niveaux = cv.niveauLangue.split(',');
+  }
+
+  if(Langues.length == 0){
+    var clone = languageElem.find('.row:first').clone();
+    languageElem.append(clone);
+  }
   for (let i = 0; i < Langues.length; i++) {
     var clone = languageElem.find('.row:first').clone();
     let inputLanguage = clone.find('#language-input');
@@ -747,7 +999,7 @@ function editCv(index) {
                       <p class="card-text">Date d'obtention : ${formations[i].obtention}</p>
                   </div>
               </div>
-          </div>`;
+          </div>`;editCv
     contentCursus.append(card);
   }
 
@@ -774,7 +1026,7 @@ function editCv(index) {
             <div class="card-body">
                 <p class="card-text"><span class="card-title">Employeur : </span>${experiences[i].employeur}</p>
                 <p class="card-text"><span class="card-title">Poste : </span>${experiences[i].poste}</p>
-                <p class="card-text">Date De ${experiences[i].dateDebut} Au ${experiences[i].dateFin} </p>
+                <p class="card-text">Date Du ${experiences[i].dateDebut} Au ${experiences[i].dateFin} </p>
             </div>
         </div>  
     </div>`;
@@ -830,7 +1082,116 @@ function editCv(index) {
     contentRefs.append(checkbox);
   }
 
+
+  //get filter category filter-category
+  var filterCategory = $('#filter-category');
+  $.ajax({
+    url: baseUrl + 'cv/all/categories',
+    type: 'GET',
+    dataType: 'json',
+    success: function (data) {
+      let categories = data;
+      for (let i = 0; i < categories.length; i++) {
+        let option = `<option value="${categories[i].categoryNom}">${categories[i].categoryNom}</option>`;
+        filterCategory.append(option);
+      }
+    },
+    error: function (error) {
+      console.log(error);
+    }
+  });
+
+  var btnFilterRefs = $('.btn-filter-refs');
+  btnFilterRefs.on('click', function () {
+    var filterCategory = $('#filter-category').val();
+    var filterMontant = $('#filter-montant').val();
+    var filterAnciente = $('#filter-anciente').val();
+    var contentRefs = $('.content-custumize-refs');
+    let refs = cv.refs;
+    localStorage.setItem('refsArray', JSON.stringify(refs));
+    console.log(filterCategory , filterMontant , filterAnciente);
+    contentRefs.empty();
+    for (let i = 0; i < refs.length; i++) {
+      let ref = refs[i];
+      console.log(ref);
+      if(ref.missions == null || ref.missions == ''){
+        var missions = [];
+      }else{
+        var missions = ref.missions.split(',');
+      }
+      
   
+      if(ref.missionsParticipe == null || ref.missionsParticipe == ''){
+        var missionsParticipe = [];
+      }else{
+        var missionsParticipe = ref.missionsParticipe.split(',');
+      }
+
+      let category = true;
+      let montant = true;
+      let anciante = true;
+
+      if(filterCategory != ''){
+        let refCategory = ref.categories
+        category = refCategory.includes(filterCategory);
+      }
+
+      if(filterMontant != ''){
+        let refMontant = ref.montant
+        if(filterMontant.includes("+")){
+          filterMontant = filterMontant.replace("+", "");
+          filterMontant = parseInt(filterMontant);
+          refMontant = parseInt(refMontant);
+          montant = refMontant >= filterMontant;
+        }else if(filterMontant.includes("-")){
+          filterMontant = filterMontant.replace("-", "");
+          filterMontant = parseInt(filterMontant);
+          refMontant = parseInt(refMontant);
+          montant = refMontant <= filterMontant;
+        }else{
+          filterMontant = parseInt(filterMontant);
+          refMontant = parseInt(refMontant);
+          montant = refMontant == filterMontant;
+        }
+      }
+
+      if(filterAnciente != ''){
+        let refAnciente = ref.annee
+        let currentYear = new Date().getFullYear();
+        console.log((currentYear - filterAnciente) , refAnciente)
+        anciante = currentYear - filterAnciente >= refAnciente;
+      }
+
+      if(category && montant && anciante){
+        let checkbox = `
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input check" id="ref-${ref.id}" name="ref${i}" value="${ref.id}">
+              ${ref.client} (${ref.category}) - ${ref.annee}
+              ${missions.map(mission => `
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input sous-check" id="mission-${ref.id}" value="${mission}" name="ref${i}">
+                    ${mission}
+                  </label>
+                </div>
+              `).join('')}
+              ${missionsParticipe.map(mission => `
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input sous-check" id="mission-${ref.id}" value="${mission}" name="ref${i}" checked>
+                    ${mission}
+                  </label>
+                </div>
+              `).join('')}
+            </label>
+          </div>
+        `;
+        contentRefs.append(checkbox);
+      }
+    }
+  });
+
 
 }
 
@@ -1013,18 +1374,24 @@ $(function () {
     //get inputs values
     var form = $('.content-wrapper-experiences');
     var employeur = form.find('#ref-employeur').val();
-    var range = form.find('#ref-range').val();
+    var dateDu = form.find('#exp-dateDu').val();
+    var dateAu = form.find('#exp-dateAu').val();
     var poste = form.find('#ref-poste').val();
     var taches = form.find('#ref-taches').val();
 
-    if(!employeur || !range || !poste || !taches) {
+    if(!employeur || !dateDu || !poste || !taches) {
       alert('Veuillez remplir tous les champs');
       return;
     }
 
+    if(dateAu == ''){
+      dateAu = 'Aujourd\'hui';
+    }
+
     let experience = {
       employeur: employeur,
-      range: range,
+      dateDebut: dateDu,
+      dateFin: dateAu,
       poste: poste,
       taches: taches.split(',')
     };
@@ -1052,7 +1419,7 @@ $(function () {
                 <div class="card-body">
                     <p class="card-text">Employeur : ${experience.employeur}</p>
                     <p class="card-text">Poste : ${experience.poste}</p>
-                    <p class="card-text">Date de ${experience.taches[0]} Au ${experience.taches[1]}</p>
+                    <p class="card-text">Date Du ${experience.dateDu} Au ${experience.dateAu}</p>
                 </div>
             </div>
         </div>`;
@@ -1098,11 +1465,13 @@ $(function () {
     var languagesData = [];
     var niveauxData = [];
     for (var key of formData.keys()) {
-      if (key.includes('langue')) {
-        languagesData.push(formData.getAll(key));
-      }
-      if (key.includes('niveau')) {
-        niveauxData.push(formData.getAll(key));
+      if(formData.getAll(key)[0] != ''){
+        if (key.includes('langue')) {
+            languagesData.push(formData.getAll(key));
+        }
+        if (key.includes('niveau')) {
+          niveauxData.push(formData.getAll(key));
+        }
       }
     }
     card['langue'] = languagesData.join(',');
@@ -1172,8 +1541,19 @@ $(function () {
     cardsCv[index] = card;
     localStorage.setItem('cardsCvs', JSON.stringify(cardsCv));
 
-    
-
+    //get role-select from modal
+    var roleSelect = $('#role-select');
+    var role = roleSelect.val();
+    var card = $(`#cv-card-${index}`);
+    card.find('.card-role').text(role);
+    //update cvsArray in localStorage
+    var cvsArray = JSON.parse(localStorage.getItem('cvsArray'));
+    cvsArray[index]['role'] = role;
+    localStorage.setItem('cvsArray', JSON.stringify(cvsArray));
+    //update cardsCvs in localStorage
+    var cardsCvs = JSON.parse(localStorage.getItem('cardsCvs'));
+    cardsCvs[index]['role'] = role;
+    localStorage.setItem('cardsCvs', JSON.stringify(cardsCvs));
 
     // var formData = new FormData(formCostumize[0]);
     // var languagesData = [];
@@ -1275,6 +1655,146 @@ function intialiseCursusEtRefsEtExp() {
   contentExperiencesCustumize.empty();
 }
 
+
+$(function () {
+  //get card-Ao class and get id from the element
+  $('.card-Ao').click(function () {
+    var id = $(this).attr('id');
+    $.ajax({
+      url: baseUrl + 'cv/generatedCvs/' + id,
+      type: 'GET',
+      success: function (data) {
+        if(localStorage.getItem('cardsCvs') != null) {
+          localStorage.removeItem('cardsCvs');
+        }
+        let cvsData = data.ao.cvs;
+        localStorage.setItem('cardsCvs', JSON.stringify(cvsData));
+        let cardCvs = JSON.parse(localStorage.getItem('cardsCvs'));
+        let cvsArray = [];
+        for(let i = 0; i < cardCvs.length; i++) {
+          cvsArray.push({
+            employee: cardCvs[i].id,
+            role: cardCvs[i].role,
+          });
+        }
+        localStorage.setItem('cvsArray', JSON.stringify(cvsArray));
+        if (cvsArray.length != 0) {
+          $('.no-data').css('display', 'none');
+        }
+
+        $('#langue_module').find('option[value="' + data.ao.langue + '"]').attr('selected', true);
+        $('#models').find('option[value="' + data.ao.modele + '"]').attr('selected', true);
+        $('#ao').find('option[value="' + data.ao.ao_nom + '"]').attr('selected', true);
+
+
+        
+
+
+        $('#largeModal').modal('hide');
+        ListeCvsAlreadyGenerated();
+      }
+    });
+  });
+});
+
+function ListeCvsAlreadyGenerated() {
+  //get content-list-cvs element
+  let contentListCvs = $('#content-list-cvs');
+  //get cvsArray from localstorage
+  let cvsArray = JSON.parse(localStorage.getItem('cvsArray'));
+  //get cardsCvs from localstorage
+  let cardsCvs = JSON.parse(localStorage.getItem('cardsCvs'));
+
+  //get the last cv in cardsCvs
+  let lastCv = cvsArray[cvsArray.length - 1];
+  var backgrounds = [
+    'bg-primary',
+    'bg-success',
+    'bg-danger',
+    'bg-secondary',
+    'bg-warning',
+    'bg-info',
+    'bg-dark'
+  ];
+
+  for(let i = 0; i < cardsCvs.length ; i++){
+      let index = cardsCvs.indexOf(cardsCvs[i]);
+      let data = cardsCvs[i];
+      let card = `<div class="col-lg-4 col-md-6 mb-4" id="cv-card-${index}">
+                    <div class="card rounded shadow-sm border-0 cursor-pointer">
+                        <div class="card-body p-0">
+                            <div class="card-overlay" style="display:none;z-index: 1;">
+                              <div class="bg-dark p-2 text-dark position-absolute w-100 h-100 rounded" style="opacity: 0.3;">
+                              </div>
+                                <a onclick="removeCv(${index})" class="btn btn-danger btn-sm text-white" style="position: absolute; bottom: 10px; right: 10px;opacity: 1;">Remove</a>
+                                <a onclick="editCv(${index})" class="btn btn-primary btn-sm text-white" style="position: absolute; bottom: 10px; left: 10px;opacity: 1;">Personnaliser</a>
+                            </div>
+                            
+                            <div class="${backgrounds[index % backgrounds.length]} px-5 py-4 text-center card-img-top"><img src="/storage/photos/${data.photo}" alt="..." width="100" class="rounded-circle mb-2 img-thumbnail d-block mx-auto">
+                                <h5 class="text-white mb-0">${data.nom} ${data.prenom}</h5>
+                                <p class="small text-white mb-0 card-role">${data.role}</p>
+                            </div>
+                            <div class="p-4 d-flex justify-content-center">
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item">
+                                        <h6 class="font-weight-bold mb-0 d-block">Poste</h6><small class="text-muted"><i class="fa fa-picture-o mr-1 text-info"></i>${data.Poste}</small>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <h6 class="font-weight-bold mb-0 d-block">Departement</h6><small class="text-muted"><i class="fa fa-user-circle-o mr-1 text-info"></i>${data.DepartementAffectation}</small>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+      contentListCvs.append(card);
+  }
+
+
+}
+
+//function on change adjudication_ao select element
+$(function () {
+  let adjudication_ao = $('#adjudication_ao');
+  let adjudicataire_ao = $('#adjudicataire_ao');
+  let societe_ao = $('#societe_ao');
+  let date_adjudication_ao = $('#date_adjudication_ao');
+
+  adjudication_ao.change(function () {
+    let value = $(this).val();
+    console.log(value);
+    if (value == 'retenu') {
+      adjudicataire_ao.val(societe_ao.val());
+      date_adjudication_ao.attr('disabled', false);
+    }else{
+      adjudicataire_ao.val('');
+      date_adjudication_ao.attr('disabled', true);
+    }
+  });
+
+  societe_ao.change(function () {
+    let value = adjudication_ao.val();
+    if (value == 'retenu') {
+      adjudicataire_ao.val(societe_ao.val());
+    }else{
+      adjudicataire_ao.val('');
+    }
+  });
+});
+
+$(function () {
+  let checkbox = $('#group-checkbox');
+  let part = $('#part');
+
+  checkbox.change(function () {
+    if ($(this).is(':checked')) {
+      part.attr('disabled', false);
+    } else {
+      part.val('');
+      part.attr('disabled', true);
+    }
+  });
+});
 
 
 

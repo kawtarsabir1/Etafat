@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('Nom');
             $table->string('Prenom');
             $table->string('CIN');
-            $table->date('DateNaissance');
+            $table->string('DateNaissance');
             $table->string('LieuNaissance');
             $table->string('SituationFamiliale');
             $table->integer('NombreEnfants');
@@ -70,8 +70,9 @@ return new class extends Migration
             $table->foreign('ID_Salarie')->references('ID_Salarie')->on('informations');
             $table->string('employeur');
             $table->string('poste');
-            $table->date('dateDebut');
-            $table->date('dateFin');
+            $table->string('pay');
+            $table->string('dateDebut');
+            $table->string('dateFin');
             $table->string('attestation')->nullable();
             $table->timestamps();
         });

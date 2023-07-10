@@ -17,7 +17,7 @@ class FormationsImport implements ToModel,WithHeadingRow
     */
     public function model(array $row)
     {
-        $salarie = Informations::where('CIN', $row['cin'])->first();
+        $salarie = Informations::where('Nom', $row['nom'])->first();
         if($salarie == null){
             return null;
         }

@@ -1,3 +1,9 @@
+/******/ (function() { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!*************************************************************!*\
+  !*** ./resources/assets/vendor/libs/idletimer/idletimer.js ***!
+  \*************************************************************/
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 /*! Idle Timer - v1.1.1 - 2020-06-25
  * https://github.com/thorst/jquery-idletimer
  * Copyright (c) 2020 Paul Irish; Licensed MIT */
@@ -17,11 +23,13 @@
 (function ($) {
   $.idleTimer = function (firstParam, elem) {
     var opts;
-    if (typeof firstParam === 'object') {
+    if (_typeof(firstParam) === 'object') {
       opts = firstParam;
       firstParam = null;
     } else if (typeof firstParam === 'number') {
-      opts = { timeout: firstParam };
+      opts = {
+        timeout: firstParam
+      };
       firstParam = null;
     }
 
@@ -29,23 +37,20 @@
     elem = elem || document;
 
     // defaults that are to be stored as instance props on the elem
-    opts = $.extend(
-      {
-        idle: false, // indicates if the user is idle
-        timeout: 30000, // the amount of time (ms) before the user is considered idle
-        events:
-          'mousemove keydown wheel DOMMouseScroll mousewheel mousedown touchstart touchmove MSPointerDown MSPointerMove' // define active events
-      },
-      opts
-    );
-
+    opts = $.extend({
+      idle: false,
+      // indicates if the user is idle
+      timeout: 30000,
+      // the amount of time (ms) before the user is considered idle
+      events: 'mousemove keydown wheel DOMMouseScroll mousewheel mousedown touchstart touchmove MSPointerDown MSPointerMove' // define active events
+    }, opts);
     var jqElem = $(elem),
       obj = jqElem.data('idleTimerObj') || {},
       /* (intentionally not documented)
        * Toggles the idle state and fires an appropriate event.
        * @return {void}
        */
-      toggleIdleState = function (e) {
+      toggleIdleState = function toggleIdleState(e) {
         var obj = $.data(elem, 'idleTimerObj') || {};
 
         // toggle the state
@@ -66,7 +71,7 @@
        * @method event
        * @static
        */
-      handleEvent = function (e) {
+      handleEvent = function handleEvent(e) {
         var obj = $.data(elem, 'idleTimerObj') || {};
 
         // ignore writting to storage unless related to idleTimer
@@ -132,7 +137,7 @@
        * @method reset
        * @static
        */
-      reset = function () {
+      reset = function reset() {
         var obj = $.data(elem, 'idleTimerObj') || {};
 
         // reset settings
@@ -154,7 +159,7 @@
        * @method pause
        * @static
        */
-      pause = function () {
+      pause = function pause() {
         var obj = $.data(elem, 'idleTimerObj') || {};
 
         // this is already paused
@@ -174,7 +179,7 @@
        * @method resume
        * @static
        */
-      resume = function () {
+      resume = function resume() {
         var obj = $.data(elem, 'idleTimerObj') || {};
 
         // this isn't paused yet
@@ -197,7 +202,7 @@
        * @method destroy
        * @static
        */
-      destroy = function () {
+      destroy = function destroy() {
         var obj = $.data(elem, 'idleTimerObj') || {};
 
         //clear any pending timeouts
@@ -215,7 +220,7 @@
        * @method remainingtime
        * @static
        */
-      remainingtime = function () {
+      remainingtime = function remainingtime() {
         var obj = $.data(elem, 'idleTimerObj') || {};
 
         //If idle there is no time remaining
@@ -283,7 +288,7 @@
           });
           window.addEventListener("test", null, Popts);
       } catch (e) {}
-*/
+    */
 
     /* (intentionally not documented)
      * Handles a user event indicating that the user isn't idle. namespaced with internal idleTimer
@@ -301,21 +306,27 @@
 
     // Internal Object Properties, This isn't all necessary, but we
     // explicitly define all keys here so we know what we are working with
-    obj = $.extend(
-      {},
-      {
-        olddate: +new Date(), // the last time state changed
-        lastActive: +new Date(), // the last time timer was active
-        idle: opts.idle, // current state
-        idleBackup: opts.idle, // backup of idle parameter since it gets modified
-        timeout: opts.timeout, // the interval to change state
-        remaining: null, // how long until state changes
-        timerSyncId: opts.timerSyncId, // localStorage key to use for syncing this timer
-        tId: null, // the idle timer setTimeout
-        pageX: null, // used to store the mouse coord
-        pageY: null
-      }
-    );
+    obj = $.extend({}, {
+      olddate: +new Date(),
+      // the last time state changed
+      lastActive: +new Date(),
+      // the last time timer was active
+      idle: opts.idle,
+      // current state
+      idleBackup: opts.idle,
+      // backup of idle parameter since it gets modified
+      timeout: opts.timeout,
+      // the interval to change state
+      remaining: null,
+      // how long until state changes
+      timerSyncId: opts.timerSyncId,
+      // localStorage key to use for syncing this timer
+      tId: null,
+      // the idle timer setTimeout
+      pageX: null,
+      // used to store the mouse coord
+      pageY: null
+    });
 
     // set a timeout to toggle state. May wish to omit this in some situations
     if (!obj.idle) {
@@ -324,7 +335,6 @@
 
     // store our instance on the object
     $.data(elem, 'idleTimerObj', obj);
-
     return jqElem;
   };
 
@@ -333,7 +343,11 @@
     if (this[0]) {
       return $.idleTimer(firstParam, this[0]);
     }
-
     return this;
   };
 })(jQuery);
+var __webpack_export_target__ = window;
+for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
+if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
+/******/ })()
+;

@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'User View - Pages')
+@section('title', 'View')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}">
@@ -35,6 +35,24 @@
   function EditCv(id){
     window.location.href = "/cv/gestion/edit/" + id;
   }
+  function ArchiveCv(id){
+    var url = baseUrl + 'cv/gestion/' + id;
+    var token = $('meta[name="csrf-token"]').attr('content');
+    //confirm that you want to delete the employee
+    if (!confirm('Are you sure you want to delete this employee?')) return;
+    $('#row_' + id).remove();
+    $.ajax({
+      url: url,
+      type: 'DELETE',
+      data: {
+        _token: token,
+        id: id
+      },
+      success: function (response) {
+        alert('Employee deleted successfully');
+      },
+    });
+  }
 </script>
 @endsection
 
@@ -48,15 +66,26 @@
     <!-- User Card -->
     <div class="card mb-4">
       <div class="card-body">
-        <div class="user-avatar-section">
-          <div class=" d-flex align-items-center flex-column">
-            <img class="img-fluid rounded mb-3 pt-1 mt-4" src="{{ asset('/assets/photos/' . $objEmployee['PhotoIdentite']) }}" height="100" width="100" alt="User avatar" />
-            <div class="user-info text-center">
-              <h4 class="mb-2">{{$objEmployee['Nom']}} {{$objEmployee['Prenom']}}</h4>
-              <span class="badge bg-label-secondary mt-1">{{$objEmployee['Poste']}}</span>
-            </div>
+      <div class="user-avatar-section">
+          <div class="d-flex align-items-center flex-column">
+              @if($objEmployee['PhotoIdentite'] != 'aucun')
+              <img class="img-fluid rounded mb-3 pt-1 mt-4" src="{{ asset('/storage/photos/' . $objEmployee['PhotoIdentite']) }}" height="100" width="100" alt="User avatar" />
+              @else
+              @php
+                  $stateNum = rand(0, 4);
+                  $states = ['success', 'danger', 'warning', 'info', 'primary'];
+                  $state = $states[$stateNum];
+                  $name = $objEmployee['Nom']. ' ' .$objEmployee['Prenom'];
+                  $initials = strtoupper(substr($objEmployee['Nom'], 0, 1) . substr($objEmployee['Prenom'], 0, 1));
+              @endphp
+              <span class="img-fluid rounded mb-3 pt-1 mt-4 bg-label-{{ $state }} h1 d-flex justify-content-center align-items-center" style="width: 100px; height: 100px;">{{ $initials }}</span>
+              @endif
+              <div class="user-info text-center">
+                  <h4 class="mb-2">{{ $objEmployee['Nom'] }} {{ $objEmployee['Prenom'] }}</h4>
+                  <span class="badge bg-label-secondary mt-1">{{ $objEmployee['Poste'] }}</span>
+              </div>
           </div>
-        </div>
+      </div>
         <div class="d-flex justify-content-around flex-wrap mt-3 pt-3 pb-4 border-bottom">
           <div class="d-flex align-items-start me-4 mt-3 gap-2">
             <span class="badge bg-label-primary p-2 rounded"><i class='ti ti-checkbox ti-sm'></i></span>
@@ -155,7 +184,7 @@
           </ul>
           <div class="d-flex justify-content-center">
             <a href="javascript:;" class="btn btn-primary me-3" onclick="EditCv({{ $objEmployee['ID_Salarie'] }})">Edit</a>
-            <a href="javascript:;" class="btn btn-label-danger suspend-user">Archivé</a>
+            <a href="javascript:;" class="btn btn-label-danger" onclick="ArchiveCv({{ $objEmployee['ID_Salarie'] }})">Archivé</a>
           </div>
         </div>
       </div>
@@ -189,7 +218,7 @@
 
     <!-- Activity Timeline -->
     <div class="card mb-4">
-      <h5 class="card-header">Chronologie des expériences utilisateur</h5>
+      <h5 class="card-header">Chronologie des expériences d'employee</h5>
       <div class="card-body pb-0">
         <ul class="timeline mb-0">
         @php
@@ -202,10 +231,45 @@
             <span class="timeline-point {{ $cssClasses[$cssClassIndex % count($cssClasses)] }}"></span>
             <div class="timeline-event">
               <div class="timeline-header mb-1">
-                <h6 class="mb-0">{{ $experience->title }}</h6>
-                <small class="text-muted">{{ $experience->annee }}</small>
+                <h6 class="mb-0">{{ $experience->poste }}</h6>
+                <small class="text-muted">de {{ $experience->dateDebut }} à {{ $experience->dateFin }}</small>
               </div>
-              <p class="mb-2">{{ $experience->subtitle }}</p>
+              <p class="mb-2">{{ $experience->employeur }} ({{ $experience->pay }})</p>
+              <div class="d-flex flex-wrap gap-2 pt-1">
+                <a href="javascript:void(0)" class="me-3">
+                  <img src="{{asset('assets/img/icons/misc/pdf.png') }}" alt="Document image" width="15" class="me-2">
+                  <span class="fw-semibold text-heading">Attestation</span>
+                </a>
+              </div>
+            </div>
+          </li>
+
+          @php
+          $cssClassIndex++;
+          @endphp
+        @endforeach
+        </ul>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <h5 class="card-header">Chronologie des formations d'employee</h5>
+      <div class="card-body pb-0">
+        <ul class="timeline mb-0">
+        @php
+          $cssClasses = ['timeline-point-warning' ,'timeline-point-primary', 'timeline-point-info', 'timeline-point-success'];
+          $cssClassIndex = 0;
+        @endphp
+
+        @foreach($objEmployee['formations'] as $formation)
+          <li class="timeline-item timeline-item-transparent">
+            <span class="timeline-point {{ $cssClasses[$cssClassIndex % count($cssClasses)] }}"></span>
+            <div class="timeline-event">
+              <div class="timeline-header mb-1">
+                <h6 class="mb-0">{{ $formation->intitule }}</h6>
+                <small class="text-muted">{{ $formation->obtention }}</small>
+              </div>
+              <p class="mb-2">{{ $formation->etablissement }}</p>
             </div>
           </li>
 
@@ -221,8 +285,4 @@
   <!--/ User Content -->
 </div>
 
-<!-- Modal -->
-@include('_partials/_modals/modal-edit-user')
-@include('_partials/_modals/modal-upgrade-plan')
-<!-- /Modal -->
 @endsection

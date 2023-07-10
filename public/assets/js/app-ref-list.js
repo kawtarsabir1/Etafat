@@ -31,92 +31,44 @@ $(function () {
     });
   }
 
+  
+  var columnns = [
+    { data: 'nRef' },
+    { data: 'societe' },
+    { data: 'client' },
+    { data: 'nMarche' },
+    { data: 'nIntern' },
+    { data: 'annee' },
+    { data: 'mantant' },
+    { data: 'montantTraveaux' },
+    { data: 'localisation' },
+    { data: 'objet' },
+    { data: 'categories' },
+    { data: 'fiche' },
+    { data: 'action' },
+  ];
+
   // Users datatable
   if (dt_user_table.length) {
     var dt_user = dt_user_table.DataTable({
       ajax: baseUrl + 'cv/getRefs', // JSON file to add data
-      columns: [
-        // columns according to JSON
-        // { data: '' },
-        { data: 'nRef' },
-        { data: 'societe' },
-        { data: 'client' },
-        { data: 'nMarche' },
-        { data: 'nMarche' },
-        { data: 'mantant' },
-        { data: 'category' },
-        { data: 'fiche' },
-        { data: 'action' },
-      ],
+      columns: columnns,
       columnDefs: [
         {
           // Plans
+          className: 'control',
+          responsivePriority: 2,
           targets: 0,
           render: function (data, type, full, meta) {
             var nRef = full['nRef'];
-
             return '<span class="fw-normal h6">' + nRef + '</span>';
           }
         },
         {
           // Plans
-          targets: 1,
-          render: function (data, type, full, meta) {
-            var societe = full['societe'];
-
-            return '<span class="fw-normal h6">' + societe + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 2,
-          render: function (data, type, full, meta) {
-            var client = full['client'];
-
-            return '<span class="fw-normal h6">' + client + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 3,
-          render: function (data, type, full, meta) {
-            var nMarche = full['nMarche'];
-
-            return '<span class="fw-normal h6">' + nMarche + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 4,
-          render: function (data, type, full, meta) {
-            var annee = full['annee'];
-            return '<span class="fw-normal h6">' + annee + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 5,
-          render: function (data, type, full, meta) {
-            var mantant = full['mantant'];
-
-            return '<span class="fw-normal h6">' + mantant + '</span>';
-          }
-        },
-        {
-          // Plans
-          targets: 6,
-          render: function (data, type, full, meta) {
-            var category = full['category'];
-
-            return '<span class="fw-normal h6 ">' + category + '</span>';
-          }
-        }, 
-        {
-          // Plans
-          targets: 7,
+          targets: 11,
           render: function (data, type, full, meta) {
             var fiche = full['fiche'];
-
             return `
               <div class="d-flex align-items-center">
                 <a href="javascript:;" onclick="openPdf('${fiche}')" class="text-body"><i class="ti ti-eye text-success ti-sm me-2"></i></a>
@@ -134,13 +86,7 @@ $(function () {
               '<div class="d-flex align-items-center">' +
               '<a href="javascript:;" onclick="editEmployee('+full['ID_Ref']+')" class="text-body"><i class="ti ti-edit text-info ti-sm me-2"></i></a>' +
               '<a href="javascript:;" id="btn-'+full['ID_Ref']+'" class="text-body delete-record"><i class="ti ti-trash text-danger ti-sm mx-2"></i></a>' +
-              '<a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>' +
-              '<div class="dropdown-menu dropdown-menu-end m-0">' +
-              '<a href="' +
-              full['ID_Ref']+
-              '" class="dropdown-item">View</a>' +
-              '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
-              '</div>' +
+              '<a href="javascript:;" onclick="ViewEmployee('+full['ID_Ref']+')" class="text-body"><i class="ti ti-eye text-success ti-sm mx-2"></i></a>' +
               '</div>'
             );
           }
@@ -160,16 +106,30 @@ $(function () {
         '<"col-sm-12 col-md-6"i>' +
         '<"col-sm-12 col-md-6"p>' +
         '>',
-      language: {
-        sLengthMenu: '_MENU_',
-        search: '',
-        searchPlaceholder: 'Recherche ...'
-      },
+        language: {
+          sLengthMenu: 'Montrer: _MENU_',
+          search: '',
+          zeroRecords: 'Aucun enregistrement correspondant trouvé',
+          emptyTable: 'Aucune donnée disponible',
+          searchPlaceholder: 'Recherche avancée ...',
+          paginate:{
+            next : "Suivant",
+            previous : "Précédent"
+          },
+          loadingRecords: 'Chargement ...',
+          infoEmpty: "Aucun enregistrement disponible",
+          infoFiltered: "(filtré sur _MAX_ enregistrements au total)",
+          info: "Affichage de _START_ à _END_ sur _TOTAL_ enregistrements",
+        },
       // Buttons with Dropdown
       buttons: [
         {
+          text: '<i class="ti ti-columns me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Choisir les Champs</span>',
+          className: 'btn btn-success btn-gradient btn-cols-select mx-3',
+        },
+        {
           extend: 'collection',
-          className: 'btn btn-label-secondary dropdown-toggle mx-3',
+          className: 'btn btn-label-secondary dropdown-toggle',
           text: '<i class="ti ti-screen-share me-1 ti-xs"></i>Plus',
           buttons: [
             {
@@ -315,6 +275,13 @@ $(function () {
           ]
         },
         {
+          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Télécharger</span>',
+          className: 'btn btn-info btn-gradient mx-3',
+          attr: {
+            onclick: "$('#uploadExcel').click();"
+          }
+        },
+        {
           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Nouvelle référence</span>',
           className: 'btn btn-primary btn-gradient',
           attr: {
@@ -370,11 +337,11 @@ $(function () {
           });
 
           this.api()
-          .columns(6)
+          .columns(5)
           .every(function () {
             var column = this;
             var select = $(
-              '<select id="UserPlan" class="form-select text-capitalize"><option value=""> Sélectionner Par Category </option></select>'
+              '<select id="UserPlan" class="form-select text-capitalize"><option value=""> Sélectionner Par Annee </option></select>'
             )
               .appendTo('.ref_category')
               .on('change', function () {
@@ -424,11 +391,74 @@ $(function () {
     $('.dataTables_filter .form-control').removeClass('form-control-sm');
     $('.dataTables_length .form-select').removeClass('form-select-sm');
   }, 300);
+
+
+  $('.btn-cols-select').on('click', function () {
+    modal.modal('show');
+  });
+
+  let columnnsStored = JSON.parse(localStorage.getItem('columnsUnchecked'));
+  var columnsUnchecked = [7, 8, 9, 10];
+  if(columnnsStored != null || columnnsStored != undefined){
+    columnsUnchecked = columnnsStored;
+  }
+  columnsUnchecked.forEach(element => {
+      dt_user_table.DataTable().column(element).visible(false);
+  });
+
+  var modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="columnSelectionModalLabel" aria-hidden="true"></div>');
+    var dialog = $('<div class="modal-dialog"></div>').appendTo(modal);
+    var content = $('<div class="modal-content"></div>').appendTo(dialog);
+
+    var header = $('<div class="modal-header"></div>').appendTo(content);
+    $('<h5 class="modal-title">Choose Columns to Display</h5>').appendTo(header);
+    $('<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>').appendTo(header);
+
+    var body = $('<div class="modal-body"></div>').appendTo(content);
+    var columns = dt_user_table.DataTable().columns().header().toArray();
+    console.log(columns);
+    columns.forEach(function (column, index) {
+      var columnName = $(column).text();
+      var isChecked = dt_user_table.DataTable().column(index).visible();
+      var checkbox = $('<div class="form-check"></div>').appendTo(body);
+      $('<input class="form-check-input" type="checkbox" value="' + index + '" ' + (isChecked ? 'checked' : '') + '>').appendTo(checkbox);
+      $('<label class="form-check-label">' + columnName + '</label>').appendTo(checkbox);
+    });
+  
+    // Modal footer
+    var footer = $('<div class="modal-footer"></div>').appendTo(content);
+    $('<button type="button" class="btn btn-primary btn-apply-cols">Apply</button>').appendTo(footer);
+  
+    $(document).on('click', '.btn-apply-cols', function () {
+      var modal = $('.modal');
+      var columnsStored = JSON.parse(localStorage.getItem('columnsUnchecked'));
+      var selectedColumns = modal.find('input:checked').map(function () {
+        return parseInt($(this).val());
+      }).get();
+      var columnsUnchecked = modal.find('input:not(:checked)').map(function () {
+        return parseInt($(this).val());
+      }).get();
+      localStorage.setItem('columnsUnchecked', JSON.stringify(columnsUnchecked));
+      dt_user_table.DataTable().columns().visible(false);
+      selectedColumns.forEach(function (columnIndex) {
+        var index = columnsStored.indexOf(columnIndex);
+        if(index > -1){
+          columnsStored.splice(index, 1);
+        }
+        dt_user_table.DataTable().column(columnIndex).visible(true);
+      });
+      console.log(selectedColumns)
+      modal.modal('hide');
+    });
 });
 
 
 function editEmployee(id){
   window.location.href= baseUrl + 'cv/reference/edit/'+id;
+}
+
+function ViewEmployee(id){
+  window.location.href= baseUrl + 'cv/reference/view/'+id;
 }
 
 function openPdf(fiche){

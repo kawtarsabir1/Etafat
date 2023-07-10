@@ -131,6 +131,58 @@
         }
     }
 
+    function editPoste(id) {
+        var value = $('#text-'+id).text();
+        input = $('#form-input'),
+        inputId = $('#input-id'),
+        btnUpdate = $('.btn-update');
+        btnCancel = $('.btn-cancel');
+        btnSubmit = $('.btn-submit');
+        btnUpdate.removeClass('d-none');
+        btnCancel.removeClass('d-none');
+        btnSubmit.addClass('d-none');
+        input.val(value);   
+        inputId.val(id);
+    }
+
+    $(function () {
+
+        $('.btn-update').click(function (e) {
+            e.preventDefault();
+            var formData = new FormData($('#create-form')[0]);
+            var id = $('#input-id').val();
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ', ' + pair[1]);
+            }
+            $.ajax({
+                url: baseUrl + 'cv/updatePost/' + id,
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if ($.isEmptyObject(data.error)) {
+                        alert('Poste modifié avec succés.');
+                        location.reload();
+                    } else {
+                        printErrorMsg(data.error);
+                    }
+                }
+            });
+        });
+        $('.btn-cancel').click(function (e) {
+            e.preventDefault();
+            var input = $('#form-input'),
+            btnUpdate = $('.btn-update');
+            btnCancel = $('.btn-cancel');
+            btnSubmit = $('.btn-submit');
+            btnUpdate.addClass('d-none');
+            btnCancel.addClass('d-none');
+            btnSubmit.removeClass('d-none');
+            input.val('');   
+        });
+    });
+
 </script>
 @endsection
 
@@ -153,17 +205,24 @@
                     <div class="col-12 row mb-4">
                         <div class="col-md-6">
                             <label class="form-label" for="Nom">Nom de Poste</label>
-                            <input type="text" id="Nom" class="form-control" placeholder="" name="nom" />
+                            <input type="text" id="form-input" class="form-control" placeholder="" name="nom" />
+                            <input type="hidden" id="input-id" class="form-control" placeholder="" name="id" />
                         </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-submit mt-4">Ajouter</button>
+                            <button type="button" class="btn btn-success btn-submit mt-4">Ajouter</button>
+                            <button type="button" class="btn btn-success btn-update mt-4 d-none">Modifier</button>
+                            <button type="button" class="btn btn-secondary btn-cancel mt-4 d-none">Annuler</button>
                         </div>
                     </div>
                     <h5>Liste des Postes</h5>
                     <div>
                         <ul class="list-group mb-4">
                             @foreach($posts as $post)
-                            <li class="list-group-item">{{ $post->postNom }} <button type="button" onclick="deletePost({{$post->id}})" class="btn btn-danger btn-sm float-end">Supprimer</button></li>
+                            <li class="list-group-item">
+                                <p id="text-{{$post->id}}">{{ $post->postNom }}</p>
+                                <button type="button" onclick="deletePost({{$post->id}})" class="btn btn-danger btn-sm float-end">Supprimer</button>
+                                <button type="button" onclick="editPoste({{$post->id}})" class="btn btn-primary btn-sm float-end me-2">Modifier</button>
+                            </li>
                             @endforeach
                         </ul>
                     </div>

@@ -68,13 +68,13 @@
     <table class="datatables-users table border-top">
       <thead>
         <tr class="p-2 text-dark" style="background-color: rgba(0,104,171,.3);">
-          <th></th>
+          <th>CIN</th>
           <th>Employé</th>
-          <th>Télphone Portable</th>
+          <th>Téléphone</th>
           <th>Poste</th>
-          <th></th>
+          <th>Contrat</th>
           <th>Profil</th>
-          <th></th>
+          <th>RH</th>
           <th>Departement</th>
           <th>Actions</th>
         </tr>

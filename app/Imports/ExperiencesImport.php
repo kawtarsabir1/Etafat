@@ -25,13 +25,14 @@ class ExperiencesImport implements ToModel,WithHeadingRow
             'ID_Salarie' => $salarie->ID_Salarie,
             'employeur' => $row['employeur'],
             'poste'=> $row['poste'],
+            'pay'=> $row['pay'],
             'dateDebut' => $row['date_du'],
             'dateFin' => $row['date_au'],
             'attestation' => $row['attestation']
         ]);
         $experience->save();
 
-        $taches = explode(',' , $row['taches']);
+        $taches = explode('-' , $row['taches']);
         foreach($taches as $tache){
             $newTache = new Taches([
                 'ID_Ref' => $experience->ID_Experience,

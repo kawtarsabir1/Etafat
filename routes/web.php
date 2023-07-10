@@ -199,6 +199,8 @@ Route::resource('/user-list', UserManagement::class);
 Route::get('/cv/generateur', $controller_path . '\cvs\generateur@index')->name('cv-generateur');
 
 Route::post('/cv/gestion/uploadExcel', $controller_path . '\cvs\gestion@upload')->name('cv-uploadExcel');
+Route::post('/cv/gestion/uploadExcelRefs', $controller_path . '\cvs\references@upload')->name('refs-uploadExcel');
+Route::post('/ao/gestion/uploadExcelAos', $controller_path . '\aos\gestion@upload')->name('ao-uploadExcel');
 
 Route::get('/cv/gestion', $controller_path . '\cvs\gestion@index')->name('cv-gestion');
 
@@ -207,6 +209,8 @@ Route::get('/cv/gestion/archived', $controller_path . '\cvs\gestion@archived')->
 Route::get('/cv/gestion/allArchived', $controller_path . '\cvs\gestion@getArchived')->name('cv-get-archived');
 
 Route::get('/cv/gestion/allEmployees', $controller_path . '\cvs\gestion@getEmployees')->name('cv-emplyees');
+Route::get('/cv/gestion/allEmployees/diplome/{diplome}', $controller_path . '\cvs\gestion@employeesFiltredDiplome')->name('cv-emplyees-diplome');
+Route::get('/cv/gestion/allEmployees/anciente/{diplome}/{anciente}', $controller_path . '\cvs\gestion@employeesFiltredAnciente')->name('cv-emplyees-anciente');
 
 Route::get('/cv/gestion/create', $controller_path . '\cvs\gestion@create')->name('cv-create-page');
 
@@ -247,6 +251,7 @@ Route::get('/cv/getRefs', $controller_path . '\cvs\references@getRefs')->name('a
 Route::get('/cv/archivedReference', $controller_path . '\cvs\references@getArchivedRefs')->name('reference-archived-page');
 
 Route::get('/cv/reference/edit/{id}', $controller_path . '\cvs\references@edit')->name('reference-edit-page');
+Route::get('/cv/reference/view/{id}', $controller_path . '\cvs\references@view')->name('reference-view-page');
 
 Route::post('/cv/reference/{id}', $controller_path . '\cvs\references@update')->name('reference-update');
 
@@ -263,17 +268,106 @@ Route::post('/cv/deleteFolder', $controller_path . '\cvs\generateur@deleteFolder
 //generate fiche
 Route::post('/cv/generate/fiche', $controller_path . '\cvs\references@generateFiche')->name('fiche-generate');
 
-Route::get('/cv/formgestion/rh', $controller_path . '\cvs\gestion@rhPage')->name('rhPage');
-Route::get('/cv/formgestion/postes', $controller_path . '\cvs\gestion@postesPage')->name('postesPage');
-Route::get('/cv/formgestion/departements', $controller_path . '\cvs\gestion@departementsPage')->name('departementsPage');
-Route::get('/cv/formgestion/societes', $controller_path . '\cvs\gestion@societesPage')->name('societesPage');
+Route::get('/cv/form/rh', $controller_path . '\cvs\gestion@rhPage')->name('rhPage');
+Route::get('/cv/form/postes', $controller_path . '\cvs\gestion@postesPage')->name('postesPage');
+Route::get('/cv/form/departements', $controller_path . '\cvs\gestion@departementsPage')->name('departementsPage');
+Route::get('/cv/form/societes', $controller_path . '\cvs\gestion@societesPage')->name('societesPage');
+Route::get('/cv/form/BUs', $controller_path . '\cvs\gestion@BUsPage')->name('BUsPage');
+Route::get('/cv/form/categories', $controller_path . '\cvs\gestion@CategoriesPage')->name('CategoriesPage');
+Route::get('/cv/all/categories', $controller_path . '\cvs\gestion@AllCategories')->name('all-categories');
 
-Route::post('/cv/formgestion/rh', $controller_path . '\cvs\gestion@addRh')->name('rh-Add');
-Route::post('/cv/formgestion/postes', $controller_path . '\cvs\gestion@addPost')->name('postes-Add');
-Route::post('/cv/formgestion/departements', $controller_path . '\cvs\gestion@addDepart')->name('departements-Add');
-Route::post('/cv/formgestion/societe', $controller_path . '\cvs\gestion@addSociete')->name('societe-Add');
+Route::post('/cv/form/rh', $controller_path . '\cvs\gestion@addRh')->name('rh-Add');
+Route::post('/cv/form/postes', $controller_path . '\cvs\gestion@addPost')->name('postes-Add');
+Route::post('/cv/form/departements', $controller_path . '\cvs\gestion@addDepart')->name('departements-Add');
+Route::post('/cv/form/societe', $controller_path . '\cvs\gestion@addSociete')->name('societe-Add');
+Route::post('/cv/form/Bu', $controller_path . '\cvs\gestion@addBu')->name('Bu-Add');
+Route::post('/cv/form/Category', $controller_path . '\cvs\gestion@addCategory')->name('Category-Add');
 
 Route::delete('/cv/deleteRh/{id}', $controller_path . '\cvs\gestion@deleteRh')->name('rh-delete');
 Route::delete('/cv/deletepost/{id}', $controller_path . '\cvs\gestion@deletePost')->name('postes-delete');
 Route::delete('/cv/deleteDepart/{id}', $controller_path . '\cvs\gestion@deleteDepart')->name('departements-delete');
 Route::delete('/cv/deleteSociete/{id}', $controller_path . '\cvs\gestion@deleteSociete')->name('societe-delete');
+Route::delete('/cv/deleteBu/{id}', $controller_path . '\cvs\gestion@deleteBu')->name('Bu-delete');
+Route::delete('/cv/deletecategory/{id}', $controller_path . '\cvs\gestion@deleteCategory')->name('Bu-delete');
+
+Route::post('/cv/updateSociete/{id}', $controller_path . '\cvs\gestion@updateSociete')->name('societe-update');
+Route::post('/cv/updateRh/{id}', $controller_path . '\cvs\gestion@updateRh')->name('rh-update');
+Route::post('/cv/updatePost/{id}', $controller_path . '\cvs\gestion@updatePost')->name('post-update');
+Route::post('/cv/updateDepartement/{id}', $controller_path . '\cvs\gestion@updateDepartement')->name('departement-update');
+Route::post('/cv/updateCategory/{id}', $controller_path . '\cvs\gestion@updateCategory')->name('category-update');
+Route::post('/cv/updateBu/{id}', $controller_path . '\cvs\gestion@updateBu')->name('bu-update');
+
+
+Route::get('/cv/generatedCvs/{id}', $controller_path . '\cvs\generateur@getgeneratedCvs')->name('generated-Cvs');
+
+
+//appel d'offre
+Route::get('/ao/gestion', $controller_path . '\aos\gestion@index')->name('appel-offre-gestion');
+Route::get('ao/gestion/archived', $controller_path . '\aos\gestion@archived')->name('appel-offre-archived-page');
+Route::get('/ao/create', $controller_path . '\aos\gestion@create')->name('appel-offre-create-page');
+Route::get('/ao/edit/{id}', $controller_path . '\aos\gestion@edit')->name('appel-offre-edit-page');
+Route::post('/ao', $controller_path . '\aos\gestion@store')->name('appel-offre-store');
+Route::post('/ao/{id}', $controller_path . '\aos\gestion@update')->name('appel-offre-update');
+Route::get('/ao/getAos', $controller_path . '\aos\gestion@aos')->name('all-appel-offre');
+Route::get('/ao/getArchived', $controller_path . '\aos\gestion@aosArchived')->name('all-appel-offre-archived');
+Route::delete('/ao/{id}', $controller_path . '\aos\gestion@archive')->name('appel-offre-delete');
+Route::post('/ao/restore/{id}', $controller_path . '\aos\gestion@unarchive')->name('appel-offre-restore');
+Route::get('/ao/view/{id}', $controller_path . '\aos\gestion@view')->name('appel-offre-view');
+
+//routes of type
+Route::get('/ao/champ/type', $controller_path . '\aos\champs@getAllTypes')->name('types-page');
+Route::post('/ao/champ/type', $controller_path . '\aos\champs@addType')->name('type-add');
+Route::delete('/ao/champ/type/{id}', $controller_path . '\aos\champs@deleteType')->name('type-delete');
+
+//routes of pay
+Route::get('/ao/champ/pay', $controller_path . '\aos\champs@getAllPays')->name('pays-page');
+Route::post('/ao/champ/pay', $controller_path . '\aos\champs@addPay')->name('pay-add');
+Route::delete('/ao/champ/pay/{id}', $controller_path . '\aos\champs@deletePay')->name('pay-delete');
+
+//routes of secteur
+Route::get('/ao/champ/secteur', $controller_path . '\aos\champs@getAllSecteurs')->name('secteurs-page');
+Route::post('/ao/champ/secteur', $controller_path . '\aos\champs@addSecteur')->name('secteur-add');
+Route::delete('/ao/champ/secteur/{id}', $controller_path . '\aos\champs@deleteSecteur')->name('secteur-delete');
+
+//routes of Financement
+Route::get('/ao/champ/financement', $controller_path . '\aos\champs@getAllFinancements')->name('financements-page');
+Route::post('/ao/champ/financement', $controller_path . '\aos\champs@addFinancement')->name('financement-add');
+Route::delete('/ao/champ/financement/{id}', $controller_path . '\aos\champs@deleteFinancement')->name('financement-delete');
+
+//routes of Ministere
+Route::get('/ao/champ/ministere', $controller_path . '\aos\champs@getAllMinisteres')->name('ministeres-page');
+Route::post('/ao/champ/ministere', $controller_path . '\aos\champs@addMinistere')->name('ministere-add');
+Route::delete('/ao/champ/ministere/{id}', $controller_path . '\aos\champs@deleteMinistere')->name('ministere-delete');
+
+//routes of Motif
+Route::get('/ao/champ/motif', $controller_path . '\aos\champs@getAllMotifs')->name('motifs-page');
+Route::post('/ao/champ/motif', $controller_path . '\aos\champs@addMotif')->name('motif-add');
+Route::delete('/ao/champ/motif/{id}', $controller_path . '\aos\champs@deleteMotif')->name('motif-delete');
+
+//routes of Partenaire
+Route::get('/ao/champ/partenaire', $controller_path . '\aos\champs@getAllPartenaires')->name('partenaires-page');
+Route::post('/ao/champ/partenaire', $controller_path . '\aos\champs@addPartenaire')->name('partenaire-add');
+Route::delete('/ao/champ/partenaire/{id}', $controller_path . '\aos\champs@deletePartenaire')->name('partenaire-delete');
+
+//routes of Soustraitant
+Route::get('/ao/champ/soustraitant', $controller_path . '\aos\champs@getAllSoustraitants')->name('soustraitants-page');
+Route::post('/ao/champ/soustraitant', $controller_path . '\aos\champs@addSoustraitant')->name('soustraitant-add');
+Route::delete('/ao/champ/soustraitant/{id}', $controller_path . '\aos\champs@deleteSoustraitant')->name('soustraitant-delete');
+
+//routes of Adjudication
+Route::get('/ao/champ/adjudication', $controller_path . '\aos\champs@getAllAdjudications')->name('adjudications-page');
+Route::post('/ao/champ/adjudication', $controller_path . '\aos\champs@addAdjudication')->name('adjudication-add');
+Route::delete('/ao/champ/adjudication/{id}', $controller_path . '\aos\champs@deleteAdjudication')->name('adjudication-delete');
+
+//routes of Responsables
+Route::get('/cv/all/rhs', $controller_path . '\cvs\gestion@AllRhs')->name('responsables-page');
+
+//routes of Ao
+Route::get('/ao/getAo/{id}', $controller_path . '\aos\gestion@getAo')->name('get-departement');
+
+//routes of client
+Route::get('/clients/gestion', $controller_path . '\aos\clients@index')->name('client-gestion');
+Route::get('/create/client', $controller_path . '\aos\clients@create')->name('client-create-page');
+Route::get('/edit/client/{id}', $controller_path . '\aos\clients@edit')->name('client-edit-page');
+Route::post('/new/client', $controller_path . '\aos\clients@store')->name('client-store');
+Route::post('/update/client/{id}', $controller_path . '\aos\clients@update')->name('client-update');

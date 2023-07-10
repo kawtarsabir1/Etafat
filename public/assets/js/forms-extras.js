@@ -194,6 +194,196 @@ $(function () {
 });
 
 $(function () {
+  var contentWrapper = $('.content-wrapper-departement'),
+    content = $('.content-departement'),
+    btnAdd = $('.btn-add-departement'),
+    btnRemove = $('.btn-remove'),
+    id = $('#id_ao').val();
+
+  if (id != '') {
+    $.ajax({
+      url: baseUrl + 'ao/getAo/' + id,
+      type: 'GET',
+      dataType: 'json',
+      success: function (res) {
+        let departements = res.data.departements_ao;
+        departements = departements.split(',')
+        let parts = res.data.departements_part;
+        parts = parts.split(',')
+        $.each(departements, function (i, item) {
+          var clone = content.clone();
+          clone.find('input').val(parts[i]);
+          clone.find('select').val(item);
+          clone.find('input').each(function () {
+            var name = $(this).attr('name');
+            var index = $('.content-departement').length;
+            $(this).attr('name', name + index);
+          });
+          clone.find('select').each(function () {
+            var name = $(this).attr('name');
+            var index = $('.content-departement').length;
+            $(this).attr('name', name + index);
+          });
+          clone.appendTo(contentWrapper);
+        });
+        //remove first
+        $('.content-departement').first().remove();
+      }
+    });
+  }
+
+  // Add new departement
+  btnAdd.click(function () {
+    var clone = content.clone();
+    clone.find('input').val('');
+    clone.find('select').prop('selectedIndex', 0);
+    clone.find('input').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-departement').length;
+      $(this).attr('name', name + index);
+    });
+    clone.find('select').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-departement').length;
+      $(this).attr('name', name + index);
+    });
+    clone.appendTo(contentWrapper);
+  });
+
+  // Remove departement
+  contentWrapper.on('click', '.btn-remove', function () {
+    $(this).closest('.content-departement').remove();
+  });
+});
+
+$(function () {
+  var contentWrapper = $('.content-wrapper-partenaire'),
+    content = $('.content-partenaire'),
+    btnAdd = $('.btn-add-partenaire'),
+    btnRemove = $('.btn-remove'),
+    id = $('#id_ao').val();
+
+  if (id != '') {
+    $.ajax({
+      url: baseUrl + 'ao/getAo/' + id,
+      type: 'GET',
+      dataType: 'json',
+      success: function (res) {
+        let partenaires = res.data.partenaires_ao;
+        partenaires = partenaires.split(',');
+        let parts = res.data.partenaires_part;
+        parts = parts.split(',');
+        $.each(partenaires, function (i, item) {
+          var clone = content.clone();
+          clone.find('input').val(parts[i]);
+          clone.find('select').val(item);
+          clone.find('input').each(function () {
+            var name = $(this).attr('name');
+            var index = $('.content-partenaire').length;
+            $(this).attr('name', name + index);
+          });
+          clone.find('select').each(function () {
+            var name = $(this).attr('name');
+            var index = $('.content-partenaire').length;
+            $(this).attr('name', name + index);
+          });
+          clone.appendTo(contentWrapper);
+        });
+        //remove first
+        $('.content-partenaire').first().remove();
+      }
+    });
+  }
+
+  // Add new partenaire
+  btnAdd.click(function () {
+    var clone = content.clone();
+    clone.find('input').val('');
+    clone.find('select').prop('selectedIndex', 0);
+    clone.find('input').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-partenaire').length;
+      $(this).attr('name', name + index);
+    });
+    clone.find('select').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-partenaire').length;
+      $(this).attr('name', name + index);
+    });
+    clone.appendTo(contentWrapper);
+  });
+
+  // Remove partenaire
+  contentWrapper.on('click', '.btn-remove', function () {
+    $(this).closest('.content-partenaire').remove();
+  });
+});
+
+$(function () {
+  var contentWrapper = $('.content-wrapper-sousTraitant'),
+    content = $('.content-sousTraitant'),
+    btnAdd = $('.btn-add-sousTraitant'),
+    btnRemove = $('.btn-remove'),
+    id = $('#id_ao').val();
+
+  if (id != '') {
+    $.ajax({
+      url: baseUrl + 'ao/getAo/' + id,
+      type: 'GET',
+      dataType: 'json',
+      success: function (res) {
+        let soustraitants = res.data.soustraitants_ao;
+        soustraitants = soustraitants.split(',')
+        let parts = res.data.soustraitants_part;
+        parts = parts.split(',')
+        $.each(soustraitants, function (i, item) {
+          var clone = content.clone();
+          clone.find('input').val(parts[i]);
+          clone.find('select').val(item);
+          clone.find('input').each(function () {
+            var name = $(this).attr('name');
+            var index = $('.content-sousTraitant').length;
+            $(this).attr('name', name + index);
+          });
+          clone.find('select').each(function () {
+            var name = $(this).attr('name');
+            var index = $('.content-sousTraitant').length;
+            $(this).attr('name', name + index);
+          });
+          clone.appendTo(contentWrapper);
+        });
+        //remove first
+        $('.content-sousTraitant').first().remove();
+      }
+    });
+  }
+
+  // Add new sousTraitant
+  btnAdd.click(function () {
+    var clone = content.clone();
+    clone.find('input').val('');
+    clone.find('select').prop('selectedIndex', 0);
+    clone.find('input').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-sousTraitant').length;
+      $(this).attr('name', name + index);
+    });
+    clone.find('select').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-sousTraitant').length;
+      $(this).attr('name', name + index);
+    });
+    clone.appendTo(contentWrapper);
+  });
+
+  // Remove sousTraitant
+  contentWrapper.on('click', '.btn-remove', function () {
+    $(this).closest('.content-sousTraitant').remove();
+  });
+});
+
+
+$(function () {
   var btnSave = $('.btn-save'),
     contentCursus = $('.content-cursus-map'),
     formationsArray = JSON.parse(localStorage.getItem('formationsArray')) || [];
@@ -249,7 +439,7 @@ $(function () {
             <div class="card-body">
                 <p class="card-text niveau_etude-cursus">${formation.intitule}</p>
                 <p class="card-text">Niveau d’études : ${formation.etablissement}</p>
-                <p class="card-text">Date from ${formation.obtention} </p>
+                <p class="card-text">Date d'obtention ${formation.obtention} </p>
             </div>
         </div>  
     </div>
@@ -294,13 +484,14 @@ $(function () {
     var dateDu = $('#exp-dateDu').val();
     var dateAu = $('#exp-dateAu').val();
     let taches = $('#ref-taches').val();
+    let pay = $('#ref-pay').val();
 
-    if (!employeur || !poste  || !dateDu || !taches) {
+    if (!employeur || !poste || !dateDu || !taches || !pay) {
       alert('Veuillez remplir tous les champs');
       return;
     }
 
-    if(dateAu == ''){
+    if (dateAu == '') {
       dateAu = 'Aujourd\'hui';
     }
 
@@ -309,6 +500,7 @@ $(function () {
       poste: poste,
       dateDu: dateDu,
       dateAu: dateAu,
+      pay: pay,
       taches: taches.split(',')
     };
     let refsArray = JSON.parse(localStorage.getItem('refsArray')) || [];
@@ -321,7 +513,7 @@ $(function () {
         <div class="card card-action mb-4">
             <div class="card-alert"></div>
             <div class="card-header">
-                <div class="card-action-title">Reference n°${refsArray.length}</div>
+                <div class="card-action-title">Experience n°${refsArray.length}</div>
                 <div class="card-action-element">
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item">
@@ -333,6 +525,7 @@ $(function () {
             <div class="card-body">
                 <p class="card-text niveau_etude-cursus"><span class="card-title">Employeur : </span>${ref.employeur}</p>
                 <p class="card-text"><span class="card-title">Poste : </span>${ref.poste}</p>
+                <p class="card-text"><span class="card-title">Pay : </span>${ref.pay}</p>
                 <p class="card-text">Date Du ${ref.dateDu} Au ${ref.dateAu}</p>
                 <span class="card-title">Taches : </span>
                 <ul class="list-group list-group-flush">
@@ -346,6 +539,7 @@ $(function () {
 
     $('#employeur').val('');
     $('#poste').val('');
+    $('#pay').val('');
     $('#exp-dateDu').val('');
     $('#exp-dateAu').val('');
     $('#taches').val('');
@@ -361,13 +555,224 @@ $(function () {
     $(this).closest('.content-one-ref').remove();
     let cursus = $('.content-one-ref');
     cursus.each(function (index) {
-      $(this).find('.card-action-title').text(`Reference n°${index + 1}`);
+      $(this).find('.card-action-title').text(`Experience n°${index + 1}`);
       $(this).find('.card-close').attr('id', `ref-${index + 1}`);
     }
     );
   });
 });
 
+
+$(function () {
+  var btnLastAction = $('.btn-last-action');
+  var content = $('#checkout-confirmation');
+
+  btnLastAction.click(function () {
+    content.html(`
+    <div class="col-lg-12">
+    <div class="card card-action mb-4">
+        <div class="card-header">
+            <div class="card-action-title">Confirmation</div>
+            <div class="card-action-element">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                        <a href="javascript:void(0);" class="card-close"><i class="tf-icons ti ti-x ti-sm"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Voulez-vous vraiment envoyer votre CV ?</p>
+            <button type="button" class="btn btn-primary btn-lg btn-block btn-send-cv">Envoyer</button>
+        </div>
+    </div>`)
+    console.log('ok');
+  });
+})
+
+function FillConfirmation() {
+  var content = $('#checkout-confirmation');
+  var formations = JSON.parse(localStorage.getItem('formationsArray')) || [];
+  var refs = JSON.parse(localStorage.getItem('refsArray')) || [];
+  var projets = JSON.parse(localStorage.getItem('projetsArray')) || [];
+  var informations = new FormData($('#wizard-checkout-form')[0]) || [];
+  
+  //remove confimation-content if exists
+  if (content.find('.confimation-content')) {
+    content.find('.confimation-content').remove();
+  }
+  let card = (`
+  <div class="confimation-content">
+    <div>
+      <h6>Informations Generales :</h6>
+      <div class="row">
+    <div class="col-md-3">
+      <p><span class="fw-bold">Nom</span> : ${informations.get('Nom') || 'En attendant'}</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Prenom</span> : ${informations.get('Prenom') || 'En attendant'}</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">CIN</span> : ${informations.get('CIN') || 'En attendant'}</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Date de Naissance</span> : ${informations.get('DateNaissance') || 'En attendant'}</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Lieu de Naissance</span> : ${informations.get('LieuNaissance') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Situation Familiale</span> : ${informations.get('SituationFamiliale') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Nombre d'Enfants</span> : ${informations.get('NombreEnfants') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Nationalite</span> : ${informations.get('Nationalite') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Adresse 1</span> : ${informations.get('Adresse_1') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Adresse 2</span> : ${informations.get('Adresse_2') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Code Postal</span> : ${informations.get('Code_Postal') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Email</span> : ${informations.get('Email') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Telephone Fixe</span> : ${informations.get('TelephoneFixe') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Telephone Portable</span> : ${informations.get('TelephonePortable') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Profil</span> : ${informations.get('Profil') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Numero CNSS</span> : ${informations.get('NumeroCNSS') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Responsable Hierarchique</span> : ${informations.get('ResponsableHierarchique') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Poste</span> : ${informations.get('Poste') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Date d'Embauche</span> : ${informations.get('DateEmbauche') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Departement d'Affectation</span> : ${informations.get('DepartementAffectation') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Contrat de Travail Numero</span> : ${informations.get('ContratTravailNumero') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Type de Contrat</span> : ${informations.get('TypeContrat') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Contrat du</span> : ${informations.get('ContratDu') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-3">
+      <p><span class="fw-bold">Contrat au</span> : ${informations.get('ContratAu') || 'En attendant' }</p>
+    </div>
+      </div>
+    </div>
+    <hr class="mb-4">
+    <div class="mb-4">
+      <h6>Formations : </h6>
+      <table class="table table-striped mb-4">
+        <thead>
+          <tr>
+            <th>Niveau d'étude</th>
+            <th>Etablissement</th>
+            <th>Date d'obtention</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${formations.map(formation => `
+            <tr>
+              <td>${formation.intitule}</td>
+              <td>${formation.etablissement}</td>
+              <td>${formation.obtention}</td>
+            </tr>
+          `).join('') ||
+          ` <tr>  
+              <td colspan="3" class="text-center">Aucune formation</td>
+            </tr>`
+          }
+        </tbody>
+      </table>
+    </div>
+    <hr class="mb-4">
+    <div class="mb-4">
+      <h6>Experiences : </h6>
+      <table class="table table-striped mb-4">
+        <thead>
+          <tr>
+            <th>Employeur</th>
+            <th>Poste</th>
+            <th>Pays</th>
+            <th>Date du</th>
+            <th>Date au</th>
+            <th>Taches</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${refs.map(ref => `
+            <tr>
+              <td>${ref.employeur}</td>
+              <td>${ref.poste}</td>
+              <td>${ref.pay}</td>
+              <td>${ref.dateDu}</td>
+              <td>${ref.dateAu}</td>
+              <td>${ref.taches}</td>
+            </tr>
+          `).join('') || 
+          ` <tr> 
+              <td colspan="6" class="text-center">Aucune experience</td>
+            </tr>
+          `}
+        </tbody>
+      </table>
+    </div>
+    <hr class="mb-4">
+    <div class="mb-4">
+      <h6>Projets</h6>
+      <table class="table table-striped mb-4">
+        <thead>
+          <tr>
+            <th>Reference</th>
+            <th>Poste</th>
+            <th>Missions</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${projets.map(projet => `
+            <tr>
+              <td>${projet.ref}</td>
+              <td>${projet.poste}</td>
+              <td>${projet.missions}</td>
+              <td>${projet.desc}</td>
+            </tr>
+          `).join('') ||
+          ` <tr>
+              <td colspan="4" class="text-center">Aucun projet</td>
+            </tr>
+          `}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  `);
+
+  content.prepend(card);
+  
+  console.log('ok');
+}
 
 
 
@@ -388,16 +793,16 @@ $(function () {
     let missions = $('#projet-missions').val();
     let desc = $('#projet-desc').val();
 
-    if (idRef=="") {
+    if (idRef == "") {
       alert('Veuillez remplir Reference');
       return;
-    }else if(poste==""){
+    } else if (poste == "") {
       alert('Veuillez remplir Poste');
       return;
-    }else if(missions==""){
+    } else if (missions == "") {
       alert('Veuillez remplir Missions');
       return;
-    }else if(desc==""){
+    } else if (desc == "") {
       alert('Veuillez remplir Description');
       return;
     }
@@ -496,13 +901,50 @@ $(function () {
     type: 'GET',
     success: function (data) {
       let employees = data.data;
-      console.log(employees)
       employees.forEach(employee => {
         let option = `<option value="${employee.ID_Salarie}">${employee.Nom} ${employee.Prenom}</option>`;
         $('#employees').append(option);
       });
     }
   });
+
+  $(document).on('change', '#diplome', function () {
+    let diplome = $(this).val();
+    if (diplome != "") {
+      $('#anciente').attr('disabled', false);
+    }
+    $.ajax({
+      url: baseUrl + 'cv/gestion/allEmployees/diplome/' + diplome,
+      type: 'GET',
+      success: function (data) {
+        let employees = data.data;
+        $('#employees').html('');
+        employees.forEach(employee => {
+          let option = `<option value="${employee.ID_Salarie}">${employee.Nom} ${employee.Prenom}</option>`;
+          $('#employees').append(option);
+        });
+      }
+    });
+  });
+
+  $(document).on('change', '#anciente', function () {
+    let anciente = $(this).val();
+    let diplome = $('#diplome').val();
+    $.ajax({
+      url: baseUrl + 'cv/gestion/allEmployees/anciente/' + diplome + '/' + anciente,
+      type: 'GET',
+      success: function (data) {
+        let employees = data.data;
+        $('#employees').html('');
+        employees.forEach(employee => {
+          let option = `<option value="${employee.ID_Salarie}">${employee.Nom} ${employee.Prenom}</option>`;
+          $('#employees').append(option);
+        });
+      }
+    });
+  });
+
+
 
   //onhover on .card element in document
   $(document).on('mouseenter', '.card', function () {
@@ -594,7 +1036,7 @@ $(function () {
       //dispaly block .no-data element
       $('.no-data').css('display', 'block');
     }
-    
+
   });
 });
 
@@ -642,7 +1084,7 @@ function ListeCvs() {
                             
                             <div class="${backgrounds[index % backgrounds.length]} px-5 py-4 text-center card-img-top"><img src="/storage/photos/${data.photo}" alt="..." width="100" class="rounded-circle mb-2 img-thumbnail d-block mx-auto">
                                 <h5 class="text-white mb-0">${data.nom} ${data.prenom}</h5>
-                                <p class="small text-white mb-0">${data.role}</p>
+                                <p class="small text-white mb-0 card-role">${data.role}</p>
                             </div>
                             <div class="p-4 d-flex justify-content-center">
                                 <ul class="list-inline mb-0">
@@ -666,61 +1108,65 @@ function ListeCvs() {
 
 }
 
-function generateCvs() {
-  //post request to generate cvs
-  $.ajax({
-    url: baseUrl + 'cv/generateCvs',
-    type: 'POST',
-    data: {
-      "ao_name": "AO2023A4",
-      "ao_type": "topographie",
-      "num_marche": "112023",
-      "cvs": [
-        {
-          "nom": "Ayoub",
-          "prenom": "Basidi",
-          "email": "ayoub@gmail.com",
-          "phone": "0612345678",
-          "nationalite": "Marocaine",
-          "date_naissance": "1998-01-01",
-          "poste": "Developpeur"
-        },
-        {
-          "nom": "Jhon",
-          "prenom": "Doe",
-          "email": "jhondoe@gmail.com",
-          "phone": "0612345608",
-          "nationalite": "Marocaine",
-          "date_naissance": "1998-01-01",
-          "poste": "Responsable RH"
-        }
-      ],
-      "model": "model1.docx"
-    }
-  }).done(function (data) {
-    console.log(data);
-  });
-}
+// function generateCvs() {
+//   //post request to generate cvs
+//   $.ajax({
+//     url: baseUrl + 'cv/generateCvs',
+//     type: 'POST',
+//     data: {
+//       "ao_name": "AO2023A4",
+//       "ao_type": "topographie",
+//       "num_marche": "112023",
+//       "cvs": [
+//         {
+//           "nom": "Ayoub",
+//           "prenom": "Basidi",
+//           "email": "ayoub@gmail.com",
+//           "phone": "0612345678",
+//           "nationalite": "Marocaine",
+//           "date_naissance": "1998-01-01",
+//           "poste": "Developpeur"
+//         },
+//         {
+//           "nom": "Jhon",
+//           "prenom": "Doe",
+//           "email": "jhondoe@gmail.com",
+//           "phone": "0612345608",
+//           "nationalite": "Marocaine",
+//           "date_naissance": "1998-01-01",
+//           "poste": "Responsable RH"
+//         }
+//       ],
+//       "model": "model1.docx"
+//     }
+//   }).done(function (data) {
+//     console.log(data);
+//   });
+// }
 
 function editCv(index) {
   let cardsCvs = JSON.parse(localStorage.getItem('cardsCvs'));
   let cv = cardsCvs[index];
   localStorage.removeItem('formationsArray');
-  
+
   //Set Languages
   let modal = $('#editUser');
   modal.find('#id').val(cv.id);
+
+  let role = cv.role;
+  let selectRole = modal.find('#role-select');
+  selectRole.find(`option[value="${role}"]`).attr('selected', 'selected');
+
   let languageElem = modal.find('.content-language-custumize');
 
   var Langues = [];
   var Niveaux = [];
-  if(cv.langue != null || cv.niveauLangue != null){
-    console.log(cv.langue);
+  if (cv.langue != null || cv.niveauLangue != null) {
     Langues = cv.langue.split(',');
     Niveaux = cv.niveauLangue.split(',');
   }
 
-  if(Langues.length == 0){
+  if (Langues.length == 0) {
     var clone = languageElem.find('.row:first').clone();
     languageElem.append(clone);
   }
@@ -741,7 +1187,7 @@ function editCv(index) {
 
   //Set Formations
   var contentCursus = $('.content-cursus-custumize'),
-  formations = cv.formations;
+    formations = cv.formations;
   localStorage.setItem('formationsArray', JSON.stringify(formations));
   for (let i = 0; i < formations.length; i++) {
     let card = `
@@ -764,13 +1210,13 @@ function editCv(index) {
                       <p class="card-text">Date d'obtention : ${formations[i].obtention}</p>
                   </div>
               </div>
-          </div>`;
+          </div>`; editCv
     contentCursus.append(card);
   }
 
   //Set Experiences
   var contentExperiences = $('.content-experiences-custumize'),
-  experiences = cv.experiences;
+    experiences = cv.experiences;
   localStorage.setItem('experiencesArray', JSON.stringify(experiences));
   for (let i = 0; i < experiences.length; i++) {
     var taches = experiences[i].taches;
@@ -779,7 +1225,7 @@ function editCv(index) {
         <div class="card card-action mb-4">
             <div class="card-alert"></div>
             <div class="card-header">
-                <div class="card-action-title">Experience n°${i+1}</div>
+                <div class="card-action-title">Experience n°${i + 1}</div>
                 <div class="card-action-element">
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item">
@@ -806,19 +1252,19 @@ function editCv(index) {
   for (let i = 0; i < refs.length; i++) {
     let ref = refs[i];
 
-    if(ref.missions == null || ref.missions == ''){
+    if (ref.missions == null || ref.missions == '') {
       var missions = [];
-    }else{
+    } else {
       var missions = ref.missions.split(',');
     }
-    
 
-    if(ref.missionsParticipe == null || ref.missionsParticipe == ''){
+
+    if (ref.missionsParticipe == null || ref.missionsParticipe == '') {
       var missionsParticipe = [];
-    }else{
+    } else {
       var missionsParticipe = ref.missionsParticipe.split(',');
     }
-    
+
 
     let checkbox = `
       <div class="form-check">
@@ -847,7 +1293,117 @@ function editCv(index) {
     contentRefs.append(checkbox);
   }
 
-  
+
+  //get filter category filter-category
+  var filterCategory = $('#filter-category');
+  $.ajax({
+    url: baseUrl + 'cv/all/categories',
+    type: 'GET',
+    dataType: 'json',
+    success: function (data) {
+      let categories = data;
+      for (let i = 0; i < categories.length; i++) {
+        let option = `<option value="${categories[i].categoryNom}">${categories[i].categoryNom}</option>`;
+        filterCategory.append(option);
+      }
+    },
+    error: function (error) {
+      console.log(error);
+    }
+  });
+
+  var btnFilterRefs = $('.btn-filter-refs');
+  btnFilterRefs.on('click', function () {
+    var contentRefs = $('.content-custumize-refs');
+    let refs = cv.refs;
+    localStorage.setItem('refsArray', JSON.stringify(refs));
+    console.log(filterCategory, filterMontant, filterAnciente);
+    contentRefs.empty();
+    for (let i = 0; i < refs.length; i++) {
+      var filterCategory = $('#filter-category').val();
+      var filterMontant = $('#filter-montant').val();
+      var filterAnciente = $('#filter-anciente').val();
+      let ref = refs[i];
+      console.log(ref);
+      if (ref.missions == null || ref.missions == '') {
+        var missions = [];
+      } else {
+        var missions = ref.missions.split(',');
+      }
+
+
+      if (ref.missionsParticipe == null || ref.missionsParticipe == '') {
+        var missionsParticipe = [];
+      } else {
+        var missionsParticipe = ref.missionsParticipe.split(',');
+      }
+
+      let category = true;
+      let montant = true;
+      let anciante = true;
+
+      if (filterCategory != '') {
+        let refCategory = ref.categories
+        category = refCategory.includes(filterCategory);
+      }
+
+      if (filterMontant != '') {
+        let refMontant = ref.montant
+        refMontant = refMontant.split(' ').join('');
+        if (filterMontant.includes("+")) {
+          filterMontant = filterMontant.replace("+", "");
+          filterMontant = parseInt(filterMontant);
+          refMontant = parseInt(refMontant);
+          montant = refMontant >= filterMontant;
+        } else if (filterMontant.includes("-")) {
+          filterMontant = filterMontant.replace("-", "");
+          filterMontant = parseInt(filterMontant);
+          refMontant = parseInt(refMontant);
+          montant = refMontant <= filterMontant;
+        } else {
+          filterMontant = parseInt(filterMontant);
+          refMontant = parseInt(refMontant);
+          montant = refMontant == filterMontant;
+        }
+      }
+
+      if (filterAnciente != '') {
+        let refAnciente = ref.annee
+        let currentYear = new Date().getFullYear();
+        console.log((currentYear - filterAnciente), refAnciente)
+        anciante = currentYear - filterAnciente >= refAnciente;
+      }
+
+      if (category && montant && anciante) {
+        let checkbox = `
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input check" id="ref-${ref.id}" name="ref${i}" value="${ref.id}">
+              ${ref.client} (${ref.category}) - ${ref.annee}
+              ${missions.map(mission => `
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input sous-check" id="mission-${ref.id}" value="${mission}" name="ref${i}">
+                    ${mission}
+                  </label>
+                </div>
+              `).join('')}
+              ${missionsParticipe.map(mission => `
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input sous-check" id="mission-${ref.id}" value="${mission}" name="ref${i}" checked>
+                    ${mission}
+                  </label>
+                </div>
+              `).join('')}
+            </label>
+          </div>
+        `;
+        contentRefs.append(checkbox);
+      }
+    }
+  });
+
 
 }
 
@@ -882,7 +1438,7 @@ $(function () {
 
 });
 
-function removeCv(index){
+function removeCv(index) {
   //remove cv from local storage
   let cardCvs = JSON.parse(localStorage.getItem('cardsCvs'));
   let cvs = JSON.parse(localStorage.getItem('cvsArray'));
@@ -954,7 +1510,7 @@ $(function () {
       var base64String = reader.result.split(',')[1];
     }
 
-    if(!intitule || !etablissement || !obtention) {
+    if (!intitule || !etablissement || !obtention) {
       alert('Veuillez remplir tous les champs');
       return;
     }
@@ -1014,7 +1570,7 @@ $(function () {
       card.text(`Formation n°${i + 1}`);
       card.attr('id', `cursus-${i + 1}`);
     }
-});
+  });
 
 
 
@@ -1035,19 +1591,19 @@ $(function () {
     var poste = form.find('#ref-poste').val();
     var taches = form.find('#ref-taches').val();
 
-    if(!employeur || !dateDu || !poste || !taches) {
+    if (!employeur || !dateDu || !poste || !taches) {
       alert('Veuillez remplir tous les champs');
       return;
     }
 
-    if(dateAu == ''){
+    if (dateAu == '') {
       dateAu = 'Aujourd\'hui';
     }
 
     let experience = {
       employeur: employeur,
-      dateDu: dateDu,
-      dateAu: dateAu,
+      dateDebut: dateDu,
+      dateFin: dateAu,
       poste: poste,
       taches: taches.split(',')
     };
@@ -1099,7 +1655,7 @@ $(function () {
       card.text(`Experience n°${i + 1}`);
       card.attr('id', `experience-${i + 1}`);
     }
-});
+  });
 
 
 
@@ -1108,9 +1664,9 @@ $(function () {
 
 $(function () {
   var formCostumize = $('#personaliserCv'),
-  btnCustomize = $('#btn-custumize'),
-  btnCancelCv = $('#btn-cancel-cv'),
-  btnCloseCv = $('#btn-close-cv');
+    btnCustomize = $('#btn-custumize'),
+    btnCancelCv = $('#btn-cancel-cv'),
+    btnCloseCv = $('#btn-close-cv');
 
 
   btnCustomize.click(function () {
@@ -1121,11 +1677,13 @@ $(function () {
     var languagesData = [];
     var niveauxData = [];
     for (var key of formData.keys()) {
-      if (key.includes('langue')) {
-        languagesData.push(formData.getAll(key));
-      }
-      if (key.includes('niveau')) {
-        niveauxData.push(formData.getAll(key));
+      if (formData.getAll(key)[0] != '') {
+        if (key.includes('langue')) {
+          languagesData.push(formData.getAll(key));
+        }
+        if (key.includes('niveau')) {
+          niveauxData.push(formData.getAll(key));
+        }
       }
     }
     card['langue'] = languagesData.join(',');
@@ -1195,8 +1753,19 @@ $(function () {
     cardsCv[index] = card;
     localStorage.setItem('cardsCvs', JSON.stringify(cardsCv));
 
-    
-
+    //get role-select from modal
+    var roleSelect = $('#role-select');
+    var role = roleSelect.val();
+    var card = $(`#cv-card-${index}`);
+    card.find('.card-role').text(role);
+    //update cvsArray in localStorage
+    var cvsArray = JSON.parse(localStorage.getItem('cvsArray'));
+    cvsArray[index]['role'] = role;
+    localStorage.setItem('cvsArray', JSON.stringify(cvsArray));
+    //update cardsCvs in localStorage
+    var cardsCvs = JSON.parse(localStorage.getItem('cardsCvs'));
+    cardsCvs[index]['role'] = role;
+    localStorage.setItem('cardsCvs', JSON.stringify(cardsCvs));
 
     // var formData = new FormData(formCostumize[0]);
     // var languagesData = [];
@@ -1263,11 +1832,11 @@ $(function () {
   });
 });
 
-function intialiseLanguageForm(){
+function intialiseLanguageForm() {
   var modal = $('#editUser'),
     languageElem = modal.find('.content-language-custumize');
-    languageElem.find('.language-elem').remove();
-    var languageForm = `<div class="row language-elem">
+  languageElem.find('.language-elem').remove();
+  var languageForm = `<div class="row language-elem">
                             <div class="col-lg-6 col-xl-4 col-12 mb-3">
                               <label class="form-label" for="language-input">Langues</label>
                               <input type="text" id="language-input" name="langue" class="form-control" placeholder="Language name">
@@ -1286,18 +1855,158 @@ function intialiseLanguageForm(){
                               <button class="btn btn-danger btn-remove"><i class="fa fa-trash"></i> Delete</button>
                             </div>
                           </div>`;
-    languageElem.append(languageForm);
+  languageElem.append(languageForm);
 }
 
 function intialiseCursusEtRefsEtExp() {
   var contentCustumizeRefs = $('.content-custumize-refs'),
-  contentCursusCustumize = $('.content-cursus-custumize'),
-  contentExperiencesCustumize = $('.content-experiences-custumize');
+    contentCursusCustumize = $('.content-cursus-custumize'),
+    contentExperiencesCustumize = $('.content-experiences-custumize');
   contentCustumizeRefs.empty();
   contentCursusCustumize.empty();
   contentExperiencesCustumize.empty();
 }
 
+
+$(function () {
+  //get card-Ao class and get id from the element
+  $('.card-Ao').click(function () {
+    var id = $(this).attr('id');
+    $.ajax({
+      url: baseUrl + 'cv/generatedCvs/' + id,
+      type: 'GET',
+      success: function (data) {
+        if (localStorage.getItem('cardsCvs') != null) {
+          localStorage.removeItem('cardsCvs');
+        }
+        let cvsData = data.ao.cvs;
+        localStorage.setItem('cardsCvs', JSON.stringify(cvsData));
+        let cardCvs = JSON.parse(localStorage.getItem('cardsCvs'));
+        let cvsArray = [];
+        for (let i = 0; i < cardCvs.length; i++) {
+          cvsArray.push({
+            employee: cardCvs[i].id,
+            role: cardCvs[i].role,
+          });
+        }
+        localStorage.setItem('cvsArray', JSON.stringify(cvsArray));
+        if (cvsArray.length != 0) {
+          $('.no-data').css('display', 'none');
+        }
+
+        $('#langue_module').find('option[value="' + data.ao.langue + '"]').attr('selected', true);
+        $('#models').find('option[value="' + data.ao.modele + '"]').attr('selected', true);
+        $('#ao').find('option[value="' + data.ao.ao_nom + '"]').attr('selected', true);
+
+
+
+
+
+        $('#largeModal').modal('hide');
+        ListeCvsAlreadyGenerated();
+      }
+    });
+  });
+});
+
+function ListeCvsAlreadyGenerated() {
+  //get content-list-cvs element
+  let contentListCvs = $('#content-list-cvs');
+  //get cvsArray from localstorage
+  let cvsArray = JSON.parse(localStorage.getItem('cvsArray'));
+  //get cardsCvs from localstorage
+  let cardsCvs = JSON.parse(localStorage.getItem('cardsCvs'));
+
+  //get the last cv in cardsCvs
+  let lastCv = cvsArray[cvsArray.length - 1];
+  var backgrounds = [
+    'bg-primary',
+    'bg-success',
+    'bg-danger',
+    'bg-secondary',
+    'bg-warning',
+    'bg-info',
+    'bg-dark'
+  ];
+
+  for (let i = 0; i < cardsCvs.length; i++) {
+    let index = cardsCvs.indexOf(cardsCvs[i]);
+    let data = cardsCvs[i];
+    let card = `<div class="col-lg-4 col-md-6 mb-4" id="cv-card-${index}">
+                    <div class="card rounded shadow-sm border-0 cursor-pointer">
+                        <div class="card-body p-0">
+                            <div class="card-overlay" style="display:none;z-index: 1;">
+                              <div class="bg-dark p-2 text-dark position-absolute w-100 h-100 rounded" style="opacity: 0.3;">
+                              </div>
+                                <a onclick="removeCv(${index})" class="btn btn-danger btn-sm text-white" style="position: absolute; bottom: 10px; right: 10px;opacity: 1;">Remove</a>
+                                <a onclick="editCv(${index})" class="btn btn-primary btn-sm text-white" style="position: absolute; bottom: 10px; left: 10px;opacity: 1;">Personnaliser</a>
+                            </div>
+                            
+                            <div class="${backgrounds[index % backgrounds.length]} px-5 py-4 text-center card-img-top"><img src="/storage/photos/${data.photo}" alt="..." width="100" class="rounded-circle mb-2 img-thumbnail d-block mx-auto">
+                                <h5 class="text-white mb-0">${data.nom} ${data.prenom}</h5>
+                                <p class="small text-white mb-0 card-role">${data.role}</p>
+                            </div>
+                            <div class="p-4 d-flex justify-content-center">
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item">
+                                        <h6 class="font-weight-bold mb-0 d-block">Poste</h6><small class="text-muted"><i class="fa fa-picture-o mr-1 text-info"></i>${data.Poste}</small>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <h6 class="font-weight-bold mb-0 d-block">Departement</h6><small class="text-muted"><i class="fa fa-user-circle-o mr-1 text-info"></i>${data.DepartementAffectation}</small>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+    contentListCvs.append(card);
+  }
+
+
+}
+
+//function on change adjudication_ao select element
+$(function () {
+  let adjudication_ao = $('#adjudication_ao');
+  let adjudicataire_ao = $('#adjudicataire_ao');
+  let societe_ao = $('#societe_ao');
+  let date_adjudication_ao = $('#date_adjudication_ao');
+
+  adjudication_ao.change(function () {
+    let value = $(this).val();
+    console.log(value);
+    if (value == 'retenu') {
+      adjudicataire_ao.val(societe_ao.val());
+      date_adjudication_ao.attr('disabled', false);
+    } else {
+      adjudicataire_ao.val('');
+      date_adjudication_ao.attr('disabled', true);
+    }
+  });
+
+  societe_ao.change(function () {
+    let value = adjudication_ao.val();
+    if (value == 'retenu') {
+      adjudicataire_ao.val(societe_ao.val());
+    } else {
+      adjudicataire_ao.val('');
+    }
+  });
+});
+
+$(function () {
+  let checkbox = $('#group-checkbox');
+  let part = $('#part');
+
+  checkbox.change(function () {
+    if ($(this).is(':checked')) {
+      part.attr('disabled', false);
+    } else {
+      part.val('');
+      part.attr('disabled', true);
+    }
+  });
+});
 
 
 
