@@ -3,6 +3,8 @@
 namespace App\Imports;
 
 use App\Models\Refs;
+use App\Models\Societe;
+use App\Models\Category;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -15,6 +17,21 @@ class RefsImport implements ToModel,WithHeadingRow
     */
     public function model(array $row)
     {
+
+        //get societe by name
+        $societe = Societe::where('societeNom', $row['societe'])->first();
+        if (!$societe) {
+            $societe = new Societe();
+            $societe->societeNom = $row['societe'];
+            $societe->save();
+        }
+
+        $category = Category::where('categoryNom', $row['category'])->first();
+        if (!$category) {
+            $category = new Category();
+            $category->categoryNom = $row['category'];
+            $category->save();
+        }
         $ref = new Refs([
             'client' => $row['client'],
             'mantant' => $row['montants'],
@@ -23,13 +40,13 @@ class RefsImport implements ToModel,WithHeadingRow
             'attestation' => $row['attestation'],
             'objet' => $row['objet'],
             'nMarche' => $row['nmarche'],
-            'categories' => $row['category'],
+            'categories' => $category->id,
             'fiche' => $row['fiche'],
             'logo' => $row['logo'],
             'localisation' => $row['localisation'],
             'nRef' => $row['reference'],
             'nIntern' => $row['nref'],
-            'societe' => $row['societe'],
+            'societe' => $societe->id,
             'missions' => $row['missions'],
             'description' => $row['description'],
             'archived' => 0,

@@ -218,6 +218,10 @@ $(function () {
     wizardCheckoutPrev.forEach(item => {
       item.addEventListener('click', event => {
         switch (validationStepper._currentIndex) {
+          case 4:
+            validationStepper.previous();
+            break;
+            
           case 3:
             validationStepper.previous();
             break;

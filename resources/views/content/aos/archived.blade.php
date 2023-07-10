@@ -13,27 +13,27 @@
 
 @section('vendor-script')
 <script>
-  // $(function() {
-  //   //get input uploadExcel
-  //   var input = $('#uploadExcel');
+  $(function() {
+    //get input uploadExcel
+    var input = $('#uploadExcel');
 
-  //   $('#uploadExcel').change(function() {
-  //     var formData = new FormData();
-  //     formData.append('file', input.prop('files')[0]);
-  //     formData.append('_token', '{{ csrf_token() }}');
-  //     $.ajax({
-  //       url: "{{ route('cv-uploadExcel') }}",
-  //       type: 'POST',
-  //       data: formData,
-  //       contentType: false,
-  //       processData: false,
-  //       success: function(data) {
-  //         alert('Données téléchargées avec succès');
-  //         location.reload();
-  //       }
-  //     });
-  //   });
-  // });
+    $('#uploadExcel').change(function() {
+      var formData = new FormData();
+      formData.append('file', input.prop('files')[0]);
+      formData.append('_token', '{{ csrf_token() }}');
+      $.ajax({
+        url: "{{ route('ao-uploadExcel') }}",
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          alert('Données téléchargées avec succès');
+          location.reload();
+        }
+      });
+    });
+  });
 </script>
 <script src="{{asset('assets/vendor/libs/moment/moment.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
@@ -51,7 +51,7 @@
 
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
-  <span class="text-muted fw-light">Appels d'offers /</span> Gestion des AOs
+  <span class="text-muted fw-light">Appels d'offers /</span> AOs Archivés
 </h4>
 
 <div class="card">
@@ -68,14 +68,17 @@
   <div class="card-datatable table-responsive">
     <table class="datatables-users table border-top">
       <thead>
-        <tr class="p-2 text-dark" style="background-color: rgba(0,104,171,.3);">
+        <tr class="p-2 text-dark" style="background-color: rgba(0,104,171,.3)">
           <th>N°AO</th>
           <th>Type</th>
+          <th>Societe</th>
           <th>Pays</th>
           <th>Maître d'ouvrage</th>
-          <th>Montant</th>
+          <th>Montant TTC</th>
           <th>BU</th>
-          <th></th>
+          <th>Responsables</th>
+          <th>Adjudication</th>
+          <th>Departements</th>
           <th>Date limite</th>
           <th>Actions</th>
         </tr>

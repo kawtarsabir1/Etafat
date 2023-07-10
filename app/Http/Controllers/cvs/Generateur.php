@@ -16,12 +16,15 @@ use PhpOffice\PhpWord\TemplateProcessor;
 use Illuminate\Support\Facades\File;
 use ZipArchive;
 use App\Models\Aos;
+use App\Models\Departement;
+use App\Models\Category;
+
 
 class Generateur extends Controller
 {
   public function index()
   {
-    $generatedAos = GeneratedAo::all();
+    $generatedAos = GeneratedAo::latest()->take(10)->get();
     $postes = Post::all();
     $aos = AOs::all();
     $employees = Informations::all();
@@ -48,6 +51,8 @@ class Generateur extends Controller
   {
     //get employee where ID_Salarie = $id
     $employee = Informations::where('ID_Salarie', $id)->first();
+    $poste = Post::where('id', $employee->Poste)->first();
+    $dapartement = Departement::where('id', $employee->DepartementAffectation)->first();
     $objEmployee = [
       'id' => $employee->ID_Salarie,
       'nom' => $employee->Nom,
@@ -72,8 +77,8 @@ class Generateur extends Controller
       'ContratDu' => $employee->ContratDu,
       'ContratAu' => $employee->ContratAu,
       'TypeContrat' => $employee->TypeContrat,
-      'Poste' => $employee->Poste,
-      'DepartementAffectation' => $employee->DepartementAffectation,
+      'Poste' => $poste->postNom,
+      'DepartementAffectation' => $dapartement->departementNom,
       'langue' => $employee->Langues,
       'niveauLangue' => $employee->Niveau,
     ];
@@ -107,6 +112,7 @@ class Generateur extends Controller
         'dateDebut' => $value->dateDebut,
         'dateFin' => $value->dateFin,
         'employeur' => $value->employeur,
+        'pay' => $value->pay,
         'poste' => $value->poste,
         'taches' => $objTaches,
       ];
@@ -125,6 +131,12 @@ class Generateur extends Controller
           $missionsParticipe = $value1->missions;
         }
       }
+      $categories = [];
+      $categoriesIds = explode(',', $value->categories);
+      foreach($categoriesIds as $category){
+        $categories[] = Category::where('id', $category)->first()->categoryNom;
+      }
+      $value->categories = implode(',', $categories);
       $objRefs[] = [
         'id' => $value->ID_Ref,
         'client' => $value->client,
@@ -145,117 +157,6 @@ class Generateur extends Controller
 
     return response()->json($objEmployee);
   }
-
-  // public function generateCvs(Request $request)
-  // {
-  //   $ao_name = $request->ao;
-  //   $model = $request->model;
-  //   $langue_module = $request->langue_module;
-  //   $cvs = json_decode($request->cvs, true);
-  //   $ao_folder_path = storage_path('app/public/cvs') . DIRECTORY_SEPARATOR . $ao_name;
-  //   if (File::exists($ao_folder_path)){
-  //     File::deleteDirectory($ao_folder_path);
-  //   }
-  //   File::makeDirectory($ao_folder_path, 0777, true);
-  //   $cv_folder_path = $ao_folder_path;
-
-  //   $template = new TemplateProcessor(storage_path('app/public/models/' . $langue_module . '/' . $model . '.docx'));
-
-  //   $template->cloneBlock('block_cv', count($cvs), true, true);
-  //   $file_name = 'cvtheque.docx';
-  //   $data = ['nom', 'prenom', 'email', 'date_naissance', 'nationalite', 'role', 'phone'];
-  //   $database = ['nom', 'prenom', 'email', 'dateNaissance', 'nationalite', 'role', 'telephonePortable'];
-  //   $cvId = 1;
-  //   foreach ($cvs as $cv) {
-  //     for($j = 0; $j < count($data); $j++) {
-  //       $template->setValue($data[$j] . '#' . $cvId, $cv[$database[$j]]);
-  //     }
-
-  //     $formations = $cv['formations'];
-  //     $template->cloneRow('diplome#' . $cvId, count($formations));
-
-  //     $variables = $template->getVariables();
-  //     $foramtionAttr = ['etablissement', 'obtention', 'intitule'];
-  //     $template->cloneRow('etablissement'.'#'. $cvId , count($formations));
-  //     foreach ($formations as $key => $value) {
-  //       foreach ($foramtionAttr as $attr) {
-  //         if (in_array($attr.'#'. $cvId, $variables)) {
-  //           $template->setValue($attr.'#'. $cvId . '#' . ($key + 1), $value[$attr]);
-  //         }
-  //       }
-  //     }
-
-  //     for ($i = 1; $i <= count($formations); $i++) {
-  //       $diplome = $formations[$i - 1]['diplome'];
-  //       $diplome = storage_path('app/public/formations/' . $diplome);
-  //       $ext = pathinfo($diplome, PATHINFO_EXTENSION);
-  //       $template->setImageValue('diplome'.'#'. $cvId . '#' . $i, array('path' => $diplome, 'width' => 580, 'height' => 300, 'ratio' => false));
-  //     }
-
-  //     $experiences = $cv['experiences'];
-  //     $template->cloneRow('dateDebut'.'#'. $cvId , count($experiences));
-  //     $experiencesData = ['employeur', 'poste', 'dateDebut', 'dateFin', 'taches'];
-  //     foreach ($experiences as $key => $value) {
-  //       foreach ($experiencesData as $attr) {
-  //         if (in_array($attr.'#'. $cvId, $variables)) {
-  //           if ($attr.'#'. $cvId == 'taches'.'#'. $cvId) {
-  //             $taches = $value['taches'];
-  //             $tachesStr = '';
-  //             foreach ($taches as $key1 => $value1) {
-  //               $tachesStr .= $value1['tache'] . '/ ';
-  //             }
-  //             $template->setValue($attr.'#'. $cvId . '#' . ($key + 1), $tachesStr);
-  //           } else {
-  //             $template->setValue($attr.'#'. $cvId . '#' . ($key + 1), $value[$attr]);
-  //           }
-  //         }
-  //       }
-  //     }
-
-  //     $refs = $cv['refs'];
-  //     foreach ($refs as $key => $value) {
-  //       if(!isset($value['missionsParticipe'])){
-  //         $value['missionsParticipe'] = '';
-  //       }
-  //       if($value['missionsParticipe'] == '') {
-  //         unset($refs[$key]);
-  //       }
-  //     }
-  //     $template->cloneRow('missions'.'#'. $cvId , count($refs));
-  //     $refsData = ['client', 'annee', 'missions'];
-  //     foreach ($refs as $key => $value) {
-  //       foreach ($refsData as $attr) {
-  //         if (in_array($attr.'#'. $cvId, $variables)) {
-  //           if($attr.'#'. $cvId == 'missions'.'#'. $cvId) {
-  //               $template->setValue($attr.'#'. $cvId . '#' . ($key + 1), $value['missionsParticipe']);
-  //           } else {
-  //             $template->setValue($attr.'#'. $cvId . '#' . ($key + 1), $value[$attr]);
-  //           }
-  //         }
-  //       }
-  //     }
-
-  //     $langues = explode(',', $cv['langue']);
-  //     $niveaux = explode(',', $cv['niveauLangue']);
-  //     if(count($langues) == 1 && $langues[0] == '') {
-  //       $langues = [];
-  //       $niveaux = [];
-  //     }
-  //     $template->cloneRow('langue#'. $cvId, count($langues));
-  //     foreach ($langues as $key => $value) {
-  //       $template->setValue('langue#' . $cvId . '#' . ($key + 1), $value);
-  //       $template->setValue('niveauLangue#' . $cvId . '#' . ($key + 1), $niveaux[$key]);
-  //     }
-  //     $cvId++;
-  //   }
-
-  //   $template->saveAs($cv_folder_path . DIRECTORY_SEPARATOR . $file_name);
-  //   $fileUrl = url('storage/cvs/' . $ao_name . '/' . $file_name);
-  //   $this->SaveGeneratedCvs($ao_name, $model, $langue_module, $cvs);
-  //   return response()->json(['success' => true, 'message' => 'CVs generated successfully.', 'fileUrl' => $fileUrl]);
-  // }
-
-  
 
   public function generateCvs(Request $request)
 {
@@ -285,7 +186,14 @@ class Generateur extends Controller
         $template->setValue('phone', $cv['telephonePortable']);
         $template->setValue('date_naissance', $cv['dateNaissance']);
         $template->setValue('nationalite', $cv['nationalite']);
+        $template->setValue('poste_actuel', $cv['Poste']);
         $template->setValue('role', $cv['role']);
+        $template->setValue('last-diplome', $cv['formations'][0]['intitule']);
+
+        $dateNow = intval(date('Y'));
+        $lastExpDate = intval($cv['experiences'][count($cv['experiences']) - 1]['dateDebut']);
+        $experienceAnciente = $dateNow - $lastExpDate;
+        $template->setValue('anciente', $experienceAnciente);
 
         $countOfDiplomes = 0;
         $formations = $cv['formations'];
@@ -310,14 +218,6 @@ class Generateur extends Controller
               if(in_array($attr, $variables)){
                 if($attr == 'taches'){
                   $taches = $value['taches'];
-                  // $tachesStr = '';
-                  // foreach ($taches as $key1 => $value1) {
-                  //   if(isset($value1['tache'])){
-                  //     $tachesStr .= $value1['tache'] . '/ ';
-                  //   }else{
-                  //     $tachesStr .= $value1 . '/ ';
-                  //   }
-                  // }
                   $template->cloneBlock('taches_block'.'#'. ($key + 1), count($taches), true, true);
                   for($i = 0; $i < count($taches); $i++) {
                     $template->setValue($attr .'#'. ($key + 1) . '#' . ($i + 1), $taches[$i]['tache']);
@@ -341,7 +241,9 @@ class Generateur extends Controller
                 }
             }
         }else{
-          $template->cloneRow('diplome', 0);
+          if(in_array('diplome', $variables)){
+            $template->cloneRow('diplome', 0);
+          }
         }
   
 
@@ -351,10 +253,12 @@ class Generateur extends Controller
           $langues = [];
           $niveaux = [];
         }
-        $template->cloneRow('langue', count($langues));
-        foreach ($langues as $key => $value) {
-            $template->setValue('langue#' . ($key + 1), $value);
-            $template->setValue('niveauLangue#' . ($key + 1), $niveaux[$key]);
+        if(in_array('langue', $variables)){
+          $template->cloneRow('langue', count($langues));
+          foreach ($langues as $key => $value) {
+              $template->setValue('langue#' . ($key + 1), $value);
+              $template->setValue('niveauLangue#' . ($key + 1), $niveaux[$key]);
+          }
         }
         
         $file_path = $cv_folder_path . DIRECTORY_SEPARATOR . $file_name;
@@ -395,7 +299,6 @@ class Generateur extends Controller
                 }
               } else {
                 $template->setValue($attr.'#'. $index, $value[$attr]);
-                // echo $attr.'#'. $index;
               }
           }
           $index++;

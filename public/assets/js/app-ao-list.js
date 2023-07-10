@@ -372,10 +372,18 @@ $(function () {
     modal.modal('show');
   });
 
-  dt_user_table.DataTable().column(2).visible(false);
-  dt_user_table.DataTable().column(7).visible(false);
-  dt_user_table.DataTable().column(6).visible(false);
-  dt_user_table.DataTable().column(9).visible(false);
+  let columnnsStored = JSON.parse(localStorage.getItem('columnsUnchecked'));
+  if(columnnsStored != null || columnnsStored != undefined){
+    var columnsUnchecked = columnnsStored;
+  }else{
+    var columnsUnchecked = [2, 7, 6, 9];
+  }
+  columnsUnchecked.forEach(element => {
+      dt_user_table.DataTable().column(element).visible(false);
+  });
+
+
+  var columns = dt_user_table.DataTable().columns().header().toArray();
 
   var modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="columnSelectionModalLabel" aria-hidden="true"></div>');
     var dialog = $('<div class="modal-dialog"></div>').appendTo(modal);
@@ -385,9 +393,8 @@ $(function () {
     $('<h5 class="modal-title">Choose Columns to Display</h5>').appendTo(header);
     $('<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>').appendTo(header);
 
+
     var body = $('<div class="modal-body"></div>').appendTo(content);
-    var columns = dt_user_table.DataTable().columns().header().toArray();
-    console.log(columns);
     columns.forEach(function (column, index) {
       var columnName = $(column).text();
       var isChecked = dt_user_table.DataTable().column(index).visible();
@@ -402,11 +409,20 @@ $(function () {
   
   $(document).on('click', '.btn-apply-cols', function () {
     var modal = $('.modal');
+    var columnsStored = JSON.parse(localStorage.getItem('columnsUnchecked'));
     var selectedColumns = modal.find('input:checked').map(function () {
       return parseInt($(this).val());
     }).get();
+    var columnsUnchecked = modal.find('input:not(:checked)').map(function () {
+      return parseInt($(this).val());
+    }).get();
+    localStorage.setItem('columnsUnchecked', JSON.stringify(columnsUnchecked));
     dt_user_table.DataTable().columns().visible(false);
     selectedColumns.forEach(function (columnIndex) {
+      var index = columnsStored.indexOf(columnIndex);
+      if(index > -1){
+        columnsStored.splice(index, 1);
+      }
       dt_user_table.DataTable().column(columnIndex).visible(true);
     });
     console.log(selectedColumns)

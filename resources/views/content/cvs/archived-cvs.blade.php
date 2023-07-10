@@ -65,24 +65,25 @@
 
 <div class="card">
   <div class="card-header border-bottom">
-    <h5 class="card-title mb-3">Search Filter</h5>
+    <h5 class="card-title mb-3">Filtre de recherche</h5>
     <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0">
       <div class="col-md-4 user_Departement"></div>
       <div class="col-md-4 user_poste"></div>
       <div class="col-md-4 user_profil"></div>
+      <input type="file" id="uploadExcel" style="display:none" accept=".xlsx,.xls,.csv" />
     </div>
   </div>
   <div class="card-datatable table-responsive">
     <table class="datatables-users table border-top">
       <thead>
-        <tr>
-          <th></th>
-          <th>Employee</th>
-          <th>Telephone Portable</th>
+        <tr class="p-2 text-dark" style="background-color: rgba(0,104,171,.3);">
+          <th>CIN</th>
+          <th>Employé</th>
+          <th>Téléphone</th>
           <th>Poste</th>
-          <th></th>
+          <th>Contrat</th>
           <th>Profil</th>
-          <th></th>
+          <th>RH</th>
           <th>Departement</th>
           <th>Actions</th>
         </tr>

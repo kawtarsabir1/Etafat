@@ -8,7 +8,7 @@
   ],
   "license": "MIT",
   "require": {
-    "php": "^8.0.2",
+    "php": "^8.0.2", 
     "aspose-cloud/aspose-words-cloud": "^23.4",
     "dompdf/dompdf": "^2.0",
     "fruitcake/laravel-cors": "^2.0.5",

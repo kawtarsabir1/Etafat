@@ -36,28 +36,41 @@
   <div class="card-header border-bottom">
     <h5 class="card-title mb-3">Filtre de recherche</h5>
     <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0">
-    <div class="col-md-4 ref_Client"></div>
+      <div class="col-md-4 ref_Client"></div>
       <div class="col-md-4 ref_category"></div>
-      <div class="col-md-4 ref_other"></div>
+      <div class="col-md-4 ref_societe"></div>
+      <input type="file" id="uploadExcel" style="display:none" accept=".xlsx,.xls,.csv" />
+    </div>
+  </div>
+  <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <iframe src="" width="100%" height="680px"></iframe>
+      </div>
     </div>
   </div>
   <div class="card-datatable table-responsive">
     <table class="datatables-users table border-top">
       <thead>
-        <tr class="p-2 text-dark" style="background-color: rgba(115,103,240,.3);">
-          <th></th>
+        <tr class="p-2 text-dark h6" style="background-color: rgba(0,104,171,.3);">
+          <th>N° Ref</th>
+          <th>Societe</th>
           <th>Client</th>
           <th>N° Marche</th>
+          <th>N° Intern</th>
           <th>Année</th>
           <th>Mantant</th>
-          <th>Catégorie</th>
+          <th>Mantant Traveaux</th>
+          <th>Localisation</th>
+          <th>Objet</th>
+          <th>Catégories</th>
+          <th>Fiche</th>
           <th>Actions</th>
         </tr>
       </thead>
     </table>
   </div>
 </div>
-
 
 
 @endsection

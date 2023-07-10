@@ -15,6 +15,7 @@ use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\RefsImport;
+use App\Models\Category;
 
 class References extends Controller
 {
@@ -96,12 +97,30 @@ class References extends Controller
     public function getRefs()
     {
         $Refs = Refs::where('archived', false)->get();
+        foreach($Refs as $Ref){
+            $Ref->societe = Societe::where('id', $Ref->societe)->first()->societeNom;
+            $categories = [];
+            $categoriesIds = explode(',', $Ref->categories);
+            foreach($categoriesIds as $category){
+                $categories[] = Category::where('id', $category)->first()->categoryNom;
+            }
+            $Ref->categories = implode(',', $categories);
+        }
         return response()->json(['data' => $Refs]);
     }
 
     public function getArchivedRefs()
     {
         $Refs = Refs::where('archived', true)->get();
+        foreach($Refs as $Ref){
+            $Ref->societe = Societe::where('id', $Ref->societe)->first()->societeNom;
+            $categories = [];
+            $categoriesIds = explode(',', $Ref->categories);
+            foreach($categoriesIds as $category){
+                $categories[] = Category::where('id', $category)->first()->categoryNom;
+            }
+            $Ref->categories = implode(',', $categories);
+        }
         return response()->json(['data' => $Refs]);
     }
 
@@ -109,12 +128,30 @@ class References extends Controller
     {
         $Ref = Refs::where('ID_Ref', $id)->first();
         $societes = Societe::all();
+        $categories = [];
+        $categoriesIds = explode(',', $Ref->categories);
+        foreach($categoriesIds as $category){
+            $categories[] = Category::where('id', $category)->first()->categoryNom;
+        }
+        $Ref->categories = implode(',', $categories);
         return view('content.cvs.reference-cv-edit', compact('Ref', 'societes'));
+    }
+
+    public function view($id)
+    {
+        $Ref = Refs::where('ID_Ref', $id)->first();
+        $Ref->societe = Societe::where('id', $Ref->societe)->first()->societeNom;
+        $categories = [];
+        $categoriesIds = explode(',', $Ref->categories);
+        foreach($categoriesIds as $category){
+            $categories[] = Category::where('id', $category)->first()->categoryNom;
+        }
+        $Ref->categories = implode(',', $categories);
+        return view('content.cvs.reference-view', compact('Ref'));
     }
 
     public function update(Request $request, $id)
     {
-        //get reference from database
         $Ref = Refs::where('ID_Ref', $id)->first();
         $Ref->nMarche = $request->nMarche;
         $Ref->client = $request->client;

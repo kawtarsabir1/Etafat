@@ -31,6 +31,10 @@ class Gestion extends Controller
   public function view($id)
   {
     $ao = Aos::find($id);
+    $rh = Rh::where('id', $ao->responsable_ao)->first();
+    $ao->responsable_ao = $rh->rhNom;
+    $bu = Busunit::where('id', $ao->bu_ao)->first();
+    $ao->bu_ao = $bu->buNom;
     return view('content.aos.view', compact('ao'));
   }
 
@@ -73,6 +77,10 @@ class Gestion extends Controller
     $societes = Societe::all();
     $soustraitants = Soustraitant::all();
     $partenaires = Partenaire::all();
+    $rh = Rh::where('id', $ao->responsable_ao)->first();
+    $ao->responsable_ao = $rh->rhNom;
+    $bu = Busunit::where('id', $ao->bu_ao)->first();
+    $ao->bu_ao = $bu->buNom;
     return view('content.aos.edit', compact('rhs', 'departements', 'bus', 'ao', 'types', 'pays', 'secteurs', 'financements', 'ministeres', 'motifs', 'adjudications', 'societes', 'soustraitants', 'partenaires'));
   }
 
@@ -108,7 +116,7 @@ class Gestion extends Controller
 
     $rhNomArray = [];
     foreach ($responsableArray as $responsable) {
-        $rhNomArray[] = $responsable->rhNom;
+        $rhNomArray[] = $responsable->id;
     }
     $rhNom = implode(',', $rhNomArray);
     $departementValues = implode(',', $departementValues);
@@ -193,12 +201,26 @@ class Gestion extends Controller
   public function aos()
   {
     $aos = Aos::where('archived', 0)->get();
+    foreach($aos as $key => $value){
+      $rh = Rh::where('id', $value->responsable_ao)->first();
+      $bu = Busunit::where('id', $value->bu_ao)->first();
+      
+      $aos[$key]->responsable_ao = $rh->rhNom;
+      $aos[$key]->bu_ao = $bu->buNom;
+    }
     return response()->json(['data' => $aos]);
   }
 
   public function aosArchived()
   {
     $aos = Aos::where('archived', 1)->get();
+    foreach($aos as $key => $value){
+      $rh = Rh::where('id', $value->responsable_ao)->first();
+      $bu = Busunit::where('id', $value->bu_ao)->first();
+
+      $aos[$key]->responsable_ao = $rh->rhNom;
+      $aos[$key]->bu_ao = $bu->buNom;
+    }
     return response()->json(['data' => $aos]);
   }
 
@@ -221,6 +243,10 @@ class Gestion extends Controller
   public function getAo($id)
   {
     $ao = Aos::find($id);
+    $rh = Rh::where('id', $ao->responsable_ao)->first();
+    $ao->responsable_ao = $rh->rhNom;
+    $bu = Busunit::where('id', $ao->bu_ao)->first();
+    $ao->bu_ao = $bu->buNom;
     return response()->json(['data' => $ao]);
   }
 

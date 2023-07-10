@@ -72,7 +72,7 @@
           <th>N°AO</th>
           <th>Type</th>
           <th>Societe</th>
-          <th>Pay</th>
+          <th>Pays</th>
           <th>Maître d'ouvrage</th>
           <th>Montant TTC</th>
           <th>BU</th>

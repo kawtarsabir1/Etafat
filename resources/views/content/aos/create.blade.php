@@ -164,7 +164,7 @@
 
                         <div class="col-md-6 mb-2">
                             <label class="form-label" for="pay_ao">Pays</label>
-                            <select id="select2Basic" class="select2 form-select form-select-lg" name="pay_ao" data-allow-clear="true">
+                            <select id="select2Basic" class="select2 pays-select form-select form-select-lg" name="pay_ao" data-allow-clear="true">
                                 @foreach($pays as $pay)
                                 <option value="{{$pay->pay}}">{{$pay->pay}}</option>
                                 @endforeach
@@ -266,7 +266,7 @@
                             <select class="form-select" id="bu_ao" name="bu_ao">
                                 <option selected>Selectionner le BU</option>
                                 @foreach($bus as $bu)
-                                <option value="{{$bu->buNom}}">{{$bu->buNom}}</option>
+                                <option value="{{$bu->id}}">{{$bu->buNom}}</option>
                                 @endforeach
                             </select>
                         </div>

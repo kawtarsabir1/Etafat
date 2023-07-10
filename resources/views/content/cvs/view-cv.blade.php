@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'User View - Pages')
+@section('title', 'View')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}">
@@ -34,6 +34,24 @@
 <script type="text/javascript">
   function EditCv(id){
     window.location.href = "/cv/gestion/edit/" + id;
+  }
+  function ArchiveCv(id){
+    var url = baseUrl + 'cv/gestion/' + id;
+    var token = $('meta[name="csrf-token"]').attr('content');
+    //confirm that you want to delete the employee
+    if (!confirm('Are you sure you want to delete this employee?')) return;
+    $('#row_' + id).remove();
+    $.ajax({
+      url: url,
+      type: 'DELETE',
+      data: {
+        _token: token,
+        id: id
+      },
+      success: function (response) {
+        alert('Employee deleted successfully');
+      },
+    });
   }
 </script>
 @endsection
@@ -166,7 +184,7 @@
           </ul>
           <div class="d-flex justify-content-center">
             <a href="javascript:;" class="btn btn-primary me-3" onclick="EditCv({{ $objEmployee['ID_Salarie'] }})">Edit</a>
-            <a href="javascript:;" class="btn btn-label-danger suspend-user">Archivé</a>
+            <a href="javascript:;" class="btn btn-label-danger" onclick="ArchiveCv({{ $objEmployee['ID_Salarie'] }})">Archivé</a>
           </div>
         </div>
       </div>

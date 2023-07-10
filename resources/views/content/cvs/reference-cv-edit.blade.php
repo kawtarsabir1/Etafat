@@ -99,6 +99,14 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         let toFill = [];
+
+        let groupement = $('.groupement');
+        if (groupement.checked) {
+            formData.set('groupement', true);
+        } else {
+            formData.set('groupement', false);
+            formData.set('part', 100);
+        }
         for (const [key, value] of formData.entries()) {
             if (key != 'Adresse_2') {
                 if (!value) {
@@ -111,7 +119,7 @@
                     let json = JSON.parse(value);
                     let data = [];
                     for (let i = 0; i < json.length; i++) {
-                        data.push(json[i].categoryNom);
+                        data.push(json[i].id);
                     }
                     formData.set('categories', data);
                 } else {
@@ -119,8 +127,14 @@
                 }
             }
 
+            //check if checkbox is checked
             if (key == 'groupement') {
-                formData.set('groupement', 1);
+                console.log(value);
+                if (value == 'on') {
+                    formData.set('groupement', true);
+                } else {
+                    formData.set('groupement', false);
+                }
             }
         }
         if (toFill.length > 0) {
@@ -151,13 +165,38 @@
         var formData = new FormData();
         formData.append('projet', $('#ficheProjet').val());
         var ficheDescContent = tinymce.get('ficheDesc').getContent();
-        formData.append('description', ficheDescContent);
         var ficheServicesContent = tinymce.get('ficheServices').getContent();
+
+        if(ficheDescContent == '') {
+            alert('Veuillez remplir le champ description');
+            return false;
+        }
+        if(ficheServicesContent == '') {
+            alert('Veuillez remplir le champ services');
+            return false;
+        }
+        if($('#client').val() == '') {
+            alert('Veuillez remplir le champ client');
+            return false;
+        }
+        if($('#objet').val() == '') {
+            alert('Veuillez remplir le champ objet');
+            return false;
+        }
+        if($('#ficheLogo')[0].files[0] == undefined) {
+            alert('Veuillez choisir un logo');
+            return false;
+        }
+        if($('#localisation').val() == '') {
+            alert('Veuillez remplir le champ localisation');
+            return false;
+        }
+        formData.append('description', ficheDescContent);
         formData.append('services', ficheServicesContent);
-        formData.append('client', $('#ficheClient').val());
-        formData.append('objet', $('#ficheObjet').val());
+        formData.append('client', $('#client').val());
+        formData.append('objet', $('#objet').val());
         formData.append('logo', $('#ficheLogo')[0].files[0]);
-        formData.append('localisation', $('#ficheLocal').val());
+        formData.append('localisation', $('#localisation').val());
 
         $.ajax({
             url: "{{ route('fiche-generate') }}",
@@ -175,6 +214,11 @@
                 }
             }
         });
+    });
+
+    $('.btn-cancel').click(function(e) {
+        e.preventDefault();
+        window.location.href = baseUrl + "cv/references";
     });
 
 </script>
@@ -209,7 +253,7 @@
                                     <select id="form-repeater-1-4" class="form-select" name="societe">
                                         <option value="">Sélectionner Societe</option>
                                         @foreach($societes as $societe)
-                                        <option value="{{$societe->societeNom}}" {{ $Ref->societe == $societe->societeNom ? 'selected' : '' }}>{{$societe->societeNom}}</option>
+                                        <option value="{{$societe->id}}" {{ $Ref->societe == $societe->id ? 'selected' : '' }}>{{$societe->societeNom}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -231,7 +275,7 @@
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                     <label class="form-label" for="ref-client">Client</label>
-                                    <input type="text" name="client" class="form-control" placeholder="Etafat" value="{{ $Ref->client }}" />
+                                    <input type="text" name="client" id="client" class="form-control" placeholder="Etafat" value="{{ $Ref->client }}" />
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
@@ -256,7 +300,7 @@
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                     <label class="form-label" for="ref-client">Localisation</label>
-                                    <input type="text" name="localisation" id="ficheLocal" class="form-control" placeholder="Casablanca" value="{{ $Ref->localisation }}">
+                                    <input type="text" name="localisation" id="localisation" class="form-control" placeholder="Casablanca" value="{{ $Ref->localisation }}">
                                 </div>
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
@@ -271,7 +315,7 @@
 
                                 <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                     <label for="ref-objet" class="form-label">Objet</label>
-                                    <textarea class="form-control" name="objet" rows="1" placeholder="Objet de reference">{{ $Ref->objet }}</textarea>
+                                    <textarea class="form-control" name="objet" id="objet" rows="1" placeholder="Objet de reference">{{ $Ref->objet }}</textarea>
                                 </div>
 
                                 <div class="col-md-3 mb-4">
@@ -288,15 +332,14 @@
                                     <label for="TagifyCategoriesList" class="form-label">Catégories des missions (Même ordre des missions)</label>
                                     <input id="TagifyCategoriesList" name="categories" class="form-control" value="{{ $Ref->categories }}">
                                 </div>
-
                                 <div class="col-md-3 mb-4">
                                     <label for="" class="form-label">Groupement</label>
-                                    <input class="form-check-input" id ="group-checkbox" name="groupement" type="checkbox" value="1" {{ $Ref->groupement == 1 ? 'checked' : '' }}>
+                                    <input class="form-check-input groupement" id ="group-checkbox" name="groupement" type="checkbox" {{ $Ref->groupement == 1 ? 'checked' : '' }}>
                                 </div>
 
                                 <div class="col-md-3 mb-4">
                                     <label for="" class="form-label">Part du societe</label>
-                                    <input class="form-control" name="part" id="part" type="text" placeholder="100%" value="{{ $Ref->part }}" {{ $Ref->groupement == 1 ? '' : 'disabled' }}>
+                                    <input class="form-control" name="part" id="part" type="text" placeholder="100%" value="{{ $Ref->groupement }}" {{ $Ref->groupement == 1 ? '' : 'disabled' }}>
                                 </div>
 
                                 <div class="col-md-3 d-flex align-items-center mb-3">
@@ -307,7 +350,7 @@
                                 </div>
 
                                 <div class="col-12 d-flex justify-content-between">
-                                    <button type="button" class="btn btn-label-secondary btn-prev">
+                                    <button type="button" class="btn btn-label-secondary btn-cancel">
                                         <span class="align-middle d-sm-inline-block d-none">Annuler</span>
                                     </button>
                                     <button type="button" class="btn btn-primary btn-create-ref"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Modifier la référence</span></button>

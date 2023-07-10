@@ -455,6 +455,192 @@ $(function () {
   });
 });
 
+
+function FillConfirmation() {
+  var content = $('#checkout-confirmation');
+  var formations = JSON.parse(localStorage.getItem('formationsArray')) || [];
+  var refs = JSON.parse(localStorage.getItem('refsArray')) || [];
+  var projets = JSON.parse(localStorage.getItem('projetsArray')) || [];
+  var informations = new FormData($('#wizard-checkout-form')[0]) || [];
+  
+  //remove confimation-content if exists
+  if (content.find('.confimation-content')) {
+    content.find('.confimation-content').remove();
+  }
+  let card = (`
+  <div class="confimation-content">
+    <div>
+      <h6>Informations Generales :</h6>
+      <div class="row">
+      <div class="col-md-4">
+      <p><span class="fw-bold">Nom</span> : ${informations.get('Nom') || 'En attendant'}</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Prenom</span> : ${informations.get('Prenom') || 'En attendant'}</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">CIN</span> : ${informations.get('CIN') || 'En attendant'}</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Date de Naissance</span> : ${informations.get('DateNaissance') || 'En attendant'}</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Lieu de Naissance</span> : ${informations.get('LieuNaissance') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Situation Familiale</span> : ${informations.get('SituationFamiliale') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Nombre d'Enfants</span> : ${informations.get('NombreEnfants') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Nationalite</span> : ${informations.get('Nationalite') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Adresse 1</span> : ${informations.get('Adresse_1') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Adresse 2</span> : ${informations.get('Adresse_2') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Code Postal</span> : ${informations.get('Code_Postal') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Email</span> : ${informations.get('Email') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Telephone Fixe</span> : ${informations.get('TelephoneFixe') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Telephone Portable</span> : ${informations.get('TelephonePortable') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Profil</span> : ${informations.get('Profil') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Numero CNSS</span> : ${informations.get('NumeroCNSS') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Responsable Hierarchique</span> : ${informations.get('ResponsableHierarchique') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Poste</span> : ${informations.get('Poste') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Date d'Embauche</span> : ${informations.get('DateEmbauche') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Departement d'Affectation</span> : ${informations.get('DepartementAffectation') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Contrat de Travail Numero</span> : ${informations.get('ContratTravailNumero') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Type de Contrat</span> : ${informations.get('TypeContrat') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Contrat du</span> : ${informations.get('ContratDu') || 'En attendant' }</p>
+    </div>
+    <div class="col-md-4">
+      <p><span class="fw-bold">Contrat au</span> : ${informations.get('ContratAu') || 'En attendant' }</p>
+    </div>
+      </div>
+    </div>
+    <hr class="mb-4">
+    <div class="mb-4">
+      <h6>Formations : </h6>
+      <table class="table table-striped mb-4">
+        <thead>
+          <tr>
+            <th>Niveau d'étude</th>
+            <th>Etablissement</th>
+            <th>Date d'obtention</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${formations.map(formation => `
+            <tr>
+              <td>${formation.intitule}</td>
+              <td>${formation.etablissement}</td>
+              <td>${formation.obtention}</td>
+            </tr>
+          `).join('') ||
+          ` <tr>  
+              <td colspan="3" class="text-center">Aucune formation</td>
+            </tr>`
+          }
+        </tbody>
+      </table>
+    </div>
+    <hr class="mb-4">
+    <div class="mb-4">
+      <h6>Experiences : </h6>
+      <table class="table table-striped mb-4">
+        <thead>
+          <tr>
+            <th>Employeur</th>
+            <th>Poste</th>
+            <th>Pays</th>
+            <th>Date du</th>
+            <th>Date au</th>
+            <th>Taches</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${refs.map(ref => `
+            <tr>
+              <td>${ref.employeur}</td>
+              <td>${ref.poste}</td>
+              <td>${ref.pay}</td>
+              <td>${ref.dateDu}</td>
+              <td>${ref.dateAu}</td>
+              <td>${ref.taches}</td>
+            </tr>
+          `).join('') || 
+          ` <tr> 
+              <td colspan="6" class="text-center">Aucune experience</td>
+            </tr>
+          `}
+        </tbody>
+      </table>
+    </div>
+    <hr class="mb-4">
+    <div class="mb-4">
+      <h6>Projets</h6>
+      <table class="table table-striped mb-4">
+        <thead>
+          <tr>
+            <th>Reference</th>
+            <th>Poste</th>
+            <th>Missions</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${projets.map(projet => `
+            <tr>
+              <td>${projet.ref}</td>
+              <td>${projet.poste}</td>
+              <td>${projet.missions}</td>
+              <td>${projet.desc}</td>
+            </tr>
+          `).join('') ||
+          ` <tr>
+              <td colspan="4" class="text-center">Aucun projet</td>
+            </tr>
+          `}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  `);
+
+  content.prepend(card);
+  
+  console.log('ok');
+}
+
+
 $(function () {
   //wrapper projets 
   var btnSave = $('.btn-save-projet'),

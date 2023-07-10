@@ -123,7 +123,6 @@ $(function () {
               '<a href="' +
               userView+full['ID_Salarie']+
               '" class="dropdown-item">View</a>' +
-              '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
               '</div>' +
               '</div>'
             );
@@ -144,11 +143,21 @@ $(function () {
         '<"col-sm-12 col-md-6"i>' +
         '<"col-sm-12 col-md-6"p>' +
         '>',
-      language: {
-        sLengthMenu: '_MENU_',
-        search: '',
-        searchPlaceholder: 'Recherche Avancée..'
-      },
+        language: {
+          sLengthMenu: 'Montrer: _MENU_',
+          search: '',
+          zeroRecords: 'Aucun enregistrement correspondant trouvé',
+          emptyTable: 'Aucune donnée disponible',
+          searchPlaceholder: 'Recherche avancée ...',
+          paginate:{
+            next : "Suivant",
+            previous : "Précédent"
+          },
+          loadingRecords: 'Chargement ...',
+          infoEmpty: "Aucun enregistrement disponible",
+          infoFiltered: "(filtré sur _MAX_ enregistrements au total)",
+          info: "Affichage de _START_ à _END_ sur _TOTAL_ enregistrements",
+        },
       // Buttons with Dropdown
       buttons: [
         {
@@ -157,7 +166,7 @@ $(function () {
         },
         {
           extend: 'collection',
-          className: 'btn btn-label-secondary dropdown-toggle mx-3',
+          className: 'btn btn-label-secondary dropdown-toggle',
           text: '<i class="ti ti-screen-share me-1 ti-xs"></i>Plus',
           buttons: [
             {
@@ -269,30 +278,6 @@ $(function () {
                 }
               }
             },
-            // {
-            //   extend: 'copy',
-            //   text: '<i class="ti ti-copy me-2" ></i>Copy',
-            //   className: 'dropdown-item',
-            //   exportOptions: {
-            //     columns: [1, 2, 3, 4, 5],
-            //     // prevent avatar to be display
-            //     format: {
-            //       body: function (inner, coldex, rowdex) {
-            //         if (inner.length <= 0) return inner;
-            //         var el = $.parseHTML(inner);
-            //         var result = '';
-            //         $.each(el, function (index, item) {
-            //           if (item.classList !== undefined && item.classList.contains('user-name')) {
-            //             result = result + item.lastChild.firstChild.textContent;
-            //           } else if (item.innerText === undefined) {
-            //             result = result + item.textContent;
-            //           } else result = result + item.innerText;
-            //         });
-            //         return result;
-            //       }
-            //     }
-            //   }
-            // },
             {
               text: '<i class="ti ti-copy me-2" ></i>Archived Cvs',
               className: 'dropdown-item',
@@ -304,14 +289,14 @@ $(function () {
         },
         {
           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Télécharger</span>',
-          className: 'btn btn-info btn-gradient',
+          className: 'btn btn-info btn-gradient mx-3',
           attr: {
             onclick: "$('#uploadExcel').click();"
           }
         },
         {
           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Nouvel Employé</span>',
-          className: 'btn btn-primary btn-gradient mx-3',
+          className: 'btn btn-primary btn-gradient',
           attr: {
             onclick: 'window.location.href="' + baseUrl + 'cv/gestion/create"'
           }
@@ -330,7 +315,7 @@ $(function () {
               .appendTo('.user_Departement')
               .on('change', function () {
                 var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                // column.search(val ? '^' + val + '$' : '', true, false).draw();
+                column.search(val ? '^' + val + '$' : '', true, false).draw();
               });
 
             column
@@ -424,13 +409,22 @@ $(function () {
   $('.btn-cols-select').on('click', function () {
     modal.modal('show');
   });
+
+  let columnnsStored = JSON.parse(localStorage.getItem('columnsUncheckedCV'));
+  if(columnnsStored != null || columnnsStored != undefined){
+    console.log(columnnsStored)
+    columnnsStored.forEach(element => {
+      dt_user_table.DataTable().column(element).visible(false);
+    });
+  }
+  
   
   var modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="columnSelectionModalLabel" aria-hidden="true"></div>');
     var dialog = $('<div class="modal-dialog"></div>').appendTo(modal);
     var content = $('<div class="modal-content"></div>').appendTo(dialog);
 
     var header = $('<div class="modal-header"></div>').appendTo(content);
-    $('<h5 class="modal-title">Choose Columns to Display</h5>').appendTo(header);
+    $('<h5 class="modal-title">Choisissez les colonnes à afficher</h5>').appendTo(header);
     $('<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>').appendTo(header);
 
     var body = $('<div class="modal-body"></div>').appendTo(content);
@@ -446,20 +440,29 @@ $(function () {
   
     // Modal footer
     var footer = $('<div class="modal-footer"></div>').appendTo(content);
-    $('<button type="button" class="btn btn-primary btn-apply-cols">Apply</button>').appendTo(footer);
+    $('<button type="button" class="btn btn-primary btn-apply-cols">Appliquer</button>').appendTo(footer);
   
-  $(document).on('click', '.btn-apply-cols', function () {
-    var modal = $('.modal');
-    var selectedColumns = modal.find('input:checked').map(function () {
-      return parseInt($(this).val());
-    }).get();
-    dt_user_table.DataTable().columns().visible(false);
-    selectedColumns.forEach(function (columnIndex) {
-      dt_user_table.DataTable().column(columnIndex).visible(true);
+    $(document).on('click', '.btn-apply-cols', function () {
+      var modal = $('.modal');
+      var columnsStored = JSON.parse(localStorage.getItem('columnsUncheckedCV'));
+      var selectedColumns = modal.find('input:checked').map(function () {
+        return parseInt($(this).val());
+      }).get();
+      var columnsUnchecked = modal.find('input:not(:checked)').map(function () {
+        return parseInt($(this).val());
+      }).get();
+      localStorage.setItem('columnsUncheckedCV', JSON.stringify(columnsUnchecked));
+      dt_user_table.DataTable().columns().visible(false);
+      selectedColumns.forEach(function (columnIndex) {
+        var index = columnsStored.indexOf(columnIndex);
+        if(index > -1){
+          columnsStored.splice(index, 1);
+        }
+        dt_user_table.DataTable().column(columnIndex).visible(true);
+      });
+      console.log(selectedColumns)
+      modal.modal('hide');
     });
-    console.log(selectedColumns)
-    modal.modal('hide');
-  });
 });
 
 

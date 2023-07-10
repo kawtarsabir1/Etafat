@@ -198,18 +198,17 @@
                                 <option value="">Sélectionnez le modèle du CVs</option>
                                 <option value="mondial">MODELE CV BANQUE MONDIALE</option>
                                 <option value="africaine">MODELE CV DE BANQUE AFRICAINE</option>
+                                <option value="cedev">MODELE CV D'ETAFAT ING</option>
                             </select>
-                            <select id="ao" class="form-select  mb-4" name="model">
-                                <option value="">Sélectionnez Appel d'Offre</option>
+                            <select id="ao" class="mb-4 select2 ao-select form-select form-select-lg" name="ao">
+                                <option value="" selected>Sélectionnez Appel d'Offre</option>
                                 @foreach($aos as $ao)
                                 <option value="{{$ao->n_ao}}">{{$ao->n_ao}}</option>
                                 @endforeach
-
                             </select>
                             <select id="langue_module" class="form-select  mb-4" name="langue_module">
                                 <option value="">Sélectionnez la langue</option>
                                 <option value="fr">Francais</option>
-                                <option value="an">Anglais</option>
                             </select>
                             <select id="diplome_module" class="form-select  mb-4" name="diplome_module">
                                 <option value="">Sélectionnez le Type</option>
@@ -265,7 +264,7 @@
                                 <div class="row">
                                     <div class="col mb-3">
                                         <label class="form-label" for="employees">Employee</label>
-                                        <select id="employees" class="form-select select2 form-select form-select-lg" name="employee-0">
+                                        <select id="employees" class="form-select select2 cv-select form-select form-select-lg" name="employee-0">
                                             <option value="">Sélectionnez un cv</option>
                                         </select>
                                     </div>

@@ -176,6 +176,11 @@
             }
         });
     });
+
+    $('.btn-cancel').click(function(e) {
+        e.preventDefault();
+        window.location.href = baseUrl + "cv/references";
+    });
 </script>
 @endsection
 
@@ -207,7 +212,7 @@
                                     <select id="form-repeater-1-4" class="form-select" name="societe">
                                         <option value="">Sélectionner Societe</option>
                                         @foreach($societes as $societe)
-                                        <option value="{{$societe->societeNom}}">{{$societe->societeNom}}</option>
+                                        <option value="{{$societe->id}}">{{$societe->societeNom}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -305,7 +310,7 @@
                                 </div>
 
                                 <div class="col-12 d-flex justify-content-between">
-                                    <button type="button" class="btn btn-label-secondary btn-prev">
+                                    <button type="button" class="btn btn-label-secondary btn-cancel">
                                         <span class="align-middle d-sm-inline-block d-none">Annuler</span>
                                     </button>
                                     <button type="button" class="btn btn-success btn-create-ref"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Créer une référence</span></button>

@@ -5,6 +5,9 @@ namespace App\Imports;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use App\Models\Aos;
+use App\Models\Rh;
+use App\Models\Busunit;
+
 
 class AosImport implements ToModel,WithHeadingRow
 {
@@ -15,6 +18,22 @@ class AosImport implements ToModel,WithHeadingRow
     */
     public function model(array $row)
     {
+
+        $rh = Rh::where('rhNom', $row['responsable'])->first();
+        if($rh == null){
+            $rh = new Rh([
+                'rhNom' => $row['responsable'],
+            ]);
+            $rh->save();
+        }
+
+        $bu = Busunit::where('buNom', $row['bu'])->first();
+        if($bu == null){
+            $bu = new Busunit([
+                'buNom' => $row['bu'],
+            ]);
+            $bu->save();
+        }
             
         $ao = new Aos([
           'type_ao' => $row['type'],
@@ -32,14 +51,14 @@ class AosImport implements ToModel,WithHeadingRow
             'budget_ao' => $row['budget'],
             'date_limit_ao' => $row['date_limit'],
             'mantant_soumission_ao' => $row['montant_soumission'],
-            'bu_ao' => $row['bu'],
+            'bu_ao' => $bu->id,
             'departements_ao' => $row['departements'],
             'departements_part' => "",
             'partenaires_ao' => $row['partenaires'],
             'partenaires_part' => "",
             'soustraitants_ao' => "",
             'soustraitants_part' => "",
-            'responsable_ao' => $row['responsable'],
+            'responsable_ao' => $rh->id,
             'adjudication_ao' => $row['adjudication'],
             'date_adjudication_ao' => $row['date_adjudication'],
             'motif_ao' => $row['motif'],

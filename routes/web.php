@@ -251,6 +251,7 @@ Route::get('/cv/getRefs', $controller_path . '\cvs\references@getRefs')->name('a
 Route::get('/cv/archivedReference', $controller_path . '\cvs\references@getArchivedRefs')->name('reference-archived-page');
 
 Route::get('/cv/reference/edit/{id}', $controller_path . '\cvs\references@edit')->name('reference-edit-page');
+Route::get('/cv/reference/view/{id}', $controller_path . '\cvs\references@view')->name('reference-view-page');
 
 Route::post('/cv/reference/{id}', $controller_path . '\cvs\references@update')->name('reference-update');
 
@@ -288,6 +289,14 @@ Route::delete('/cv/deleteDepart/{id}', $controller_path . '\cvs\gestion@deleteDe
 Route::delete('/cv/deleteSociete/{id}', $controller_path . '\cvs\gestion@deleteSociete')->name('societe-delete');
 Route::delete('/cv/deleteBu/{id}', $controller_path . '\cvs\gestion@deleteBu')->name('Bu-delete');
 Route::delete('/cv/deletecategory/{id}', $controller_path . '\cvs\gestion@deleteCategory')->name('Bu-delete');
+
+Route::post('/cv/updateSociete/{id}', $controller_path . '\cvs\gestion@updateSociete')->name('societe-update');
+Route::post('/cv/updateRh/{id}', $controller_path . '\cvs\gestion@updateRh')->name('rh-update');
+Route::post('/cv/updatePost/{id}', $controller_path . '\cvs\gestion@updatePost')->name('post-update');
+Route::post('/cv/updateDepartement/{id}', $controller_path . '\cvs\gestion@updateDepartement')->name('departement-update');
+Route::post('/cv/updateCategory/{id}', $controller_path . '\cvs\gestion@updateCategory')->name('category-update');
+Route::post('/cv/updateBu/{id}', $controller_path . '\cvs\gestion@updateBu')->name('bu-update');
+
 
 Route::get('/cv/generatedCvs/{id}', $controller_path . '\cvs\generateur@getgeneratedCvs')->name('generated-Cvs');
 

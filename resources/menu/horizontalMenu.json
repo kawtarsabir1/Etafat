@@ -28,7 +28,14 @@
           "name": "References",
           "icon": "menu-icon tf-icons ti ti-database",
           "slug": "references"
-        },
+        }
+      ]
+    },
+    {
+      "name": "AOs",
+      "icon": "menu-icon tf-icons ti ti-briefcase",
+      "slug": "layouts",
+      "submenu": [
         {
           "url": "/ao/gestion",
           "name": "Register des offres",
@@ -49,7 +56,7 @@
       "slug": "layouts",
       "submenu": [
         {
-          "name": "Champs des CVs",
+          "name": "CVs",
           "icon": "menu-icon tf-icons ti ti-file-description",
           "slug": "references",
           "submenu": [
@@ -86,7 +93,7 @@
           ]
         },
         {
-          "name": "Champs des AO",
+          "name": "AOs",
           "icon": "menu-icon tf-icons ti ti-briefcase",
           "slug": "references",
           "submenu": [
@@ -117,7 +124,7 @@
             },
             {
               "url": "/ao/champ/motif",
-              "name": "Motif",
+              "name": "Motif du rejet",
               "slug": "motif"
             },
             {

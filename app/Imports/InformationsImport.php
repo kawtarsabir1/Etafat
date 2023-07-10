@@ -3,6 +3,9 @@
 namespace App\Imports;
 
 use App\Models\Informations;
+use App\Models\Post;
+use App\Models\Rh;
+use App\Models\Departement;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -15,6 +18,29 @@ class InformationsImport implements ToModel,WithHeadingRow
     */
     public function model(array $row)
     {
+        $poste = Post::where('postNom', $row['poste'])->first();
+        if($poste == null){
+            $poste = new Post([
+                'postNom' => $row['poste'],
+            ]);
+            $poste->save();
+        }
+
+        $rh = Rh::where('rhNom', $row['responsable_hierarchique'])->first();
+        if($rh == null){
+            $rh = new Rh([
+                'rhNom' => $row['responsable_hierarchique'],
+            ]);
+            $rh->save();
+        }
+
+        $departement = Departement::where('departementNom', $row['departement_affectation'])->first();
+        if($departement == null){
+            $departement = new Departement([
+                'departementNom' => $row['departement_affectation'],
+            ]);
+            $departement->save();
+        }
   
         $cv = new Informations([
             'Nom' => $row['nom'],
@@ -34,10 +60,10 @@ class InformationsImport implements ToModel,WithHeadingRow
             'PhotoIdentite' => $row['photo_identite'],
             'Profil' => $row['profil'],
             'NumeroCNSS' => $row['numero_cnss'],
-            'ResponsableHierarchique' => $row['responsable_hierarchique'],
-            'Poste' => $row['poste'],
+            'ResponsableHierarchique' => $rh->id,
+            'Poste' => $poste->id,
             'DateEmbauche' => $row['date_embauche'],
-            'DepartementAffectation' => $row['departement_affectation'],
+            'DepartementAffectation' => $departement->id,
             'ContratTravailNumero' => $row['contrat_travail_numero'],
             'TypeContrat' => $row['type_de_contrat'],
             'ContratDu' => $row['contrat_du'],

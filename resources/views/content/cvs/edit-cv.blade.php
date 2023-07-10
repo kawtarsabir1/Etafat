@@ -189,7 +189,7 @@
             <div class="line">
                 <i class="ti ti-chevron-right"></i>
             </div>
-            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-confirmation">
+            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-confirmation" onclick="FillConfirmation()">
                 <button type="button" class="step-trigger">
                     <span class="bs-stepper-icon">
                         <svg viewBox="0 0 58 54">
@@ -309,7 +309,7 @@
                             <label class="form-label" for="ResponsableHierarchique">Responsable hiérarchique</label>
                             <select id="form-repeater-1-4" class="form-select" name="ResponsableHierarchique">
                                 @foreach($rhs as $rh)
-                                <option value="{{$rh->rhNom}}" {{ $objEmployee['ResponsableHierarchique'] == $rh->rhNom ? 'selected' : '' }}>{{$rh->rhNom}}</option>
+                                <option value="{{$rh->id}}" {{ $objEmployee['ResponsableHierarchique'] == $rh->id ? 'selected' : '' }}>{{$rh->rhNom}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -318,7 +318,7 @@
                             <label class="form-label" for="Poste">Poste</label>
                             <select id="form-repeater-1-4" class="form-select" name="Poste">
                                 @foreach($posts as $post)
-                                <option value="{{$post->postNom}}" {{ $objEmployee['Poste'] == $post->postNom ? 'selected' : '' }}>{{$post->postNom}}</option>
+                                <option value="{{$post->id}}" {{ $objEmployee['Poste'] == $post->id ? 'selected' : '' }}>{{$post->postNom}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -332,7 +332,7 @@
                             <label class="form-label" for="DepartementAffectation">Departement Affectation</label>
                             <select id="form-repeater-1-4" class="form-select" name="DepartementAffectation">
                                 @foreach($departements as $departement)
-                                    <option value="{{$departement->departementNom}}" {{ $objEmployee['DepartementAffectation'] == $departement->departementNom ? 'selected' : '' }}>{{$departement->departementNom}}</option>
+                                    <option value="{{$departement->id}}" {{ $objEmployee['DepartementAffectation'] == $departement->id ? 'selected' : '' }}>{{$departement->departementNom}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -595,13 +595,6 @@
                                         <label for="selectpickerLiveSearch" class="form-label">Poste</label>
                                         <select id="selectpickerLiveSearch" class="projet-poste selectpicker w-100" data-style="btn-default" data-live-search="true">
                                             <option value="" data-tokens="">Selectionner un poste</option>
-                                            <option value="Directeur projets" data-tokens="Directeur projets">Directeur projets</option>
-                                            <option value="Chef projets topographe" data-tokens="Chef projets topographe">Chef projets topographe</option>
-                                            <option value="Chef projet Hydrographe" data-tokens="Chef projet Hydrographe">Chef projet Hydrographe</option>
-                                            <option value="Chef projets SIG" data-tokens="Chef projets SIG">Chef projets SIG</option>
-                                            <option value="Technicien Topographe" data-tokens="Technicien Topographe">Technicien Topographe</option>
-                                            <option value="Technicien Hydrographe" data-tokens="Technicien Hydrographe">Technicien Hydrographe</option>
-                                            <option value="Technicien SIG" data-tokens="Technicien SIG">Technicien SIG</option>
                                         </select>
                                     </div>
                                     <div class="col-md-3 mb-4">
@@ -652,7 +645,7 @@
                             <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
                                 <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                             </button>
-                            <button type="button" class="btn btn-primary btn-next" data-target="#checkout-confirmation"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
+                            <button type="button" class="btn btn-primary btn-next" data-target="#checkout-confirmation" onclick="FillConfirmation()"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -660,10 +653,11 @@
                 <!-- Confirmation -->
                 <div id="checkout-confirmation" class="content">
                     <div class="col-12 d-flex justify-content-between">
-                        <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
+                        <button type="button" class="btn btn-label-secondary btn-prev">
+                            <i class="ti ti-arrow-left me-sm-1"></i>
                             <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                         </button>
-                        <button type="submit" class="btn btn-success btn-update">Modifier le CV</button>
+                        <button type="submit" class="btn btn-success btn-submit">Create CV</button>
                     </div>
                 </div>
             </form>

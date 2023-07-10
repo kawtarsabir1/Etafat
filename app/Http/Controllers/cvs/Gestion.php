@@ -44,7 +44,15 @@ class Gestion extends Controller
   public function getArchived()
   {
       $employees = Informations::where('Archived', 1)->get();
-
+      foreach($employees as $key => $value){
+        $rh = Rh::where('id', $value->ResponsableHierarchique)->first();
+        $departement = Departement::where('id', $value->DepartementAffectation)->first();
+        $post = Post::where('id', $value->Poste)->first();
+  
+        $employees[$key]->ResponsableHierarchique = $rh->rhNom;
+        $employees[$key]->DepartementAffectation = $departement->departementNom;
+        $employees[$key]->Poste = $post->postNom;
+      }
       return response()->json(['data' => $employees]);
 
   }
@@ -52,7 +60,15 @@ class Gestion extends Controller
   public function getEmployees()
   {
     $employees = Informations::where('Archived', 0)->get();
+    foreach($employees as $key => $value){
+      $rh = Rh::where('id', $value->ResponsableHierarchique)->first();
+      $departement = Departement::where('id', $value->DepartementAffectation)->first();
+      $post = Post::where('id', $value->Poste)->first();
 
+      $employees[$key]->ResponsableHierarchique = $rh->rhNom;
+      $employees[$key]->DepartementAffectation = $departement->departementNom;
+      $employees[$key]->Poste = $post->postNom;
+    }
     return response()->json(['data' => $employees]);
   }
 
@@ -557,6 +573,14 @@ class Gestion extends Controller
     $objEmployee['formations'] = $objFormations;
     $objEmployee['experiences'] = $objExperiences;
 
+    $rh = Rh::where('id', $objEmployee->ResponsableHierarchique)->first();
+    $departement = Departement::where('id', $objEmployee->DepartementAffectation)->first();
+    $post = Post::where('id', $objEmployee->Poste)->first();
+
+    $objEmployee->ResponsableHierarchique = $rh->rhNom;
+    $objEmployee->DepartementAffectation = $departement->departementNom;
+    $objEmployee->Poste = $post->postNom;
+
 
     return view('content.cvs.view-cv', compact('objEmployee'));
   }
@@ -680,6 +704,55 @@ class Gestion extends Controller
   {
     $Category = Category::find($id);
     $Category->delete();
+  }
+
+
+  public function updateSociete(Request $request, $id)
+  {
+    $nom = $request->input('nom');
+    $societe = Societe::find($id);
+    $societe->societeNom = $nom;
+    $societe->save();
+  }
+
+  public function updateRh(Request $request, $id)
+  {
+    $nom = $request->input('nom');
+    $rh = Rh::find($id);
+    $rh->rhNom = $nom;
+    $rh->save();
+  }
+
+  public function updatePost(Request $request, $id)
+  {
+    $nom = $request->input('nom');
+    $post = Post::find($id);
+    $post->postNom = $nom;
+    $post->save();
+  }
+
+  public function updateDepartement(Request $request, $id)
+  {
+    $nom = $request->input('nom');
+    $depart = Departement::find($id);
+    $depart->departementNom = $nom;
+    $depart->save();
+  }
+
+  public function updateBu(Request $request, $id)
+  {
+    $nom = $request->input('nom');
+    $bu = Busunit::find($id);
+    $bu->buNom = $nom;
+    $bu->save();
+  }
+
+  public function updateCategory(Request $request, $id)
+  {
+    $nom = $request->input('nom');
+    $Category = Category::find($id);
+    $Category->categoryNom = $nom;
+    $Category->save();
   }
 
   public function projets($id){

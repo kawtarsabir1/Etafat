@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Projet;
+use App\Models\Post;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use App\Models\Informations;
@@ -25,10 +26,18 @@ class ProjetsImport implements ToModel,WithHeadingRow
         if($ref == null){
             return null;
         }
+
+        $post = Post::where('postNom', $row['poste'])->first();
+        if($post == null){
+            $post = new Post([
+                'postNom' => $row['poste'],
+            ]);
+            $post->save();
+        }
         $projet =  new Projet([
             'ID_Salarie' => $salarie->ID_Salarie,
             'ID_reference'=> $ref->ID_Ref,
-            'poste'=> $row['poste'],
+            'poste'=> $post->id,
             'missions'=> $row['missions'],
             'description'=> $row['description']
         ]);

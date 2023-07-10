@@ -90,6 +90,7 @@
     });
 
     $(".btn-submit").click(function(e) {
+        console.log('clicked')
         e.preventDefault();
         var formData = new FormData($('#wizard-checkout-form')[0]);
         let toFill = [];
@@ -208,7 +209,7 @@
             <div class="line">
                 <i class="ti ti-chevron-right"></i>
             </div>
-            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-confirmation">
+            <div class="d-flex justify-content-center step" style="min-width:25%; max-width:30%" data-target="#checkout-confirmation" onclick="FillConfirmation()">
                 <button type="button" class="step-trigger">
                     <span class="bs-stepper-icon">
                         <svg viewBox="0 0 58 54">
@@ -515,7 +516,7 @@
                                     </div>
 
                                     <div class="col-lg-6 col-xl-3 col-12 mb-3">
-                                        <label class="form-label" for="ref-pay">Pay</label>
+                                        <label class="form-label" for="ref-pay">Pays</label>
                                         <input type="text" id="ref-pay" class="form-control" placeholder="Maroc">
                                     </div>
 
@@ -536,7 +537,7 @@
                             <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
                                 <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                             </button>
-                            <button type="button" class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
+                            <button type="button" class="btn btn-primary btn-next" onclick="FillConfirmation()"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Suivant</span> <i class="ti ti-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -579,7 +580,7 @@
                                     <div class="actions">
                                         <button type="button" class="btn btn-primary btn-save-projet mb-3"><i class="fa fa-plus"></i> Save Projet</button>
                                     </div>
-                                    <div class="row content-formation-map">
+                                    <div class="row content-projets-map">
                                     </div>
                                     <hr class="mt-0" />
                                 </div>
@@ -596,12 +597,12 @@
 
                 <!-- Confirmation -->
                 <div id="checkout-confirmation" class="content">
-                    <p>Informations</p>
                     <div class="col-12 d-flex justify-content-between">
-                        <button type="button" class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
+                        <button type="button" class="btn btn-label-secondary btn-prev">
+                            <i class="ti ti-arrow-left me-sm-1"></i>
                             <span class="align-middle d-sm-inline-block d-none">Précédent</span>
                         </button>
-                        <button type="submit" class="btn btn-success btn-submit">Créer un CV</button>
+                        <button type="submit" class="btn btn-success btn-submit">Create CV</button>
                     </div>
                 </div>
             </form>
