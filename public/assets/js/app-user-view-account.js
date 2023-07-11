@@ -50,6 +50,7 @@ $(function () {
         },
         {
           targets: 2,
+          orderable: false
         },
         {
           // Label
@@ -58,6 +59,7 @@ $(function () {
         },
         {
           targets: -1,
+          orderable: false
         }
       ],
       order: [[1, 'desc']],
@@ -70,22 +72,12 @@ $(function () {
         '<"col-sm-12 col-md-6"i>' +
         '<"col-sm-12 col-md-6"p>' +
         '>',
-      displayLength: 5,
-      lengthMenu: [5, 10, 15, 20],
+      displayLength: 7,
+      lengthMenu: [7, 10, 25, 50, 75, 100],
       language: {
-        sLengthMenu: 'Montrer _MENU_',
-        search: 'Rechercher :',
-        zeroRecords: 'Aucun enregistrement correspondant trouvé',
-        emptyTable: 'Aucune donnée disponible',
-        searchPlaceholder: 'Rechercher un projet',
-        paginate:{
-          next : "Suivant",
-          previous : "Précédent"
-        },
-        loadingRecords: 'Chargement ...',
-        infoEmpty: "Aucun enregistrement disponible",
-        infoFiltered: "(filtré sur _MAX_ enregistrements au total)",
-        info: "Affichage de _START_ à _END_ sur _TOTAL_ enregistrements",
+        sLengthMenu: 'Show _MENU_',
+        // search: '',
+        searchPlaceholder: 'Rechercher un projet'
       },
       // For responsive popup
       responsive: {
