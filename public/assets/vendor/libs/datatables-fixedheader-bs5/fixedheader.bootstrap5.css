@@ -25,6 +25,7 @@ table.dataTable.fixedHeader-locked {
 .light-style .dtfh-floatingparenthead {
   border-bottom: 2px solid #f8f7fa;
 }
+
 .light-style .dt-fixedheader.fixedHeader-floating.table.dataTable thead > tr > th,
 .light-style .dt-fixedheader.fixedHeader-locked.table.dataTable thead > tr > th {
   background-color: #fff;
@@ -35,6 +36,7 @@ table.dataTable.fixedHeader-locked {
 .dark-style .dtfh-floatingparenthead {
   border-bottom: 2px solid #25293c;
 }
+
 .dark-style .dt-fixedheader.fixedHeader-floating.table.dataTable thead > tr > th,
 .dark-style .dt-fixedheader.fixedHeader-locked.table.dataTable thead > tr > th {
   background-color: #2f3349;

@@ -2,11 +2,11 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
-      flex-direction: column;
+  flex-direction: column;
   -ms-flex-pack: center;
-      justify-content: center;
+  justify-content: center;
   -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
   min-height: 100vh;
   text-align: center;
 }
@@ -14,6 +14,7 @@
 .misc-bg-wrapper {
   position: relative;
 }
+
 .misc-bg-wrapper img {
   position: absolute;
   bottom: 0;

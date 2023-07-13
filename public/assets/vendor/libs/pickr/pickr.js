@@ -1,102 +1,1313 @@
 /******/ (function() { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({
-
-/***/ "./node_modules/@simonwep/pickr/dist/pickr.min.js":
-/*!********************************************************!*\
-  !*** ./node_modules/@simonwep/pickr/dist/pickr.min.js ***!
-  \********************************************************/
-/***/ (function(module) {
-
-/*! Pickr 1.8.2 MIT | https://github.com/Simonwep/pickr */
-!function(t,e){ true?module.exports=e():0}(self,(function(){return(()=>{"use strict";var t={d:(e,o)=>{for(var n in o)t.o(o,n)&&!t.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:o[n]})},o:(t,e)=>Object.prototype.hasOwnProperty.call(t,e),r:t=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})}},e={};t.d(e,{default:()=>L});var o={};function n(t,e,o,n,i={}){e instanceof HTMLCollection||e instanceof NodeList?e=Array.from(e):Array.isArray(e)||(e=[e]),Array.isArray(o)||(o=[o]);for(const s of e)for(const e of o)s[t](e,n,{capture:!1,...i});return Array.prototype.slice.call(arguments,1)}t.r(o),t.d(o,{adjustableInputNumbers:()=>p,createElementFromString:()=>r,createFromTemplate:()=>a,eventPath:()=>l,off:()=>s,on:()=>i,resolveElement:()=>c});const i=n.bind(null,"addEventListener"),s=n.bind(null,"removeEventListener");function r(t){const e=document.createElement("div");return e.innerHTML=t.trim(),e.firstElementChild}function a(t){const e=(t,e)=>{const o=t.getAttribute(e);return t.removeAttribute(e),o},o=(t,n={})=>{const i=e(t,":obj"),s=e(t,":ref"),r=i?n[i]={}:n;s&&(n[s]=t);for(const n of Array.from(t.children)){const t=e(n,":arr"),i=o(n,t?{}:r);t&&(r[t]||(r[t]=[])).push(Object.keys(i).length?i:n)}return n};return o(r(t))}function l(t){let e=t.path||t.composedPath&&t.composedPath();if(e)return e;let o=t.target.parentElement;for(e=[t.target,o];o=o.parentElement;)e.push(o);return e.push(document,window),e}function c(t){return t instanceof Element?t:"string"==typeof t?t.split(/>>/g).reduce(((t,e,o,n)=>(t=t.querySelector(e),o<n.length-1?t.shadowRoot:t)),document):null}function p(t,e=(t=>t)){function o(o){const n=[.001,.01,.1][Number(o.shiftKey||2*o.ctrlKey)]*(o.deltaY<0?1:-1);let i=0,s=t.selectionStart;t.value=t.value.replace(/[\d.]+/g,((t,o)=>o<=s&&o+t.length>=s?(s=o,e(Number(t),n,i)):(i++,t))),t.focus(),t.setSelectionRange(s,s),o.preventDefault(),t.dispatchEvent(new Event("input"))}i(t,"focus",(()=>i(window,"wheel",o,{passive:!1}))),i(t,"blur",(()=>s(window,"wheel",o)))}const{min:u,max:h,floor:d,round:m}=Math;function f(t,e,o){e/=100,o/=100;const n=d(t=t/360*6),i=t-n,s=o*(1-e),r=o*(1-i*e),a=o*(1-(1-i)*e),l=n%6;return[255*[o,r,s,s,a,o][l],255*[a,o,o,r,s,s][l],255*[s,s,a,o,o,r][l]]}function v(t,e,o){const n=(2-(e/=100))*(o/=100)/2;return 0!==n&&(e=1===n?0:n<.5?e*o/(2*n):e*o/(2-2*n)),[t,100*e,100*n]}function b(t,e,o){const n=u(t/=255,e/=255,o/=255),i=h(t,e,o),s=i-n;let r,a;if(0===s)r=a=0;else{a=s/i;const n=((i-t)/6+s/2)/s,l=((i-e)/6+s/2)/s,c=((i-o)/6+s/2)/s;t===i?r=c-l:e===i?r=1/3+n-c:o===i&&(r=2/3+l-n),r<0?r+=1:r>1&&(r-=1)}return[360*r,100*a,100*i]}function y(t,e,o,n){e/=100,o/=100;return[...b(255*(1-u(1,(t/=100)*(1-(n/=100))+n)),255*(1-u(1,e*(1-n)+n)),255*(1-u(1,o*(1-n)+n)))]}function g(t,e,o){e/=100;const n=2*(e*=(o/=100)<.5?o:1-o)/(o+e)*100,i=100*(o+e);return[t,isNaN(n)?0:n,i]}function _(t){return b(...t.match(/.{2}/g).map((t=>parseInt(t,16))))}function w(t){t=t.match(/^[a-zA-Z]+$/)?function(t){if("black"===t.toLowerCase())return"#000";const e=document.createElement("canvas").getContext("2d");return e.fillStyle=t,"#000"===e.fillStyle?null:e.fillStyle}(t):t;const e={cmyk:/^cmyk[\D]+([\d.]+)[\D]+([\d.]+)[\D]+([\d.]+)[\D]+([\d.]+)/i,rgba:/^((rgba)|rgb)[\D]+([\d.]+)[\D]+([\d.]+)[\D]+([\d.]+)[\D]*?([\d.]+|$)/i,hsla:/^((hsla)|hsl)[\D]+([\d.]+)[\D]+([\d.]+)[\D]+([\d.]+)[\D]*?([\d.]+|$)/i,hsva:/^((hsva)|hsv)[\D]+([\d.]+)[\D]+([\d.]+)[\D]+([\d.]+)[\D]*?([\d.]+|$)/i,hexa:/^#?(([\dA-Fa-f]{3,4})|([\dA-Fa-f]{6})|([\dA-Fa-f]{8}))$/i},o=t=>t.map((t=>/^(|\d+)\.\d+|\d+$/.test(t)?Number(t):void 0));let n;t:for(const i in e){if(!(n=e[i].exec(t)))continue;const s=t=>!!n[2]==("number"==typeof t);switch(i){case"cmyk":{const[,t,e,s,r]=o(n);if(t>100||e>100||s>100||r>100)break t;return{values:y(t,e,s,r),type:i}}case"rgba":{const[,,,t,e,r,a]=o(n);if(t>255||e>255||r>255||a<0||a>1||!s(a))break t;return{values:[...b(t,e,r),a],a,type:i}}case"hexa":{let[,t]=n;4!==t.length&&3!==t.length||(t=t.split("").map((t=>t+t)).join(""));const e=t.substring(0,6);let o=t.substring(6);return o=o?parseInt(o,16)/255:void 0,{values:[..._(e),o],a:o,type:i}}case"hsla":{const[,,,t,e,r,a]=o(n);if(t>360||e>100||r>100||a<0||a>1||!s(a))break t;return{values:[...g(t,e,r),a],a,type:i}}case"hsva":{const[,,,t,e,r,a]=o(n);if(t>360||e>100||r>100||a<0||a>1||!s(a))break t;return{values:[t,e,r,a],a,type:i}}}}return{values:null,type:null}}function A(t=0,e=0,o=0,n=1){const i=(t,e)=>(o=-1)=>e(~o?t.map((t=>Number(t.toFixed(o)))):t),s={h:t,s:e,v:o,a:n,toHSVA(){const t=[s.h,s.s,s.v,s.a];return t.toString=i(t,(t=>`hsva(${t[0]}, ${t[1]}%, ${t[2]}%, ${s.a})`)),t},toHSLA(){const t=[...v(s.h,s.s,s.v),s.a];return t.toString=i(t,(t=>`hsla(${t[0]}, ${t[1]}%, ${t[2]}%, ${s.a})`)),t},toRGBA(){const t=[...f(s.h,s.s,s.v),s.a];return t.toString=i(t,(t=>`rgba(${t[0]}, ${t[1]}, ${t[2]}, ${s.a})`)),t},toCMYK(){const t=function(t,e,o){const n=f(t,e,o),i=n[0]/255,s=n[1]/255,r=n[2]/255,a=u(1-i,1-s,1-r);return[100*(1===a?0:(1-i-a)/(1-a)),100*(1===a?0:(1-s-a)/(1-a)),100*(1===a?0:(1-r-a)/(1-a)),100*a]}(s.h,s.s,s.v);return t.toString=i(t,(t=>`cmyk(${t[0]}%, ${t[1]}%, ${t[2]}%, ${t[3]}%)`)),t},toHEXA(){const t=function(t,e,o){return f(t,e,o).map((t=>m(t).toString(16).padStart(2,"0")))}(s.h,s.s,s.v),e=s.a>=1?"":Number((255*s.a).toFixed(0)).toString(16).toUpperCase().padStart(2,"0");return e&&t.push(e),t.toString=()=>`#${t.join("").toUpperCase()}`,t},clone:()=>A(s.h,s.s,s.v,s.a)};return s}const C=t=>Math.max(Math.min(t,1),0);function $(t){const e={options:Object.assign({lock:null,onchange:()=>0,onstop:()=>0},t),_keyboard(t){const{options:o}=e,{type:n,key:i}=t;if(document.activeElement===o.wrapper){const{lock:o}=e.options,s="ArrowUp"===i,r="ArrowRight"===i,a="ArrowDown"===i,l="ArrowLeft"===i;if("keydown"===n&&(s||r||a||l)){let n=0,i=0;"v"===o?n=s||r?1:-1:"h"===o?n=s||r?-1:1:(i=s?-1:a?1:0,n=l?-1:r?1:0),e.update(C(e.cache.x+.01*n),C(e.cache.y+.01*i)),t.preventDefault()}else i.startsWith("Arrow")&&(e.options.onstop(),t.preventDefault())}},_tapstart(t){i(document,["mouseup","touchend","touchcancel"],e._tapstop),i(document,["mousemove","touchmove"],e._tapmove),t.cancelable&&t.preventDefault(),e._tapmove(t)},_tapmove(t){const{options:o,cache:n}=e,{lock:i,element:s,wrapper:r}=o,a=r.getBoundingClientRect();let l=0,c=0;if(t){const e=t&&t.touches&&t.touches[0];l=t?(e||t).clientX:0,c=t?(e||t).clientY:0,l<a.left?l=a.left:l>a.left+a.width&&(l=a.left+a.width),c<a.top?c=a.top:c>a.top+a.height&&(c=a.top+a.height),l-=a.left,c-=a.top}else n&&(l=n.x*a.width,c=n.y*a.height);"h"!==i&&(s.style.left=`calc(${l/a.width*100}% - ${s.offsetWidth/2}px)`),"v"!==i&&(s.style.top=`calc(${c/a.height*100}% - ${s.offsetHeight/2}px)`),e.cache={x:l/a.width,y:c/a.height};const p=C(l/a.width),u=C(c/a.height);switch(i){case"v":return o.onchange(p);case"h":return o.onchange(u);default:return o.onchange(p,u)}},_tapstop(){e.options.onstop(),s(document,["mouseup","touchend","touchcancel"],e._tapstop),s(document,["mousemove","touchmove"],e._tapmove)},trigger(){e._tapmove()},update(t=0,o=0){const{left:n,top:i,width:s,height:r}=e.options.wrapper.getBoundingClientRect();"h"===e.options.lock&&(o=t),e._tapmove({clientX:n+s*t,clientY:i+r*o})},destroy(){const{options:t,_tapstart:o,_keyboard:n}=e;s(document,["keydown","keyup"],n),s([t.wrapper,t.element],"mousedown",o),s([t.wrapper,t.element],"touchstart",o,{passive:!1})}},{options:o,_tapstart:n,_keyboard:r}=e;return i([o.wrapper,o.element],"mousedown",n),i([o.wrapper,o.element],"touchstart",n,{passive:!1}),i(document,["keydown","keyup"],r),e}function k(t={}){t=Object.assign({onchange:()=>0,className:"",elements:[]},t);const e=i(t.elements,"click",(e=>{t.elements.forEach((o=>o.classList[e.target===o?"add":"remove"](t.className))),t.onchange(e),e.stopPropagation()}));return{destroy:()=>s(...e)}}const S={variantFlipOrder:{start:"sme",middle:"mse",end:"ems"},positionFlipOrder:{top:"tbrl",right:"rltb",bottom:"btrl",left:"lrbt"},position:"bottom",margin:8},O=(t,e,o)=>{const{container:n,margin:i,position:s,variantFlipOrder:r,positionFlipOrder:a}={container:document.documentElement.getBoundingClientRect(),...S,...o},{left:l,top:c}=e.style;e.style.left="0",e.style.top="0";const p=t.getBoundingClientRect(),u=e.getBoundingClientRect(),h={t:p.top-u.height-i,b:p.bottom+i,r:p.right+i,l:p.left-u.width-i},d={vs:p.left,vm:p.left+p.width/2+-u.width/2,ve:p.left+p.width-u.width,hs:p.top,hm:p.bottom-p.height/2-u.height/2,he:p.bottom-u.height},[m,f="middle"]=s.split("-"),v=a[m],b=r[f],{top:y,left:g,bottom:_,right:w}=n;for(const t of v){const o="t"===t||"b"===t,n=h[t],[i,s]=o?["top","left"]:["left","top"],[r,a]=o?[u.height,u.width]:[u.width,u.height],[l,c]=o?[_,w]:[w,_],[p,m]=o?[y,g]:[g,y];if(!(n<p||n+r>l))for(const r of b){const l=d[(o?"v":"h")+r];if(!(l<m||l+a>c))return e.style[s]=l-u[s]+"px",e.style[i]=n-u[i]+"px",t+r}}return e.style.left=l,e.style.top=c,null};function E(t,e,o){return e in t?Object.defineProperty(t,e,{value:o,enumerable:!0,configurable:!0,writable:!0}):t[e]=o,t}class L{constructor(t){E(this,"_initializingActive",!0),E(this,"_recalc",!0),E(this,"_nanopop",null),E(this,"_root",null),E(this,"_color",A()),E(this,"_lastColor",A()),E(this,"_swatchColors",[]),E(this,"_setupAnimationFrame",null),E(this,"_eventListener",{init:[],save:[],hide:[],show:[],clear:[],change:[],changestop:[],cancel:[],swatchselect:[]}),this.options=t=Object.assign({...L.DEFAULT_OPTIONS},t);const{swatches:e,components:o,theme:n,sliders:i,lockOpacity:s,padding:r}=t;["nano","monolith"].includes(n)&&!i&&(t.sliders="h"),o.interaction||(o.interaction={});const{preview:a,opacity:l,hue:c,palette:p}=o;o.opacity=!s&&l,o.palette=p||a||l||c,this._preBuild(),this._buildComponents(),this._bindEvents(),this._finalBuild(),e&&e.length&&e.forEach((t=>this.addSwatch(t)));const{button:u,app:h}=this._root;this._nanopop=((t,e,o)=>{const n="object"!=typeof t||t instanceof HTMLElement?{reference:t,popper:e,...o}:t;return{update(t=n){const{reference:e,popper:o}=Object.assign(n,t);if(!o||!e)throw new Error("Popper- or reference-element missing.");return O(e,o,n)}}})(u,h,{margin:r}),u.setAttribute("role","button"),u.setAttribute("aria-label",this._t("btn:toggle"));const d=this;this._setupAnimationFrame=requestAnimationFrame((function e(){if(!h.offsetWidth)return requestAnimationFrame(e);d.setColor(t.default),d._rePositioningPicker(),t.defaultRepresentation&&(d._representation=t.defaultRepresentation,d.setColorRepresentation(d._representation)),t.showAlways&&d.show(),d._initializingActive=!1,d._emit("init")}))}_preBuild(){const{options:t}=this;for(const e of["el","container"])t[e]=c(t[e]);this._root=(t=>{const{components:e,useAsButton:o,inline:n,appClass:i,theme:s,lockOpacity:r}=t.options,l=t=>t?"":'style="display:none" hidden',c=e=>t._t(e),p=a(`\n      <div :ref="root" class="pickr">\n\n        ${o?"":'<button type="button" :ref="button" class="pcr-button"></button>'}\n\n        <div :ref="app" class="pcr-app ${i||""}" data-theme="${s}" ${n?'style="position: unset"':""} aria-label="${c("ui:dialog")}" role="window">\n          <div class="pcr-selection" ${l(e.palette)}>\n            <div :obj="preview" class="pcr-color-preview" ${l(e.preview)}>\n              <button type="button" :ref="lastColor" class="pcr-last-color" aria-label="${c("btn:last-color")}"></button>\n              <div :ref="currentColor" class="pcr-current-color"></div>\n            </div>\n\n            <div :obj="palette" class="pcr-color-palette">\n              <div :ref="picker" class="pcr-picker"></div>\n              <div :ref="palette" class="pcr-palette" tabindex="0" aria-label="${c("aria:palette")}" role="listbox"></div>\n            </div>\n\n            <div :obj="hue" class="pcr-color-chooser" ${l(e.hue)}>\n              <div :ref="picker" class="pcr-picker"></div>\n              <div :ref="slider" class="pcr-hue pcr-slider" tabindex="0" aria-label="${c("aria:hue")}" role="slider"></div>\n            </div>\n\n            <div :obj="opacity" class="pcr-color-opacity" ${l(e.opacity)}>\n              <div :ref="picker" class="pcr-picker"></div>\n              <div :ref="slider" class="pcr-opacity pcr-slider" tabindex="0" aria-label="${c("aria:opacity")}" role="slider"></div>\n            </div>\n          </div>\n\n          <div class="pcr-swatches ${e.palette?"":"pcr-last"}" :ref="swatches"></div>\n\n          <div :obj="interaction" class="pcr-interaction" ${l(Object.keys(e.interaction).length)}>\n            <input :ref="result" class="pcr-result" type="text" spellcheck="false" ${l(e.interaction.input)} aria-label="${c("aria:input")}">\n\n            <input :arr="options" class="pcr-type" data-type="HEXA" value="${r?"HEX":"HEXA"}" type="button" ${l(e.interaction.hex)}>\n            <input :arr="options" class="pcr-type" data-type="RGBA" value="${r?"RGB":"RGBA"}" type="button" ${l(e.interaction.rgba)}>\n            <input :arr="options" class="pcr-type" data-type="HSLA" value="${r?"HSL":"HSLA"}" type="button" ${l(e.interaction.hsla)}>\n            <input :arr="options" class="pcr-type" data-type="HSVA" value="${r?"HSV":"HSVA"}" type="button" ${l(e.interaction.hsva)}>\n            <input :arr="options" class="pcr-type" data-type="CMYK" value="CMYK" type="button" ${l(e.interaction.cmyk)}>\n\n            <input :ref="save" class="pcr-save" value="${c("btn:save")}" type="button" ${l(e.interaction.save)} aria-label="${c("aria:btn:save")}">\n            <input :ref="cancel" class="pcr-cancel" value="${c("btn:cancel")}" type="button" ${l(e.interaction.cancel)} aria-label="${c("aria:btn:cancel")}">\n            <input :ref="clear" class="pcr-clear" value="${c("btn:clear")}" type="button" ${l(e.interaction.clear)} aria-label="${c("aria:btn:clear")}">\n          </div>\n        </div>\n      </div>\n    `),u=p.interaction;return u.options.find((t=>!t.hidden&&!t.classList.add("active"))),u.type=()=>u.options.find((t=>t.classList.contains("active"))),p})(this),t.useAsButton&&(this._root.button=t.el),t.container.appendChild(this._root.root)}_finalBuild(){const t=this.options,e=this._root;if(t.container.removeChild(e.root),t.inline){const o=t.el.parentElement;t.el.nextSibling?o.insertBefore(e.app,t.el.nextSibling):o.appendChild(e.app)}else t.container.appendChild(e.app);t.useAsButton?t.inline&&t.el.remove():t.el.parentNode.replaceChild(e.root,t.el),t.disabled&&this.disable(),t.comparison||(e.button.style.transition="none",t.useAsButton||(e.preview.lastColor.style.transition="none")),this.hide()}_buildComponents(){const t=this,e=this.options.components,o=(t.options.sliders||"v").repeat(2),[n,i]=o.match(/^[vh]+$/g)?o:[],s=()=>this._color||(this._color=this._lastColor.clone()),r={palette:$({element:t._root.palette.picker,wrapper:t._root.palette.palette,onstop:()=>t._emit("changestop","slider",t),onchange(o,n){if(!e.palette)return;const i=s(),{_root:r,options:a}=t,{lastColor:l,currentColor:c}=r.preview;t._recalc&&(i.s=100*o,i.v=100-100*n,i.v<0&&(i.v=0),t._updateOutput("slider"));const p=i.toRGBA().toString(0);this.element.style.background=p,this.wrapper.style.background=`\n                        linear-gradient(to top, rgba(0, 0, 0, ${i.a}), transparent),\n                        linear-gradient(to left, hsla(${i.h}, 100%, 50%, ${i.a}), rgba(255, 255, 255, ${i.a}))\n                    `,a.comparison?a.useAsButton||t._lastColor||l.style.setProperty("--pcr-color",p):(r.button.style.setProperty("--pcr-color",p),r.button.classList.remove("clear"));const u=i.toHEXA().toString();for(const{el:e,color:o}of t._swatchColors)e.classList[u===o.toHEXA().toString()?"add":"remove"]("pcr-active");c.style.setProperty("--pcr-color",p)}}),hue:$({lock:"v"===i?"h":"v",element:t._root.hue.picker,wrapper:t._root.hue.slider,onstop:()=>t._emit("changestop","slider",t),onchange(o){if(!e.hue||!e.palette)return;const n=s();t._recalc&&(n.h=360*o),this.element.style.backgroundColor=`hsl(${n.h}, 100%, 50%)`,r.palette.trigger()}}),opacity:$({lock:"v"===n?"h":"v",element:t._root.opacity.picker,wrapper:t._root.opacity.slider,onstop:()=>t._emit("changestop","slider",t),onchange(o){if(!e.opacity||!e.palette)return;const n=s();t._recalc&&(n.a=Math.round(100*o)/100),this.element.style.background=`rgba(0, 0, 0, ${n.a})`,r.palette.trigger()}}),selectable:k({elements:t._root.interaction.options,className:"active",onchange(e){t._representation=e.target.getAttribute("data-type").toUpperCase(),t._recalc&&t._updateOutput("swatch")}})};this._components=r}_bindEvents(){const{_root:t,options:e}=this,o=[i(t.interaction.clear,"click",(()=>this._clearColor())),i([t.interaction.cancel,t.preview.lastColor],"click",(()=>{this.setHSVA(...(this._lastColor||this._color).toHSVA(),!0),this._emit("cancel")})),i(t.interaction.save,"click",(()=>{!this.applyColor()&&!e.showAlways&&this.hide()})),i(t.interaction.result,["keyup","input"],(t=>{this.setColor(t.target.value,!0)&&!this._initializingActive&&(this._emit("change",this._color,"input",this),this._emit("changestop","input",this)),t.stopImmediatePropagation()})),i(t.interaction.result,["focus","blur"],(t=>{this._recalc="blur"===t.type,this._recalc&&this._updateOutput(null)})),i([t.palette.palette,t.palette.picker,t.hue.slider,t.hue.picker,t.opacity.slider,t.opacity.picker],["mousedown","touchstart"],(()=>this._recalc=!0),{passive:!0})];if(!e.showAlways){const n=e.closeWithKey;o.push(i(t.button,"click",(()=>this.isOpen()?this.hide():this.show())),i(document,"keyup",(t=>this.isOpen()&&(t.key===n||t.code===n)&&this.hide())),i(document,["touchstart","mousedown"],(e=>{this.isOpen()&&!l(e).some((e=>e===t.app||e===t.button))&&this.hide()}),{capture:!0}))}if(e.adjustableNumbers){const e={rgba:[255,255,255,1],hsva:[360,100,100,1],hsla:[360,100,100,1],cmyk:[100,100,100,100]};p(t.interaction.result,((t,o,n)=>{const i=e[this.getColorRepresentation().toLowerCase()];if(i){const e=i[n],s=t+(e>=100?1e3*o:o);return s<=0?0:Number((s<e?s:e).toPrecision(3))}return t}))}if(e.autoReposition&&!e.inline){let t=null;const n=this;o.push(i(window,["scroll","resize"],(()=>{n.isOpen()&&(e.closeOnScroll&&n.hide(),null===t?(t=setTimeout((()=>t=null),100),requestAnimationFrame((function e(){n._rePositioningPicker(),null!==t&&requestAnimationFrame(e)}))):(clearTimeout(t),t=setTimeout((()=>t=null),100)))}),{capture:!0}))}this._eventBindings=o}_rePositioningPicker(){const{options:t}=this;if(!t.inline){if(!this._nanopop.update({container:document.body.getBoundingClientRect(),position:t.position})){const t=this._root.app,e=t.getBoundingClientRect();t.style.top=(window.innerHeight-e.height)/2+"px",t.style.left=(window.innerWidth-e.width)/2+"px"}}}_updateOutput(t){const{_root:e,_color:o,options:n}=this;if(e.interaction.type()){const t=`to${e.interaction.type().getAttribute("data-type")}`;e.interaction.result.value="function"==typeof o[t]?o[t]().toString(n.outputPrecision):""}!this._initializingActive&&this._recalc&&this._emit("change",o,t,this)}_clearColor(t=!1){const{_root:e,options:o}=this;o.useAsButton||e.button.style.setProperty("--pcr-color","rgba(0, 0, 0, 0.15)"),e.button.classList.add("clear"),o.showAlways||this.hide(),this._lastColor=null,this._initializingActive||t||(this._emit("save",null),this._emit("clear"))}_parseLocalColor(t){const{values:e,type:o,a:n}=w(t),{lockOpacity:i}=this.options,s=void 0!==n&&1!==n;return e&&3===e.length&&(e[3]=void 0),{values:!e||i&&s?null:e,type:o}}_t(t){return this.options.i18n[t]||L.I18N_DEFAULTS[t]}_emit(t,...e){this._eventListener[t].forEach((t=>t(...e,this)))}on(t,e){return this._eventListener[t].push(e),this}off(t,e){const o=this._eventListener[t]||[],n=o.indexOf(e);return~n&&o.splice(n,1),this}addSwatch(t){const{values:e}=this._parseLocalColor(t);if(e){const{_swatchColors:t,_root:o}=this,n=A(...e),s=r(`<button type="button" style="--pcr-color: ${n.toRGBA().toString(0)}" aria-label="${this._t("btn:swatch")}"/>`);return o.swatches.appendChild(s),t.push({el:s,color:n}),this._eventBindings.push(i(s,"click",(()=>{this.setHSVA(...n.toHSVA(),!0),this._emit("swatchselect",n),this._emit("change",n,"swatch",this)}))),!0}return!1}removeSwatch(t){const e=this._swatchColors[t];if(e){const{el:o}=e;return this._root.swatches.removeChild(o),this._swatchColors.splice(t,1),!0}return!1}applyColor(t=!1){const{preview:e,button:o}=this._root,n=this._color.toRGBA().toString(0);return e.lastColor.style.setProperty("--pcr-color",n),this.options.useAsButton||o.style.setProperty("--pcr-color",n),o.classList.remove("clear"),this._lastColor=this._color.clone(),this._initializingActive||t||this._emit("save",this._color),this}destroy(){cancelAnimationFrame(this._setupAnimationFrame),this._eventBindings.forEach((t=>s(...t))),Object.keys(this._components).forEach((t=>this._components[t].destroy()))}destroyAndRemove(){this.destroy();const{root:t,app:e}=this._root;t.parentElement&&t.parentElement.removeChild(t),e.parentElement.removeChild(e),Object.keys(this).forEach((t=>this[t]=null))}hide(){return!!this.isOpen()&&(this._root.app.classList.remove("visible"),this._emit("hide"),!0)}show(){return!this.options.disabled&&!this.isOpen()&&(this._root.app.classList.add("visible"),this._rePositioningPicker(),this._emit("show",this._color),this)}isOpen(){return this._root.app.classList.contains("visible")}setHSVA(t=360,e=0,o=0,n=1,i=!1){const s=this._recalc;if(this._recalc=!1,t<0||t>360||e<0||e>100||o<0||o>100||n<0||n>1)return!1;this._color=A(t,e,o,n);const{hue:r,opacity:a,palette:l}=this._components;return r.update(t/360),a.update(n),l.update(e/100,1-o/100),i||this.applyColor(),s&&this._updateOutput(),this._recalc=s,!0}setColor(t,e=!1){if(null===t)return this._clearColor(e),!0;const{values:o,type:n}=this._parseLocalColor(t);if(o){const t=n.toUpperCase(),{options:i}=this._root.interaction,s=i.find((e=>e.getAttribute("data-type")===t));if(s&&!s.hidden)for(const t of i)t.classList[t===s?"add":"remove"]("active");return!!this.setHSVA(...o,e)&&this.setColorRepresentation(t)}return!1}setColorRepresentation(t){return t=t.toUpperCase(),!!this._root.interaction.options.find((e=>e.getAttribute("data-type").startsWith(t)&&!e.click()))}getColorRepresentation(){return this._representation}getColor(){return this._color}getSelectedColor(){return this._lastColor}getRoot(){return this._root}disable(){return this.hide(),this.options.disabled=!0,this._root.button.classList.add("disabled"),this}enable(){return this.options.disabled=!1,this._root.button.classList.remove("disabled"),this}}return E(L,"utils",o),E(L,"version","1.8.2"),E(L,"I18N_DEFAULTS",{"ui:dialog":"color picker dialog","btn:toggle":"toggle color picker dialog","btn:swatch":"color swatch","btn:last-color":"use previous color","btn:save":"Save","btn:cancel":"Cancel","btn:clear":"Clear","aria:btn:save":"save and close","aria:btn:cancel":"cancel and close","aria:btn:clear":"clear and close","aria:input":"color input field","aria:palette":"color selection area","aria:hue":"hue selection slider","aria:opacity":"selection slider"}),E(L,"DEFAULT_OPTIONS",{appClass:null,theme:"classic",useAsButton:!1,padding:8,disabled:!1,comparison:!0,closeOnScroll:!1,outputPrecision:0,lockOpacity:!1,autoReposition:!0,container:"body",components:{interaction:{}},i18n:{},swatches:null,inline:!1,sliders:null,default:"#42445a",defaultRepresentation:null,position:"bottom-middle",adjustableNumbers:!0,showAlways:!1,closeWithKey:"Escape"}),E(L,"create",(t=>new L(t))),e=e.default})()}));
-//# sourceMappingURL=pickr.min.js.map
-
-/***/ })
-
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	!function() {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = function(module) {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				function() { return module['default']; } :
-/******/ 				function() { return module; };
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-!function() {
-"use strict";
 /*!*****************************************************!*\
   !*** ./resources/assets/vendor/libs/pickr/pickr.js ***!
   \*****************************************************/
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "pickr": function() { return /* reexport module object */ _simonwep_pickr_dist_pickr_min__WEBPACK_IMPORTED_MODULE_0__; }
-/* harmony export */ });
-/* harmony import */ var _simonwep_pickr_dist_pickr_min__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @simonwep/pickr/dist/pickr.min */ "./node_modules/@simonwep/pickr/dist/pickr.min.js");
-/* harmony import */ var _simonwep_pickr_dist_pickr_min__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_simonwep_pickr_dist_pickr_min__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e14) { throw _e14; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e15) { didErr = true; err = _e15; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+/******/(function () {
+  // webpackBootstrap
+  /******/
+  var __webpack_modules__ = {
+    /***/"./node_modules/@simonwep/pickr/dist/pickr.min.js":
+    /*!********************************************************!*\
+      !*** ./node_modules/@simonwep/pickr/dist/pickr.min.js ***!
+      \********************************************************/
+    /***/
+    function node_modulesSimonwepPickrDistPickrMinJs(module) {
+      /*! Pickr 1.8.2 MIT | https://github.com/Simonwep/pickr */
+      !function (t, e) {
+         true ? module.exports = e() : 0;
+      }(self, function () {
+        return function () {
+          "use strict";
 
+          var t = {
+              d: function d(e, o) {
+                for (var n in o) t.o(o, n) && !t.o(e, n) && Object.defineProperty(e, n, {
+                  enumerable: !0,
+                  get: o[n]
+                });
+              },
+              o: function o(t, e) {
+                return Object.prototype.hasOwnProperty.call(t, e);
+              },
+              r: function r(t) {
+                "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(t, Symbol.toStringTag, {
+                  value: "Module"
+                }), Object.defineProperty(t, "__esModule", {
+                  value: !0
+                });
+              }
+            },
+            e = {};
+          t.d(e, {
+            "default": function _default() {
+              return L;
+            }
+          });
+          var o = {};
+          function n(t, e, o, n) {
+            var i = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
+            e instanceof HTMLCollection || e instanceof NodeList ? e = Array.from(e) : Array.isArray(e) || (e = [e]), Array.isArray(o) || (o = [o]);
+            var _iterator = _createForOfIteratorHelper(e),
+              _step;
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                var _s = _step.value;
+                var _iterator2 = _createForOfIteratorHelper(o),
+                  _step2;
+                try {
+                  for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                    var _e = _step2.value;
+                    _s[t](_e, n, _objectSpread({
+                      capture: !1
+                    }, i));
+                  }
+                } catch (err) {
+                  _iterator2.e(err);
+                } finally {
+                  _iterator2.f();
+                }
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+            return Array.prototype.slice.call(arguments, 1);
+          }
+          t.r(o), t.d(o, {
+            adjustableInputNumbers: function adjustableInputNumbers() {
+              return p;
+            },
+            createElementFromString: function createElementFromString() {
+              return r;
+            },
+            createFromTemplate: function createFromTemplate() {
+              return a;
+            },
+            eventPath: function eventPath() {
+              return l;
+            },
+            off: function off() {
+              return s;
+            },
+            on: function on() {
+              return i;
+            },
+            resolveElement: function resolveElement() {
+              return c;
+            }
+          });
+          var i = n.bind(null, "addEventListener"),
+            s = n.bind(null, "removeEventListener");
+          function r(t) {
+            var e = document.createElement("div");
+            return e.innerHTML = t.trim(), e.firstElementChild;
+          }
+          function a(t) {
+            var e = function e(t, _e2) {
+                var o = t.getAttribute(_e2);
+                return t.removeAttribute(_e2), o;
+              },
+              o = function o(t) {
+                var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                var i = e(t, ":obj"),
+                  s = e(t, ":ref"),
+                  r = i ? n[i] = {} : n;
+                s && (n[s] = t);
+                for (var _i = 0, _Array$from = Array.from(t.children); _i < _Array$from.length; _i++) {
+                  var _n = _Array$from[_i];
+                  var _t = e(_n, ":arr"),
+                    _i2 = o(_n, _t ? {} : r);
+                  _t && (r[_t] || (r[_t] = [])).push(Object.keys(_i2).length ? _i2 : _n);
+                }
+                return n;
+              };
+            return o(r(t));
+          }
+          function l(t) {
+            var e = t.path || t.composedPath && t.composedPath();
+            if (e) return e;
+            var o = t.target.parentElement;
+            for (e = [t.target, o]; o = o.parentElement;) e.push(o);
+            return e.push(document, window), e;
+          }
+          function c(t) {
+            return t instanceof Element ? t : "string" == typeof t ? t.split(/>>/g).reduce(function (t, e, o, n) {
+              return t = t.querySelector(e), o < n.length - 1 ? t.shadowRoot : t;
+            }, document) : null;
+          }
+          function p(t) {
+            var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (t) {
+              return t;
+            };
+            function o(o) {
+              var n = [.001, .01, .1][Number(o.shiftKey || 2 * o.ctrlKey)] * (o.deltaY < 0 ? 1 : -1);
+              var i = 0,
+                s = t.selectionStart;
+              t.value = t.value.replace(/[\d.]+/g, function (t, o) {
+                return o <= s && o + t.length >= s ? (s = o, e(Number(t), n, i)) : (i++, t);
+              }), t.focus(), t.setSelectionRange(s, s), o.preventDefault(), t.dispatchEvent(new Event("input"));
+            }
+            i(t, "focus", function () {
+              return i(window, "wheel", o, {
+                passive: !1
+              });
+            }), i(t, "blur", function () {
+              return s(window, "wheel", o);
+            });
+          }
+          var u = Math.min,
+            h = Math.max,
+            d = Math.floor,
+            m = Math.round;
+          function f(t, e, o) {
+            e /= 100, o /= 100;
+            var n = d(t = t / 360 * 6),
+              i = t - n,
+              s = o * (1 - e),
+              r = o * (1 - i * e),
+              a = o * (1 - (1 - i) * e),
+              l = n % 6;
+            return [255 * [o, r, s, s, a, o][l], 255 * [a, o, o, r, s, s][l], 255 * [s, s, a, o, o, r][l]];
+          }
+          function v(t, e, o) {
+            var n = (2 - (e /= 100)) * (o /= 100) / 2;
+            return 0 !== n && (e = 1 === n ? 0 : n < .5 ? e * o / (2 * n) : e * o / (2 - 2 * n)), [t, 100 * e, 100 * n];
+          }
+          function b(t, e, o) {
+            var n = u(t /= 255, e /= 255, o /= 255),
+              i = h(t, e, o),
+              s = i - n;
+            var r, a;
+            if (0 === s) r = a = 0;else {
+              a = s / i;
+              var _n2 = ((i - t) / 6 + s / 2) / s,
+                _l = ((i - e) / 6 + s / 2) / s,
+                _c = ((i - o) / 6 + s / 2) / s;
+              t === i ? r = _c - _l : e === i ? r = 1 / 3 + _n2 - _c : o === i && (r = 2 / 3 + _l - _n2), r < 0 ? r += 1 : r > 1 && (r -= 1);
+            }
+            return [360 * r, 100 * a, 100 * i];
+          }
+          function y(t, e, o, n) {
+            e /= 100, o /= 100;
+            return _toConsumableArray(b(255 * (1 - u(1, (t /= 100) * (1 - (n /= 100)) + n)), 255 * (1 - u(1, e * (1 - n) + n)), 255 * (1 - u(1, o * (1 - n) + n))));
+          }
+          function g(t, e, o) {
+            e /= 100;
+            var n = 2 * (e *= (o /= 100) < .5 ? o : 1 - o) / (o + e) * 100,
+              i = 100 * (o + e);
+            return [t, isNaN(n) ? 0 : n, i];
+          }
+          function _(t) {
+            return b.apply(void 0, _toConsumableArray(t.match(/.{2}/g).map(function (t) {
+              return parseInt(t, 16);
+            })));
+          }
+          function w(t) {
+            t = t.match(/^[a-zA-Z]+$/) ? function (t) {
+              if ("black" === t.toLowerCase()) return "#000";
+              var e = document.createElement("canvas").getContext("2d");
+              return e.fillStyle = t, "#000" === e.fillStyle ? null : e.fillStyle;
+            }(t) : t;
+            var e = {
+                cmyk: /^cmyk[\D]+([\d.]+)[\D]+([\d.]+)[\D]+([\d.]+)[\D]+([\d.]+)/i,
+                rgba: /^((rgba)|rgb)[\D]+([\d.]+)[\D]+([\d.]+)[\D]+([\d.]+)[\D]*?([\d.]+|$)/i,
+                hsla: /^((hsla)|hsl)[\D]+([\d.]+)[\D]+([\d.]+)[\D]+([\d.]+)[\D]*?([\d.]+|$)/i,
+                hsva: /^((hsva)|hsv)[\D]+([\d.]+)[\D]+([\d.]+)[\D]+([\d.]+)[\D]*?([\d.]+|$)/i,
+                hexa: /^#?(([\dA-Fa-f]{3,4})|([\dA-Fa-f]{6})|([\dA-Fa-f]{8}))$/i
+              },
+              o = function o(t) {
+                return t.map(function (t) {
+                  return /^(|\d+)\.\d+|\d+$/.test(t) ? Number(t) : void 0;
+                });
+              };
+            var n;
+            t: for (var _i3 in e) {
+              if (!(n = e[_i3].exec(t))) continue;
+              var _s2 = function _s2(t) {
+                return !!n[2] == ("number" == typeof t);
+              };
+              switch (_i3) {
+                case "cmyk":
+                  {
+                    var _o = o(n),
+                      _o2 = _slicedToArray(_o, 5),
+                      _t2 = _o2[1],
+                      _e3 = _o2[2],
+                      _s3 = _o2[3],
+                      _r2 = _o2[4];
+                    if (_t2 > 100 || _e3 > 100 || _s3 > 100 || _r2 > 100) break t;
+                    return {
+                      values: y(_t2, _e3, _s3, _r2),
+                      type: _i3
+                    };
+                  }
+                case "rgba":
+                  {
+                    var _o3 = o(n),
+                      _o4 = _slicedToArray(_o3, 7),
+                      _t3 = _o4[3],
+                      _e4 = _o4[4],
+                      _r3 = _o4[5],
+                      _a = _o4[6];
+                    if (_t3 > 255 || _e4 > 255 || _r3 > 255 || _a < 0 || _a > 1 || !_s2(_a)) break t;
+                    return {
+                      values: [].concat(_toConsumableArray(b(_t3, _e4, _r3)), [_a]),
+                      a: _a,
+                      type: _i3
+                    };
+                  }
+                case "hexa":
+                  {
+                    var _n3 = n,
+                      _n4 = _slicedToArray(_n3, 2),
+                      _t4 = _n4[1];
+                    4 !== _t4.length && 3 !== _t4.length || (_t4 = _t4.split("").map(function (t) {
+                      return t + t;
+                    }).join(""));
+                    var _e5 = _t4.substring(0, 6);
+                    var _o5 = _t4.substring(6);
+                    return _o5 = _o5 ? parseInt(_o5, 16) / 255 : void 0, {
+                      values: [].concat(_toConsumableArray(_(_e5)), [_o5]),
+                      a: _o5,
+                      type: _i3
+                    };
+                  }
+                case "hsla":
+                  {
+                    var _o6 = o(n),
+                      _o7 = _slicedToArray(_o6, 7),
+                      _t5 = _o7[3],
+                      _e6 = _o7[4],
+                      _r4 = _o7[5],
+                      _a2 = _o7[6];
+                    if (_t5 > 360 || _e6 > 100 || _r4 > 100 || _a2 < 0 || _a2 > 1 || !_s2(_a2)) break t;
+                    return {
+                      values: [].concat(_toConsumableArray(g(_t5, _e6, _r4)), [_a2]),
+                      a: _a2,
+                      type: _i3
+                    };
+                  }
+                case "hsva":
+                  {
+                    var _o8 = o(n),
+                      _o9 = _slicedToArray(_o8, 7),
+                      _t6 = _o9[3],
+                      _e7 = _o9[4],
+                      _r5 = _o9[5],
+                      _a3 = _o9[6];
+                    if (_t6 > 360 || _e7 > 100 || _r5 > 100 || _a3 < 0 || _a3 > 1 || !_s2(_a3)) break t;
+                    return {
+                      values: [_t6, _e7, _r5, _a3],
+                      a: _a3,
+                      type: _i3
+                    };
+                  }
+              }
+            }
+            return {
+              values: null,
+              type: null
+            };
+          }
+          function A() {
+            var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+            var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+            var o = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+            var n = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+            var i = function i(t, e) {
+                return function () {
+                  var o = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : -1;
+                  return e(~o ? t.map(function (t) {
+                    return Number(t.toFixed(o));
+                  }) : t);
+                };
+              },
+              s = {
+                h: t,
+                s: e,
+                v: o,
+                a: n,
+                toHSVA: function toHSVA() {
+                  var t = [s.h, s.s, s.v, s.a];
+                  return t.toString = i(t, function (t) {
+                    return "hsva(".concat(t[0], ", ").concat(t[1], "%, ").concat(t[2], "%, ").concat(s.a, ")");
+                  }), t;
+                },
+                toHSLA: function toHSLA() {
+                  var t = [].concat(_toConsumableArray(v(s.h, s.s, s.v)), [s.a]);
+                  return t.toString = i(t, function (t) {
+                    return "hsla(".concat(t[0], ", ").concat(t[1], "%, ").concat(t[2], "%, ").concat(s.a, ")");
+                  }), t;
+                },
+                toRGBA: function toRGBA() {
+                  var t = [].concat(_toConsumableArray(f(s.h, s.s, s.v)), [s.a]);
+                  return t.toString = i(t, function (t) {
+                    return "rgba(".concat(t[0], ", ").concat(t[1], ", ").concat(t[2], ", ").concat(s.a, ")");
+                  }), t;
+                },
+                toCMYK: function toCMYK() {
+                  var t = function (t, e, o) {
+                    var n = f(t, e, o),
+                      i = n[0] / 255,
+                      s = n[1] / 255,
+                      r = n[2] / 255,
+                      a = u(1 - i, 1 - s, 1 - r);
+                    return [100 * (1 === a ? 0 : (1 - i - a) / (1 - a)), 100 * (1 === a ? 0 : (1 - s - a) / (1 - a)), 100 * (1 === a ? 0 : (1 - r - a) / (1 - a)), 100 * a];
+                  }(s.h, s.s, s.v);
+                  return t.toString = i(t, function (t) {
+                    return "cmyk(".concat(t[0], "%, ").concat(t[1], "%, ").concat(t[2], "%, ").concat(t[3], "%)");
+                  }), t;
+                },
+                toHEXA: function toHEXA() {
+                  var t = function (t, e, o) {
+                      return f(t, e, o).map(function (t) {
+                        return m(t).toString(16).padStart(2, "0");
+                      });
+                    }(s.h, s.s, s.v),
+                    e = s.a >= 1 ? "" : Number((255 * s.a).toFixed(0)).toString(16).toUpperCase().padStart(2, "0");
+                  return e && t.push(e), t.toString = function () {
+                    return "#".concat(t.join("").toUpperCase());
+                  }, t;
+                },
+                clone: function clone() {
+                  return A(s.h, s.s, s.v, s.a);
+                }
+              };
+            return s;
+          }
+          var C = function C(t) {
+            return Math.max(Math.min(t, 1), 0);
+          };
+          function $(t) {
+            var e = {
+                options: Object.assign({
+                  lock: null,
+                  onchange: function onchange() {
+                    return 0;
+                  },
+                  onstop: function onstop() {
+                    return 0;
+                  }
+                }, t),
+                _keyboard: function _keyboard(t) {
+                  var o = e.options,
+                    n = t.type,
+                    i = t.key;
+                  if (document.activeElement === o.wrapper) {
+                    var _o10 = e.options.lock,
+                      _s4 = "ArrowUp" === i,
+                      _r6 = "ArrowRight" === i,
+                      _a4 = "ArrowDown" === i,
+                      _l2 = "ArrowLeft" === i;
+                    if ("keydown" === n && (_s4 || _r6 || _a4 || _l2)) {
+                      var _n5 = 0,
+                        _i4 = 0;
+                      "v" === _o10 ? _n5 = _s4 || _r6 ? 1 : -1 : "h" === _o10 ? _n5 = _s4 || _r6 ? -1 : 1 : (_i4 = _s4 ? -1 : _a4 ? 1 : 0, _n5 = _l2 ? -1 : _r6 ? 1 : 0), e.update(C(e.cache.x + .01 * _n5), C(e.cache.y + .01 * _i4)), t.preventDefault();
+                    } else i.startsWith("Arrow") && (e.options.onstop(), t.preventDefault());
+                  }
+                },
+                _tapstart: function _tapstart(t) {
+                  i(document, ["mouseup", "touchend", "touchcancel"], e._tapstop), i(document, ["mousemove", "touchmove"], e._tapmove), t.cancelable && t.preventDefault(), e._tapmove(t);
+                },
+                _tapmove: function _tapmove(t) {
+                  var o = e.options,
+                    n = e.cache,
+                    i = o.lock,
+                    s = o.element,
+                    r = o.wrapper,
+                    a = r.getBoundingClientRect();
+                  var l = 0,
+                    c = 0;
+                  if (t) {
+                    var _e8 = t && t.touches && t.touches[0];
+                    l = t ? (_e8 || t).clientX : 0, c = t ? (_e8 || t).clientY : 0, l < a.left ? l = a.left : l > a.left + a.width && (l = a.left + a.width), c < a.top ? c = a.top : c > a.top + a.height && (c = a.top + a.height), l -= a.left, c -= a.top;
+                  } else n && (l = n.x * a.width, c = n.y * a.height);
+                  "h" !== i && (s.style.left = "calc(".concat(l / a.width * 100, "% - ").concat(s.offsetWidth / 2, "px)")), "v" !== i && (s.style.top = "calc(".concat(c / a.height * 100, "% - ").concat(s.offsetHeight / 2, "px)")), e.cache = {
+                    x: l / a.width,
+                    y: c / a.height
+                  };
+                  var p = C(l / a.width),
+                    u = C(c / a.height);
+                  switch (i) {
+                    case "v":
+                      return o.onchange(p);
+                    case "h":
+                      return o.onchange(u);
+                    default:
+                      return o.onchange(p, u);
+                  }
+                },
+                _tapstop: function _tapstop() {
+                  e.options.onstop(), s(document, ["mouseup", "touchend", "touchcancel"], e._tapstop), s(document, ["mousemove", "touchmove"], e._tapmove);
+                },
+                trigger: function trigger() {
+                  e._tapmove();
+                },
+                update: function update() {
+                  var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+                  var o = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+                  var _e$options$wrapper$ge = e.options.wrapper.getBoundingClientRect(),
+                    n = _e$options$wrapper$ge.left,
+                    i = _e$options$wrapper$ge.top,
+                    s = _e$options$wrapper$ge.width,
+                    r = _e$options$wrapper$ge.height;
+                  "h" === e.options.lock && (o = t), e._tapmove({
+                    clientX: n + s * t,
+                    clientY: i + r * o
+                  });
+                },
+                destroy: function destroy() {
+                  var t = e.options,
+                    o = e._tapstart,
+                    n = e._keyboard;
+                  s(document, ["keydown", "keyup"], n), s([t.wrapper, t.element], "mousedown", o), s([t.wrapper, t.element], "touchstart", o, {
+                    passive: !1
+                  });
+                }
+              },
+              o = e.options,
+              n = e._tapstart,
+              r = e._keyboard;
+            return i([o.wrapper, o.element], "mousedown", n), i([o.wrapper, o.element], "touchstart", n, {
+              passive: !1
+            }), i(document, ["keydown", "keyup"], r), e;
+          }
+          function k() {
+            var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+            t = Object.assign({
+              onchange: function onchange() {
+                return 0;
+              },
+              className: "",
+              elements: []
+            }, t);
+            var e = i(t.elements, "click", function (e) {
+              t.elements.forEach(function (o) {
+                return o.classList[e.target === o ? "add" : "remove"](t.className);
+              }), t.onchange(e), e.stopPropagation();
+            });
+            return {
+              destroy: function destroy() {
+                return s.apply(void 0, _toConsumableArray(e));
+              }
+            };
+          }
+          var S = {
+              variantFlipOrder: {
+                start: "sme",
+                middle: "mse",
+                end: "ems"
+              },
+              positionFlipOrder: {
+                top: "tbrl",
+                right: "rltb",
+                bottom: "btrl",
+                left: "lrbt"
+              },
+              position: "bottom",
+              margin: 8
+            },
+            O = function O(t, e, o) {
+              var _container$S$o = _objectSpread(_objectSpread({
+                  container: document.documentElement.getBoundingClientRect()
+                }, S), o),
+                n = _container$S$o.container,
+                i = _container$S$o.margin,
+                s = _container$S$o.position,
+                r = _container$S$o.variantFlipOrder,
+                a = _container$S$o.positionFlipOrder,
+                _e$style = e.style,
+                l = _e$style.left,
+                c = _e$style.top;
+              e.style.left = "0", e.style.top = "0";
+              var p = t.getBoundingClientRect(),
+                u = e.getBoundingClientRect(),
+                h = {
+                  t: p.top - u.height - i,
+                  b: p.bottom + i,
+                  r: p.right + i,
+                  l: p.left - u.width - i
+                },
+                d = {
+                  vs: p.left,
+                  vm: p.left + p.width / 2 + -u.width / 2,
+                  ve: p.left + p.width - u.width,
+                  hs: p.top,
+                  hm: p.bottom - p.height / 2 - u.height / 2,
+                  he: p.bottom - u.height
+                },
+                _s$split = s.split("-"),
+                _s$split2 = _slicedToArray(_s$split, 2),
+                m = _s$split2[0],
+                _s$split2$ = _s$split2[1],
+                f = _s$split2$ === void 0 ? "middle" : _s$split2$,
+                v = a[m],
+                b = r[f],
+                y = n.top,
+                g = n.left,
+                _ = n.bottom,
+                w = n.right;
+              var _iterator3 = _createForOfIteratorHelper(v),
+                _step3;
+              try {
+                for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                  var _t7 = _step3.value;
+                  var _o11 = "t" === _t7 || "b" === _t7,
+                    _n6 = h[_t7],
+                    _ref = _o11 ? ["top", "left"] : ["left", "top"],
+                    _ref2 = _slicedToArray(_ref, 2),
+                    _i5 = _ref2[0],
+                    _s5 = _ref2[1],
+                    _ref3 = _o11 ? [u.height, u.width] : [u.width, u.height],
+                    _ref4 = _slicedToArray(_ref3, 2),
+                    _r7 = _ref4[0],
+                    _a5 = _ref4[1],
+                    _ref5 = _o11 ? [_, w] : [w, _],
+                    _ref6 = _slicedToArray(_ref5, 2),
+                    _l3 = _ref6[0],
+                    _c2 = _ref6[1],
+                    _ref7 = _o11 ? [y, g] : [g, y],
+                    _ref8 = _slicedToArray(_ref7, 2),
+                    _p = _ref8[0],
+                    _m = _ref8[1];
+                  if (!(_n6 < _p || _n6 + _r7 > _l3)) {
+                    var _iterator4 = _createForOfIteratorHelper(b),
+                      _step4;
+                    try {
+                      for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+                        var _r8 = _step4.value;
+                        var _l4 = d[(_o11 ? "v" : "h") + _r8];
+                        if (!(_l4 < _m || _l4 + _a5 > _c2)) return e.style[_s5] = _l4 - u[_s5] + "px", e.style[_i5] = _n6 - u[_i5] + "px", _t7 + _r8;
+                      }
+                    } catch (err) {
+                      _iterator4.e(err);
+                    } finally {
+                      _iterator4.f();
+                    }
+                  }
+                }
+              } catch (err) {
+                _iterator3.e(err);
+              } finally {
+                _iterator3.f();
+              }
+              return e.style.left = l, e.style.top = c, null;
+            };
+          function E(t, e, o) {
+            return e in t ? Object.defineProperty(t, e, {
+              value: o,
+              enumerable: !0,
+              configurable: !0,
+              writable: !0
+            }) : t[e] = o, t;
+          }
+          var L = /*#__PURE__*/function () {
+            function L(t) {
+              var _this = this;
+              _classCallCheck(this, L);
+              E(this, "_initializingActive", !0), E(this, "_recalc", !0), E(this, "_nanopop", null), E(this, "_root", null), E(this, "_color", A()), E(this, "_lastColor", A()), E(this, "_swatchColors", []), E(this, "_setupAnimationFrame", null), E(this, "_eventListener", {
+                init: [],
+                save: [],
+                hide: [],
+                show: [],
+                clear: [],
+                change: [],
+                changestop: [],
+                cancel: [],
+                swatchselect: []
+              }), this.options = t = Object.assign(_objectSpread({}, L.DEFAULT_OPTIONS), t);
+              var _t8 = t,
+                e = _t8.swatches,
+                o = _t8.components,
+                n = _t8.theme,
+                i = _t8.sliders,
+                s = _t8.lockOpacity,
+                r = _t8.padding;
+              ["nano", "monolith"].includes(n) && !i && (t.sliders = "h"), o.interaction || (o.interaction = {});
+              var a = o.preview,
+                l = o.opacity,
+                c = o.hue,
+                p = o.palette;
+              o.opacity = !s && l, o.palette = p || a || l || c, this._preBuild(), this._buildComponents(), this._bindEvents(), this._finalBuild(), e && e.length && e.forEach(function (t) {
+                return _this.addSwatch(t);
+              });
+              var _this$_root = this._root,
+                u = _this$_root.button,
+                h = _this$_root.app;
+              this._nanopop = function (t, e, o) {
+                var n = "object" != _typeof(t) || t instanceof HTMLElement ? _objectSpread({
+                  reference: t,
+                  popper: e
+                }, o) : t;
+                return {
+                  update: function update() {
+                    var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : n;
+                    var _Object$assign = Object.assign(n, t),
+                      e = _Object$assign.reference,
+                      o = _Object$assign.popper;
+                    if (!o || !e) throw new Error("Popper- or reference-element missing.");
+                    return O(e, o, n);
+                  }
+                };
+              }(u, h, {
+                margin: r
+              }), u.setAttribute("role", "button"), u.setAttribute("aria-label", this._t("btn:toggle"));
+              var d = this;
+              this._setupAnimationFrame = requestAnimationFrame(function e() {
+                if (!h.offsetWidth) return requestAnimationFrame(e);
+                d.setColor(t["default"]), d._rePositioningPicker(), t.defaultRepresentation && (d._representation = t.defaultRepresentation, d.setColorRepresentation(d._representation)), t.showAlways && d.show(), d._initializingActive = !1, d._emit("init");
+              });
+            }
+            _createClass(L, [{
+              key: "_preBuild",
+              value: function _preBuild() {
+                var t = this.options;
+                for (var _i6 = 0, _arr2 = ["el", "container"]; _i6 < _arr2.length; _i6++) {
+                  var _e9 = _arr2[_i6];
+                  t[_e9] = c(t[_e9]);
+                }
+                this._root = function (t) {
+                  var _t$options = t.options,
+                    e = _t$options.components,
+                    o = _t$options.useAsButton,
+                    n = _t$options.inline,
+                    i = _t$options.appClass,
+                    s = _t$options.theme,
+                    r = _t$options.lockOpacity,
+                    l = function l(t) {
+                      return t ? "" : 'style="display:none" hidden';
+                    },
+                    c = function c(e) {
+                      return t._t(e);
+                    },
+                    p = a("\n      <div :ref=\"root\" class=\"pickr\">\n\n        ".concat(o ? "" : '<button type="button" :ref="button" class="pcr-button"></button>', "\n\n        <div :ref=\"app\" class=\"pcr-app ").concat(i || "", "\" data-theme=\"").concat(s, "\" ").concat(n ? 'style="position: unset"' : "", " aria-label=\"").concat(c("ui:dialog"), "\" role=\"window\">\n          <div class=\"pcr-selection\" ").concat(l(e.palette), ">\n            <div :obj=\"preview\" class=\"pcr-color-preview\" ").concat(l(e.preview), ">\n              <button type=\"button\" :ref=\"lastColor\" class=\"pcr-last-color\" aria-label=\"").concat(c("btn:last-color"), "\"></button>\n              <div :ref=\"currentColor\" class=\"pcr-current-color\"></div>\n            </div>\n\n            <div :obj=\"palette\" class=\"pcr-color-palette\">\n              <div :ref=\"picker\" class=\"pcr-picker\"></div>\n              <div :ref=\"palette\" class=\"pcr-palette\" tabindex=\"0\" aria-label=\"").concat(c("aria:palette"), "\" role=\"listbox\"></div>\n            </div>\n\n            <div :obj=\"hue\" class=\"pcr-color-chooser\" ").concat(l(e.hue), ">\n              <div :ref=\"picker\" class=\"pcr-picker\"></div>\n              <div :ref=\"slider\" class=\"pcr-hue pcr-slider\" tabindex=\"0\" aria-label=\"").concat(c("aria:hue"), "\" role=\"slider\"></div>\n            </div>\n\n            <div :obj=\"opacity\" class=\"pcr-color-opacity\" ").concat(l(e.opacity), ">\n              <div :ref=\"picker\" class=\"pcr-picker\"></div>\n              <div :ref=\"slider\" class=\"pcr-opacity pcr-slider\" tabindex=\"0\" aria-label=\"").concat(c("aria:opacity"), "\" role=\"slider\"></div>\n            </div>\n          </div>\n\n          <div class=\"pcr-swatches ").concat(e.palette ? "" : "pcr-last", "\" :ref=\"swatches\"></div>\n\n          <div :obj=\"interaction\" class=\"pcr-interaction\" ").concat(l(Object.keys(e.interaction).length), ">\n            <input :ref=\"result\" class=\"pcr-result\" type=\"text\" spellcheck=\"false\" ").concat(l(e.interaction.input), " aria-label=\"").concat(c("aria:input"), "\">\n\n            <input :arr=\"options\" class=\"pcr-type\" data-type=\"HEXA\" value=\"").concat(r ? "HEX" : "HEXA", "\" type=\"button\" ").concat(l(e.interaction.hex), ">\n            <input :arr=\"options\" class=\"pcr-type\" data-type=\"RGBA\" value=\"").concat(r ? "RGB" : "RGBA", "\" type=\"button\" ").concat(l(e.interaction.rgba), ">\n            <input :arr=\"options\" class=\"pcr-type\" data-type=\"HSLA\" value=\"").concat(r ? "HSL" : "HSLA", "\" type=\"button\" ").concat(l(e.interaction.hsla), ">\n            <input :arr=\"options\" class=\"pcr-type\" data-type=\"HSVA\" value=\"").concat(r ? "HSV" : "HSVA", "\" type=\"button\" ").concat(l(e.interaction.hsva), ">\n            <input :arr=\"options\" class=\"pcr-type\" data-type=\"CMYK\" value=\"CMYK\" type=\"button\" ").concat(l(e.interaction.cmyk), ">\n\n            <input :ref=\"save\" class=\"pcr-save\" value=\"").concat(c("btn:save"), "\" type=\"button\" ").concat(l(e.interaction.save), " aria-label=\"").concat(c("aria:btn:save"), "\">\n            <input :ref=\"cancel\" class=\"pcr-cancel\" value=\"").concat(c("btn:cancel"), "\" type=\"button\" ").concat(l(e.interaction.cancel), " aria-label=\"").concat(c("aria:btn:cancel"), "\">\n            <input :ref=\"clear\" class=\"pcr-clear\" value=\"").concat(c("btn:clear"), "\" type=\"button\" ").concat(l(e.interaction.clear), " aria-label=\"").concat(c("aria:btn:clear"), "\">\n          </div>\n        </div>\n      </div>\n    ")),
+                    u = p.interaction;
+                  return u.options.find(function (t) {
+                    return !t.hidden && !t.classList.add("active");
+                  }), u.type = function () {
+                    return u.options.find(function (t) {
+                      return t.classList.contains("active");
+                    });
+                  }, p;
+                }(this), t.useAsButton && (this._root.button = t.el), t.container.appendChild(this._root.root);
+              }
+            }, {
+              key: "_finalBuild",
+              value: function _finalBuild() {
+                var t = this.options,
+                  e = this._root;
+                if (t.container.removeChild(e.root), t.inline) {
+                  var _o12 = t.el.parentElement;
+                  t.el.nextSibling ? _o12.insertBefore(e.app, t.el.nextSibling) : _o12.appendChild(e.app);
+                } else t.container.appendChild(e.app);
+                t.useAsButton ? t.inline && t.el.remove() : t.el.parentNode.replaceChild(e.root, t.el), t.disabled && this.disable(), t.comparison || (e.button.style.transition = "none", t.useAsButton || (e.preview.lastColor.style.transition = "none")), this.hide();
+              }
+            }, {
+              key: "_buildComponents",
+              value: function _buildComponents() {
+                var _this2 = this;
+                var t = this,
+                  e = this.options.components,
+                  o = (t.options.sliders || "v").repeat(2),
+                  _ref9 = o.match(/^[vh]+$/g) ? o : [],
+                  _ref10 = _slicedToArray(_ref9, 2),
+                  n = _ref10[0],
+                  i = _ref10[1],
+                  s = function s() {
+                    return _this2._color || (_this2._color = _this2._lastColor.clone());
+                  },
+                  r = {
+                    palette: $({
+                      element: t._root.palette.picker,
+                      wrapper: t._root.palette.palette,
+                      onstop: function onstop() {
+                        return t._emit("changestop", "slider", t);
+                      },
+                      onchange: function onchange(o, n) {
+                        if (!e.palette) return;
+                        var i = s(),
+                          r = t._root,
+                          a = t.options,
+                          _r$preview = r.preview,
+                          l = _r$preview.lastColor,
+                          c = _r$preview.currentColor;
+                        t._recalc && (i.s = 100 * o, i.v = 100 - 100 * n, i.v < 0 && (i.v = 0), t._updateOutput("slider"));
+                        var p = i.toRGBA().toString(0);
+                        this.element.style.background = p, this.wrapper.style.background = "\n                        linear-gradient(to top, rgba(0, 0, 0, ".concat(i.a, "), transparent),\n                        linear-gradient(to left, hsla(").concat(i.h, ", 100%, 50%, ").concat(i.a, "), rgba(255, 255, 255, ").concat(i.a, "))\n                    "), a.comparison ? a.useAsButton || t._lastColor || l.style.setProperty("--pcr-color", p) : (r.button.style.setProperty("--pcr-color", p), r.button.classList.remove("clear"));
+                        var u = i.toHEXA().toString();
+                        var _iterator5 = _createForOfIteratorHelper(t._swatchColors),
+                          _step5;
+                        try {
+                          for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+                            var _step5$value = _step5.value,
+                              _e10 = _step5$value.el,
+                              _o13 = _step5$value.color;
+                            _e10.classList[u === _o13.toHEXA().toString() ? "add" : "remove"]("pcr-active");
+                          }
+                        } catch (err) {
+                          _iterator5.e(err);
+                        } finally {
+                          _iterator5.f();
+                        }
+                        c.style.setProperty("--pcr-color", p);
+                      }
+                    }),
+                    hue: $({
+                      lock: "v" === i ? "h" : "v",
+                      element: t._root.hue.picker,
+                      wrapper: t._root.hue.slider,
+                      onstop: function onstop() {
+                        return t._emit("changestop", "slider", t);
+                      },
+                      onchange: function onchange(o) {
+                        if (!e.hue || !e.palette) return;
+                        var n = s();
+                        t._recalc && (n.h = 360 * o), this.element.style.backgroundColor = "hsl(".concat(n.h, ", 100%, 50%)"), r.palette.trigger();
+                      }
+                    }),
+                    opacity: $({
+                      lock: "v" === n ? "h" : "v",
+                      element: t._root.opacity.picker,
+                      wrapper: t._root.opacity.slider,
+                      onstop: function onstop() {
+                        return t._emit("changestop", "slider", t);
+                      },
+                      onchange: function onchange(o) {
+                        if (!e.opacity || !e.palette) return;
+                        var n = s();
+                        t._recalc && (n.a = Math.round(100 * o) / 100), this.element.style.background = "rgba(0, 0, 0, ".concat(n.a, ")"), r.palette.trigger();
+                      }
+                    }),
+                    selectable: k({
+                      elements: t._root.interaction.options,
+                      className: "active",
+                      onchange: function onchange(e) {
+                        t._representation = e.target.getAttribute("data-type").toUpperCase(), t._recalc && t._updateOutput("swatch");
+                      }
+                    })
+                  };
+                this._components = r;
+              }
+            }, {
+              key: "_bindEvents",
+              value: function _bindEvents() {
+                var _this3 = this;
+                var t = this._root,
+                  e = this.options,
+                  o = [i(t.interaction.clear, "click", function () {
+                    return _this3._clearColor();
+                  }), i([t.interaction.cancel, t.preview.lastColor], "click", function () {
+                    _this3.setHSVA.apply(_this3, _toConsumableArray((_this3._lastColor || _this3._color).toHSVA()).concat([!0])), _this3._emit("cancel");
+                  }), i(t.interaction.save, "click", function () {
+                    !_this3.applyColor() && !e.showAlways && _this3.hide();
+                  }), i(t.interaction.result, ["keyup", "input"], function (t) {
+                    _this3.setColor(t.target.value, !0) && !_this3._initializingActive && (_this3._emit("change", _this3._color, "input", _this3), _this3._emit("changestop", "input", _this3)), t.stopImmediatePropagation();
+                  }), i(t.interaction.result, ["focus", "blur"], function (t) {
+                    _this3._recalc = "blur" === t.type, _this3._recalc && _this3._updateOutput(null);
+                  }), i([t.palette.palette, t.palette.picker, t.hue.slider, t.hue.picker, t.opacity.slider, t.opacity.picker], ["mousedown", "touchstart"], function () {
+                    return _this3._recalc = !0;
+                  }, {
+                    passive: !0
+                  })];
+                if (!e.showAlways) {
+                  var _n7 = e.closeWithKey;
+                  o.push(i(t.button, "click", function () {
+                    return _this3.isOpen() ? _this3.hide() : _this3.show();
+                  }), i(document, "keyup", function (t) {
+                    return _this3.isOpen() && (t.key === _n7 || t.code === _n7) && _this3.hide();
+                  }), i(document, ["touchstart", "mousedown"], function (e) {
+                    _this3.isOpen() && !l(e).some(function (e) {
+                      return e === t.app || e === t.button;
+                    }) && _this3.hide();
+                  }, {
+                    capture: !0
+                  }));
+                }
+                if (e.adjustableNumbers) {
+                  var _e11 = {
+                    rgba: [255, 255, 255, 1],
+                    hsva: [360, 100, 100, 1],
+                    hsla: [360, 100, 100, 1],
+                    cmyk: [100, 100, 100, 100]
+                  };
+                  p(t.interaction.result, function (t, o, n) {
+                    var i = _e11[_this3.getColorRepresentation().toLowerCase()];
+                    if (i) {
+                      var _e12 = i[n],
+                        _s6 = t + (_e12 >= 100 ? 1e3 * o : o);
+                      return _s6 <= 0 ? 0 : Number((_s6 < _e12 ? _s6 : _e12).toPrecision(3));
+                    }
+                    return t;
+                  });
+                }
+                if (e.autoReposition && !e.inline) {
+                  var _t9 = null;
+                  var _n8 = this;
+                  o.push(i(window, ["scroll", "resize"], function () {
+                    _n8.isOpen() && (e.closeOnScroll && _n8.hide(), null === _t9 ? (_t9 = setTimeout(function () {
+                      return _t9 = null;
+                    }, 100), requestAnimationFrame(function e() {
+                      _n8._rePositioningPicker(), null !== _t9 && requestAnimationFrame(e);
+                    })) : (clearTimeout(_t9), _t9 = setTimeout(function () {
+                      return _t9 = null;
+                    }, 100)));
+                  }, {
+                    capture: !0
+                  }));
+                }
+                this._eventBindings = o;
+              }
+            }, {
+              key: "_rePositioningPicker",
+              value: function _rePositioningPicker() {
+                var t = this.options;
+                if (!t.inline) {
+                  if (!this._nanopop.update({
+                    container: document.body.getBoundingClientRect(),
+                    position: t.position
+                  })) {
+                    var _t10 = this._root.app,
+                      _e13 = _t10.getBoundingClientRect();
+                    _t10.style.top = (window.innerHeight - _e13.height) / 2 + "px", _t10.style.left = (window.innerWidth - _e13.width) / 2 + "px";
+                  }
+                }
+              }
+            }, {
+              key: "_updateOutput",
+              value: function _updateOutput(t) {
+                var e = this._root,
+                  o = this._color,
+                  n = this.options;
+                if (e.interaction.type()) {
+                  var _t11 = "to".concat(e.interaction.type().getAttribute("data-type"));
+                  e.interaction.result.value = "function" == typeof o[_t11] ? o[_t11]().toString(n.outputPrecision) : "";
+                }
+                !this._initializingActive && this._recalc && this._emit("change", o, t, this);
+              }
+            }, {
+              key: "_clearColor",
+              value: function _clearColor() {
+                var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : !1;
+                var e = this._root,
+                  o = this.options;
+                o.useAsButton || e.button.style.setProperty("--pcr-color", "rgba(0, 0, 0, 0.15)"), e.button.classList.add("clear"), o.showAlways || this.hide(), this._lastColor = null, this._initializingActive || t || (this._emit("save", null), this._emit("clear"));
+              }
+            }, {
+              key: "_parseLocalColor",
+              value: function _parseLocalColor(t) {
+                var _w = w(t),
+                  e = _w.values,
+                  o = _w.type,
+                  n = _w.a,
+                  i = this.options.lockOpacity,
+                  s = void 0 !== n && 1 !== n;
+                return e && 3 === e.length && (e[3] = void 0), {
+                  values: !e || i && s ? null : e,
+                  type: o
+                };
+              }
+            }, {
+              key: "_t",
+              value: function _t(t) {
+                return this.options.i18n[t] || L.I18N_DEFAULTS[t];
+              }
+            }, {
+              key: "_emit",
+              value: function _emit(t) {
+                var _this4 = this;
+                for (var _len = arguments.length, e = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+                  e[_key - 1] = arguments[_key];
+                }
+                this._eventListener[t].forEach(function (t) {
+                  return t.apply(void 0, e.concat([_this4]));
+                });
+              }
+            }, {
+              key: "on",
+              value: function on(t, e) {
+                return this._eventListener[t].push(e), this;
+              }
+            }, {
+              key: "off",
+              value: function off(t, e) {
+                var o = this._eventListener[t] || [],
+                  n = o.indexOf(e);
+                return ~n && o.splice(n, 1), this;
+              }
+            }, {
+              key: "addSwatch",
+              value: function addSwatch(t) {
+                var _this5 = this;
+                var _this$_parseLocalColo = this._parseLocalColor(t),
+                  e = _this$_parseLocalColo.values;
+                if (e) {
+                  var _t12 = this._swatchColors,
+                    _o14 = this._root,
+                    _n9 = A.apply(void 0, _toConsumableArray(e)),
+                    _s7 = r("<button type=\"button\" style=\"--pcr-color: ".concat(_n9.toRGBA().toString(0), "\" aria-label=\"").concat(this._t("btn:swatch"), "\"/>"));
+                  return _o14.swatches.appendChild(_s7), _t12.push({
+                    el: _s7,
+                    color: _n9
+                  }), this._eventBindings.push(i(_s7, "click", function () {
+                    _this5.setHSVA.apply(_this5, _toConsumableArray(_n9.toHSVA()).concat([!0])), _this5._emit("swatchselect", _n9), _this5._emit("change", _n9, "swatch", _this5);
+                  })), !0;
+                }
+                return !1;
+              }
+            }, {
+              key: "removeSwatch",
+              value: function removeSwatch(t) {
+                var e = this._swatchColors[t];
+                if (e) {
+                  var _o15 = e.el;
+                  return this._root.swatches.removeChild(_o15), this._swatchColors.splice(t, 1), !0;
+                }
+                return !1;
+              }
+            }, {
+              key: "applyColor",
+              value: function applyColor() {
+                var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : !1;
+                var _this$_root2 = this._root,
+                  e = _this$_root2.preview,
+                  o = _this$_root2.button,
+                  n = this._color.toRGBA().toString(0);
+                return e.lastColor.style.setProperty("--pcr-color", n), this.options.useAsButton || o.style.setProperty("--pcr-color", n), o.classList.remove("clear"), this._lastColor = this._color.clone(), this._initializingActive || t || this._emit("save", this._color), this;
+              }
+            }, {
+              key: "destroy",
+              value: function destroy() {
+                var _this6 = this;
+                cancelAnimationFrame(this._setupAnimationFrame), this._eventBindings.forEach(function (t) {
+                  return s.apply(void 0, _toConsumableArray(t));
+                }), Object.keys(this._components).forEach(function (t) {
+                  return _this6._components[t].destroy();
+                });
+              }
+            }, {
+              key: "destroyAndRemove",
+              value: function destroyAndRemove() {
+                var _this7 = this;
+                this.destroy();
+                var _this$_root3 = this._root,
+                  t = _this$_root3.root,
+                  e = _this$_root3.app;
+                t.parentElement && t.parentElement.removeChild(t), e.parentElement.removeChild(e), Object.keys(this).forEach(function (t) {
+                  return _this7[t] = null;
+                });
+              }
+            }, {
+              key: "hide",
+              value: function hide() {
+                return !!this.isOpen() && (this._root.app.classList.remove("visible"), this._emit("hide"), !0);
+              }
+            }, {
+              key: "show",
+              value: function show() {
+                return !this.options.disabled && !this.isOpen() && (this._root.app.classList.add("visible"), this._rePositioningPicker(), this._emit("show", this._color), this);
+              }
+            }, {
+              key: "isOpen",
+              value: function isOpen() {
+                return this._root.app.classList.contains("visible");
+              }
+            }, {
+              key: "setHSVA",
+              value: function setHSVA() {
+                var t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 360;
+                var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+                var o = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var n = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+                var i = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : !1;
+                var s = this._recalc;
+                if (this._recalc = !1, t < 0 || t > 360 || e < 0 || e > 100 || o < 0 || o > 100 || n < 0 || n > 1) return !1;
+                this._color = A(t, e, o, n);
+                var _this$_components = this._components,
+                  r = _this$_components.hue,
+                  a = _this$_components.opacity,
+                  l = _this$_components.palette;
+                return r.update(t / 360), a.update(n), l.update(e / 100, 1 - o / 100), i || this.applyColor(), s && this._updateOutput(), this._recalc = s, !0;
+              }
+            }, {
+              key: "setColor",
+              value: function setColor(t) {
+                var e = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : !1;
+                if (null === t) return this._clearColor(e), !0;
+                var _this$_parseLocalColo2 = this._parseLocalColor(t),
+                  o = _this$_parseLocalColo2.values,
+                  n = _this$_parseLocalColo2.type;
+                if (o) {
+                  var _t13 = n.toUpperCase(),
+                    _i7 = this._root.interaction.options,
+                    _s8 = _i7.find(function (e) {
+                      return e.getAttribute("data-type") === _t13;
+                    });
+                  if (_s8 && !_s8.hidden) {
+                    var _iterator6 = _createForOfIteratorHelper(_i7),
+                      _step6;
+                    try {
+                      for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+                        var _t14 = _step6.value;
+                        _t14.classList[_t14 === _s8 ? "add" : "remove"]("active");
+                      }
+                    } catch (err) {
+                      _iterator6.e(err);
+                    } finally {
+                      _iterator6.f();
+                    }
+                  }
+                  return !!this.setHSVA.apply(this, _toConsumableArray(o).concat([e])) && this.setColorRepresentation(_t13);
+                }
+                return !1;
+              }
+            }, {
+              key: "setColorRepresentation",
+              value: function setColorRepresentation(t) {
+                return t = t.toUpperCase(), !!this._root.interaction.options.find(function (e) {
+                  return e.getAttribute("data-type").startsWith(t) && !e.click();
+                });
+              }
+            }, {
+              key: "getColorRepresentation",
+              value: function getColorRepresentation() {
+                return this._representation;
+              }
+            }, {
+              key: "getColor",
+              value: function getColor() {
+                return this._color;
+              }
+            }, {
+              key: "getSelectedColor",
+              value: function getSelectedColor() {
+                return this._lastColor;
+              }
+            }, {
+              key: "getRoot",
+              value: function getRoot() {
+                return this._root;
+              }
+            }, {
+              key: "disable",
+              value: function disable() {
+                return this.hide(), this.options.disabled = !0, this._root.button.classList.add("disabled"), this;
+              }
+            }, {
+              key: "enable",
+              value: function enable() {
+                return this.options.disabled = !1, this._root.button.classList.remove("disabled"), this;
+              }
+            }]);
+            return L;
+          }();
+          return E(L, "utils", o), E(L, "version", "1.8.2"), E(L, "I18N_DEFAULTS", {
+            "ui:dialog": "color picker dialog",
+            "btn:toggle": "toggle color picker dialog",
+            "btn:swatch": "color swatch",
+            "btn:last-color": "use previous color",
+            "btn:save": "Save",
+            "btn:cancel": "Cancel",
+            "btn:clear": "Clear",
+            "aria:btn:save": "save and close",
+            "aria:btn:cancel": "cancel and close",
+            "aria:btn:clear": "clear and close",
+            "aria:input": "color input field",
+            "aria:palette": "color selection area",
+            "aria:hue": "hue selection slider",
+            "aria:opacity": "selection slider"
+          }), E(L, "DEFAULT_OPTIONS", {
+            appClass: null,
+            theme: "classic",
+            useAsButton: !1,
+            padding: 8,
+            disabled: !1,
+            comparison: !0,
+            closeOnScroll: !1,
+            outputPrecision: 0,
+            lockOpacity: !1,
+            autoReposition: !0,
+            container: "body",
+            components: {
+              interaction: {}
+            },
+            i18n: {},
+            swatches: null,
+            inline: !1,
+            sliders: null,
+            "default": "#42445a",
+            defaultRepresentation: null,
+            position: "bottom-middle",
+            adjustableNumbers: !0,
+            showAlways: !1,
+            closeWithKey: "Escape"
+          }), E(L, "create", function (t) {
+            return new L(t);
+          }), e = e["default"];
+        }();
+      });
 
-}();
+      /***/
+    }
+
+    /******/
+  };
+  /************************************************************************/
+  /******/ // The module cache
+  /******/
+  var __webpack_module_cache__ = {};
+  /******/
+  /******/ // The require function
+  /******/
+  function __nested_webpack_require_61600__(moduleId) {
+    /******/ // Check if module is in cache
+    /******/var cachedModule = __webpack_module_cache__[moduleId];
+    /******/
+    if (cachedModule !== undefined) {
+      /******/return cachedModule.exports;
+      /******/
+    }
+    /******/ // Create a new module (and put it into the cache)
+    /******/
+    var module = __webpack_module_cache__[moduleId] = {
+      /******/ // no module.id needed
+      /******/ // no module.loaded needed
+      /******/exports: {}
+      /******/
+    };
+    /******/
+    /******/ // Execute the module function
+    /******/
+    __webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_61600__);
+    /******/
+    /******/ // Return the exports of the module
+    /******/
+    return module.exports;
+    /******/
+  }
+  /******/
+  /************************************************************************/
+  /******/ /* webpack/runtime/compat get default export */
+  /******/
+  !function () {
+    /******/ // getDefaultExport function for compatibility with non-harmony modules
+    /******/__nested_webpack_require_61600__.n = function (module) {
+      /******/var getter = module && module.__esModule ? /******/function () {
+        return module['default'];
+      } : /******/function () {
+        return module;
+      };
+      /******/
+      __nested_webpack_require_61600__.d(getter, {
+        a: getter
+      });
+      /******/
+      return getter;
+      /******/
+    };
+    /******/
+  }();
+  /******/
+  /******/ /* webpack/runtime/define property getters */
+  /******/
+  !function () {
+    /******/ // define getter functions for harmony exports
+    /******/__nested_webpack_require_61600__.d = function (exports, definition) {
+      /******/for (var key in definition) {
+        /******/if (__nested_webpack_require_61600__.o(definition, key) && !__nested_webpack_require_61600__.o(exports, key)) {
+          /******/Object.defineProperty(exports, key, {
+            enumerable: true,
+            get: definition[key]
+          });
+          /******/
+        }
+        /******/
+      }
+      /******/
+    };
+    /******/
+  }();
+  /******/
+  /******/ /* webpack/runtime/hasOwnProperty shorthand */
+  /******/
+  !function () {
+    /******/__nested_webpack_require_61600__.o = function (obj, prop) {
+      return Object.prototype.hasOwnProperty.call(obj, prop);
+    };
+    /******/
+  }();
+  /******/
+  /******/ /* webpack/runtime/make namespace object */
+  /******/
+  !function () {
+    /******/ // define __esModule on exports
+    /******/__nested_webpack_require_61600__.r = function (exports) {
+      /******/if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+        /******/Object.defineProperty(exports, Symbol.toStringTag, {
+          value: 'Module'
+        });
+        /******/
+      }
+      /******/
+      Object.defineProperty(exports, '__esModule', {
+        value: true
+      });
+      /******/
+    };
+    /******/
+  }();
+  /******/
+  /************************************************************************/
+  var __webpack_exports__ = {};
+  // This entry need to be wrapped in an IIFE because it need to be in strict mode.
+  !function () {
+    "use strict";
+
+    /*!*****************************************************!*\
+      !*** ./resources/assets/vendor/libs/pickr/pickr.js ***!
+      \*****************************************************/
+    __nested_webpack_require_61600__.r(__webpack_exports__);
+    /* harmony export */
+    __nested_webpack_require_61600__.d(__webpack_exports__, {
+      /* harmony export */"pickr": function pickr() {
+        return (/* reexport module object */_simonwep_pickr_dist_pickr_min__WEBPACK_IMPORTED_MODULE_0__
+        );
+      }
+      /* harmony export */
+    });
+    /* harmony import */
+    var _simonwep_pickr_dist_pickr_min__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_61600__( /*! @simonwep/pickr/dist/pickr.min */"./node_modules/@simonwep/pickr/dist/pickr.min.js");
+    /* harmony import */
+    var _simonwep_pickr_dist_pickr_min__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_61600__.n(_simonwep_pickr_dist_pickr_min__WEBPACK_IMPORTED_MODULE_0__);
+  }();
+  var __webpack_export_target__ = window;
+  for (var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
+  if (__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", {
+    value: true
+  });
+  /******/
+})();
 var __webpack_export_target__ = window;
 for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
 if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });

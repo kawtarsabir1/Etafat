@@ -133,8 +133,8 @@
   -webkit-touch-callout: none;
   /* disable the IOS popup when long-press on a link */
   -moz-user-select: none;
-   -ms-user-select: none;
-       user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .vakata-context {
@@ -233,7 +233,7 @@
 
 .vakata-context .vakata-contextmenu-disabled > a > i {
   -webkit-filter: grayscale(100%);
-          filter: grayscale(100%);
+  filter: grayscale(100%);
 }
 
 .vakata-context li > a > i {
@@ -1460,8 +1460,8 @@
   -webkit-touch-callout: none;
   /* disable the IOS popup when long-press on a link */
   -moz-user-select: none;
-   -ms-user-select: none;
-       user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .vakata-context {
@@ -1560,7 +1560,7 @@
 
 .vakata-context .vakata-contextmenu-disabled > a > i {
   -webkit-filter: grayscale(100%);
-          filter: grayscale(100%);
+  filter: grayscale(100%);
 }
 
 .vakata-context li > a > i {
@@ -2716,7 +2716,7 @@
 .jstree-default > .jstree-container-ul .jstree-loading > .jstree-ocl,
 .jstree-default-small > .jstree-container-ul .jstree-loading > .jstree-ocl,
 .jstree-default-large > .jstree-container-ul .jstree-loading > .jstree-ocl {
-  background-image: url('./themes/default/throbber.gif');
+  background-image: url("./themes/default/throbber.gif");
 }
 
 .jstree-default .jstree-node,
@@ -2737,7 +2737,7 @@
 .jstree-default-large .jstree-folder,
 #jstree-dnd.jstree-default-large .jstree-ok,
 #jstree-dnd.jstree-default-large .jstree-er {
-  background-image: url('./themes/default/32px.png');
+  background-image: url("./themes/default/32px.png");
 }
 
 @media (max-width: 767.98px) {
@@ -2751,7 +2751,7 @@
 .jstree-default-responsive .jstree-checkbox,
 .jstree-default-responsive .jstree-file,
 .jstree-default-responsive .jstree-folder {
-    background-image: url('./themes/default/40px.png');
+    background-image: url("./themes/default/40px.png");
   }
 }
 .jstree-default .jstree-last,
@@ -2769,7 +2769,7 @@
 .jstree-default-dark > .jstree-container-ul .jstree-loading > .jstree-ocl,
 .jstree-default-dark-small > .jstree-container-ul .jstree-loading > .jstree-ocl,
 .jstree-default-dark-large > .jstree-container-ul .jstree-loading > .jstree-ocl {
-  background-image: url('./themes/default-dark/throbber.gif');
+  background-image: url("./themes/default-dark/throbber.gif");
 }
 
 .jstree-default-dark .jstree-node,
@@ -2790,7 +2790,7 @@
 .jstree-default-dark-large .jstree-folder,
 #jstree-dnd.jstree-default-dark-large .jstree-ok,
 #jstree-dnd.jstree-default-dark-large .jstree-er {
-  background-image: url('./themes/default-dark/32px.png');
+  background-image: url("./themes/default-dark/32px.png");
 }
 
 @media (max-width: 767.98px) {
@@ -2804,7 +2804,7 @@
 .jstree-default-dark-responsive .jstree-checkbox,
 .jstree-default-dark-responsive .jstree-file,
 .jstree-default-dark-responsive .jstree-folder {
-    background-image: url('./themes/default-dark/40px.png');
+    background-image: url("./themes/default-dark/40px.png");
   }
 }
 .jstree-default-dark .jstree-last,
@@ -2819,32 +2819,40 @@
 .light-style .jstree .jstree-container-ul .ion-ios-folder {
   color: #ff9f43;
 }
+
 .light-style .jstree .jstree-container-ul .jstree-icon.ti-file {
   color: #7367f0;
 }
+
 .light-style .vakata-context.jstree-contextmenu {
   background: #fff;
   border: 0;
   box-shadow: 0px 0px 50px 0px rgba(75, 70, 92, 0.1);
 }
+
 .light-style .vakata-context.jstree-contextmenu li a {
   padding: 0 1.5rem;
   text-shadow: none;
 }
+
 .light-style .vakata-context.jstree-contextmenu li a i {
   display: none;
 }
+
 .light-style .vakata-context.jstree-contextmenu li.vakata-context-hover a {
   box-shadow: none;
 }
+
 .light-style .vakata-context.jstree-contextmenu li.vakata-context-separator a {
   margin: 0;
 }
+
 .light-style .vakata-context.jstree-contextmenu li ul {
   background: #fff;
   border: 0;
   box-shadow: 0px 0px 50px 0px rgba(75, 70, 92, 0.1);
 }
+
 .light-style .vakata-context.jstree-contextmenu .vakata-contextmenu-sep {
   display: none;
 }
@@ -2853,32 +2861,40 @@
 .dark-style .jstree .jstree-container-ul .ion-ios-folder {
   color: #ff9f43;
 }
+
 .dark-style .jstree .jstree-container-ul .jstree-icon.ti-file {
   color: #7367f0;
 }
+
 .dark-style .vakata-context.jstree-contextmenu {
   background: #fff;
   border: 0;
   box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.1);
 }
+
 .dark-style .vakata-context.jstree-contextmenu li a {
   padding: 0 1.5rem;
   text-shadow: none;
 }
+
 .dark-style .vakata-context.jstree-contextmenu li a i {
   display: none;
 }
+
 .dark-style .vakata-context.jstree-contextmenu li.vakata-context-hover a {
   box-shadow: none;
 }
+
 .dark-style .vakata-context.jstree-contextmenu li.vakata-context-separator a {
   margin: 0;
 }
+
 .dark-style .vakata-context.jstree-contextmenu li ul {
   background: #fff;
   border: 0;
   box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.1);
 }
+
 .dark-style .vakata-context.jstree-contextmenu .vakata-contextmenu-sep {
   display: none;
 }
