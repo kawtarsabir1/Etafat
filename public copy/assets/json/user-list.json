@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "Nom": "Ayoub",
+      "Prenom": "Basidi",
+      "Poste": "Frontend Developer",
+      "Email": "ayoub0@abc.net.au",
+      "CIN": "BM1111",
+      "Profil": "SIG",
+      "TelephonePortable": "0612233111",
+      "avatar": ""
+    },
+    {
+      "id": 2,
+      "Nom": "Bihi",
+      "Prenom": "Bsd",
+      "Poste": "Backend Developer",
+      "Email": "bihi1@imgur.com",
+      "CIN": "RR10291",
+      "Profil": "Dev",
+      "TelephonePortable": "0611111111",
+      "avatar": ""
+    }
+  ]
+}
