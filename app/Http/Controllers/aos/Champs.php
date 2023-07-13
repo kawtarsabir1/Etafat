@@ -31,6 +31,13 @@ class Champs extends Controller
         $type->delete();
     }
 
+    public function updateType(Request $request, $id)
+    {
+        $type = Type::find($id);
+        $type->type = $request->input('value');
+        $type->save();  
+    }    
+
     public function getAllTypes()
     {
         $types = Type::all();
