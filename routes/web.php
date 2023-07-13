@@ -82,7 +82,7 @@ Route::get('/pages/misc-not-authorized', $controller_path . '\pages\MiscNotAutho
 
 // authentication
 Route::get('/auth/login-front', $controller_path . '\authentications\LoginFront@index')->name('auth-login-front');
-Route::get('/auth/login-basic', $controller_path . '\authentications\LoginBasic@index')->name('auth-login-basic');
+Route::get('/auth/login-basic', $controller_path . '\authentications\LoginBasic@index')->name('login');
 Route::get('/auth/login-cover', $controller_path . '\authentications\LoginCover@index')->name('auth-login-cover');
 Route::get('/auth/register-front', $controller_path . '\authentications\RegisterFront@index')->name('auth-register-front');
 Route::get('/auth/register-basic', $controller_path . '\authentications\RegisterBasic@index')->name('auth-register-basic');
@@ -317,6 +317,7 @@ Route::get('/ao/view/{id}', $controller_path . '\aos\gestion@view')->name('appel
 //routes of type
 Route::get('/ao/champ/type', $controller_path . '\aos\champs@getAllTypes')->name('types-page');
 Route::post('/ao/champ/type', $controller_path . '\aos\champs@addType')->name('type-add');
+Route::post('/ao/champ/updateType/{id}', $controller_path . '\aos\champs@updateType')->name('type-update');
 Route::delete('/ao/champ/type/{id}', $controller_path . '\aos\champs@deleteType')->name('type-delete');
 
 //routes of pay
