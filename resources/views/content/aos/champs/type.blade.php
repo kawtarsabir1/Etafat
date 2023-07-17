@@ -207,11 +207,11 @@
         <div class="bs-stepper-content">
             <form id="create-form" class="formInfos">
                 <div>
-                    <h5>Ajouter de Type</h5>
+                    <h5>Ajouter un Type</h5>
                     <div class="col-12 row mb-4">
                         <div class="col-md-6">
-                            <label class="form-label" for="Nom">Nom de Type</label>
-                            <input type="text" id="form-input" class="form-control" name="value" />
+                            <label class="form-label" for="Nom">Nom du Type</label>
+                            <input type="text" id="form-input" class="form-control" name="type" />
                             <input type="hidden" class="form-control" id="input-id"/>
                         </div>
                         <div class="col-md-6">
@@ -220,10 +220,13 @@
                             <button type="button" class="btn btn-cancel btn-secondary mt-4 d-none">Annuler</button>
                         </div>
                     </div>
-                    <h5>Liste des BUs</h5>
+                    <h5>Liste des Types</h5>
                     <div>
                         <ul class="list-group mb-4">
-                            @foreach($types as $type)
+                            @php
+                                $sortedTypes = $types->sortBy('id');
+                            @endphp
+                            @foreach($sortedTypes as $type)
                             <li class="list-group-item">
                                 <p id="text-{{$type->id}}">{{ $type->type }}</p>
                                 <button type="button" onclick="deleteType({{$type->id}})" class="btn btn-danger btn-sm float-end">Supprimer</button>
@@ -231,6 +234,7 @@
                             </li>
                             @endforeach
                         </ul>
+                        
                     </div>
                 </div>
             </form>

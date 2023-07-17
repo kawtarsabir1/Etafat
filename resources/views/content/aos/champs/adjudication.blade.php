@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Create')
+@section('title', 'Adjudication')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css')}}" />
@@ -131,6 +131,57 @@
         }
     }
 
+    function editAdjudication(id) {
+        var value = $('#text-'+id).text();
+        input = $('#form-input'),
+        inputId = $('#input-id'),
+        btnUpdate = $('.btn-update');
+        btnCancel = $('.btn-cancel');
+        btnSubmit = $('.btn-submit');
+        btnUpdate.removeClass('d-none');
+        btnCancel.removeClass('d-none');
+        btnSubmit.addClass('d-none');
+        input.val(value);   
+        inputId.val(id);
+    }
+
+    $(function () {
+
+        $('.btn-update').click(function (e) {
+            e.preventDefault();
+            var formData = new FormData($('#create-form')[0]);
+            var id = $('#input-id').val();
+            $.ajax({
+                url: baseUrl + 'ao/champ/updateAdjudication/' + id,
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if ($.isEmptyObject(data.error)) {
+                        alert('Adjudication modifié avec succés.');
+                        location.reload();
+                    } else {
+                        printErrorMsg(data.error);
+                    }
+                }
+            });
+        });
+        $('.btn-cancel').click(function (e) {
+            e.preventDefault();
+            var input = $('#form-input'),
+            btnUpdate = $('.btn-update');
+            btnCancel = $('.btn-cancel');
+            btnSubmit = $('.btn-submit');
+            btnUpdate.addClass('d-none');
+            btnCancel.addClass('d-none');
+            btnSubmit.removeClass('d-none');
+            input.val('');   
+        });
+    });
+
+
+
     function printErrorMsg(msg) {
         $(".print-error-msg").find("ul").html('');
         $(".print-error-msg").css('display', 'block');
@@ -156,21 +207,31 @@
         <div class="bs-stepper-content">
             <form id="create-form" class="formInfos">
                 <div>
-                    <h5>Ajouter de Adjudication</h5>
+                    <h5>Ajouter une Adjudication</h5>
                     <div class="col-12 row mb-4">
                         <div class="col-md-6">
-                            <label class="form-label" for="Nom">Nom de Adjudication</label>
-                            <input type="text" class="form-control" name="adjudication" />
+                            <label class="form-label" for="Nom">Nom de l'Adjucation</label>
+                            <input type="text" id="form-input" class="form-control" name="adjudication" />
+                            <input type="hidden" class="form-control" id="input-id"/>
                         </div>
                         <div class="col-md-6">
                             <button type="button" class="btn btn-submit btn-primary mt-4">Ajouter</button>
+                            <button type="button" class="btn btn-update btn-success mt-4 d-none">Editer</button>
+                            <button type="button" class="btn btn-cancel btn-secondary mt-4 d-none">Annuler</button>
                         </div>
                     </div>
-                    <h5>Liste des BUs</h5>
+                    <h5>Liste des Adjudications</h5>
                     <div>
                         <ul class="list-group mb-4">
-                            @foreach($adjudications as $adjudication)
-                            <li class="list-group-item">{{ $adjudication->adjudication }} <button type="button" onclick="deleteAdjudication({{$adjudication->id}})" class="btn btn-danger btn-sm float-end">Supprimer</button></li>
+                            @php
+                                $sortedAdjudications = $adjudications->sortBy('id');
+                            @endphp
+                            @foreach($sortedAdjudications as $adjudication)
+                            <li class="list-group-item">
+                                <p id="text-{{$adjudication->id}}">{{ $adjudication->adjudication }}</p>
+                                <button type="button" onclick="deleteAdjudication({{$adjudication->id}})" class="btn btn-danger btn-sm float-end">Supprimer</button>
+                                <button type="button" onclick="editAdjudication({{$adjudication->id}})" class="btn btn-primary mx-3 btn-sm float-end">Editer</button>
+                            </li>                             
                             @endforeach
                         </ul>
                     </div>

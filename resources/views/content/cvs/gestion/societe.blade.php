@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Create')
+@section('title', 'Societes')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css')}}" />
@@ -208,10 +208,10 @@
         <div class="bs-stepper-content">
             <form id="create-form" class="formInfos">
                 <div>
-                    <h5>Ajouter de Societe</h5>
+                    <h5>Ajouter une Societe</h5>
                     <div class="col-12 row mb-4">
                         <div class="col-md-6">
-                            <label class="form-label" for="Nom">Nom de Societe</label>
+                            <label class="form-label" for="Nom">Nom de la Societe</label>
                             <input type="text" id="form-input" class="form-control" name="nom" />
                             <input type="hidden" class="form-control" id="input-id"/>
                         </div>
@@ -224,7 +224,10 @@
                     <h5>Liste des Societes</h5>
                     <div>
                         <ul class="list-group mb-4">
-                            @foreach($societes as $societe)
+                            @php
+                                $sortedSocietes = $societes->sortBy('id');
+                            @endphp
+                            @foreach($sortedSocietes as $societe)
                             <li class="list-group-item">
                                 <p id="text-{{$societe->id}}">{{ $societe->societeNom }}</p> 
                                 <button type="button" onclick="deleteSociete({{$societe->id}})" class="btn btn-danger btn-sm float-end">Supprimer</button> 

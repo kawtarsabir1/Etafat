@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Create')
+@section('title', 'Responsables hiérarchiques')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css')}}" />
@@ -201,10 +201,10 @@
         <div class="bs-stepper-content">
             <form id="create-form" class="formInfos">
                 <div>
-                    <h5>Ajouter de Responsable hiérarchique</h5>
+                    <h5>Ajouter une Responsable hiérarchique</h5>
                     <div class="col-12 row mb-4">
                         <div class="col-md-6">
-                            <label class="form-label" for="Nom">Nom de Responsable hiérarchique</label>
+                            <label class="form-label" for="Nom">Nom de la Responsable hiérarchique</label>
                             <input type="text" id="form-input" class="form-control" name="nom" />
                             <input type="hidden" class="form-control" id="input-id"/>
                         </div>
@@ -217,7 +217,10 @@
                     <h5>Liste des Responsables hiérarchiques</h5>
                     <div>
                         <ul class="list-group mb-4">
-                            @foreach($rhs as $rh)
+                            @php
+                                $sortedRhs = $rhs->sortBy('id');
+                            @endphp
+                            @foreach($sortedRhs as $rh)
                             <li class="list-group-item">
                                 <p id="text-{{$rh->id}}">{{ $rh->rhNom }}</p>
                                 <button type="button" onclick="deleteRh({{$rh->id}})" class="btn btn-danger btn-sm float-end">Supprimer</button>
