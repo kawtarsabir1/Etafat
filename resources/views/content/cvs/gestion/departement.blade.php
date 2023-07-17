@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Create')
+@section('title', 'Departements')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css')}}" />
@@ -204,7 +204,7 @@
                     <h5>Ajouter Un Departement</h5>
                     <div class="col-12 row mb-4">
                         <div class="col-md-6">
-                            <label class="form-label" for="Nom">Nom de Departement</label>
+                            <label class="form-label" for="Nom">Nom du Departement</label>
                             <input type="text" id="form-input" class="form-control" placeholder="" name="nom" />
                             <input type="hidden" id="input-id" class="form-control" placeholder="" name="id" />
                         </div>
@@ -217,7 +217,10 @@
                     <h5>Liste des Departements</h5>
                     <div>
                         <ul class="list-group mb-4">
-                            @foreach($departements as $departement)
+                            @php
+                                $sortedDepartements = $departements->sortBy('id');
+                            @endphp
+                            @foreach($sortedDepartements as $departement)
                             <li class="list-group-item">
                                 <p id="text-{{$departement->id}}">{{ $departement->departementNom }}</p> 
                                 <button type="button" onclick="deletedepartement({{$departement->id}})" class="btn btn-danger btn-sm float-end">Supprimer</button>

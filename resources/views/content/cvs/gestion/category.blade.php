@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Create')
+@section('title', 'Categories')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css')}}" />
@@ -201,10 +201,10 @@
         <div class="bs-stepper-content">
             <form id="create-form" class="formInfos">
                 <div>
-                    <h5>Ajouter Un Category</h5>
+                    <h5>Ajouter une Categorie</h5>
                     <div class="col-12 row mb-4">
                         <div class="col-md-6">
-                            <label class="form-label" for="Nom">Nom de Category</label>
+                            <label class="form-label" for="Nom">Nom de la Categorie</label>
                             <input type="text" id="form-input" class="form-control" placeholder="" name="nom" />
                             <input type="hidden" id="input-id" class="form-control" placeholder="" name="id" />
                         </div>
@@ -217,7 +217,10 @@
                     <h5>Liste des categories</h5>
                     <div>
                         <ul class="list-group mb-4">
-                            @foreach($categories as $category)
+                            @php
+                                $sortedCategories = $categories->sortBy('id');
+                            @endphp
+                            @foreach($sortedCategories as $category)
                             <li class="list-group-item">
                                 <p id="text-{{$category->id}}">{{ $category->categoryNom }} </p>
                                 <button type="button" onclick="deleteCategory({{$category->id}})" class="btn btn-danger btn-sm float-end">Supprimer</button>

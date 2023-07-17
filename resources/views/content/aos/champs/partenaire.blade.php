@@ -131,6 +131,57 @@
         }
     }
 
+    function editPartenaire(id) {
+        var value = $('#text-'+id).text();
+        input = $('#form-input'),
+        inputId = $('#input-id'),
+        btnUpdate = $('.btn-update');
+        btnCancel = $('.btn-cancel');
+        btnSubmit = $('.btn-submit');
+        btnUpdate.removeClass('d-none');
+        btnCancel.removeClass('d-none');
+        btnSubmit.addClass('d-none');
+        input.val(value);   
+        inputId.val(id);
+    }
+
+    $(function () {
+
+        $('.btn-update').click(function (e) {
+            e.preventDefault();
+            var formData = new FormData($('#create-form')[0]);
+            var id = $('#input-id').val();
+            $.ajax({
+                url: baseUrl + 'ao/champ/updatePartenaire/' + id,
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if ($.isEmptyObject(data.error)) {
+                        alert('Partenaire modifié avec succés.');
+                        location.reload();
+                    } else {
+                        printErrorMsg(data.error);
+                    }
+                }
+            });
+        });
+        $('.btn-cancel').click(function (e) {
+            e.preventDefault();
+            var input = $('#form-input'),
+            btnUpdate = $('.btn-update');
+            btnCancel = $('.btn-cancel');
+            btnSubmit = $('.btn-submit');
+            btnUpdate.addClass('d-none');
+            btnCancel.addClass('d-none');
+            btnSubmit.removeClass('d-none');
+            input.val('');   
+        });
+    });
+
+
+
     function printErrorMsg(msg) {
         $(".print-error-msg").find("ul").html('');
         $(".print-error-msg").css('display', 'block');
@@ -156,21 +207,31 @@
         <div class="bs-stepper-content">
             <form id="create-form" class="formInfos">
                 <div>
-                    <h5>Ajouter de Partenaire</h5>
+                    <h5>Ajouter un Partenaire</h5>
                     <div class="col-12 row mb-4">
                         <div class="col-md-6">
-                            <label class="form-label" for="Nom">Nom de Partenaire</label>
-                            <input type="text" class="form-control" name="partenaire" />
+                            <label class="form-label" for="Nom">Nom du Partenaire</label>
+                            <input type="text" id="form-input" class="form-control" name="partenaire" />
+                            <input type="hidden" class="form-control" id="input-id"/>
                         </div>
                         <div class="col-md-6">
                             <button type="button" class="btn btn-submit btn-primary mt-4">Ajouter</button>
+                            <button type="button" class="btn btn-update btn-success mt-4 d-none">Editer</button>
+                            <button type="button" class="btn btn-cancel btn-secondary mt-4 d-none">Annuler</button>                        
                         </div>
                     </div>
                     <h5>Liste des Partenaires</h5>
                     <div>
                         <ul class="list-group mb-4">
-                            @foreach($partenaires as $partenaire)
-                            <li class="list-group-item">{{ $partenaire->partenaire }} <button type="button" onclick="deletePartenaire({{$partenaire->id}})" class="btn btn-danger btn-sm float-end">Supprimer</button></li>
+                            @php
+                                $sortedPartenaires = $partenaires->sortBy('id');
+                            @endphp
+                            @foreach($sortedPartenaires as $partenaire)
+                            <li class="list-group-item">
+                                <p id="text-{{$partenaire->id}}">{{ $partenaire->partenaire }}</p>
+                                <button type="button" onclick="deletePartenaire({{$partenaire->id}})" class="btn btn-danger btn-sm float-end">Supprimer</button>
+                                <button type="button" onclick="editPartenaire({{$partenaire->id}})" class="btn btn-primary mx-3 btn-sm float-end">Editer</button>
+                            </li>                                 
                             @endforeach
                         </ul>
                     </div>

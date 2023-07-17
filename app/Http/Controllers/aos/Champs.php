@@ -34,7 +34,7 @@ class Champs extends Controller
     public function updateType(Request $request, $id)
     {
         $type = Type::find($id);
-        $type->type = $request->input('value');
+        $type->type = $request->input('type');
         $type->save();  
     }    
 
@@ -58,6 +58,13 @@ class Champs extends Controller
         $pay->delete();
     }
 
+    public function updatePay(Request $request, $id)
+    {
+        $pay = Pay::find($id);
+        $pay->pay = $request->input('pay');
+        $pay->save();  
+    }    
+
     public function getAllPays()
     {
         $pays = Pay::all();
@@ -77,6 +84,13 @@ class Champs extends Controller
         $secteur = Secteur::find($id);
         $secteur->delete();
     }
+
+    public function updateSecteur(Request $request, $id)
+    {
+        $secteur = Secteur::find($id);
+        $secteur->secteur = $request->input('secteur');
+        $secteur->save();  
+    }    
 
     public function getAllSecteurs()
     {
@@ -98,6 +112,13 @@ class Champs extends Controller
         $financement->delete();
     }
 
+    public function updateFinancement(Request $request, $id)
+    {
+        $financement = Financement::find($id);
+        $financement->financement = $request->input('financement');
+        $financement->save();  
+    }    
+
     public function getAllFinancements()
     {
         $financements = Financement::all();
@@ -117,6 +138,13 @@ class Champs extends Controller
         $ministere = Ministere::find($id);
         $ministere->delete();
     }
+
+    public function updateMinistere(Request $request, $id)
+    {
+        $ministere = Ministere::find($id);
+        $ministere->ministere = $request->input('ministere');
+        $ministere->save();  
+    }    
 
     public function getAllMinisteres()
     {
@@ -138,6 +166,13 @@ class Champs extends Controller
         $adjudication->delete();
     }
 
+    public function updateAdjudication(Request $request, $id)
+    {
+        $adjudication = Adjudication::find($id);
+        $adjudication->adjudication = $request->input('adjudication');
+        $adjudication->save();  
+    }   
+
     public function getAllAdjudications()
     {
         $adjudications = Adjudication::all();
@@ -157,6 +192,13 @@ class Champs extends Controller
         $motif = Motif::find($id);
         $motif->delete();
     }
+
+    public function updateMotif(Request $request, $id)
+    {
+        $motif = Motif::find($id);
+        $motif->motif = $request->input('motif');
+        $motif->save();  
+    }    
 
     public function getAllMotifs()
     {
@@ -178,6 +220,13 @@ class Champs extends Controller
         $partenaire->delete();
     }
 
+    public function updatePartenaire(Request $request, $id)
+    {
+        $partenaire = Partenaire::find($id);
+        $partenaire->partenaire = $request->input('partenaire');
+        $partenaire->save();  
+    }    
+
     public function getAllPartenaires()
     {
         $partenaires = Partenaire::all();
@@ -197,6 +246,14 @@ class Champs extends Controller
         $soustraitant = Soustraitant::find($id);
         $soustraitant->delete();
     }
+
+    public function updateSoustraitant(Request $request, $id)
+    {
+        $soustraitant = Soustraitant::find($id);
+        $soustraitant->soustraitant = $request->input('soustraitant');
+        $soustraitant->save();  
+    }    
+
 
     public function getAllSoustraitants()
     {

@@ -171,13 +171,9 @@
                             <input type="text" id="ao_name" class="form-control mb-4" placeholder="Rechercher" name="Recherche" />
                             <select id="roles" class="form-select mb-4">
                                 <option value="">Filtrer par poste</option>
-                                <option value="Directeur projets">Directeur projets</option>
-                                <option value="Chef projets topographe">Chef projets topographe</option>
-                                <option value="Chef projet Hydrographe">Chef projet Hydrographe</option>
-                                <option value="Chef projets SIG">Chef projets SIG</option>
-                                <option value="Technicien Topographe">Technicien Topographe</option>
-                                <option value="Technicien Hydrographe">Technicien Hydrographe</option>
-                                <option value="Technicien SIG">Technicien SIG</option>
+                                @foreach($postes as $poste)
+                                            <option value="{{$poste->postNom}}">{{$poste->postNom}}</option>
+                                @endforeach
                             </select>
                             <select id="posts" class="form-select mb-4">
                                 <option value="">Filtrer par Departement</option>

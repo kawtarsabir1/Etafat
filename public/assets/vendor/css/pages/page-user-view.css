@@ -28,7 +28,6 @@
     border-left: 1px solid #dbdade;
   }
 }
-
 @media (min-width: 992px) {
   .dark-style .user-card .border-container-lg {
     border-right: 1px solid #434968;
