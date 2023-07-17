@@ -23,8 +23,7 @@
      select2.each(function () {
        var $this = $(this);
        if($this.hasClass('ao-select')){
-        console.log('ao-select');
-          $this.wrap('<div class="position-relative mb-4"></div>').select2({
+          $this.wrap('<div class="position-relative"></div>').select2({
             placeholder: "Sélectionnez Appel d'Offre",
             dropdownParent: $this.parent()
           });
@@ -33,15 +32,9 @@
             placeholder: "Sélectionnez un cv",
             dropdownParent: $this.parent()
           });
-       }
-       else if($this.hasClass('pays-select')){
-        $this.wrap('<div class="position-relative"></div>').select2({
-          placeholder: "Sélectionnez un pays",
-          dropdownParent: $this.parent()
-        });
-      }else{
+       }else{
           $this.wrap('<div class="position-relative"></div>').select2({
-            placeholder: "Sélectionnez une option",
+            placeholder: 'Select value',
             dropdownParent: $this.parent()
           });
        }

@@ -1,142 +1,187 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+namespace Database\Seeders;
 
+use App\Models\Permission;
+use Illuminate\Database\Seeder;
 
 class PermissionsTableSeeder extends Seeder
 {
-
-    /**
-     * Auto generated seed file
-     *
-     * @return void
-     */
     public function run()
     {
-        
 
-        DB::table('permissions')->delete();
+        Permission::truncate();
         
-        DB::table('permissions')->insert(
-            [
-                array("id"=> 1, "name" => "role:creation","guard_name" => "web", "category" => "config","category_id" => "2"),
-                array("id"=> 2, "name" => "role:edition",	"guard_name" => "web"	, "category" => "config","category_id" => "2"),
-                array("id"=> 3, "name" => "role:suppression",	"guard_name" => "web"	, "category" => "config","category_id" => "2"),
-                array("id"=> 4, "name" => "Gestion des roles",	"guard_name" => "web"	, "category" => "interface","category_id" => "2"),
-                array("id"=> 5, "name" => "Gestion des couches	","guard_name" => "web"	, "category" => "interface","category_id" => "1"),
-                array("id"=> 6, "name" => "couche:import des données",	"guard_name" => "web"	, "category" => "config","category_id" => "2"),
-                array("id"=> 7, "name" => "couche:import des couches",	"guard_name" => "web"	, "category" => "config","category_id" => "1"),
-                array("id"=> 8, "name" => "Edition","guard_name" => "web"	, "category" => "map","category_id" => "1"),
-                array("id"=> 9, "name" => "Recherche","guard_name" => "web"	, "category" => "map","category_id" => "1"),
-                array("id"=> 10, "name" => "Mesures","guard_name" => "web"	, "category" => "map","category_id" => "1"),
-                array("id"=> 11, "name" => "GoToXY","guard_name" => "web"	, "category" => "map","category_id" => "1"),
-                array("id"=> 12, "name" => "Legende","guard_name" => "web"	, "category" => "map","category_id" => "1"),
-                array("id"=> 13, "name" => "Impression","guard_name" => "web"	, "category" => "map","category_id" => "1"),
-                array("id"=> 14, "name" => "Classification",	"guard_name" => "web"	, "category" => "map","category_id" => "1"),
-                array("id"=> 15, "name" => "Classification:Statistiques","guard_name" => "web"	, "category" => "map","category_id" => "1"),
-                array("id"=> 16, "name" => "Rapports","guard_name" => "web"	, "category" => "interface","category_id" => "1"),
-                array("id"=> 17, "name" => "Gestion des utilisateurs","guard_name" => "web"	, "category" => "interface","category_id" => "2"),
-                array("id"=> 18, "name" => "utilisateur:creation","guard_name" => "web"	, "category" => "config","category_id" => "2"),
-                array("id"=> 19, "name" => "utilisateur:edition","guard_name" => "web", "category" => "config","category_id" => "2"),
-                array("id"=> 20, "name" => "utilisateur:suppression","guard_name" => "web"	, "category" => "config","category_id" => "2"),
-                array("id"=> 21, "name" => "couche:creation","guard_name" => "web"	, "category" => "config","category_id" => "2"),
-                array("id"=> 22, "name" => "couche:suppression",	"guard_name" => "web"	, "category" => "config","category_id" => "2"),
-                array("id"=> 23, "name" => "couche:edition",	"guard_name" => "web"	, "category" => "config","category_id" => "2"),
-                array("id"=> 24, "name" => "Gestion des couches","guard_name" => "web"	, "category" => "interface","category_id" => "2"),
-                array("id"=> 25, "name" => "odp.createActivite","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 26, "name" => "odp.importActivite","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 27, "name" => "odp.archiveActivite","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 28, "name" => "odp.activiteEdit","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 29, "name" => "odp.activiteDelete","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 30, "name" => "odp.archiveOdp","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 31, "name" => "odp.RedevableEdit","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 32, "name" => "odp.importRedevable","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 33, "name" => "odp.redevableDelete","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 34, "name" => "odp.redevableCreate","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 35, "name" => "odp.genererTaxe","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 36, "name" => "odp.calculeTaxe","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 37, "name" => "odp.ordreRecette","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 38, "name" => "odp.archiveTaxe","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 39, "name" => "odp.avisZip","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 40, "name" => "odp.taxeEdit","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 41, "name" => "odp.taxeDelete","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 42, "name" => "arrete.createParcelle","guard_name" => "web"	, "category" => "arrete","category_id" => "5"),
-                array("id"=> 43, "name" => "arrete.importParcelle","guard_name" => "web"	, "category" => "arrete","category_id" => "5"),
-                array("id"=> 44, "name" => "arrete.parcelleEdit","guard_name" => "web"	, "category" => "arrete","category_id" => "5"),
-                array("id"=> 45, "name" => "arrete.parcelleDelete","guard_name" => "web"	, "category" => "arrete","category_id" => "5"),
-                array("id"=> 46, "name" => "arrete.create","guard_name" => "web"	, "category" => "arrete","category_id" => "5"),
-                array("id"=> 47, "name" => "arrete.edit","guard_name" => "web"	, "category" => "arrete","category_id" => "5"),
-                array("id"=> 48, "name" => "arrete.delete","guard_name" => "web"	, "category" => "arrete","category_id" => "5"),
-                array("id"=> 49, "name" => "odp.createOdp","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 50, "name" => "odp.importOdp","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 51, "name" => "odp.editMatiere","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 52, "name" => "odp.deleteMatiere","guard_name" => "web"	, "category" => "opd","category_id" => "3"),
-                array("id"=> 53, "name" => "odp.importFichier","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 54, "name" => "odp.editDocument","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 55, "name" => "odp.deletetDocument","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 56, "name" => "odp.createTypeactivite","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 57, "name" => "odp.createSpecification","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 58, "name" => "odp.importTypeactivite","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 59, "name" => "odp.editTypeactivite","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 60, "name" => "odp.deleteTypeactivite","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 61, "name" => "odp.createTypematiere","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 62, "name" => "odp.importTypematiere","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 63, "name" => "odp.editTypematiere","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 64, "name" => "odp.deleteTypematiere","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 65, "name" => "odp.createFormule","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 66, "name" => "odp.editFormule","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 67, "name" => "odp.deleteFormule","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 68, "name" => "odp.editSpecification","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 69, "name" => "odp.deleteSpecification","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 70, "name" => "read.activite","guard_name" => "web"	, "category" => "menu","category_id" => "3"),
-                array("id"=> 71, "name" => "read.redevable","guard_name" => "web"	, "category" => "menu","category_id" => "3"),
-                array("id"=> 72, "name" => "read.taxeodp","guard_name" => "web"	, "category" => "menu","category_id" => "3"),
-                array("id"=> 73, "name" => "read.arrete","guard_name" => "web"	, "category" => "menu","category_id" => "5"),
-                array("id"=> 74, "name" => "read.parcelle","guard_name" => "web"	, "category" => "menu","category_id" => "5"),
-                array("id"=> 75, "name" => "read.plan","guard_name" => "web"	, "category" => "menu","category_id" => "2"),
-                array("id"=> 76, "name" => "read.type_activite","guard_name" => "web"	, "category" => "menu","category_id" => "2"),
-                array("id"=> 77, "name" => "read.type_matiere","guard_name" => "web"	, "category" => "menu","category_id" => "2"),
-                array("id"=> 78, "name" => "read.user","guard_name" => "web"	, "category" => "menu","category_id" => "2"),
-                array("id"=> 79, "name" => "read.permissions","guard_name" => "web"	, "category" => "menu","category_id" => "2"),
-                array("id"=> 80, "name" => "odp.import_photo","guard_name" => "web"	, "category" => "menu","category_id" => "3"),
-                array("id"=> 81, "name" => "tnb.createTnb","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 82, "name" => "tnb.importationMassive","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 83, "name" => "tnb.listeArchive","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 84, "name" => "tnb.afficher","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 85, "name" => "tnb.modifier","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 86, "name" => "tnb.historique","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 87, "name" => "tnb.supprimer","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 88, "name" => "afficher.tnb","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 89, "name" => "afficher.redevableTnb","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 90, "name" => "afficher.taxeTnb","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 91, "name" => "tnb.creerRedevable","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 92, "name" => "tnb.redevableAfficher","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 93, "name" => "tnb.redevableModifier","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 94, "name" => "tnb.redevableSupprimer","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 95, "name" => "tnb.genererTaxe","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 96, "name" => "tnb.calculPenalite","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 97, "name" => "tnb.genererNotif1","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 98, "name" => "tnb.genererNotif2","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 99, "name" => "tnb.genererOrdreDeRecette","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 100, "name" => "tnb.listeArchiveTaxe","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 101, "name" => "tnb.afficherTaxe","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 102, "name" => "tnb.modifierTaxe","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 103, "name" => "tnb.supprimerTaxe","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 104, "name" => "tnb.ajouterDocument","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 105, "name" => "tnb.telechargerDocument","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 106, "name" => "tnb.modifierDocument","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 107, "name" => "tnb.supprimerDocument","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 108, "name" => "tnb.restaurerTNB","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 109, "name" => "tnb.restaurerTaxe","guard_name" => "web"	, "category" => "tnb","category_id" => "4"),
-                array("id"=> 110, "name" => "odp.restaurerTaxe","guard_name" => "web"	, "category" => "odp","category_id" => "3"),
-                array("id"=> 111, "name" => "afficher.gestionTarifs","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 112, "name" => "tnb.modifierTarif","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                array("id"=> 113, "name" => "tnb.ajouterTarif","guard_name" => "web"	, "category" => "parametrage","category_id" => "2"),
-                ]
-                
-        );
-        
-        
+        $permissions = [
+            ["title" => "setting", "childs" => [
+                ["title" => "users", "childs" => [
+                    ["title" => "user_create", "childs" => []],
+                    ["title" => "user_edit", "childs" => []],
+                    ["title" => "user_show", "childs" => []],
+                    ["title" => "user_delete", "childs" => []],
+                    ["title" => "user_access", "childs" => []],
+                    ["title" => "profile_password_edit", "childs" => []],
+                ]],
+                ["title" => "roles", "childs" => [
+                    ["title" => "role_create", "childs" => []],
+                    ["title" => "role_edit", "childs" => []],
+                    ["title" => "role_show", "childs" => []],
+                    ["title" => "role_delete", "childs" => []],
+                    ["title" => "role_access", "childs" => []],
+                ]],
+                ["title" => "processus", "childs" => [
+                    ["title" => "modelisation", "childs" => []],
+                    ["title" => "categorie", "childs" => []],
+                    ["title" => "type_processus", "childs" => []],
+                    ["title" => "theme", "childs" => []],
+                ]],
+                ["title" => "nature_doc", "childs" => [
+                    ["title" => "file_type_create", "childs" => []],
+                    ["title" => "file_type_edit", "childs" => []],
+                    ["title" => "file_type_show", "childs" => []],
+                    ["title" => "file_type_delete", "childs" => []],
+                    ["title" => "file_type_access", "childs" => []],
+                ]],
+
+            ]],
+            ["title" => "dashbord", "childs" => []],
+            ["title" => "patrimoine", "childs" => [
+                ["title" => "site", "childs" => [
+                    ["title" => "site_create", "childs" => []],
+                    ["title" => "site_edit", "childs" => []],
+                    ["title" => "site_show", "childs" => []],
+                    ["title" => "site_delete", "childs" => []],
+                    ["title" => "site_access", "childs" => []],
+                ]],
+                ["title" => "terrain", "childs" => [
+                    ["title" => "terrain_create", "childs" => []],
+                    ["title" => "terrain_edit", "childs" => []],
+                    ["title" => "terrain_show", "childs" => []],
+                    ["title" => "terrain_delete", "childs" => []],
+                    ["title" => "terrain_access", "childs" => []],
+                ]],
+                ["title" => "batiment", "childs" => [
+                    ["title" => "batiment_create", "childs" => []],
+                    ["title" => "batiment_edit", "childs" => []],
+                    ["title" => "batiment_show", "childs" => []],
+                    ["title" => "batiment_delete", "childs" => []],
+                    ["title" => "batiment_access", "childs" => []],
+                ]],
+                ["title" => "etage", "childs" => [
+                    ["title" => "etage_create", "childs" => []],
+                    ["title" => "etage_edit", "childs" => []],
+                    ["title" => "etage_show", "childs" => []],
+                    ["title" => "etage_delete", "childs" => []],
+                    ["title" => "etage_access", "childs" => []],
+                ]],
+                ["title" => "local", "childs" => [
+                    ["title" => "local_create", "childs" => []],
+                    ["title" => "local_edit", "childs" => []],
+                    ["title" => "local_show", "childs" => []],
+                    ["title" => "local_delete", "childs" => []],
+                    ["title" => "local_access", "childs" => []],
+                ]],
+                ["title" => "equipement", "childs" => [
+                    ["title" => "equipement_create", "childs" => []],
+                    ["title" => "equipement_edit", "childs" => []],
+                    ["title" => "equipement_show", "childs" => []],
+                    ["title" => "equipement_delete", "childs" => []],
+                    ["title" => "equipement_access", "childs" => []],
+                ]],
+            ]],
+            ["title" => "assinaissement", "childs" => [
+                ["title" => "p_cession", "childs" => []],
+                ["title" => "p_acquisiyion", "childs" => []],
+                ["title" => "p_regularisation", "childs" => []],
+            ]],
+            ["title" => "locative", "childs" => [
+                ["title" => "p_depense", "childs" => []],
+                ["title" => "p_recette", "childs" => []],
+            ]],
+            ["title" => "maintenance", "childs" => [
+                ["title" => "preventive", "childs" => [
+                    ["title" => "preventive_create", "childs" => []],
+                    ["title" => "preventive_edit", "childs" => []],
+                    ["title" => "preventive_show", "childs" => []],
+                    ["title" => "preventive_delete", "childs" => []],
+                    ["title" => "preventive_access", "childs" => []],
+                ]],
+                ["title" => "corrective", "childs" => [
+                    ["title" => "corrective_create", "childs" => []],
+                    ["title" => "corrective_edit", "childs" => []],
+                    ["title" => "corrective_show", "childs" => []],
+                    ["title" => "corrective_delete", "childs" => []],
+                    ["title" => "corrective_access", "childs" => []],
+                ]],
+                ["title" => "marche", "childs" => [
+                    ["title" => "marche_create", "childs" => []],
+                    ["title" => "marche_edit", "childs" => []],
+                    ["title" => "marche_show", "childs" => []],
+                    ["title" => "marche_delete", "childs" => []],
+                    ["title" => "marche_access", "childs" => []],
+                ]],
+                ["title" => "prestataire", "childs" => [
+                    ["title" => "prestataire_create", "childs" => []],
+                    ["title" => "prestataire_edit", "childs" => []],
+                    ["title" => "prestataire_show", "childs" => []],
+                    ["title" => "prestataire_delete", "childs" => []],
+                    ["title" => "prestataire_access", "childs" => []],
+                ]],
+                ["title" => "rapport", "childs" => [
+                    ["title" => "rapport_create", "childs" => []],
+                    ["title" => "rapport_edit", "childs" => []],
+                    ["title" => "rapport_show", "childs" => []],
+                    ["title" => "rapport_delete", "childs" => []],
+                    ["title" => "rapport_access", "childs" => []],
+                ]],
+                ["title" => "setting_maintenance", "childs" => [
+                    ["title" => "lot_create", "childs" => []],
+                    ["title" => "lot_edit", "childs" => []],
+                    ["title" => "lot_delete", "childs" => []],
+                    ["title" => "lot_access", "childs" => []],
+                    ["title" => "famille_create", "childs" => []],
+                    ["title" => "famille_edit", "childs" => []],
+                    ["title" => "famille_delete", "childs" => []],
+                    ["title" => "famille_access", "childs" => []],
+                ]],
+            ]],
+            ["title" => "transverse", "childs" => [
+                ["title" => "ged", "childs" => []],
+                ["title" => "armoire", "childs" => [
+                    ["title" => "plan", "childs" => [
+                        ["title" => "plan_create", "childs" => []],
+                        ["title" => "plan_edit", "childs" => []],
+                        ["title" => "plan_show", "childs" => []],
+                        ["title" => "plan_delete", "childs" => []],
+                        ["title" => "plan_access", "childs" => []],
+                    ]],
+                    ["title" => "projet", "childs" => [
+                        ["title" => "projet_create", "childs" => []],
+                        ["title" => "projet_edit", "childs" => []],
+                        ["title" => "projet_show", "childs" => []],
+                        ["title" => "projet_delete", "childs" => []],
+                        ["title" => "projet_access", "childs" => []],
+                    ]],
+                ]],
+                ["title" => "geoportail", "childs" => []],
+            ]]
+
+
+        ];
+
+        $this->insert($permissions, null);
+    }
+
+    private function insert($permissions, $parent_id)
+    {
+        foreach ($permissions as $p) {
+            $inserted = Permission::create([
+                "title" => $p["title"],
+                "parent_id" => $parent_id
+            ]);
+            if (!empty($p["childs"])) {
+                $this->insert($p["childs"], $inserted->id);
+            }
+        }
     }
 }

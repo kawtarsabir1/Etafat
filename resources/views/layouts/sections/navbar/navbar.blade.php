@@ -19,7 +19,7 @@ $navbarDetached = ($navbarDetached ?? '');
           <span class="app-brand-logo demo">
             @include('_partials.macros',["height"=>20])
           </span>
-          <span class="app-brand-text demo menu-text fw-bold">Etafat</span>
+          <span class="app-brand-text demo menu-text fw-bold">{{config('variables.templateName')}}</span>
         </a>
       </div>
       @endif
@@ -35,51 +35,7 @@ $navbarDetached = ($navbarDetached ?? '');
 
       <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
-        <!-- Search -->
-        <!-- <div class="navbar-nav align-items-center">
-          <div class="nav-item navbar-search-wrapper mb-0">
-            <a class="nav-item nav-link search-toggler d-flex align-items-center px-0" href="javascript:void(0);">
-              <i class="ti ti-search ti-md me-2"></i>
-              <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
-            </a>
-          </div>
-        </div> -->
-        <!-- /Search -->
-
         <ul class="navbar-nav flex-row align-items-center ms-auto">
-          <!-- Language -->
-          <!-- <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-              <i class='fi fi-us fis rounded-circle me-1 fs-3'></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li>
-                <a class="dropdown-item" href="{{url('lang/en')}}" data-language="en">
-                  <i class="fi fi-us fis rounded-circle me-1 fs-3"></i>
-                  <span class="align-middle">English</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{{url('lang/fr')}}" data-language="fr">
-                  <i class="fi fi-fr fis rounded-circle me-1 fs-3"></i>
-                  <span class="align-middle">French</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{{url('lang/de')}}" data-language="de">
-                  <i class="fi fi-de fis rounded-circle me-1 fs-3"></i>
-                  <span class="align-middle">German</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{{url('lang/pt')}}" data-language="pt">
-                  <i class="fi fi-pt fis rounded-circle me-1 fs-3"></i>
-                  <span class="align-middle">Portuguese</span>
-                </a>
-              </li>
-            </ul>
-          </li> -->
-          <!--/ Language -->
 
           <!-- Style Switcher -->
           <li class="nav-item me-2 me-xl-0">
@@ -90,32 +46,47 @@ $navbarDetached = ($navbarDetached ?? '');
           <!--/ Style Switcher -->
 
           <!-- Quick links  -->
-          <!-- <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
+          <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
               <i class='ti ti-layout-grid-add ti-md'></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end py-0">
               <div class="dropdown-menu-header border-bottom">
                 <div class="dropdown-header d-flex align-items-center py-3">
-                  <h5 class="text-body mb-0 me-auto">Shortcuts</h5>
-                  <a href="javascript:void(0)" class="dropdown-shortcuts-add text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Add shortcuts"><i class="ti ti-sm ti-apps"></i></a>
+                  <h5 class="text-body mb-0 me-auto">Raccourcis</h5>
                 </div>
               </div>
               <div class="dropdown-shortcuts-list scrollable-container">
                 <div class="row row-bordered overflow-visible g-0">
                   <div class="dropdown-shortcuts-item col">
                     <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ti ti-calendar fs-4"></i>
+                      <i class="ti ti-file-invoice fs-4"></i>
                     </span>
-                    <a href="{{url('app/calendar')}}" class="stretched-link">Calendar</a>
-                    <small class="text-muted mb-0">Appointments</small>
+                    <a href="{{url('cv/gestion')}}" class="stretched-link">CVtheque</a>
+                    <small class="text-muted mb-0">Gestions des cvs</small>
                   </div>
                   <div class="dropdown-shortcuts-item col">
                     <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ti ti-file-invoice fs-4"></i>
+                      <i class="ti ti-settings fs-4"></i>
                     </span>
-                    <a href="{{url('app/invoice/list')}}" class="stretched-link">Invoice App</a>
-                    <small class="text-muted mb-0">Manage Accounts</small>
+                    <a href="{{url('cv/generateur')}}" class="stretched-link">Generateur</a>
+                    <small class="text-muted mb-0">Generateur des cvs</small>
+                  </div>
+                </div>
+                <div class="row row-bordered overflow-visible g-0">
+                  <div class="dropdown-shortcuts-item col">
+                    <span class="dropdown-shortcuts-icon rounded-circle mb-2">
+                      <i class="ti ti-database fs-4"></i>
+                    </span>
+                    <a href="{{url('cv/references')}}" class="stretched-link">References</a>
+                    <small class="text-muted mb-0">Gestion des Refs</small>
+                  </div>
+                  <div class="dropdown-shortcuts-item col">
+                    <span class="dropdown-shortcuts-icon rounded-circle mb-2">
+                      <i class="ti ti-briefcase fs-4"></i>
+                    </span>
+                    <a href="{{url('ao/gestion')}}" class="stretched-link">Register des AOs</a>
+                    <small class="text-muted mb-0">Appel d'offers</small>
                   </div>
                 </div>
                 <div class="row row-bordered overflow-visible g-0">
@@ -123,52 +94,20 @@ $navbarDetached = ($navbarDetached ?? '');
                     <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                       <i class="ti ti-users fs-4"></i>
                     </span>
-                    <a href="{{url('app/user/list')}}" class="stretched-link">User App</a>
-                    <small class="text-muted mb-0">Manage Users</small>
+                    <a href="{{url('clients/gestion')}}" class="stretched-link">Clients</a>
+                    <small class="text-muted mb-0">Gestion des clients</small>
                   </div>
                   <div class="dropdown-shortcuts-item col">
                     <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ti ti-lock fs-4"></i>
+                      <i class="ti ti-user fs-4"></i>
                     </span>
-                    <a href="{{url('app/access-roles')}}" class="stretched-link">Role Management</a>
-                    <small class="text-muted mb-0">Permission</small>
-                  </div>
-                </div>
-                <div class="row row-bordered overflow-visible g-0">
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ti ti-chart-bar fs-4"></i>
-                    </span>
-                    <a href="{{url('/')}}" class="stretched-link">Dashboard</a>
-                    <small class="text-muted mb-0">User Profile</small>
-                  </div>
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ti ti-settings fs-4"></i>
-                    </span>
-                    <a href="{{url('pages/account-settings-account')}}" class="stretched-link">Setting</a>
-                    <small class="text-muted mb-0">Account Settings</small>
-                  </div>
-                </div>
-                <div class="row row-bordered overflow-visible g-0">
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ti ti-help fs-4"></i>
-                    </span>
-                    <a href="{{url('pages/help-center-landing')}}" class="stretched-link">Help Center</a>
-                    <small class="text-muted mb-0">FAQs & Articles</small>
-                  </div>
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon rounded-circle mb-2">
-                      <i class="ti ti-square fs-4"></i>
-                    </span>
-                    <a href="{{url('modal-examples')}}" class="stretched-link">Modals</a>
-                    <small class="text-muted mb-0">Useful Popups</small>
+                    <a href="{{url('admin/users')}}" class="stretched-link">Utilisateurs</a>
+                    <small class="text-muted mb-0">Gestion des utilisateurs</small>
                   </div>
                 </div>
               </div>
             </div>
-          </li> -->
+          </li>
           <!-- Quick links -->
 
           <!-- Notification -->
@@ -397,63 +336,14 @@ $navbarDetached = ($navbarDetached ?? '');
                   <span class="align-middle">My Profile</span>
                 </a>
               </li>
-              @if (Auth::check() && Laravel\Jetstream\Jetstream::hasApiFeatures())
               <li>
-                <a class="dropdown-item" href="{{ route('api-tokens.index') }}">
-                  <i class='ti ti-key me-2 ti-sm'></i>
-                  <span class="align-middle">API Tokens</span>
-                </a>
-              </li>
-              @endif
-              <!-- <li>
                 <a class="dropdown-item" href="{{url('app/invoice/list')}}">
                   <span class="d-flex align-items-center align-middle">
                     <i class="flex-shrink-0 ti ti-credit-card me-2 ti-sm"></i>
                     <span class="flex-grow-1 align-middle">Billing</span>
                     <span class="flex-shrink-0 badge badge-center rounded-pill bg-label-danger w-px-20 h-px-20">2</span>
                   </span> </a>
-              </li> -->
-              @if (Auth::User() && Laravel\Jetstream\Jetstream::hasTeamFeatures())
-              <li>
-                <div class="dropdown-divider"></div>
-              </li>
-              <li>
-                <h6 class="dropdown-header">Manage Team</h6>
-              </li>
-              <li>
-                <div class="dropdown-divider"></div>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{{ Auth::user() ? route('teams.show', Auth::user()->currentTeam->id) : 'javascript:void(0)' }}">
-                  <i class='ti ti-settings me-2'></i>
-                  <span class="align-middle">Team Settings</span>
-                </a>
-              </li>
-              @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-              <li>
-                <a class="dropdown-item" href="{{ route('teams.create') }}">
-                  <i class='ti ti-user me-2'></i>
-                  <span class="align-middle">Create New Team</span>
-                </a>
-              </li>
-              @endcan
-              <li>
-                <div class="dropdown-divider"></div>
-              </li>
-              <lI>
-                <h6 class="dropdown-header">Switch Teams</h6>
-              </lI>
-              <li>
-                <div class="dropdown-divider"></div>
-              </li>
-              @if (Auth::user())
-              @foreach (Auth::user()->allTeams() as $team)
-              {{-- Below commented code read by artisan command while installing jetstream. !! Do not remove if you want to use jetstream. --}}
-
-              {{-- <x-jet-switchable-team :team="$team" /> --}}
-              @endforeach
-              @endif
-              @endif
+              </li>             
               <li>
                 <div class="dropdown-divider"></div>
               </li>
@@ -471,7 +361,7 @@ $navbarDetached = ($navbarDetached ?? '');
               <li>
                 <a class="dropdown-item" href="{{ Route::has('login') ? route('login') : 'javascript:void(0)' }}">
                   <i class='ti ti-login me-2'></i>
-                  <span class="align-middle">Logout</span>
+                  <span class="align-middle">Login</span>
                 </a>
               </li>
               @endif

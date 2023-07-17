@@ -1,0 +1,373 @@
+{
+  "menu": [
+    {
+      "name": "dashboards",
+      "permission":"dashbord",
+      "icon": "layout-dashboard",
+      "slug": "dashbord"
+    },
+    {
+      "name": "apps",
+      "permission":"patrimoine",
+      "icon": "package",
+      "dropdown": "1",
+      "slug": "admin",
+      "submenu": [
+        {
+          "url": "admin/sites",
+          "name": "sites",
+          "permission":"site_access",
+          "icon": "minus",
+          "slug": "admin.sites"
+        },
+        {
+          "url": "admin/terrains",
+          "name": "terrains",
+          "permission":"terrain_access",
+          "icon": "minus",
+          "slug": "admin.terrains"
+        },
+        {
+          "url": "admin/batiments",
+          "name": "batiments",
+          "permission":"batiment_access",
+          "icon": "minus",
+          "slug": "admin.batiments"
+        },
+        {
+          "url": "admin/etages",
+          "name": "etages",
+          "permission":"etage_access",
+          "icon": "minus",
+          "slug": "admin.etages"
+        },
+        {
+          "url": "admin/locals",
+          "name": "local",
+          "permission":"local_access",
+          "icon": "minus",
+          "slug": "admin.local"
+        },
+        {
+          "url": "maintenance/equipement",
+          "name": "equipements",
+          "permission":"equipement_access",
+          "icon": "minus",
+          "slug": "admin.equipements"
+        }
+      ]
+    },
+    {
+      "name": "assinaissment",
+      "permission":"assinaissement",
+      "icon": "git-pull-request",
+      "dropdown": "1",
+      "slug": "",
+      "submenu": [
+        {
+          "url": "processus/requetes/assinaissement/cession",
+          "name": "cession",
+          "permission":"p_cession",
+          "icon": "minus",
+          "slug": "processus.requetes.cession"
+        },
+        {
+          "url": "processus/requetes/assinaissement/acquisition",
+          "name": "acquisition",
+          "permission":"p_acquisiyion",
+          "icon": "minus",
+          "slug": "processus.requetes.acquisition"
+        },
+        {
+          "url": "processus/requetes/assinaissement/regularisation",
+          "name": "regularisation",
+          "permission":"p_regularisation",
+          "icon": "minus",
+          "slug": "processus.requetes.regularisation"
+        }
+      ]
+    },
+    {
+      "name": "locative",
+      "permission":"locative",
+      "icon": "git-pull-request",
+      "dropdown": "1",
+      "slug": "",
+      "submenu": [
+        {
+          "url": "processus/requetes/locative/depense",
+          "name": "depense",
+          "permission":"p_depense",
+          "icon": "minus",
+          "slug": "processus.requetes.depense"
+        },
+        {
+          "url": "processus/requetes/locative/recette",
+          "name": "recette",
+          "permission":"p_recette",
+          "icon": "minus",
+          "slug": "processus.requetes.recette"
+        }
+      ]
+    },
+    {
+      "name": "facturation",
+      "permission":"transverse",
+      "icon": "files",
+      "dropdown": "1",
+      "slug": "",
+      "submenu": [
+        {
+          "url": "facturation/tscetat",
+          "name": "tscetat",
+          "permission":"famille_access",
+          "icon": "minus",
+          "slug": "facturation.tscetat"
+        },
+        {
+          "url": "facturation/sslocation",
+          "name": "sslocation",
+          "permission":"famille_access",
+          "icon": "minus",
+          "slug": "facturation.sslocation"
+        }
+      ]
+    },
+    {
+      "name": "maintenance",
+      "permission":"maintenance",
+      "icon": "tool",
+      "dropdown": "1",
+      "slug": "",
+      "submenu": [
+        {
+          "url": "maintenance/preventive",
+          "name": "preventive",
+          "permission":"preventive_access",
+          "icon": "minus",
+          "slug": "maintenance.preventive"
+        },
+        {
+          "url": "maintenance/corrective",
+          "name": "corrective",
+          "permission":"corrective_access",
+          "icon": "minus",
+          "slug": "maintenance.corrective"
+        },
+        {
+          "url": "maintenance/marche",
+          "name": "marche",
+          "permission":"marche_access",
+          "icon": "minus",
+          "slug": "maintenance.marche"
+        },
+        {
+          "url": "maintenance/criticite",
+          "name": "criticite",
+          "permission":"marche_access",
+          "icon": "minus",
+          "slug": "maintenance.criticite"
+        },
+        {
+          "url": "maintenance/prestataire",
+          "name": "prestataire",
+          "permission":"prestataire_access",
+          "icon": "minus",
+          "slug": "maintenance.prestataire"
+        },
+        {
+          "url": "maintenance/rapport",
+          "name": "rapports",
+          "permission":"rapport_access",
+          "icon": "minus",
+          "slug": "maintenance.rapport"
+        },
+        {
+          "name": "setting_maintenance",
+          "permission":"setting_maintenance",
+          "icon": "sliders",
+          "dropdown": "1",
+          "slug": "xx",
+          "submenu": [
+            {
+              "url": "maintenance/lot",
+              "name": "lot",
+              "permission":"lot_access",
+              "icon": "minus",
+              "slug": "maintenance.lot"
+            },
+            {
+              "url": "maintenance/prestation",
+              "name": "prestation",
+              "permission":"lot_access",
+              "icon": "minus",
+              "slug": "maintenance.prestation"
+            },
+            {
+              "url": "maintenance/famille",
+              "name": "famille",
+              "permission":"famille_access",
+              "icon": "minus",
+              "slug": "maintenance.famille"
+            }
+          ]
+        },
+        {
+          "name": "SuiviConsommation",
+          "permission":"setting_maintenance",
+          "icon": "sliders",
+          "dropdown": "1",
+          "slug": "xx",
+          "submenu": [
+            {
+              "url": "maintenance/suiviEau",
+              "name": "suiviEau",
+              "permission":"lot_access",
+              "icon": "minus",
+              "slug": "maintenance.suiviEau"
+            },
+            {
+              "url": "maintenance/suiviElectricite",
+              "name": "suiviElectricite",
+              "permission":"lot_access",
+              "icon": "minus",
+              "slug": "maintenance.suiviElectricite"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "transverse",
+      "permission":"transverse",
+      "icon": "codesandbox",
+      "dropdown": "1",
+      "slug": "",
+      "submenu": [
+        {
+          "url": "ged",
+          "name": "ged",
+          "permission":"ged",
+          "icon": "file",
+          "slug": "ged"
+        },
+        {
+          "url": "armoire",
+          "name": "armoire",
+          "permission":"armoire",
+          "icon": "minus",
+          "slug": "armoire",
+          "dropdown": "1",
+          "submenu": [
+            {
+              "url": "armoire/projet",
+              "name": "projet",
+              "permission":"projet_access",
+              "icon": "minus",
+              "slug": "armoire.projet"
+            },
+            {
+              "url": "armoire/plan",
+              "name": "plan",
+              "permission":"plan_access",
+              "icon": "minus",
+              "slug": "armoire.plan"
+            }
+          ]
+        },
+        {
+          "url": "geoportail/map",
+          "name": "geoportail",
+          "permission":"geoportail",
+          "icon": "map",
+          "slug": "geoportail"
+        }
+      ]
+    },
+    {
+      "name": "setting",
+      "permission":"setting",
+      "icon": "sliders",
+      "slug": "",
+      "dropdown": "1",
+      "submenu": [
+        {
+          "name": "processus",
+          "permission":"processus",
+          "icon": "minus",
+          "slug": "**",
+          "dropdown": "1",
+          "submenu": [
+            {
+              "url": "processus/modelisation",
+              "name": "design",
+              "permission":"modelisation",
+              "icon": "copy",
+              "slug": "processus.modelisation"
+            },
+            {
+              "url": "processus/categorie",
+              "name": "categorie",
+              "permission":"categorie",
+              "icon": "minus",
+              "slug": "processus.categorie"
+            },
+            {
+              "url": "processus/type",
+              "name": "typeprocessus",
+              "permission":"type_processus",
+              "icon": "minus",
+              "slug": "processus.type"
+            },
+            {
+              "url": "processus/theme",
+              "name": "theme",
+              "permission":"theme",
+              "icon": "minus",
+              "slug": "processus.theme"
+            },
+            {
+              "url": "reporting/report",
+              "name": "reporting",
+              "permission":"theme",
+              "icon": "minus",
+              "slug": "reporting.report"
+            }
+          ]
+        },
+        {
+          "name": "ged",
+          "permission":"nature_doc",
+          "icon": "edit",
+          "dropdown": "1",
+          "slug": "admin.file-types",
+          "submenu": [
+            {
+              "url": "admin/file-types",
+              "name": "filetype",
+              "permission":"file_type_access",
+              "icon": "file",
+              "slug": "admin.file-types"
+            }
+          ]
+        },
+        {
+          "name": "utilisateur",
+          "permission":"user_access",
+          "icon": "users",
+          "dropdown": "0",
+          "slug": "admin.users",
+          "url": "admin/users"
+        },
+        {
+          "name": "role",
+          "permission":"role_access",
+          "icon": "tag",
+          "dropdown": "0",
+          "slug": "admin.roles",
+          "url": "admin/roles"
+        }
+      ]
+    }
+  ]
+}
