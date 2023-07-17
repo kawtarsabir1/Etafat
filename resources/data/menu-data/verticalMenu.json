@@ -1,0 +1,159 @@
+{
+  "menu": [
+    {
+      "name": "dashboards",
+      "icon": "home",
+      "slug": ""
+    },
+    {
+      "name": "apps",
+      "icon": "package",
+      "dropdown": "1",
+      "slug": "",
+      "submenu": [
+        {
+          "url": "admin/sites",
+          "name": "sites",
+          "icon": "mail",
+          "slug": "admin.sites.index"
+        },
+        {
+          "url": "admin/terrains",
+          "name": "Terrains",
+          "icon": "mail",
+          "slug": "admin.terrains.index"
+        },
+        {
+          "url": "admin/batiments",
+          "name": "batiments",
+          "icon": "mail",
+          "slug": "admin.batiments.index"
+        },
+        {
+          "url": "admin/etages",
+          "name": "etages",
+          "icon": "mail",
+          "slug": "admin.etages.index"
+        },
+        {
+          "url": "admin/local",
+          "name": "local",
+          "icon": "mail",
+          "slug": "admin.local.index"
+        },
+        {
+          "url": "admin/equipements",
+          "name": "equipements",
+          "icon": "mail",
+          "slug": "admin.equipements.index"
+        }
+      ]
+    },
+    {
+      "name": "assinaissment",
+      "icon": "package",
+      "dropdown": "1",
+      "slug": "",
+      "submenu": [
+        {
+          "url": "processus/1",
+          "name": "cession",
+          "icon": "mail",
+          "slug": ""
+        },
+        {
+          "url": "processus/2",
+          "name": "Terrains",
+          "icon": "mail",
+          "slug": ""
+        },
+        {
+          "url": "processus/3",
+          "name": "batiments",
+          "icon": "mail",
+          "slug": ""
+        }
+      ]
+    },
+    {
+      "name": "ged",
+      "icon": "layers",
+      "slug": "ged.index"
+    },
+    {
+      "name": "processus",
+      "icon": "edit",
+      "dropdown": "1",
+      "slug": "",
+      "submenu": [
+        {
+          "url": "processus",
+          "name": "design",
+          "icon": "copy",
+          "slug": "processus"
+        },
+        {
+          "url": "processus/requete",
+          "name": "application",
+          "icon": "box",
+          "slug": "processus.requete.index"
+        }
+      ]
+    },
+    {
+      "name": "setting",
+      "icon": "sliders",
+      "dropdown": "1",
+      "slug": "",
+      "submenu": [
+        {
+          "name": "processus",
+          "icon": "circle",
+          "dropdown": "1",
+          "slug": "",
+          "submenu": [
+            {
+              "url": "processus/categorie",
+              "name": "categorie",
+              "icon": "circle",
+              "slug": ""
+            },
+            {
+              "url": "processus/type",
+              "name": "typeprocessus",
+              "icon": "circle",
+              "slug": ""
+            },
+            {
+              "url": "processus/theme",
+              "name": "theme",
+              "icon": "circle",
+              "slug": ""
+            }
+          ]
+        },
+        {
+          "name": "ged",
+          "icon": "edit",
+          "dropdown": "1",
+          "slug": "",
+          "submenu": [
+            {
+              "url": "admin/file-types",
+              "name": "categorie",
+              "icon": "copy",
+              "slug": ""
+            }
+          ]
+        },
+        {
+          "name": "utilisateurs",
+          "icon": "sliders",
+          "dropdown": "0",
+          "slug": "",
+          "url" : "admin/users"
+        }
+      ]
+    }
+  ]
+}

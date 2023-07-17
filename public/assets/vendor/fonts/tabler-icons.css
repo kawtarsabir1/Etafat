@@ -6133,10 +6133,6 @@
   content: "\ece7";
 }
 
-.ti-moon-stars:hover:before {
-  color: #6d62e4; /* Couleur au survol */
-}
-
 .ti-moped:before {
   content: "\ecbc";
 }
@@ -7871,10 +7867,6 @@
 
 .ti-sun:before {
   content: "\eb30";
-}
-
-.ti-sun:hover:before {
-  color: yellow; /* Couleur au survol */
 }
 
 .ti-sun-high:before {

@@ -160,7 +160,7 @@ h6, .h6 {
 
 p {
   margin-top: 0;
-  margin-bottom: -25px;
+  margin-bottom: 1rem;
 }
 
 abbr[title] {
@@ -20025,9 +20025,7 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
 
 .menu-horizontal .menu-sub .menu-link {
   padding-left: 2.75rem;
-
 }
-
 
 [dir=rtl] .menu-horizontal .menu-sub .menu-link {
   padding-right: 2.75rem;

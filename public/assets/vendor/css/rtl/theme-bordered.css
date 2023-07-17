@@ -1558,8 +1558,6 @@ li.ui-timepicker-selected,
 .bg-menu-theme.menu-horizontal .menu-inner .menu-item:not(.menu-item-closing) > .menu-sub,
 .bg-menu-theme.menu-horizontal .menu-inner .menu-item.open > .menu-toggle {
   background: #fff;
-  color: #6d62e4 ;
-
 }
 
 .bg-menu-theme.menu-horizontal .menu-item.active > .menu-link:not(.menu-toggle) {
@@ -1606,8 +1604,6 @@ li.ui-timepicker-selected,
 
 html:not(.layout-menu-collapsed) .bg-menu-theme .menu-inner .menu-item:not(.active) .menu-link:hover, .layout-menu-hover.layout-menu-collapsed .bg-menu-theme .menu-inner .menu-item:not(.active) .menu-link:hover {
   background: #f8f8f8;
-  color: #6d62e4;
-
 }
 
 .bg-menu-theme .menu-inner .menu-sub .menu-item:not(.active) > .menu-link::before {

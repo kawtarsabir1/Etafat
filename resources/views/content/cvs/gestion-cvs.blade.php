@@ -46,7 +46,7 @@
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/app-user-list.js')}}"></script>
+<script src="{{asset('assets/js/app-cv-list.js')}}"></script>
 @endsection
 
 @section('content')

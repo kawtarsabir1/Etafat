@@ -36,11 +36,6 @@ html:not([dir=rtl]) .bg-menu-theme.menu-horizontal .menu-inner > .menu-item > .m
   padding-left: 0.875rem;
 }
 
-html:not([dir=rtl]) .bg-menu-theme.menu-horizontal .menu-inner > .menu-item > .menu-sub > .menu-item > .menu-link:hover{
-  padding-left: 0.875rem;
-  color: #5c52c0;
-}
-
 [dir=rtl] .bg-menu-theme.menu-horizontal .menu-inner > .menu-item > .menu-sub > .menu-item > .menu-link {
   padding-right: 0.875rem;
 }
@@ -64,11 +59,6 @@ html:not([dir=rtl]) .bg-menu-theme.menu-horizontal .menu-inner > .menu-item > .m
 
 .layout-horizontal .bg-menu-theme .menu-inner > .menu-item > .menu-link {
   border-radius: 0.375rem;
-}
-
-.layout-horizontal .bg-menu-theme .menu-inner > .menu-item > .menu-link:hover {
-  border-radius: 0.375rem;
-  color: #685dd8;
 }
 
 @media (min-width: 1200px) {
@@ -1573,7 +1563,6 @@ li.ui-timepicker-selected,
 .bg-menu-theme.menu-horizontal .menu-inner .menu-item:not(.menu-item-closing) > .menu-sub,
 .bg-menu-theme.menu-horizontal .menu-inner .menu-item.open > .menu-toggle {
   background: #fff;
-  color: #6d62e4;
 }
 
 .bg-menu-theme.menu-horizontal .menu-item.active > .menu-link:not(.menu-toggle) {
@@ -1625,7 +1614,6 @@ li.ui-timepicker-selected,
 
 html:not(.layout-menu-collapsed) .bg-menu-theme .menu-inner .menu-item:not(.active) .menu-link:hover, .layout-menu-hover.layout-menu-collapsed .bg-menu-theme .menu-inner .menu-item:not(.active) .menu-link:hover {
   background: #f8f8f8;
-  color: #6d62e4;
 }
 
 .bg-menu-theme .menu-inner .menu-sub .menu-item:not(.active) > .menu-link::before {
