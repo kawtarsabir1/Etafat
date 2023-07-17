@@ -71,10 +71,12 @@ html:not([dir=rtl]) .dt-fixedcolumns.table-bordered > :not(caption) > * {
 .light-style table.DTFC_Cloned tr {
   border-color: var(--bs-border-color);
 }
+
 .light-style div.dataTables_scrollFootInner table.table-bordered tr th:first-child,
 .light-style div.dataTables_scrollHeadInner table.table-bordered tr th:first-child {
   border-left: 1px solid var(--bs-border-color);
 }
+
 .light-style table.dataTable thead tr > .dtfc-fixed-left,
 .light-style table.dataTable thead tr > .dtfc-fixed-right,
 .light-style table.dataTable tbody tr > .dtfc-fixed-left,
@@ -83,20 +85,25 @@ html:not([dir=rtl]) .dt-fixedcolumns.table-bordered > :not(caption) > * {
 .light-style div.dtfc-left-top-blocker {
   background-color: #fff;
 }
+
 .light-style .dt-fixedcolumns thead {
   border-top-color: var(--bs-border-color);
 }
+
 .light-style[dir=rtl] div.dataTables_scrollHead table,
 .light-style[dir=rtl] div.dataTables_scrollBody table {
   border: 0;
 }
+
 .light-style[dir=rtl] div.DTFC_LeftBodyLiner {
   padding-right: 0 !important;
 }
+
 .light-style[dir=rtl] div.DTFC_RightHeadWrapper table,
 .light-style[dir=rtl] div.DTFC_RightBodyWrapper table {
   border: 0;
 }
+
 .light-style[dir=rtl] div.DTFC_RightBodyLiner {
   padding-left: 0 !important;
 }
@@ -105,14 +112,17 @@ html:not([dir=rtl]) .dt-fixedcolumns.table-bordered > :not(caption) > * {
   background-color: #2f3349;
   border-color: var(--bs-border-color);
 }
+
 .dark-style div.dataTables_scrollHead table,
 .dark-style div.DTFC_RightHeadWrapper table {
   background-color: #2f3349;
 }
+
 .dark-style div.dataTables_scrollFootInner table.table-bordered tr th:first-child,
 .dark-style div.dataTables_scrollHeadInner table.table-bordered tr th:first-child {
   border-left: 1px solid var(--bs-border-color);
 }
+
 .dark-style table.dataTable thead tr > .dtfc-fixed-left,
 .dark-style table.dataTable thead tr > .dtfc-fixed-right,
 .dark-style table.dataTable tbody tr > .dtfc-fixed-left,
@@ -121,20 +131,25 @@ html:not([dir=rtl]) .dt-fixedcolumns.table-bordered > :not(caption) > * {
 .dark-style div.dtfc-left-top-blocker {
   background-color: #2f3349;
 }
+
 .dark-style .dt-fixedcolumns thead {
   border-top-color: var(--bs-border-color);
 }
+
 .dark-style[dir=rtl] div.dataTables_scrollHead table,
 .dark-style[dir=rtl] div.dataTables_scrollBody table {
   border: 0;
 }
+
 .dark-style[dir=rtl] div.DTFC_LeftBodyLiner {
   padding-right: 0 !important;
 }
+
 .dark-style[dir=rtl] div.DTFC_RightHeadWrapper table,
 .dark-style[dir=rtl] div.DTFC_RightBodyWrapper table {
   border: 0;
 }
+
 .dark-style[dir=rtl] div.DTFC_RightBodyLiner {
   padding-left: 0 !important;
 }

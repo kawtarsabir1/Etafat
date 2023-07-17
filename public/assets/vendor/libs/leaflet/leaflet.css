@@ -24,7 +24,7 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-      user-select: none;
+  user-select: none;
   -webkit-user-drag: none;
 }
 
@@ -32,6 +32,7 @@
 .leaflet-tile::-moz-selection {
   background: transparent;
 }
+
 .leaflet-tile::selection {
   background: transparent;
 }
@@ -98,7 +99,7 @@
 
 .leaflet-tile {
   -webkit-filter: inherit;
-          filter: inherit;
+  filter: inherit;
   visibility: hidden;
 }
 
@@ -746,15 +747,18 @@ svg.leaflet-image-layer.leaflet-interactive path {
   right: 0;
   left: unset;
 }
+
 [dir=rtl] .leaflet-map .leaflet-control-container .leaflet-left .leaflet-control-zoom,
 [dir=rtl] .leaflet-map .leaflet-control-container .leaflet-left .leaflet-control-layers {
   margin-left: 0;
   margin-right: 10px;
 }
+
 [dir=rtl] .leaflet-map .leaflet-control-container .leaflet-right {
   left: 0;
   right: unset;
 }
+
 [dir=rtl] .leaflet-map .leaflet-control-container .leaflet-right .leaflet-control-zoom,
 [dir=rtl] .leaflet-map .leaflet-control-container .leaflet-right .leaflet-control-layers {
   margin-left: 10px;

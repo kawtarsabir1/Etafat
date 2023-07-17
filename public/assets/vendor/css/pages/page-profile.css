@@ -1,13 +1,14 @@
 .user-profile-header-banner img {
   width: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   height: 250px;
 }
 
 .user-profile-header {
   margin-top: -2rem;
 }
+
 .user-profile-header .user-profile-img {
   border: 5px solid;
   width: 120px;

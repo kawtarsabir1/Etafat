@@ -309,16 +309,16 @@
   display: -ms-inline-flexbox;
   display: inline-flex;
   -ms-flex-direction: column;
-      flex-direction: column;
+  flex-direction: column;
   -ms-flex-align: baseline;
-      align-items: baseline;
+  align-items: baseline;
 }
 
 .katex .hbox {
   display: -ms-inline-flexbox;
   display: inline-flex;
   -ms-flex-direction: row;
-      flex-direction: row;
+  flex-direction: row;
   width: 100%;
 }
 
@@ -326,7 +326,7 @@
   display: -ms-inline-flexbox;
   display: inline-flex;
   -ms-flex-direction: row;
-      flex-direction: row;
+  flex-direction: row;
   width: 0;
   max-width: 0;
 }

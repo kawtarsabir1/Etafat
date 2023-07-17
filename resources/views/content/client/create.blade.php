@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Create')
+@section('title', 'Create Client')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css')}}" />
@@ -103,6 +103,19 @@
 
     });
 
+    function afficherChamps() {
+        var type = document.getElementById("type").value;
+        var divsMorale = document.getElementsByClassName("champs-morale");
+
+        for (var i = 0; i < divsMorale.length; i++) {
+            if (type === "morale") {
+                divsMorale[i].style.display = "block";
+            } else {
+                divsMorale[i].style.display = "none";
+            }
+        }
+    }
+
     function printErrorMsg(msg) {
         $(".print-error-msg").find("ul").html('');
         $(".print-error-msg").css('display', 'block');
@@ -111,6 +124,13 @@
         });
     }
 </script>
+
+<style>
+    .champs-morale {
+        display: none;
+    }
+</style>
+
 @endsection
 
 @section('page-style')
@@ -120,7 +140,7 @@
 
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Appels d'offers /</span> Créer un nouveau AO
+    <span class="text-muted fw-light">Appels d'offers /</span> Créer un nouveau Client
 </h4>
 
 <div class="row">
@@ -133,21 +153,11 @@
                     <div class="col-12 row">
 
                         <div class="col-md-6 mb-2">
-                            <label class="form-label" for="ste">STE</label>
-                            <input class="form-control" type="text" id="ste" name="ste" placeholder="STE" />
-                        </div>
-
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="nature">Nature</label>
-                            <select class="form-select" id="nature" name="nature">
-                                <option selected>Selectionner la nature</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-6 mb-2">
                             <label class="form-label" for="type">Type</label>
-                            <select class="form-select" id="type" name="type">
+                            <select class="form-select" id="type" name="type" onchange="afficherChamps()">
                                 <option selected>Selectionner le Type</option>
+                                <option>Physique</option>
+                                <option value="morale">Morale</option>
                             </select>
                         </div>
 
@@ -206,9 +216,74 @@
                             <input class="form-control" type="text" id="rib" name="rib" placeholder="RIB" />
                         </div>
 
-                        <div class="col-md-6 mb-2">
+                        <div class="col-md-6 mb-2 champs-morale">
                             <label class="form-label" for="capital">Capital</label>
                             <input class="form-control" type="text" id="capital" name="capital" placeholder="Capital" />
+                        </div>
+
+                        <div class="col-md-6 mb-2 champs-morale">
+                            <label class="form-label" for="nature">Nature</label>
+                            <select class="form-select" id="nature" name="nature">
+                                <option selected>Selectionner la nature</option>
+                                <option>Privée</option>
+                                <option>Semi-Public</option>
+                                <option>Public</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-2 champs-morale">
+                            <label class="form-label" for="ste">STE</label>
+                            <input class="form-control" type="text" id="ste" name="ste" placeholder="STE" />
+                        </div>
+
+                        <div>
+                            <br>
+                            <h5>Contact</h5>
+                            <div class="content-wrapper-contact">
+                                <div class="content-contact">
+                                    <div class="row">
+
+                                        <div class="col-md-4 mb-2">
+                                            <label class="form-label" for="">nom</label>
+                                            <input class="form-control" type="text" placeholder="Entrer le nom" name="nom" />
+                                        </div>
+
+                                        <div class="col-md-4 mb-2">
+                                            <label class="form-label" for="">prenom</label>
+                                            <input class="form-control" type="text" placeholder="Entrer le prenom" name="prenom" />
+                                        </div>
+
+                                        <div class="col-md-4 mb-2">
+                                            <label class="form-label" for="">poste</label>
+                                            <input class="form-control" type="text" placeholder="Entrer le poste" name="poste" />
+                                        </div>
+
+                                        <div class="col-md-4 mb-2">
+                                            <label class="form-label" for="">mail</label>
+                                            <input class="form-control" type="text" placeholder="Entrer le mail" name="mail" />
+                                        </div>
+
+                                        <div class="col-md-4 mb-2">
+                                            <label class="form-label" for="">gsm</label>
+                                            <input class="form-control" type="text" placeholder="Entrer le gsm" name="gsm" />
+                                        </div>
+
+                                        <div class="col-md-4 mb-2">
+                                            <label class="form-label" for="">idClient</label>
+                                            <input class="form-control" type="text" placeholder="Entrer le idClient" name="idClient" />
+                                        </div>
+
+                                        <div class="col-lg-12 col-xl-2 col-12 d-flex align-items-end mb-3">
+                                            <button class="btn btn-danger btn-remove"><i class="fa fa-trash"></i> Supprimer</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="actions mb-4">
+                                <button type="button" class="btn btn-primary btn-add-contact"><i class="fa fa-plus"></i> Ajouter un Contact</button>
+                            </div>
+                            <br>
                         </div>
 
                         <div class="col-12">
@@ -231,10 +306,5 @@
 
 
 </div>
-
-
-
-
-
 
 @endsection

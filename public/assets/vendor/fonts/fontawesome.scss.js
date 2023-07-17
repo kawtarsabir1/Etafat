@@ -1,6 +1,15 @@
 /******/ (function() { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
+
+/***/ "./resources/assets/vendor/fonts/fontawesome.scss.js":
+/*!***********************************************************!*\
+  !*** ./resources/assets/vendor/fonts/fontawesome.scss.js ***!
+  \***********************************************************/
+/***/ (function() {
+
+throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nSassError: expected \"{\".\n  ╷\n2 │ /******/     \"use strict\";\r\n  │                          ^\n  ╵\n  resources\\assets\\vendor\\fonts\\fontawesome.scss.js 2:23  root stylesheet\n    at processResult (C:\\Users\\USER\\Desktop\\CVTHEQUE\\node_modules\\webpack\\lib\\NormalModule.js:748:19)\n    at C:\\Users\\USER\\Desktop\\CVTHEQUE\\node_modules\\webpack\\lib\\NormalModule.js:850:5\n    at C:\\Users\\USER\\Desktop\\CVTHEQUE\\node_modules\\loader-runner\\lib\\LoaderRunner.js:400:11\n    at C:\\Users\\USER\\Desktop\\CVTHEQUE\\node_modules\\loader-runner\\lib\\LoaderRunner.js:252:18\n    at context.callback (C:\\Users\\USER\\Desktop\\CVTHEQUE\\node_modules\\loader-runner\\lib\\LoaderRunner.js:124:13)\n    at Object.loader (C:\\Users\\USER\\Desktop\\CVTHEQUE\\node_modules\\sass-loader\\dist\\index.js:69:5)");
+
+/***/ }),
 
 /***/ "./resources/assets/vendor/fonts/fontawesome.scss":
 /*!********************************************************!*\
@@ -8,6 +17,7 @@
   \********************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
@@ -155,7 +165,8 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["assets/vendor/fonts/fontawesome"], function() { return __webpack_require__("./resources/assets/vendor/fonts/fontawesome.scss"); })
+/******/ 	__webpack_require__.O(undefined, ["assets/vendor/fonts/fontawesome"], function() { return __webpack_require__("./resources/assets/vendor/fonts/fontawesome.scss"); })
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["assets/vendor/fonts/fontawesome"], function() { return __webpack_require__("./resources/assets/vendor/fonts/fontawesome.scss.js"); })
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	var __webpack_export_target__ = window;
 /******/ 	for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
