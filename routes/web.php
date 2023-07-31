@@ -18,16 +18,16 @@ use Illuminate\Support\Facades\Auth;
 */
 
 // Main Page Route
-Route::redirect('/', '/login');
+// Route::redirect('/', '/login');
 Auth::routes(['register' => false]);
-Route::get('/home', function () {
-    if (session('status')) {
-        return redirect()->route('dashboard-analytics')->with('status', session('status'));
-    }
+// Route::get('/home', function () {
+//     if (session('status')) {
+//         return redirect()->route('dashboard-analytics')->with('status', session('status'));
+//     }
 
-    return redirect()->route('dashboard-analytics');
-});
-Route::group(['middleware' => ['auth']], function () {
+//     return redirect()->route('dashboard-analytics');
+// });
+// Route::group(['middleware' => ['auth']], function () {
     $controller_path = 'App\Http\Controllers';
     Route::get('/', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
     Route::get('/dashboard/analytics', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
@@ -93,7 +93,7 @@ Route::group(['middleware' => ['auth']], function () {
     
     // authentication
     Route::get('/auth/login-front', $controller_path . '\authentications\LoginFront@index')->name('auth-login-front');
-    Route::get('/auth/login-basic', $controller_path . '\authentications\LoginBasic@index')->name('login');
+    Route::get('/auth/login-basic', $controller_path . '\authentications\LoginBasic@index')->name('login-basic');
     Route::get('/auth/login-cover', $controller_path . '\authentications\LoginCover@index')->name('auth-login-cover');
     Route::get('/auth/register-front', $controller_path . '\authentications\RegisterFront@index')->name('auth-register-front');
     Route::get('/auth/register-basic', $controller_path . '\authentications\RegisterBasic@index')->name('auth-register-basic');
@@ -393,8 +393,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/update/client/{id}', $controller_path . '\aos\clients@update')->name('client-update');
     Route::get('/admin/gestion/users', $controller_path . '\admin\UsersController@allUsers')->name('users-gestion');
     //all other routes
-    return redirect('/login');
-});
+    // return redirect('/login');
+// });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
     $controller_path = 'App\Http\Controllers';
