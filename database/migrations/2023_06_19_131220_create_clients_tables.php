@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string("if");
             $table->string("rib");
             $table->string("capital");
-            $table->boolean("client");
+            $table->boolean("client")->default(0);
             $table->timestamps();
         });
     }

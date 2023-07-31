@@ -1701,7 +1701,7 @@
 }
 
 .jstree-default-dark .jstree-clicked {
-  background: #5fa2db;
+  background: #5fa2db !important;
   border-radius: 2px;
   box-shadow: inset 0 0 1px #666666;
 }
@@ -1721,7 +1721,7 @@
 }
 
 .jstree-default-dark .jstree-disabled.jstree-clicked {
-  background: #333333;
+  background: #333333 !important;
 }
 
 .jstree-default-dark .jstree-disabled > .jstree-icon {
@@ -1871,7 +1871,7 @@
 }
 
 .jstree-default-dark .jstree-disabled.jstree-clicked {
-  background: #efefef;
+  background: #efefef !important;
 }
 
 .jstree-default-dark .jstree-checkbox {
@@ -2101,7 +2101,7 @@
 }
 
 .jstree-default-dark-small .jstree-disabled.jstree-clicked {
-  background: #efefef;
+  background: #efefef !important;
 }
 
 .jstree-default-dark-small .jstree-checkbox {

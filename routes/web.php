@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\laravel_example\UserManagement;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\RolesController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -93,7 +94,7 @@ Route::group(['middleware' => ['auth']], function () {
     
     // authentication
     Route::get('/auth/login-front', $controller_path . '\authentications\LoginFront@index')->name('auth-login-front');
-    Route::get('/auth/login-basic', $controller_path . '\authentications\LoginBasic@index')->name('login');
+    // Route::get('/auth/login-basic', $controller_path . '\authentications\LoginBasic@index')->name('login');
     Route::get('/auth/login-cover', $controller_path . '\authentications\LoginCover@index')->name('auth-login-cover');
     Route::get('/auth/register-front', $controller_path . '\authentications\RegisterFront@index')->name('auth-register-front');
     Route::get('/auth/register-basic', $controller_path . '\authentications\RegisterBasic@index')->name('auth-register-basic');
@@ -387,11 +388,21 @@ Route::group(['middleware' => ['auth']], function () {
     
     //routes of client
     Route::get('/clients/gestion', $controller_path . '\aos\clients@index')->name('client-gestion');
+    Route::get('/clients/list', $controller_path . '\aos\clients@list')->name('client-list');
     Route::get('/create/client', $controller_path . '\aos\clients@create')->name('client-create-page');
     Route::get('/edit/client/{id}', $controller_path . '\aos\clients@edit')->name('client-edit-page');
     Route::post('/new/client', $controller_path . '\aos\clients@store')->name('client-store');
     Route::post('/update/client/{id}', $controller_path . '\aos\clients@update')->name('client-update');
     Route::get('/admin/gestion/users', $controller_path . '\admin\UsersController@allUsers')->name('users-gestion');
+    Route::get('/admin/user/create', $controller_path . '\admin\UsersController@create')->name('user-create');
+    Route::post('/admin/user/create', $controller_path . '\admin\UsersController@store')->name('user-store');
+
+    Route::get('/admin/role/create', $controller_path . '\admin\RolesController@create')->name('role-create');
+    Route::post('/admin/role/create', $controller_path . '\admin\RolesController@store')->name('role-store');
+    Route::get('/admin/gestion/roles', $controller_path . '\admin\RolesController@allRoles')->name('roles-gestion');
+
+    //all permissions
+    Route::get('/admin/gestion/permissions', $controller_path . '\admin\PermissionsController@allPermissions')->name('permissions-gestion');
     //all other routes
     return redirect('/login');
 });
@@ -400,5 +411,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     $controller_path = 'App\Http\Controllers';
     Route::resource('permissions', PermissionsController::class);
     Route::resource('users', UsersController::class);
+    Route::resource('roles', RolesController::class);
 });
 

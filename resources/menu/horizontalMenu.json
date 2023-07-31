@@ -144,12 +144,24 @@
             }
           ]
         }
-        ,
+      ]
+    },
+    {
+      "name": "Application",
+      "icon": "menu-icon tf-icons ti ti-world",
+      "slug": "layouts",
+      "submenu": [
         {
           "name": "Utilisateurs",
           "icon": "menu-icon tf-icons ti ti-users",
           "slug": "utilisateurs",
           "url": "/admin/users"
+        },
+        {
+          "name": "Roles",
+          "icon": "menu-icon tf-icons ti ti-tag",
+          "slug": "roles",
+          "url": "/admin/roles"
         }
       ]
     }

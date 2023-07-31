@@ -22,6 +22,41 @@ class PermissionsController extends Controller
         return view('admin.permissions.index', compact('permissions'));
     }
 
+    public function allPermissions()
+    {
+        $permissions = Permission::all();
+        $permissionsArray = $permissions->toArray();
+
+        // Convert to the desired nested array format
+        $nestedArray = $this->convertToNestedArray($permissionsArray);
+
+        return response()->json($nestedArray);
+    }
+
+    private function convertToNestedArray($data, $parentId = null)
+    {
+        $result = [];
+
+        foreach ($data as $item) {
+            if ($item['parent_id'] === $parentId) {
+                $newItem = [
+                    'id' => $item['id'],
+                    'text' => $item['title'],
+                ];
+
+                $children = $this->convertToNestedArray($data, $item['id']);
+                if (!empty($children)) {
+                    $newItem['children'] = $children;
+                }
+
+                $result[] = $newItem;
+            }
+        }
+
+        return $result;
+    }
+
+
     public function create()
     {
         abort_if(Gate::denies('permission_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');

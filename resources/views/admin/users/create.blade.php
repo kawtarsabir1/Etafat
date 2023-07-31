@@ -2,12 +2,15 @@
 
 @section('vendor-style')
     <!-- vendor css files -->
-
+    <link rel="stylesheet" href="{{ asset(mix('assets/vendors/css/forms/wizard/bs-stepper.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('assets/vendors/css/forms/select/select2.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('assets/vendors/css/pickers/flatpickr/flatpickr.min.css')) }}">
 @endsection
 
 @section('style')
     <!-- Page css files -->
-
+    <link rel="stylesheet" href="{{ asset(mix('assets/css/base/plugins/forms/form-validation.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('assets/css/base/plugins/forms/form-wizard.css')) }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.css"
         integrity="sha512-+VDbDxc9zesADd49pfvz7CgsOl2xREI/7gnzcdyA9XjuTxLXrdpuz21VVIqc5HPfZji2CypSbxx1lgD7BgBK5g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -20,11 +23,48 @@
             <div class="card">
                 <div class="card-body">
 
-                    <form method="POST" action="{{ route('admin.users.store') }}" enctype="multipart/form-data"
+                    <form method="POST" action="{{ route('user-store') }}" enctype="multipart/form-data"
                         id="wizard-form">
                         @csrf
+                        <h5>Informations</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="name">Nom Complet :</label>
+                                <input class="form-control" type="text" id="name" name="name" placeholder="Entrer le nom" />
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="email">Email Address :</label>
+                                <input class="form-control" type="text" id="email" name="email" placeholder="Entrer l'email Address" />
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="tel">Numéro de Téléphone :</label>
+                                <input class="form-control" type="text" id="tel" name="tel" placeholder="Entrer le Numéro de Téléphone" />
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="password">Mot de passe :</label>
+                                <input class="form-control" type="text" id="password" name="password" placeholder="Entrer le mot de passe" />
+                            </div>
+                        </div>
+                        <hr>
+                        <h5>Photo de profile :</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="avatar">Avatar :</label>
+                                <input class="form-control" type="file" id="avatar" name="avatar" placeholder="email" />
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-outline-secondary">
+                                <i class="bx bx-chevron-left"></i>Annuler
+                            </button>
+                            <button type="submit" class="btn btn-primary btn-next">Créer
+                                <i class="bx bx-chevron-right"></i>
+                            </button>
+                        </div>
+                        
 
-                        <section class="vertical-wizard">
+                        <!-- <section class="vertical-wizard">
                             <div class="bs-stepper vertical vertical-wizard-example">
                                 <div class="bs-stepper-header">
 
@@ -87,7 +127,7 @@
 
                                 </div>
                             </div>
-                        </section>
+                        </section> -->
 
                     </form>
                 </div>
@@ -100,8 +140,11 @@
 
 @section('vendor-script')
     <!-- vendor files -->
+    <script src="{{ asset(mix('assets/vendors/js/forms/wizard/bs-stepper.min.js')) }}"></script>
+    <script src="{{ asset(mix('assets/vendors/js/forms/select/select2.full.min.js')) }}"></script>
+    <script src="{{ asset(mix('assets/vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
 
-
+    <script src="{{ asset(mix('assets/vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/ar.js"></script>
 

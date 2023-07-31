@@ -1,69 +1,104 @@
-@extends('layouts/contentLayoutMaster')
+@extends('layouts/layoutMaster')
+
+@section('title', 'Créer un rôle')
 
 @section('vendor-style')
     <!-- vendor css files -->
-    <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/wizard/bs-stepper.min.css')) }}">
-    <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
-    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/jstree.min.css')) }}">
-
+    <link rel="stylesheet" href="{{ asset(mix('assets/vendors/css/forms/wizard/bs-stepper.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('assets/vendors/css/forms/select/select2.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('assets/vendors/css/pickers/flatpickr/flatpickr.min.css')) }}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/jstree/jstree.css')}}" />
 @endsection
 
 @section('style')
     <!-- Page css files -->
-    <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-validation.css')) }}">
-    <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-wizard.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('assets/css/base/plugins/forms/form-validation.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('assets/css/base/plugins/forms/form-wizard.css')) }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.css"
+        integrity="sha512-+VDbDxc9zesADd49pfvz7CgsOl2xREI/7gnzcdyA9XjuTxLXrdpuz21VVIqc5HPfZji2CypSbxx1lgD7BgBK5g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
+
+@section('page-script')
+$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+<script src="{{asset('assets/js/extended-ui-treeview.js')}}"></script>
+<script>
+        $(".btn-create").click(function(e) {
+            console.log("clicked");
+            e.preventDefault();
+            var formData = new FormData($('#wizard-form')[0]);
+            var permissions = [];
+            $('#jstree-checkbox').jstree().get_checked(true).forEach(function (node) {
+                permissions.push(node.id);
+            });
+            formData.append('permissions', permissions);
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('admin.roles.store') }}",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    console.log(data);
+                    window.location.href = "{{ route('admin.roles.index') }}";
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+
+    </script>
+@endsection
+
 @section('content')
-    <x-PageHeader :header="\App\Http\Headers\RoleHeader::create()"></x-PageHeader>
+    <x-PageHeader :header="\App\Http\Headers\UserHeader::create()"></x-PageHeader>
 
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
 
-                    <form method="POST" action="{{ route('admin.roles.store') }}" enctype="multipart/form-data"
+                    <form enctype="multipart/form-data"
                         id="wizard-form">
                         @csrf
-
-                        <section class="vertical-wizard">
-                            <div class="bs-stepper vertical vertical-wizard-example">
-                                <div class="bs-stepper-header">
-                                    <x-wizard.step title="Informations" id="step-1"></x-wizard.step>
-                                    <x-wizard.step title="Permissions" id="step-2"></x-wizard.step>
-                                    <x-wizard.step title="Notifications" id="step-3"></x-wizard.step>
-
+                        <h5>Informations</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="title">Titre du rôle :</label>
+                                <input class="form-control" type="text" id="title" name="title" placeholder="Entrer le titre du rôle " />
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="description">Description du rôle :</label>
+                                <textarea class="form-control" type="text" id="description" name="description" placeholder="Entrer la description du rôle" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <hr>
+                        <h5>Autorisations :</h5>
+                        <div class="row">
+                            <!-- Checkbox -->
+                            <div class="col-md-6 col-12">
+                                <div class="card mb-md-0 mb-4">
+                                <div class="card-body">
+                                    <div id="jstree-checkbox"></div>
                                 </div>
-                                <div class="bs-stepper-content">
-                                    <x-wizard.step-content title="Informations" id="step-1" type="start">
-                                        <div class="row">
-                                            <x-forms.input name="title" label="models.role.fields.title"
-                                                :required="true">
-                                            </x-forms.input>
-                                        </div>
-                                        <div class="row">
-                                            <x-forms.textarea name="description" label="models.role.fields.description"
-                                                :required="false">
-                                            </x-forms.textarea>
-                                        </div>
-                                    </x-wizard.step-content>
-
-
-                                    <x-wizard.step-content title="Permissions" id="step-2" type="middle">
-                                        <x-forms.tree :nodes="$permissions" :disabled="false"></x-forms.tree>
-
-                                    </x-wizard.step-content>
-
-                                    <x-wizard.step-content title="Notifications" id="step-3" type="end">
-                                        <div class="row">
-                                            <x-forms.select name="notifications" :label="trans('models.notifications.title')" :required="false"
-                                                select2="true" :options="\App\Models\RoleNotification::pluck('title','id')" :multiple="true">
-                                            </x-forms.select>
-                                        </div>
-                                    </x-wizard.step-content>
-
                                 </div>
                             </div>
-                        </section>
+                            <!-- /Checkbox -->
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-outline-secondary">
+                                <i class="bx bx-chevron-left"></i>Annuler
+                            </button>
+                            <button type="button" class="btn btn-primary btn-create">Créer
+                                <i class="bx bx-chevron-right"></i>
+                            </button>
+                        </div>
 
                     </form>
                 </div>
@@ -76,37 +111,25 @@
 
 @section('vendor-script')
     <!-- vendor files -->
-    <script src="{{ asset(mix('vendors/js/forms/wizard/bs-stepper.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
-    
+    <script src="{{ asset(mix('assets/vendors/js/forms/wizard/bs-stepper.min.js')) }}"></script>
+    <script src="{{ asset(mix('assets/vendors/js/forms/select/select2.full.min.js')) }}"></script>
+    <script src="{{ asset(mix('assets/vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
+
+    <script src="{{ asset(mix('assets/vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/ar.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/BossBele/cropzee@latest/dist/cropzee.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.js"
+        integrity="sha512-ZK6m9vADamSl5fxBPtXw6ho6A4TuX89HUbcfvxa2v2NYNT/7l8yFGJ3JlXyMN4hlNbz0il4k6DvqbIW5CCwqkw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script src="{{asset('assets/vendor/libs/jstree/jstree.js')}}"></script>
 @endsection
 @section('script')
-
-
-    <script>
-        verticalWizard = document.querySelector('.vertical-wizard-example');
-        var verticalStepper = new Stepper(verticalWizard, {
-            linear: false
-        });
-
-        $(verticalWizard)
-            .find('.btn-next')
-            .on('click', function() {
-                verticalStepper.next();
-            });
-        $(verticalWizard)
-            .find('.btn-prev')
-            .on('click', function() {
-                verticalStepper.previous();
-            });
-
-        $(verticalWizard)
-            .find('.btn-submit')
-            .on('click', function() {
-                alert('Submitted..!!');
-            });
-
-
-    </script>
+    <!-- Page js files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+    <script src="{{ asset('js/dropzone.js') }}"></script>
 @endsection
+
+

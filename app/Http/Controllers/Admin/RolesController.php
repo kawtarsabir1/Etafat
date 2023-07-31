@@ -7,6 +7,7 @@ use App\Http\Requests\MassDestroyRoleRequest;
 use App\Http\Requests\UpsertRoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\PermissionRole;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,35 +20,43 @@ use App\Http\DataTables\RolesDataTable;
 
 class RolesController extends Controller
 {
-    public function index(RolesDataTable $dataTable, Request $request)
+    public function index()
     {
-        abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        if (!empty($request->datatable_content)) {
-            return $dataTable->datatable()->make(true);
-        } else {
-            return view('admin.roles.index')->with("tableDefinition",$dataTable->tableDefinition);
-        }
+        return view('admin.roles.index');
     }
+
     public function get()
     {
         return response()->json(Role::All());
     }
 
+    public function allRoles()
+    {
+        $users = Role::with(['users'])->get();
+        return response()->json(['data' => $users], 200);
+    }
+
     public function create()
     {
-        abort_if(Gate::denies('role_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('role_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $permissions = (new PermissionService())->process();
+        // $permissions = (new PermissionService())->process();
+        //get all permissions
+        $permissions = Permission::all()->pluck('title', 'id');
 
         return view('admin.roles.create', compact('permissions'));
     }
 
-    public function store(UpsertRoleRequest $request)
+    public function store(Request $request)
     {
-        $role = Role::create($request->except('permissions','notifications'));
-        $role->permissions()->sync($request->input('permissions', []));
-        $role->notifications()->sync($request->input('notifications', []));
+        $role = Role::create($request->except('permissions'));
+        $permissions = explode(',',$request->permissions);
+        for($i=0; $i<count($permissions); $i++){
+            $permissionRole = new PermissionRole();
+            $permissionRole->permission_id = $permissions[$i];
+            $permissionRole->role_id = $role->id;
+            $permissionRole->save();
+        }
 
         return redirect()->route('admin.roles.index');
     }

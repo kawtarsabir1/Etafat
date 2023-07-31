@@ -86,13 +86,7 @@ $(function () {
               '<div class="d-flex align-items-center">' +
               '<a href="javascript:;" onclick="editEmployee('+full['ID_Ref']+')" class="text-body"><i class="ti ti-edit text-info ti-sm me-2"></i></a>' +
               '<a href="javascript:;" id="btn-'+full['ID_Ref']+'" class="text-body delete-record"><i class="ti ti-trash text-danger ti-sm mx-2"></i></a>' +
-              '<a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>' +
-              '<div class="dropdown-menu dropdown-menu-end m-0">' +
-              '<a href="' +
-              full['ID_Ref']+
-              '" class="dropdown-item">View</a>' +
-              '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
-              '</div>' +
+              '<a href="/cv/reference/view/'+full['ID_Ref']+'" class="text-body delete-record"><i class="ti ti-eye text-success ti-sm mx-2"></i></a>' +
               '</div>'
             );
           }
@@ -113,9 +107,19 @@ $(function () {
         '<"col-sm-12 col-md-6"p>' +
         '>',
       language: {
-        sLengthMenu: '_MENU_',
-        search: '',
-        searchPlaceholder: 'Recherche ...'
+        sLengthMenu: 'Montrer: _MENU_',
+          search: '',
+          zeroRecords: 'Aucun enregistrement correspondant trouvé',
+          emptyTable: 'Aucune donnée disponible',
+          searchPlaceholder: 'Recherche avancée ...',
+          paginate:{
+            next : "Suivant",
+            previous : "Précédent"
+          },
+          loadingRecords: 'Chargement ...',
+          infoEmpty: "Aucun enregistrement disponible",
+          infoFiltered: "(filtré sur _MAX_ enregistrements au total)",
+          info: "Affichage de _START_ à _END_ sur _TOTAL_ enregistrements",
       },
       // Buttons with Dropdown
       buttons: [
@@ -306,7 +310,10 @@ $(function () {
               .unique()
               .sort()
               .each(function (d, j) {
-                select.append('<option value="' + d + '">' + d + '</option>');
+                var categories = d.split(',');
+                categories.forEach(function (item, index) {
+                  if (item.length > 0) select.append('<option value="' + item + '">' + item + '</option>');
+                });
               });
           });
 
@@ -333,7 +340,7 @@ $(function () {
           });
 
           this.api()
-          .columns(6)
+          .columns(10)
           .every(function () {
             var column = this;
             var select = $(
@@ -393,17 +400,21 @@ $(function () {
     modal.modal('show');
   });
 
-  dt_user_table.DataTable().column(7).visible(false);
-  dt_user_table.DataTable().column(8).visible(false);
-  dt_user_table.DataTable().column(9).visible(false);
-  dt_user_table.DataTable().column(10).visible(false);
-
+  let columnnsStored = JSON.parse(localStorage.getItem('columnsUncheckedRefs'));
+  if(columnnsStored != null || columnnsStored != undefined){
+    console.log(columnnsStored)
+    columnnsStored.forEach(element => {
+      dt_user_table.DataTable().column(element).visible(false);
+    });
+  }
+  
+  
   var modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="columnSelectionModalLabel" aria-hidden="true"></div>');
     var dialog = $('<div class="modal-dialog"></div>').appendTo(modal);
     var content = $('<div class="modal-content"></div>').appendTo(dialog);
 
     var header = $('<div class="modal-header"></div>').appendTo(content);
-    $('<h5 class="modal-title">Choose Columns to Display</h5>').appendTo(header);
+    $('<h5 class="modal-title">Choisissez les colonnes à afficher</h5>').appendTo(header);
     $('<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>').appendTo(header);
 
     var body = $('<div class="modal-body"></div>').appendTo(content);
@@ -419,20 +430,29 @@ $(function () {
   
     // Modal footer
     var footer = $('<div class="modal-footer"></div>').appendTo(content);
-    $('<button type="button" class="btn btn-primary btn-apply-cols">Apply</button>').appendTo(footer);
+    $('<button type="button" class="btn btn-primary btn-apply-cols">Appliquer</button>').appendTo(footer);
   
-  $(document).on('click', '.btn-apply-cols', function () {
-    var modal = $('.modal');
-    var selectedColumns = modal.find('input:checked').map(function () {
-      return parseInt($(this).val());
-    }).get();
-    dt_user_table.DataTable().columns().visible(false);
-    selectedColumns.forEach(function (columnIndex) {
-      dt_user_table.DataTable().column(columnIndex).visible(true);
+    $(document).on('click', '.btn-apply-cols', function () {
+      var modal = $('.modal');
+      var columnsStored = JSON.parse(localStorage.getItem('columnsUncheckedRefs'));
+      var selectedColumns = modal.find('input:checked').map(function () {
+        return parseInt($(this).val());
+      }).get();
+      var columnsUnchecked = modal.find('input:not(:checked)').map(function () {
+        return parseInt($(this).val());
+      }).get();
+      localStorage.setItem('columnsUncheckedRefs', JSON.stringify(columnsUnchecked));
+      dt_user_table.DataTable().columns().visible(false);
+      selectedColumns.forEach(function (columnIndex) {
+        var index = columnsStored.indexOf(columnIndex);
+        if(index > -1){
+          columnsStored.splice(index, 1);
+        }
+        dt_user_table.DataTable().column(columnIndex).visible(true);
+      });
+      console.log(selectedColumns)
+      modal.modal('hide');
     });
-    console.log(selectedColumns)
-    modal.modal('hide');
-  });
 });
 
 

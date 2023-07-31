@@ -34,79 +34,69 @@ $(function () {
   // Users datatable
   if (dt_user_table.length) {
     var dt_user = dt_user_table.DataTable({
-      ajax: baseUrl + 'cv/gestion/allEmployees', // JSON file to add data
+      ajax: baseUrl + 'admin/gestion/users', // JSON fie to add data
       columns: [
         // columns according to JSON
-        { data: 'CIN' },
-        { data: 'Nom' },
-        { data: 'TelephonePortable' },
-        { data: 'Poste' },
-        { data: 'TypeContrat' },
-        { data: 'Profil' },
-        { data: 'ResponsableHierarchique' },
-        { data: 'DepartementAffectation' },
-        { data: 'action' },
+        { data: '' },
+        { data: 'name' },
+        { data: 'email' },
+        { data: 'Role' },
+        { data: 'Actions' },
       ],
       columnDefs: [
-        {
-          // For Responsive
-          className: 'control',
-          responsivePriority: 2,
-          targets: 0,
-          render: function (data, type, full, meta) {
-            var cin = full['CIN'];
-            return '<span class="fw-semibold">' + cin + '</span>';
-          }
-        },
         //add attribute id each tr
         {
-          // User full name and Email
-          targets: 1,
-          responsivePriority: 4,
+          className: 'control',
+          targets: 0,
+          responsivePriority: 2,
           render: function (data, type, full, meta) {
-            var $name = full['Nom']+ ' ' +full['Prenom'],
-              $Email = full['Email'],
-              $Id = full['ID_Salarie'],
-              $image = full['PhotoIdentite'];
-            if ($image != 'aucun') {
-              // For Avatar image
-              var $output =
-                '<img src="/storage/photos/' + $image + '" alt="Avatar" class="rounded-circle">';
-            } else {
-              // For Avatar badge
-              var stateNum = Math.floor(Math.random() * 6);
-              var states = ['success', 'danger', 'warning', 'info', 'primary', 'secondary'];
-              var $state = states[stateNum],
-                $name = full['Nom']+ ' ' +full['Prenom'],
-                $initials = $name.match(/\b\w/g) || [];
-              $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-              $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
+            var name = full['name'],id = full['id'],avatar = full['avatar'],output;
+            if(avatar != null){
+              output = '<img src="'+avatar+'" alt="avatar" class="avatar-img rounded-circle">';
+            }else{
+              var nameLenght = name.split(' ').length,initial;
+              if(nameLenght > 1){
+                var nameSplit = name.split(' ');
+                initial = nameSplit[0].charAt(0) + nameSplit[1].charAt(0); 
+              }
+              else{
+                initial = name.charAt(0) + name.charAt(1);
+              }
+              var stateNum = Math.floor(Math.random() * 6),
+              states = ['success', 'danger', 'warning', 'info', 'primary', 'secondary'],
+              state = states[stateNum];
+              initial = initial.toUpperCase();
+              output = '<span class="avatar-initial rounded-circle bg-label-' + state + '">' + initial + '</span>';
             }
             // Creates full output for row
-            var $row_output =
+            var row_output =
               '<div class="d-flex justify-content-start align-items-center user-name">' +
               '<div class="avatar-wrapper">' +
               '<a href="' +
-              userView+ $Id +
+              userView+ id +
               '" >' +
               '<div class="avatar avatar-sm me-3">' +
-              $output +
+              output +
               '</div></a>' +
               '</div>' +
-              '<div class="d-flex flex-column">' +
-              '<a href="' +
-              userView+ $Id +
-              '" class="text-body text-truncate"><span class="fw-semibold">' +
-              $name +
-              '</span></a>' +
-              '<small class="text-muted">' +
-              $Email +
-              '</small>' +
-              '</div>' +
               '</div>';
-            return $row_output;
+            return row_output;
           }
         }, 
+        {
+          targets: 3,
+          render: function (data, type, full, meta) {
+            var roles = full['roles'];
+            var output = '';
+            for (var i = 0; i < roles.length; i++) {
+              output +=
+                '<span class="badge rounded-pill bg-primary text-white fw-normal mx-1">' +
+                roles[i].title +
+                '</span>';
+            }
+            return output;
+          }
+        },
         {
           // Actions
           targets: -1,
@@ -157,7 +147,7 @@ $(function () {
         },
         {
           extend: 'collection',
-          className: 'btn btn-label-secondary dropdown-toggle mx-3',
+          className: 'btn btn-label-secondary dropdown-toggle',
           text: '<i class="ti ti-screen-share me-1 ti-xs"></i>Plus',
           buttons: [
             {
@@ -251,7 +241,6 @@ $(function () {
               className: 'dropdown-item',
               exportOptions: {
                 columns: [1, 2, 3, 4, 5],
-                // prevent avatar to be display
                 format: {
                   body: function (inner, coldex, rowdex) {
                     if (inner.length <= 0) return inner;
@@ -268,52 +257,14 @@ $(function () {
                   }
                 }
               }
-            },
-            // {
-            //   extend: 'copy',
-            //   text: '<i class="ti ti-copy me-2" ></i>Copy',
-            //   className: 'dropdown-item',
-            //   exportOptions: {
-            //     columns: [1, 2, 3, 4, 5],
-            //     // prevent avatar to be display
-            //     format: {
-            //       body: function (inner, coldex, rowdex) {
-            //         if (inner.length <= 0) return inner;
-            //         var el = $.parseHTML(inner);
-            //         var result = '';
-            //         $.each(el, function (index, item) {
-            //           if (item.classList !== undefined && item.classList.contains('user-name')) {
-            //             result = result + item.lastChild.firstChild.textContent;
-            //           } else if (item.innerText === undefined) {
-            //             result = result + item.textContent;
-            //           } else result = result + item.innerText;
-            //         });
-            //         return result;
-            //       }
-            //     }
-            //   }
-            // },
-            {
-              text: '<i class="ti ti-copy me-2" ></i>Archived Cvs',
-              className: 'dropdown-item',
-              attr: {
-                onclick: 'window.location.href="'+ baseUrl + 'cv/gestion/archived"'
-              }
             }
           ]
-        },
-        {
-          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Télécharger</span>',
-          className: 'btn btn-info btn-gradient',
-          attr: {
-            onclick: "$('#uploadExcel').click();"
-          }
         },
         {
           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Nouvel Employé</span>',
           className: 'btn btn-primary btn-gradient mx-3',
           attr: {
-            onclick: 'window.location.href="' + baseUrl + 'cv/gestion/create"'
+            onclick: 'window.location.href="' + baseUrl + 'admin/user/create"'
           }
         }
       ],
