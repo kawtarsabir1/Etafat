@@ -26,12 +26,18 @@ class RefsImport implements ToModel,WithHeadingRow
             $societe->save();
         }
 
-        $category = Category::where('categoryNom', $row['category'])->first();
-        if (!$category) {
-            $category = new Category();
-            $category->categoryNom = $row['category'];
-            $category->save();
+        $categories = [];
+        foreach (explode(',', $row['category']) as $cat) {
+            $category = Category::where('categoryNom', $cat)->first();
+            if (!$category) {
+                $category = new Category();
+                $category->categoryNom = $cat;
+                $category->save();
+            }
+            //save ids of categories in array
+            $categories[] = $category->id;
         }
+        $categories = implode(',', $categories);
         $ref = new Refs([
             'client' => $row['client'],
             'mantant' => $row['montants'],
@@ -40,7 +46,7 @@ class RefsImport implements ToModel,WithHeadingRow
             'attestation' => $row['attestation'],
             'objet' => $row['objet'],
             'nMarche' => $row['nmarche'],
-            'categories' => $category->id,
+            'categories' => $categories,
             'fiche' => $row['fiche'],
             'logo' => $row['logo'],
             'localisation' => $row['localisation'],

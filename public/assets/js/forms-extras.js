@@ -382,6 +382,42 @@ $(function () {
   });
 });
 
+$(function () {
+  var contentWrapper = $('.content-wrapper-contact'),
+    content = $('.content-contact'),
+    btnAdd = $('.btn-add-contact'),
+    btnRemove = $('.btn-remove'),
+    id = $('#id_ao').val();
+
+  // Add new contact
+  btnAdd.click(function () {
+    var clone = content.clone().first();
+    clone.find('input').val('');
+    clone.find('select').prop('selectedIndex', 0);
+    clone.find('input').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-contact').length;
+      $(this).attr('name', name + index);
+    });
+    clone.find('h6').text('Contact n°' + ($('.content-contact').length + 1)) + ' :';
+    clone.find('select').each(function () {
+      var name = $(this).attr('name');
+      var index = $('.content-contact').length;
+      $(this).attr('name', name + index);
+    });
+    clone.appendTo(contentWrapper);
+  });
+
+  // Remove contact
+  contentWrapper.on('click', '.btn-remove', function () {
+    //change all h6 in each content-contact
+    $(this).closest('.content-contact').remove();
+    $('.content-contact').each(function (i) {
+      $(this).find('h6').text('Contact n°' + (i + 1)) + ' :';
+    });
+  });
+});
+
 
 $(function () {
   var btnSave = $('.btn-save'),

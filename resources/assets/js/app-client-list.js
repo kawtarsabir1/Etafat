@@ -31,71 +31,52 @@
      });
    }
  
-  //  'type_ao',
-  //       'pay_ao',
-  //       'secteur_ao',
-  //       'financement_ao',
-  //       'ministere_ao',
-  //       'n_ao',
-  //       'marche_ao',
-  //       'lot_ao',
-  //       'objet_ao',
-  //       'client_ao',
-  //       'objet_ao',
-  //       'caution_provisoire_ao',
-  //       'annulation_ao',
-  //       'budget_ao',
-  //       'date_limit_ao',
-  //       'mantant_soumission_ao',
-  //       'bu_ao',
-  //       'departement_ao',
-  //       'responsable_ao',
-  //       'adjudication_ao',
-  //       'date_adjudication_ao',
-  //       'motif_ao',
-  //       'caution_definitive_ao',
-  //       'rejet_ao',
-  //       'adjudicataire_ao',
-  //       'mantant_moins_ao',
-  //       'partenariat_ao',
-  //       'date_signature_ao',
-  //       'archived',
-   // Users datatable
    if(dt_user_table.length) {
      var dt_user = dt_user_table.DataTable({
-       ajax: baseUrl + 'ao/getAos',
+       ajax: baseUrl + 'clients/list',
        columns: [
-         // columns according to JSON
-         { data: 'n_ao' },
-         { data: 'type_ao' },
-         { data: 'pay_ao' },
-         { data: 'client_ao' },
-         { data: 'mantant_soumission_ao' },
-         { data: 'bu_ao' },
-         { data: 'responsable_ao' },
-         { data: 'date_limit_ao' },
-         { data: 'action' },
+         { data: 'ste' },
+         { data: 'nature' },
+         { data: 'type' },
+         { data: 'tel' },
+         { data: 'email' },
+         { data: 'patente' },
+         { data: 'rc' },
+         { data: 'fax' },
+         { data: 'ice' },
+         { data: 'if' },
+         { data: 'rib' },
+         { data: 'capital' },
+         { data: 'client' },
+         { data: 'site' },
+         { data: 'actions' },
        ],
        columnDefs: [
          {
            className: 'control',
-           searchable: false,
-           orderable: false,
            responsivePriority: 2,
            targets: 0,
-           render: function (data, type, full, meta) {
-            var $n_ao = full['n_ao'];
-            return '<span class="fw-semibold">' + $n_ao + '</span>';
-           }
          },
          {
-           targets: 6,
-           orderable: false,
-           render: function (data, type, full, meta) {
-             var $responsable_ao = full['responsable_ao'];
-             return '<span class="d-none">' + $responsable_ao + '</span>';
-           }
-         },   
+          className: 'control',
+          responsivePriority: 2,
+          targets: 12,
+          render: function (data, type, full, meta) {
+            if(data == 1){
+              return '<span class="badge rounded-pill bg-success">Oui</span>';
+            }else{
+              return '<span class="badge rounded-pill bg-danger">Non</span>';
+            }
+          }
+        },
+        {
+          className: 'control',
+          responsivePriority: 2,
+          targets: 13,
+          render: function (data, type, full, meta) {
+            return '<a href="http://'+full['site']+'" target="_blank" class="text-body"><i class="ti ti-world text-primary ti-sm me-2"></i></a>';
+          }
+        },
          {
            // Actions
            targets: -1,
@@ -105,12 +86,12 @@
            render: function (data, type, full, meta) {
              return (
                '<div class="d-flex align-items-center">' +
-               '<a href="javascript:;" onclick="editAO('+full['id_ao']+')" class="text-body"><i class="ti ti-edit text-info ti-sm me-2"></i></a>' +
-               '<a href="javascript:;" id="btn-'+full['id_ao']+'" class="text-body delete-record"><i class="ti ti-trash text-danger ti-sm mx-2"></i></a>' +
+               '<a href="javascript:;" onclick="editAO('+full['id']+')" class="text-body"><i class="ti ti-edit text-info ti-sm me-2"></i></a>' +
+               '<a href="javascript:;" id="btn-'+full['id']+'" class="text-body delete-record"><i class="ti ti-trash text-danger ti-sm mx-2"></i></a>' +
                '<a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>' +
                '<div class="dropdown-menu dropdown-menu-end m-0">' +
                '<a href="' +
-               userView+full['id_ao']+
+               userView+full['id']+
                '" class="dropdown-item">View</a>' +
                '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
                '</div>' +
@@ -140,9 +121,13 @@
        },
        // Buttons with Dropdown
        buttons: [
+        {
+          text: '<i class="ti ti-columns me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Choisir les Champs</span>',
+          className: 'btn btn-success btn-gradient btn-cols-select mx-3',
+        },
          {
            extend: 'collection',
-           className: 'btn btn-label-secondary dropdown-toggle mx-3',
+           className: 'btn btn-label-secondary dropdown-toggle',
            text: '<i class="ti ti-screen-share me-1 ti-xs"></i>Plus',
            buttons: [
              {
@@ -257,7 +242,7 @@
            ]
          },
          {
-           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Nouvel AO</span>',
+           text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Nouvel Client</span>',
            className: 'btn btn-primary btn-gradient mx-3',
            attr: {
              onclick: 'window.location.href="' + baseUrl + 'create/client"'
@@ -273,10 +258,10 @@
              var select = $(
                '<select id="UserPrenom" class="form-select text-capitalize"><option value=""> Sélectionnez Par Type </option></select>'
              )
-               .appendTo('.ao_type')
+               .appendTo('.client_type')
                .on('change', function () {
                  var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                 // column.search(val ? '^' + val + '$' : '', true, false).draw();
+                 column.search(val ? '^' + val + '$' : '', true, false).draw();
                });
  
              column
@@ -289,13 +274,13 @@
            });
          // Adding poste filter once table initialized
          this.api()
-           .columns(3)
+           .columns(2)
            .every(function () {
              var column = this;
              var select = $(
-               '<select id="UserPlan" class="form-select text-capitalize"><option value=""> Sélectionnez Par Client </option></select>'
+               '<select id="UserPlan" class="form-select text-capitalize"><option value=""> Sélectionnez Par Nature </option></select>'
              )
-               .appendTo('.ao_client')
+               .appendTo('.client_nature')
                .on('change', function () {
                  var val = $.fn.dataTable.util.escapeRegex($(this).val());
                  column.search(val ? '^' + val + '$' : '', true, false).draw();
@@ -311,16 +296,21 @@
            });
          // Adding Profil filter once table initialized
          this.api()
-           .columns(5)
+           .columns(12)
            .every(function () {
              var column = this;
              var select = $(
-               '<select id="UserProfil" class="form-select text-capitalize"><option value=""> Sélectionnez Par BU </option></select>'
+               '<select id="UserProfil" class="form-select text-capitalize"><option value=""> Est-ce un vrai client ? </option></select>'
              )
-               .appendTo('.ao_bu')
+               .appendTo('.is_client')
                .on('change', function () {
                  var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                 column.search(val ? '^' + val + '$' : '', true, false).draw();
+                 if(val == 'true'){
+                    val = 'oui';
+                  }else if(val == 'false'){
+                    val = 'non';
+                  }
+                  column.search(val ? '^' + val + '$' : '', true, false).draw();
                });
  
              column
@@ -389,11 +379,70 @@
      $('.dataTables_filter .form-control').removeClass('form-control-sm');
      $('.dataTables_length .form-select').removeClass('form-select-sm');
    }, 300);
+
+   
+
+  $('.btn-cols-select').on('click', function () {
+    modal.modal('show');
+  });
+
+  let columnnsStored = JSON.parse(localStorage.getItem('columnsUncheckedClient'));
+  if(columnnsStored != null || columnnsStored != undefined){
+    columnnsStored.forEach(element => {
+      dt_user_table.DataTable().column(element).visible(false);
+    });
+  }
+  
+  
+  var modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="columnSelectionModalLabel" aria-hidden="true"></div>');
+    var dialog = $('<div class="modal-dialog"></div>').appendTo(modal);
+    var content = $('<div class="modal-content"></div>').appendTo(dialog);
+
+    var header = $('<div class="modal-header"></div>').appendTo(content);
+    $('<h5 class="modal-title">Choisissez les colonnes à afficher</h5>').appendTo(header);
+    $('<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>').appendTo(header);
+
+    var body = $('<div class="modal-body"></div>').appendTo(content);
+    var columns = dt_user_table.DataTable().columns().header().toArray();
+    console.log(columns);
+    columns.forEach(function (column, index) {
+      var columnName = $(column).text();
+      var isChecked = dt_user_table.DataTable().column(index).visible();
+      var checkbox = $('<div class="form-check"></div>').appendTo(body);
+      $('<input class="form-check-input" type="checkbox" value="' + index + '" ' + (isChecked ? 'checked' : '') + '>').appendTo(checkbox);
+      $('<label class="form-check-label">' + columnName + '</label>').appendTo(checkbox);
+    });
+  
+    // Modal footer
+    var footer = $('<div class="modal-footer"></div>').appendTo(content);
+    $('<button type="button" class="btn btn-primary btn-apply-cols">Appliquer</button>').appendTo(footer);
+  
+    $(document).on('click', '.btn-apply-cols', function () {
+      var modal = $('.modal');
+      var columnsStored = JSON.parse(localStorage.getItem('columnsUncheckedClient'));
+      var selectedColumns = modal.find('input:checked').map(function () {
+        return parseInt($(this).val());
+      }).get();
+      var columnsUnchecked = modal.find('input:not(:checked)').map(function () {
+        return parseInt($(this).val());
+      }).get();
+      localStorage.setItem('columnsUncheckedClient', JSON.stringify(columnsUnchecked));
+      dt_user_table.DataTable().columns().visible(false);
+      selectedColumns.forEach(function (columnIndex) {
+        var index = columnsStored.indexOf(columnIndex);
+        if(index > -1){
+          columnsStored.splice(index, 1);
+        }
+        dt_user_table.DataTable().column(columnIndex).visible(true);
+      });
+      console.log(selectedColumns)
+      modal.modal('hide');
+    });
  });
  
  
  function editAO(id){
-   window.location.href= baseUrl + 'ao/edit/'+id;
+   window.location.href= baseUrl + 'edit/client/'+id;
  }
  
  

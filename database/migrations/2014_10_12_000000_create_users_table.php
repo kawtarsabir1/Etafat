@@ -24,9 +24,6 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->text('password');
 
-            $table->integer('site_id');
-            $table->foreign('site_id')->references('id')->on('sites')->onUpdate('cascade')->onDelete('cascade');
-
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

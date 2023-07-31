@@ -25,6 +25,8 @@ class User extends Authenticatable
 
     public $table = 'users';
 
+    protected $primaryKey = 'id';
+
     protected $hidden = [
         'remember_token',
         'password',
@@ -43,7 +45,6 @@ class User extends Authenticatable
         'email_verified_at',
         'password',
         'remember_token',
-        'site_id',
         'avatar',
        'created_at',
         'updated_at',
@@ -86,28 +87,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
-    
 
-    // public function sites()
-    // {
-    //     // return $this->hasManyThrough(
-    //     //     \App\Models\Site::class,
-
-    //     //     "site_id",
-    //     //     "id",
-    //     //     "id",
-    //     //     "site_id",
-    //     // );
-    //     return $this->hasMany(\Resouces\views\admin\user::class, "site_id");
-    // }
-
-  public function sites(): Attribute
-  {
-    return new Attribute(
-        get: fn ($value) => Site::whereIn('region_bam_id',$this->regions->pluck('id')->toArray()), 
-        set: fn ($value) => $value,
-     );            
-   } 
  
     protected function serializeDate(DateTimeInterface $date)
     {

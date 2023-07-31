@@ -29,6 +29,7 @@
 @section('content')
 
 <div class="row">
+
   <!-- Website Analytics -->
   <div class="col-lg-6 mb-4">
     <div class="swiper-container swiper-container-horizontal swiper swiper-card-advance-bg" id="swiper-with-pagination-cards">
@@ -161,140 +162,274 @@
   </div>
   <!--/ Website Analytics -->
 
-  <!-- Sales Overview -->
-  <div class="col-lg-3 col-sm-6 mb-4">
+  <!-- Statistics -->
+  <div class="col-lg-6 mb-4">
     <div class="card">
       <div class="card-header">
-        <div class="d-flex justify-content-between">
-          <small class="d-block mb-1 text-muted">Sales Overview</small>
-          <p class="card-text text-success">+18.2%</p>
+        <div class="d-flex justify-content-between mb-3">
+          <h5 class="card-title mb-0">Statistics</h5>
+          <small class="text-muted">Updated 1 month ago</small>
         </div>
-        <h4 class="card-title mb-1">$42.5k</h4>
       </div>
       <div class="card-body">
-        <div class="row">
-          <div class="col-4">
-            <div class="d-flex gap-2 align-items-center mb-2">
-              <span class="badge bg-label-info p-1 rounded"><i class="ti ti-shopping-cart ti-xs"></i></span>
-              <p class="mb-0">Order</p>
-            </div>
-            <h5 class="mb-0 pt-1 text-nowrap">62.2%</h5>
-            <small class="text-muted">6,440</small>
-          </div>
-          <div class="col-4">
-            <div class="divider divider-vertical">
-              <div class="divider-text">
-                <span class="badge-divider-bg bg-label-secondary">VS</span>
+        <div class="row gy-3">
+          <div class="col-md-4 col-6">
+            <div class="d-flex align-items-center">
+              <div class="badge rounded-pill bg-label-info me-3 p-2"><i class="ti ti-users ti-sm"></i></div>
+              <div class="card-info">
+                <h5 class="mb-0">8.549k</h5>
+                <small>Customers</small>
               </div>
             </div>
           </div>
-          <div class="col-4 text-end">
-            <div class="d-flex gap-2 justify-content-end align-items-center mb-2">
-              <p class="mb-0">Visits</p>
-              <span class="badge bg-label-primary p-1 rounded"><i class="ti ti-link ti-xs"></i></span>
+          <div class="col-md-4 col-6">
+            <div class="d-flex align-items-center">
+              <div class="badge rounded-pill bg-label-danger me-3 p-2"><i class="ti ti-shopping-cart ti-sm"></i></div>
+              <div class="card-info">
+                <h5 class="mb-0">1.423k</h5>
+                <small>Products</small>
+              </div>
             </div>
-            <h5 class="mb-0 pt-1 text-nowrap ms-lg-n3 ms-xl-0">25.5%</h5>
-            <small class="text-muted">12,749</small>
           </div>
-        </div>
-        <div class="d-flex align-items-center mt-4">
-          <div class="progress w-100" style="height: 8px;">
-            <div class="progress-bar bg-info" style="width: 70%" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-            <div class="progress-bar bg-primary" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="col-md-4 col-6">
+            <div class="d-flex align-items-center">
+              <div class="badge rounded-pill bg-label-success me-3 p-2"><i class="ti ti-currency-dollar ti-sm"></i></div>
+              <div class="card-info">
+                <h5 class="mb-0">$9745</h5>
+                <small>Revenue</small>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!--/ Sales Overview -->
+  <!--/ Statistics -->
 
-  <!-- Revenue Generated -->
-  <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-    <div class="card">
-      <div class="card-body pb-0">
-        <div class="card-icon">
-          <span class="badge bg-label-success rounded-pill p-2">
-            <i class='ti ti-credit-card ti-sm'></i>
-          </span>
-        </div>
-        <h5 class="card-title mb-0 mt-2">97.5k</h5>
-        <small>Revenue Generated</small>
-      </div>
-      <div id="revenueGenerated"></div>
-    </div>
-  </div>
-  <!--/ Revenue Generated -->
 
-  <!-- Earning Reports -->
+  <!-- Last Transaction -->
   <div class="col-lg-6 mb-4">
     <div class="card h-100">
-      <div class="card-header pb-0 d-flex justify-content-between mb-lg-n4">
-        <div class="card-title mb-0">
-          <h5 class="mb-0">Earning Reports</h5>
-          <small class="text-muted">Weekly Earnings Overview</small>
-        </div>
+      <div class="card-header d-flex justify-content-between">
+        <h5 class="card-title m-0 me-2">Last Transaction</h5>
         <div class="dropdown">
-          <button class="btn p-0" type="button" id="earningReportsId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button class="btn p-0" type="button" id="teamMemberList" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="ti ti-dots-vertical ti-sm text-muted"></i>
           </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="earningReportsId">
-            <a class="dropdown-item" href="javascript:void(0);">View More</a>
-            <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="teamMemberList">
+            <a class="dropdown-item" href="javascript:void(0);">Download</a>
+            <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
+            <a class="dropdown-item" href="javascript:void(0);">Share</a>
           </div>
         </div>
-        <!-- </div> -->
       </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12 col-md-4 d-flex flex-column align-self-end">
-            <div class="d-flex gap-2 align-items-center mb-2 pb-1 flex-wrap">
-              <h1 class="mb-0">$468</h1>
-              <div class="badge rounded bg-label-success">+4.2%</div>
-            </div>
-            <small class="text-muted">You informed of this week compared to last week</small>
-          </div>
-          <div class="col-12 col-md-8">
-            <div id="weeklyEarningReports"></div>
-          </div>
-        </div>
-        <div class="border rounded p-3 mt-2">
-          <div class="row gap-4 gap-sm-0">
-            <div class="col-12 col-sm-4">
-              <div class="d-flex gap-2 align-items-center">
-                <div class="badge rounded bg-label-primary p-1"><i class="ti ti-currency-dollar ti-sm"></i></div>
-                <h6 class="mb-0">Earnings</h6>
-              </div>
-              <h4 class="my-2 pt-1">$545.69</h4>
-              <div class="progress w-75" style="height:4px">
-                <div class="progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-            <div class="col-12 col-sm-4">
-              <div class="d-flex gap-2 align-items-center">
-                <div class="badge rounded bg-label-info p-1"><i class="ti ti-chart-pie-2 ti-sm"></i></div>
-                <h6 class="mb-0">Profit</h6>
-              </div>
-              <h4 class="my-2 pt-1">$256.34</h4>
-              <div class="progress w-75" style="height:4px">
-                <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-            <div class="col-12 col-sm-4">
-              <div class="d-flex gap-2 align-items-center">
-                <div class="badge rounded bg-label-danger p-1"><i class="ti ti-brand-paypal ti-sm"></i></div>
-                <h6 class="mb-0">Expense</h6>
-              </div>
-              <h4 class="my-2 pt-1">$74.19</h4>
-              <div class="progress w-75" style="height:4px">
-                <div class="progress-bar bg-danger" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="table-responsive">
+        <table class="table table-borderless border-top">
+          <thead class="border-bottom">
+            <tr>
+              <th>CARD</th>
+              <th>DATE</th>
+              <th>STATUS</th>
+              <th>TREND</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="d-flex justify-content-start align-items-center">
+                  <div class="me-3">
+                    <img src="{{asset('assets/img/icons/payments/visa-img.png')}}" alt="Visa" height="30">
+                  </div>
+                  <div class="d-flex flex-column">
+                    <p class="mb-0 fw-semibold">*4230</p><small class="text-muted">Credit</small>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex flex-column">
+                  <p class="mb-0 fw-semibold">Sent</p>
+                  <small class="text-muted text-nowrap">17 Mar 2022</small>
+                </div>
+              </td>
+              <td><span class="badge bg-label-success">Verified</span></td>
+              <td>
+                <p class="mb-0 fw-semibold">+$1,678</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="d-flex justify-content-start align-items-center">
+                  <div class="me-3">
+                    <img src="{{asset('assets/img/icons/payments/master-card-img.png')}}" alt="Visa" height="30">
+                  </div>
+                  <div class="d-flex flex-column">
+                    <p class="mb-0 fw-semibold">*5578</p><small class="text-muted">Credit</small>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex flex-column">
+                  <p class="mb-0 fw-semibold">Sent</p>
+                  <small class="text-muted text-nowrap">12 Feb 2022</small>
+                </div>
+              </td>
+              <td><span class="badge bg-label-danger">Rejected</span></td>
+              <td>
+                <p class="mb-0 fw-semibold">-$839</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="d-flex justify-content-start align-items-center">
+                  <div class="me-3">
+                    <img src="{{asset('assets/img/icons/payments/american-express-img.png')}}" alt="Visa" height="30">
+                  </div>
+                  <div class="d-flex flex-column">
+                    <p class="mb-0 fw-semibold">*4567</p><small class="text-muted">Credit</small>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex flex-column">
+                  <p class="mb-0 fw-semibold">Sent</p>
+                  <small class="text-muted text-nowrap">28 Feb 2022</small>
+                </div>
+              </td>
+              <td><span class="badge bg-label-success">Verified</span></td>
+              <td>
+                <p class="mb-0 fw-semibold">+$435</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="d-flex justify-content-start align-items-center">
+                  <div class="me-3">
+                    <img src="{{asset('assets/img/icons/payments/visa-img.png')}}" alt="Visa" height="30">
+                  </div>
+                  <div class="d-flex flex-column">
+                    <p class="mb-0 fw-semibold">*5699</p><small class="text-muted">Credit</small>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex flex-column">
+                  <p class="mb-0 fw-semibold">Sent</p>
+                  <small class="text-muted text-nowrap">8 Jan 2022</small>
+                </div>
+              </td>
+              <td><span class="badge bg-label-secondary">Pending</span></td>
+              <td>
+                <p class="mb-0 fw-semibold">+$2,345</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="d-flex justify-content-start align-items-center">
+                  <div class="me-3">
+                    <img src="{{asset('assets/img/icons/payments/visa-img.png')}}" alt="Visa" height="30">
+                  </div>
+                  <div class="d-flex flex-column">
+                    <p class="mb-0 fw-semibold">*5699</p><small class="text-muted">Credit</small>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex flex-column">
+                  <p class="mb-0 fw-semibold">Sent</p>
+                  <small class="text-muted text-nowrap">8 Jan 2022</small>
+                </div>
+              </td>
+              <td><span class="badge bg-label-danger">Rejected</span></td>
+              <td>
+                <p class="mb-0 fw-semibold">-$234</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-  <!--/ Earning Reports -->
+  <!-- Activity Timeline -->
+  <div class="col-lg-6 col-md-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <h5 class="card-title m-0 me-2 pt-1 mb-2">Activity Timeline</h5>
+        <div class="dropdown">
+          <button class="btn p-0" type="button" id="timelineWapper" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="ti ti-dots-vertical ti-sm text-muted"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="timelineWapper">
+            <a class="dropdown-item" href="javascript:void(0);">Download</a>
+            <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
+            <a class="dropdown-item" href="javascript:void(0);">Share</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body pb-0">
+        <ul class="timeline ms-1 mb-0">
+          <li class="timeline-item timeline-item-transparent ps-4">
+            <span class="timeline-point timeline-point-primary"></span>
+            <div class="timeline-event">
+              <div class="timeline-header">
+                <h6 class="mb-0">Client Meeting</h6>
+                <small class="text-muted">Today</small>
+              </div>
+              <p class="mb-2">Project meeting with john @10:15am</p>
+              <div class="d-flex flex-wrap">
+                <div class="avatar me-2">
+                  <img src="{{ asset('assets/img/avatars/3.png')}}" alt="Avatar" class="rounded-circle" />
+                </div>
+                <div class="ms-1">
+                  <h6 class="mb-0">Lester McCarthy (Client)</h6>
+                  <span>CEO of Infibeam</span>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-item timeline-item-transparent ps-4">
+            <span class="timeline-point timeline-point-success"></span>
+            <div class="timeline-event">
+              <div class="timeline-header">
+                <h6 class="mb-0">Create a new project for client</h6>
+                <small class="text-muted">2 Day Ago</small>
+              </div>
+              <p class="mb-0">Add files to new design folder</p>
+            </div>
+          </li>
+          <li class="timeline-item timeline-item-transparent ps-4">
+            <span class="timeline-point timeline-point-danger"></span>
+            <div class="timeline-event">
+              <div class="timeline-header">
+                <h6 class="mb-0">Shared 2 New Project Files</h6>
+                <small class="text-muted">6 Day Ago</small>
+              </div>
+              <p class="mb-2">Sent by Mollie Dixon <img src="{{ asset('assets/img/avatars/4.png') }}" class="rounded-circle me-3" alt="avatar" height="24" width="24"></p>
+              <div class="d-flex flex-wrap gap-2 pt-1">
+                <a href="javascript:void(0)" class="me-3">
+                  <img src="{{asset('assets/img/icons/misc/doc.png')}}" alt="Document image" width="15" class="me-2">
+                  <span class="fw-semibold text-heading">App Guidelines</span>
+                </a>
+                <a href="javascript:void(0)">
+                  <img src="{{asset('assets/img/icons/misc/xls.png')}}" alt="Excel image" width="15" class="me-2">
+                  <span class="fw-semibold text-heading">Testing Results</span>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li class="timeline-item timeline-item-transparent ps-4 border-0">
+            <span class="timeline-point timeline-point-info"></span>
+            <div class="timeline-event pb-0">
+              <div class="timeline-header">
+                <h6 class="mb-0">Project status updated</h6>
+                <small class="text-muted">10 Day Ago</small>
+              </div>
+              <p class="mb-0">Woocommerce iOS App Completed</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <!-- Support Tracker -->
   <div class="col-md-6 mb-4">
@@ -353,6 +488,12 @@
     </div>
   </div>
   <!--/ Support Tracker -->
+
+
+
+
+</div>
+  
 </div>
 
 @endsection
