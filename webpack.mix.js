@@ -81,10 +81,7 @@ mix.webpackConfig({
  */
 
 
-mixAssetsDir('vendors/js/**/*.js', (src, dest) => mix.scripts(src, dest))
-mixAssetsDir('vendors/css/**/*.css', (src, dest) => mix.copy(src, dest))
-mixAssetsDir('vendors/**/**/images', (src, dest) => mix.copy(src, dest))
-mixAssetsDir('vendors/css/editors/quill/fonts/', (src, dest) => mix.copy(src, dest))
+
 function mixAssetsDir(query, cb) {
   (glob.sync('resources/assets/' + query) || []).forEach(f => {
     f = f.replace(/[\\\/]+/g, '/');
@@ -103,6 +100,7 @@ const sassOptions = {
 };
 
 // Core stylesheets
+
 mixAssetsDir('vendor/scss/**/!(_)*.scss', (src, dest) =>
   mix.sass(src, dest.replace(/(\\|\/)scss(\\|\/)/, '$1css$2').replace(/\.scss$/, '.css'), { sassOptions })
 );
@@ -133,6 +131,10 @@ mixAssetsDir('vendor/fonts/!(_)*.scss', (src, dest) =>
  |--------------------------------------------------------------------------
  */
 
+mixAssetsDir('vendors/js/**/*.js', (src, dest) => mix.scripts(src, dest))
+mixAssetsDir('vendors/css/**/*.css', (src, dest) => mix.copy(src, dest))
+mixAssetsDir('vendors/**/**/images', (src, dest) => mix.copy(src, dest))
+mixAssetsDir('vendors/css/editors/quill/fonts/', (src, dest) => mix.copy(src, dest))
 mixAssetsDir('js/**/*.js', (src, dest) => mix.scripts(src, dest));
 mixAssetsDir('css/**/*.css', (src, dest) => mix.copy(src, dest));
 // laravel working crud app related js

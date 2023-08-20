@@ -582,7 +582,7 @@ class Gestion extends Controller
     $objEmployee->Poste = $post->postNom;
 
 
-    return view('content.cvs.view-cv', compact('objEmployee'));
+    return view('content.cvs.view-cv', compact('objEmployee')); 
   }
 
   public function rhPage()

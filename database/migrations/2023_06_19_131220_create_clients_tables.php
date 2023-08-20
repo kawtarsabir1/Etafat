@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string("ste");
-            $table->string("nature");
+            $table->string("ste")->nullable();
+            $table->string("nature")->nullable();
             $table->string("type");
             $table->string("adresse");
             $table->string("tel");
@@ -29,8 +29,8 @@ return new class extends Migration
             $table->string("cnss");
             $table->string("if");
             $table->string("rib");
-            $table->string("capital");
-            $table->boolean("client");
+            $table->string("capital")->nullable();
+            $table->boolean("client")->default(0);
             $table->timestamps();
         });
     }

@@ -58,9 +58,7 @@
   <div class="card-header border-bottom">
     <h5 class="card-title mb-3">Filtre de recherche</h5>
     <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0">
-      <div class="col-md-4 user_Departement"></div>
-      <div class="col-md-4 user_poste"></div>
-      <div class="col-md-4 user_profil"></div>
+      <div class="col-md-4 user_filter"></div>
       <input type="file" id="uploadExcel" style="display:none" accept=".xlsx,.xls,.csv" />
     </div>
   </div>
@@ -68,7 +66,7 @@
     <table class="datatables-users table border-top">
       <thead>
         <tr class="p-2 text-dark" style="background-color: rgba(0,104,171,.3);">
-          <th>#</th>
+          <th>Avatar</th>
           <th>Nom Complet</th>
           <th>Email</th>
           <th>Role</th>

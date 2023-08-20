@@ -58,10 +58,9 @@
   <div class="card-header border-bottom">
     <h5 class="card-title mb-3">Filtre de recherche</h5>
     <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0">
-      <div class="col-md-3 ao_type"></div>
-      <div class="col-md-3 maître_ao"></div>
-      <div class="col-md-3 ao_bu"></div>
-      <div class="col-md-3 ao_rh"></div>
+      <div class="col-md-4 client_type"></div>
+      <div class="col-md-4 client_nature"></div>
+      <div class="col-md-4 is_client"></div>
       <input type="file" id="uploadExcel" style="display:none" accept=".xlsx,.xls,.csv" />
     </div>
   </div>
@@ -69,14 +68,20 @@
     <table class="datatables-users table border-top">
       <thead>
         <tr class="p-2 text-dark" style="background-color: rgba(0,104,171,.3);">
-          <th>N°AO</th>
+          <th>STE</th>
+          <th>Nature</th>
           <th>Type</th>
-          <th>Pays</th>
-          <th>Maître d'ouvrage</th>
-          <th>Montant</th>
-          <th>BU</th>
-          <th></th>
-          <th>Date limite</th>
+          <th>Telephone</th>
+          <th>Email</th>
+          <th>Patente</th>
+          <th>RC</th>
+          <th>Fax</th>
+          <th>ICE</th>
+          <th>IF</th>
+          <th>RIB</th>
+          <th>Capital</th>
+          <th>Client</th>
+          <th>Website</th>
           <th>Actions</th>
         </tr>
       </thead>

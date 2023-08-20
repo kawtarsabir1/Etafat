@@ -190,9 +190,9 @@
     <span class="text-muted fw-light">CVthèque /</span> View Reference
 </h4>
 
-<div class="row">
+<div class="row" >
     <div id="wizard-checkout" class="bs-stepper wizard-icons wizard-icons-example mt-2">
-        <div class="bs-stepper-content">
+        <div class="bs-stepper-content" style="background: linear-gradient(to top, #ECECEC, #F5F5F5);">
             <form id="wizard-checkout-form">
                 <div class="col-12">
                     <div class="col-12">
@@ -200,7 +200,191 @@
                         <hr class="mt-0" />
                     </div>
                     <div class="content-wrapper-refs">
-                        <div class="content-refs">
+                     <div class="row">
+                          <div class="col-xl-3 col-lg-5 col-md-5 order-1 order-md-0">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start me-4 mt-3 gap-2">
+                                            <div class="info-container">
+                                                <div>
+                                                    <p><span class="fw-bold">Societe : </span>{{ $Ref->societe }}</p>
+                                                </div>
+                                                <div>
+                                                    <p><span class="fw-bold">N° Marché : </span>{{ $Ref->nMarche }}</p>
+                                                </div>
+                                                <div>
+                                                    <p><span class="fw-bold">Année : </span>{{ $Ref->annee }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-xl-3 col-lg-5 col-md-5 ">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start me-4 mt-3 gap-2">
+                                            <div class="info-container">
+                                                <div>
+                                                    <p><span class="fw-bold">Client : </span>{{ $Ref->client }}</p>
+                                                </div>
+                                                <div>
+                                                    <p><span class="fw-bold">Logo du client : </span>{{ $Ref->logo }}</p>
+                                                </div>
+                                                <div>
+                                                    <p><span class="fw-bold">Localisation : </span>{{ $Ref->localisation }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                          </div>
+                          <div class="col-xl-3 col-lg-5 col-md-5 ">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start me-4 mt-3 gap-2">
+                                            <div class="info-container">
+                                                <div>
+                                                    <p><span class="fw-bold">N° du Reference : </span>{{ $Ref->nRef }}</p>
+                                                </div>
+                                                <div >
+                                                    <p><span class="fw-bold">Montant : </span>{{ $Ref->mantant }}</p>
+                                                </div>
+                                                <div>
+                                                     <p><span class="fw-bold">Objet : </span>{{ $Ref->objet }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                          </div>
+                          <div class="col-xl-3 col-lg-5 col-md-5 ">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start me-4 mt-3 gap-2">
+                                            <div class="info-container">
+                                                <div >
+                                                    <p><span class="fw-bold">N° Intern : </span>{{ $Ref->nIntern }}</p>
+                                                </div>
+                                                 <div >
+                                                    <p><span class="fw-bold">Montant du traveaux : </span>{{ $Ref->montantTraveaux }}</p>
+                                                 </div>
+                                                <div>
+                                                    <p><span class="fw-bold">Missions : </span>{{ $Ref->missions }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                          </div>
+                     </div>
+                     <div class="row">
+                         <div class="col-xl-4 col-lg-5 col-md-5 ">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start me-4 mt-3 gap-2">
+                                            <div class="info-container">
+                                                <div>
+                                                    <p><span class="fw-bold">Description des missions : </span>{{ $Ref->description }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                   
+                         </div>
+                         <div class="col-xl-4 col-lg-5 col-md-5 ">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start me-4 mt-3 gap-2">
+                                            <div class="info-container">
+                                                <div>
+                                                <p><span class="fw-bold">Catégories des missions : </span>{{ $Ref->categories }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                   
+                         </div>
+                         <div class="col-xl-4 col-lg-5 col-md-5 ">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start me-4 mt-3 gap-2">
+                                            <div class="info-container">
+                                                <div>
+                                                <p><span class="fw-bold">Part du societe : </span>{{ $Ref->part }} %</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                   
+                         </div>
+                     </div>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-5 col-md-5 ">
+                                <div class="card mb-4">     
+                                   <div class="card-body">
+                                       <div class="d-flex align-items-start me-4 mt-3 gap-2">
+                                             <div class="info-container">
+                                                  <div class="col-md-12">
+                                                        <p class="fw-bold">Fiche du projet : </p>
+                                                        @php 
+                                                        if(false){
+                                                            echo '<iframe src="'.asset('storage/'.$Ref->attestation).'" width="100%" height="600px"></iframe>';
+                                                        }else{
+                                                            echo '<p class="text-danger">Aucun fichier</p>';
+                                                        }
+                                                        @endphp
+                                                   </div>
+                                             </div>
+                                       </div>
+                                   </div>
+                                </div>
+                            </div>   
+                            <div class="col-xl-4 col-lg-5 col-md-5 ">
+                                <div class="card mb-4">     
+                                   <div class="card-body">
+                                       <div class="d-flex align-items-start me-4 mt-3 gap-2">
+                                             <div class="info-container">
+                                                  <div class="col-md-12">
+                                                        <p class="fw-bold">Fiche du projet existant : </p>
+                                                        @php 
+                                                        if(false){
+                                                            echo '<iframe src="'.asset('storage/'.$Ref->attestation).'" width="100%" height="600px"></iframe>';
+                                                        }else{
+                                                            echo '<p class="text-danger">Aucun fichier</p>';
+                                                        }
+                                                        @endphp
+                                                    </div>
+                                             </div>
+                                       </div>
+                                   </div>
+                                </div>
+                            </div>  
+                            <div class="col-xl-4 col-lg-5 col-md-5 ">
+                                <div class="card mb-4">     
+                                   <div class="card-body">
+                                       <div class="d-flex align-items-start me-4 mt-3 gap-2">
+                                             <div class="info-container">
+                                                   <div class="col-md-12">
+                                                        <p class="fw-bold">Attestation : </p>
+                                                        @php 
+                                                        if(false){
+                                                            echo '<iframe src="'.asset('storage/'.$Ref->attestation).'" width="100%" height="600px"></iframe>';
+                                                        }else{
+                                                            echo '<p class="text-danger">Aucun fichier</p>';
+                                                        }
+                                                        @endphp
+                                                    </div>
+                                             </div>
+                                       </div>
+                                   </div>
+                                </div>
+                            </div>       
+                        </div>
+                   
+                       
+                        <!-- ----------------------- -->
+                        <!-- <div class="content-refs">
                             <div class="row">
                                 <div class="col-md-3">
                                 <p><span class="fw-bold">Societe : </span>{{ $Ref->societe }}</p>
@@ -288,15 +472,10 @@
                                         echo '<p class="text-danger">Aucun fichier</p>';
                                     }
                                     @endphp
-                                </div>
+                                </div> -->
+                              <!-- ---------------------------------------------------------------------------------------------------- -->
 
-
-
-
-
-
-
-                                <!-- <div class="col-lg-6 col-xl-3 col-12 mb-3">
+                                 <!-- <div class="col-lg-6 col-xl-3 col-12 mb-3">
                                     <label class="form-label" for="ref-client">N° du Reference</label>
                                     <input type="text" name="nRef" class="form-control" placeholder="##" value="{{ $Ref->nRef }}">
                                 </div>
@@ -393,8 +572,8 @@
                                         <span class="align-middle d-sm-inline-block d-none">Annuler</span>
                                     </button>
                                     <button type="button" class="btn btn-primary btn-create-ref"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Modifier la référence</span></button>
-                                </div> -->
-                            </div>
+                                </div> 
+                            <!-- </div> -->
                         </div>
                     </div>
                 </div>

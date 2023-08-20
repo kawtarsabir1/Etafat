@@ -82,24 +82,69 @@
     $(".btn-create").click(function(e) {
         e.preventDefault();
         var formData = new FormData($('#wizard-checkout-form')[0]);
+        var contacts = [];
+        var clientChamps = [
+            "type", "nature", "fax", "adresse", "mail", "tel", "site", "ice", "rc", "if", "patente", "cnss", "rib", "ste", "capital"
+        ];
+        var currentContact = {};
+
+        for (var pair of formData.entries()) {
+            var name = pair[0];
+            var value = pair[1];
+
+            // Check if the current pair represents a new contact
+            if (name.includes('nom') && !name.includes('prenom')) {
+                if (Object.keys(currentContact).length !== 0) {
+                    contacts.push(currentContact);
+                }
+                currentContact = {};
+            }
+
+            // Check if the field name is not in clientChamps array
+            if (!clientChamps.includes(name)) {
+                // Remove the index from the field name (e.g., "nom1" becomes "nom")
+                name = name.replace(/\d+$/, '');
+
+                // Set the value in the current contact object
+                currentContact[name] = value;
+            }
+        }
+
+        // Add the last contact to the array
+        if (Object.keys(currentContact).length !== 0) {
+            contacts.push(currentContact);
+        }
+
+        // Remove unwanted fields from formData
+        for (var pair of formData.entries()) {
+            var name = pair[0];
+            if (!clientChamps.includes(name)) {
+                formData.delete(name);
+            }
+        }
+
+        // Append the contacts array as a stringified JSON object
+        formData.append('contacts', JSON.stringify(contacts));
+
         for (var pair of formData.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }
-        // $.ajax({
-        //     url: "{{ route('appel-offre-store') }}",
-        //     type: 'POST',
-        //     data: formData,
-        //     contentType: false,
-        //     processData: false,
-        //     success: function(data) {
-        //         if ($.isEmptyObject(data.error)) {
-        //             alert('Données de AO enregistrées');
-        //             window.location.href = baseUrl + "ao/gestion";
-        //         } else {
-        //             printErrorMsg(data.error);
-        //         }
-        //     }
-        // });
+
+        $.ajax({
+            url: "{{ route('client-store') }}",
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                if ($.isEmptyObject(data.error)) {
+                    alert('Données de client enregistrées');
+                    window.location.href = baseUrl + "clients/gestion";
+                } else {
+                    printErrorMsg(data.error);
+                }
+            }
+        });
 
     });
 
@@ -108,7 +153,7 @@
         var divsMorale = document.getElementsByClassName("champs-morale");
 
         for (var i = 0; i < divsMorale.length; i++) {
-            if (type === "morale") {
+            if (type === "Morale") {
                 divsMorale[i].style.display = "block";
             } else {
                 divsMorale[i].style.display = "none";
@@ -150,159 +195,151 @@
                 <!-- @csrf -->
                 <!-- Infos -->
                 <div>
+                    <h5>Information générale du client</h5>
                     <div class="col-12 row">
+                        <div class="mb-4 row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="type">Type du client :</label>
+                                <select class="form-select" id="type" name="type" onchange="afficherChamps()">
+                                    <option value="" selected>Selectionner le Type</option>
+                                    <option>Physique</option>
+                                    <option>Morale</option>
+                                </select>
+                            </div>
 
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="type">Type</label>
-                            <select class="form-select" id="type" name="type" onchange="afficherChamps()">
-                                <option selected>Selectionner le Type</option>
-                                <option>Physique</option>
-                                <option value="morale">Morale</option>
-                            </select>
+                            <div class="col-md-6 mb-2 champs-morale">
+                                <label class="form-label" for="nature">Nature du client :</label>
+                                <select class="form-select" id="nature" name="nature">
+                                    <option value="" selected>Selectionner la nature</option>
+                                    <option>Privée</option>
+                                    <option>Semi-Public</option>
+                                    <option>Public</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="tel">Numéro de téléphone :</label>
+                                <input class="form-control" type="text" id="tel" name="tel" placeholder="Entrer le numéro de téléphone" />
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="fax">Numéro de Fax :</label>
+                                <input class="form-control" type="text" id="fax" name="fax" placeholder="Entrer le numéro de fax" />
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="mail">Adresse :</label>
+                                <input class="form-control" type="text" id="adresse" name="adresse" placeholder="Entrer l'adresse" />
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="mail">Adresse mail :</label>
+                                <input class="form-control" type="text" id="mail" name="mail" placeholder="Entrer l'adresse mail" />
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="site">Site web (s'il y a) :</label>
+                                <input class="form-control" type="text" id="site" name="site" placeholder="Entrer le site web" />
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="ice">ICE (Identifiant Commun Entreprise) :</label>
+                                <input class="form-control" type="text" id="ice" name="ice" placeholder="Entrer l'ICE" />
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="rc">RC (Registre du commerce) :</label>
+                                <input class="form-control" type="text" id="rc" name="rc" placeholder="Entrer le RC" />
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="cnss">CNSS :</label>
+                                <input class="form-control" type="text" id="cnss" name="cnss" placeholder="Entrer le CNSS" />
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="if">IF (Identifiant Fiscal) :</label>
+                                <input class="form-control" type="text" id="if" name="if" placeholder="Entrer l'IF" />
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="patente">Patente :</label>
+                                <input class="form-control" type="text" id="patente" name="patente" placeholder="Entrer la patente" />
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label" for="rib">RIB :</label>
+                                <input class="form-control" type="text" id="rib" name="rib" placeholder="Entrer le RIB" />
+                            </div>
+
+                            <div class="col-md-6 mb-2 champs-morale">
+                                <label class="form-label" for="capital">Capital :</label>
+                                <input class="form-control" type="text" id="capital" name="capital" placeholder="Entrer le capital" />
+                            </div>
+
+                            <div class="col-md-6 mb-2 champs-morale">
+                                <label class="form-label" for="ste">STE :</label>
+                                <input class="form-control" type="text" id="ste" name="ste" placeholder="Entrer la STE" />
+                            </div>
                         </div>
+                        <hr>
 
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="tel">Tel</label>
-                            <input class="form-control" type="text" id="tel" name="tel" placeholder="Tel" />
-                        </div>
-
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="fax">Fax</label>
-                            <input class="form-control" type="text" id="fax" name="fax" placeholder="Fax" />
-                        </div>
-
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="mail">Adresse</label>
-                            <input class="form-control" type="text" id="adresse" name="adresse" placeholder="Adresse" />
-                        </div>
-
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="mail">Email</label>
-                            <input class="form-control" type="text" id="mail" name="mail" placeholder="Email" />
-                        </div>
-
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="site">Site web</label>
-                            <input class="form-control" type="text" id="site" name="site" placeholder="Site web" />
-                        </div>
-
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="ice">ICE</label>
-                            <input class="form-control" type="text" id="ice" name="ice" placeholder="ICE" />
-                        </div>
-
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="rc">RC</label>
-                            <input class="form-control" type="text" id="rc" name="rc" placeholder="RC" />
-                        </div>
-
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="cnss">CNSS</label>
-                            <input class="form-control" type="text" id="cnss" name="cnss" placeholder="CNSS" />
-                        </div>
-
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="if">IF</label>
-                            <input class="form-control" type="text" id="if" name="if" placeholder="IF" />
-                        </div>
-
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="patente">Patente</label>
-                            <input class="form-control" type="text" id="patente" name="patente" placeholder="Patente" />
-                        </div>
-
-                        <div class="col-md-6 mb-2">
-                            <label class="form-label" for="rib">RIB</label>
-                            <input class="form-control" type="text" id="rib" name="rib" placeholder="RIB" />
-                        </div>
-
-                        <div class="col-md-6 mb-2 champs-morale">
-                            <label class="form-label" for="capital">Capital</label>
-                            <input class="form-control" type="text" id="capital" name="capital" placeholder="Capital" />
-                        </div>
-
-                        <div class="col-md-6 mb-2 champs-morale">
-                            <label class="form-label" for="nature">Nature</label>
-                            <select class="form-select" id="nature" name="nature">
-                                <option selected>Selectionner la nature</option>
-                                <option>Privée</option>
-                                <option>Semi-Public</option>
-                                <option>Public</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-6 mb-2 champs-morale">
-                            <label class="form-label" for="ste">STE</label>
-                            <input class="form-control" type="text" id="ste" name="ste" placeholder="STE" />
-                        </div>
-
-                        <div>
-                            <br>
-                            <h5>Contact</h5>
+                        <div class="mb-4">
+                            <h5>Contacts liés au client</h5>
                             <div class="content-wrapper-contact">
                                 <div class="content-contact">
-                                    <div class="row">
-
+                                    <div class="row mb-4">
+                                        <h6>Contact n°1 :</h6>
                                         <div class="col-md-4 mb-2">
-                                            <label class="form-label" for="">nom</label>
-                                            <input class="form-control" type="text" placeholder="Entrer le nom" name="nom" />
+                                            <label class="form-label" for="nom">Nom :</label>
+                                            <input class="form-control" id="nom" type="text" placeholder="Entrer le nom" name="nom" />
                                         </div>
-
                                         <div class="col-md-4 mb-2">
-                                            <label class="form-label" for="">prenom</label>
-                                            <input class="form-control" type="text" placeholder="Entrer le prenom" name="prenom" />
+                                            <label class="form-label" for="prenom">Prenom :</label>
+                                            <input class="form-control" type="text" placeholder="Entrer le prenom" name="prenom" id="prenom" />
                                         </div>
-
                                         <div class="col-md-4 mb-2">
-                                            <label class="form-label" for="">poste</label>
-                                            <input class="form-control" type="text" placeholder="Entrer le poste" name="poste" />
+                                            <label class="form-label" for="poste">Poste :</label>
+                                            <input class="form-control" type="text" placeholder="Entrer le poste" name="poste" id="poste" />
                                         </div>
-
                                         <div class="col-md-4 mb-2">
-                                            <label class="form-label" for="">mail</label>
-                                            <input class="form-control" type="text" placeholder="Entrer le mail" name="mail" />
+                                            <label class="form-label" for="email">Mail :</label>
+                                            <input class="form-control" type="text" placeholder="Entrer le mail" name="email" id="email" />
                                         </div>
-
                                         <div class="col-md-4 mb-2">
-                                            <label class="form-label" for="">gsm</label>
-                                            <input class="form-control" type="text" placeholder="Entrer le gsm" name="gsm" />
+                                            <label class="form-label" for="gsm">GSM :</label>
+                                            <input class="form-control" type="text" placeholder="Entrer le gsm" name="gsm" id="gsm" />
                                         </div>
-
-                                        <div class="col-md-4 mb-2">
-                                            <label class="form-label" for="">idClient</label>
-                                            <input class="form-control" type="text" placeholder="Entrer le idClient" name="idClient" />
-                                        </div>
-
                                         <div class="col-lg-12 col-xl-2 col-12 d-flex align-items-end mb-3">
                                             <button class="btn btn-danger btn-remove"><i class="fa fa-trash"></i> Supprimer</button>
                                         </div>
-
                                     </div>
                                 </div>
-                            </div>
-                            <div class="actions mb-4">
-                                <button type="button" class="btn btn-primary btn-add-contact"><i class="fa fa-plus"></i> Ajouter un Contact</button>
-                            </div>
-                            <br>
-                        </div>
 
+
+                            </div>
+                            <button type="button" class="btn btn-primary btn-add-contact"><i class="fa fa-plus"></i> Ajouter un Contact</button>
+                        </div>
+                        <br>
+                    </div>
+
+                    <div class="col-12">
                         <div class="col-12">
-                            <div class="col-12">
-                                <div class="col-12 d-flex justify-content-between">
-                                    <button type="button" class="btn btn-label-secondary btn-prev">
-                                        <span class="align-middle d-sm-inline-block d-none" onclick="window.history.back();">Annuler</span>
-                                    </button>
-                                    <button type="button" class="btn btn-success btn-create"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Ajouter</span></button>
-                                </div>
+                            <div class="col-12 d-flex justify-content-between">
+                                <button type="button" class="btn btn-label-secondary btn-prev">
+                                    <span class="align-middle d-sm-inline-block d-none" onclick="window.history.back();">Annuler</span>
+                                </button>
+                                <button type="button" class="btn btn-success btn-create"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Ajouter</span></button>
                             </div>
                         </div>
-
                     </div>
 
                 </div>
-            </form>
+
         </div>
+        </form>
     </div>
+</div>
 
 
 </div>

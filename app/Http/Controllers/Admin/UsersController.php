@@ -19,8 +19,7 @@ class UsersController extends Controller
     {
         // abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::with(['roles'])->get();
-        return view('admin.users.index')->with('users', $users);
+        return view('admin.users.index');
     }
 
     public function getsites()
@@ -47,13 +46,9 @@ class UsersController extends Controller
         return view('admin.users.create', compact('roles'));
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(Request $request)
     {
         $user = User::create($request->all());
-
-        $user->roles()->sync($request->input('roles', []));
-        
-        $user->regions()->sync($request->input('regions', []));
 
         return redirect()->route('admin.users.index');
     }

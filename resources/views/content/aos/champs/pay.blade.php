@@ -227,10 +227,10 @@
                                 $sortedPays = $pays->sortBy('id');
                             @endphp
                             @foreach($sortedPays as $pay)
-                            <li class="list-group-item">
-                                <p id="text-{{$pay->id}}">{{ $pay->pay }}</p>
-                                <button type="button" onclick="deletePay({{$pay->id}})" class="btn btn-danger btn-sm float-end">Supprimer</button>
-                                <button type="button" onclick="editPay({{$pay->id}})" class="btn btn-primary mx-3 btn-sm float-end">Editer</button>
+                            <li class="list-group-item row">
+                                <p id="text-{{$pay->id}}" class="col-3">{{ $pay->pay }}</p>
+                                <button type="button" onclick="deletePay({{$pay->id}})" class="btn btn-danger btn-sm float-end col-3">Supprimer</button>
+                                <button type="button" onclick="editPay({{$pay->id}})" class="btn btn-primary mx-3 btn-sm float-end col-3">Editer</button>
                             </li>                           
                              @endforeach
                         </ul>
